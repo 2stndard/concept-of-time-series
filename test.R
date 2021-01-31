@@ -123,3 +123,8 @@ as.Date('011월70', format = '%d%b%y')
 require("knitr")
 opts_knit$set(root.dir = "./doc")
 getwd()
+
+
+rmarkdown::render('./index.Rmd', output_dir='.')
+setwd('../')
+getwd()
