@@ -37,3 +37,84 @@ myxts <- as.xts(mydata[,2:4], order.by = as.Date(mydata[,1], format = '%b-%y'), 
 
 as.Date(as.vector(mydata[,1]), '%b-%y')
 ?as.Date
+
+if(!require(modeltime)) {
+  install.packages('modeltime')
+  library(modeltime)
+}
+
+install.packages('tseries')
+library(tseries)
+data(sunspots)
+st <- start(sunspots)
+class(st)
+str(st)
+fr <- frequency(sunspots)
+date <- as.character(as.Date('2010-01-01') + 1:30)
+
+
+df <- data.frame(date = seq(as.Date('2010-01-01'), length.out = 30, by = 'months'), value1 = rnorm(30), value2 = rnorm(30))
+write(df, "testfile.csv")
+
+
+write.csv(df[,-1], "testfile_readts.csv", row.names = F)
+
+x <- read.ts("testfile_readts.csv", header = TRUE, sep = ',', start = c(2010, 1), frequency = 12)
+x
+write.csv(df, "testfile_readts.csv", row.names = F)
+t <- as.xts(read.zoo("testfile_readts.csv", sep = ',', index.column = 1, format = '%Y-%m-%d', header = TRUE))
+class(t)
+?read.zoo
+glimpse(x1)
+read.zoo("exercise1.csv")
+
+t <- as.Date(10000)
+t
+
+class(t)
+?read.zoo
+seq(as.Date('2010-01-01'), length.out = 30, by = 'months')
+cbind(Date = as.character(as.Date('2010-01-01') + 1:100), Value = rnorm(100))
+
+
+x <- as.Date('2021-01-31') + 1:30
+class(x)
+as.Date('2021-01-31')
+as.numeric(as.Date('2021-01-31'))
+as.Date(18659)
+Sys.Date() + 10
+
+as.POSIXct('2021-01-31 12:34:56')
+unclass(as.POSIXct('2021-01-31 12:34:55'))
+unclass(as.POSIXct('2021-01-31 12:34:56'))
+as.POSIXlt('2021-01-31 12:34:56')
+unclass(as.POSIXlt('2021-12-31 12:34:56'))
+as.POSIXlt('2021-12-31 12:34:56')$year
+
+
+as.numeric(as.POSIXct('2021-01-31 12:34:56'))
+
+as.numeric(as.Date('2021-01-31'))
+as.Date(18659)
+Sys.Date() + 10
+
+
+as.yearmon("2007-02")
+as.yearmon("2007-12")
+unclass(as.yearmon("2007-02"))
+unclass(as.yearmon("2007-02-01"))
+unclass(as.yearmon("2007-12"))
+
+
+as.yearqtr("2007-01")
+as.yearqtr("2007-04")
+unclass(as.yearqtr("2007-01"))
+unclass(as.yearqtr("2007-04"))
+
+as.Date('01/12/2010')
+as.Date('01/12/2010', format = '%d/%m/%Y')
+as.Date('01jan70', format = '%d%b%y')
+Sys.setlocale("LC_ALL", "English")
+as.Date('01jan70', format = '%d%b%y')
+Sys.setlocale("LC_ALL", "Korean")
+as.Date('011월70', format = '%d%b%y')
