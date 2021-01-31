@@ -11,7 +11,7 @@ bibliography:
 - packages.bib
 biblio-style: apalike
 link-citations: yes
-    rmarkdown::render(output_dir='/docs')
+    rmarkdown::render(output_dir='./docs')
 ---
 
 # 정의 및 특성
