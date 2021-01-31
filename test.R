@@ -118,3 +118,8 @@ Sys.setlocale("LC_ALL", "English")
 as.Date('01jan70', format = '%d%b%y')
 Sys.setlocale("LC_ALL", "Korean")
 as.Date('011월70', format = '%d%b%y')
+
+
+require("knitr")
+opts_knit$set(root.dir = "./doc")
+getwd()
