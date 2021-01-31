@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-01-30" />
+<meta name="date" content="2021-01-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 
-<link rel="next" href="분석-예측-방법.html"/>
+<link rel="next" href="시계열-데이터-타입-및-import.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -144,12 +144,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2.4" data-path="index.html"><a href="index.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.4</b> 불확실성(Uncertainty)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="분석-예측-방법.html"><a href="분석-예측-방법.html"><i class="fa fa-check"></i><b>2</b> 분석, 예측 방법</a>
+<li class="chapter" data-level="2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 타입 및 Import</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="분석-예측-방법.html"><a href="분석-예측-방법.html#naive-방법"><i class="fa fa-check"></i><b>2.1</b> Naive 방법</a></li>
-<li class="chapter" data-level="2.2" data-path="분석-예측-방법.html"><a href="분석-예측-방법.html#선형-회귀-방법"><i class="fa fa-check"></i><b>2.2</b> 선형 회귀 방법</a></li>
-<li class="chapter" data-level="2.3" data-path="분석-예측-방법.html"><a href="분석-예측-방법.html#지수-평활화exponential-smoothing-방법"><i class="fa fa-check"></i><b>2.3</b> 지수 평활화(Exponential Smoothing) 방법</a></li>
-<li class="chapter" data-level="2.4" data-path="분석-예측-방법.html"><a href="분석-예측-방법.html#arima-방법"><i class="fa fa-check"></i><b>2.4</b> ARIMA 방법</a></li>
+<li class="chapter" data-level="2.1" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html#날짜시간-객체-타입"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 객체 타입</a></li>
+<li class="chapter" data-level="2.2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html#시계열-패키지-및-데이터-타입"><i class="fa fa-check"></i><b>2.2</b> 시계열 패키지 및 데이터 타입</a></li>
+<li class="chapter" data-level="2.3" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html#데이터-import의-두가지-방법"><i class="fa fa-check"></i><b>2.3</b> 데이터 Import의 두가지 방법</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
 <li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
@@ -200,7 +199,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </center></h1>
 <h2 class="subtitle"><em><right>Part 1 시계열 분석 방법</right></em></h2>
 <p class="author"><em>이기준<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></em></p>
-<p class="date"><em>2021-01-30</em></p>
+<p class="date"><em>2021-01-31</em></p>
 </div>
 <div id="정의-및-특성" class="section level1" number="1">
 <h1><span class="header-section-number">Chapter 1</span> 정의 및 특성</h1>
@@ -221,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>종속변수의 행동을 예측하기 위해서는 하나 혹은 여러개의 독립변수가 필요하고 이들간의 관계성을 도출함으로서 향후 독립변수에 따라 종속변수의 예측값을 도출하게 됨</li>
 <li>아래의 예제와 같이 자동차의 속도와 제동거리간에는 그래프 상으로 양의 상관관계를 보이고 있음. 이 예제에서는 제동거리를 종속변수로, 자동차 속도를 독립변수로 분석하였음</li>
 <li>그러나 <strong>시계열 데이터의 독립변수 중 하나는 시간으로 고정됨</strong>. 따라서 시계열 데이터는 타 변수와의 상관관계 없이도 자신 스스로 종속변수이자 독립변수로 분석될 수 있음</li>
-<li>시계열 데이터를 구축하는데 중요한 요소는 시간 간격이 동일해야 한다는 점임. 예를 들어 매시간, 매일, 매월, 매분기, 매년 등 간격이 일정해야 시계열 데이터를 다루기 위한 다양한 함수들에 적용이 가능함. 간격이 일정하지 않은 데이터에 대해 시계열 데이터를 만들고 그래프를 그릴 수는 있으나 예측에 적용하기 위해서는 일정한 간격의 데이터를 갖추는 것이 더 효과적임</li>
+<li>시계열 데이터를 구축하는데 중요한 요소는 시간 간격이 동일해야 한다는 점임. 예를 들어 매시간, 매일, 매월, 매분기, 매년 등 간격이 일정해야 시계열 데이터를 다루기 위한 다양한 함수들에 적용이 가능함. 다만 간격이 일정하더라도 결측치에 의해 모든 간격의 데이터가 기록되지 않은 데이터에 대해 시계열 데이터를 만들고 그래프를 그릴 수는 있으나 예측에 적용하기 위해서는 일정한 간격의 데이터를 갖추는 것이 더 효과적임</li>
 </ul></li>
 </ul>
 <div id="자기-상관관계" class="section level3" number="1.2.1">
@@ -272,7 +271,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 
-<a href="분석-예측-방법.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="시계열-데이터-타입-및-import.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
