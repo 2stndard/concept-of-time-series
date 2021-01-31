@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 시계열 데이터 Import | t.utf8</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 시계열 데이터 Import | t.utf8" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 시계열 데이터 Import | t.utf8" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="이기준" />
+
+
+<meta name="date" content="2021-01-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="literature.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 정의 및 특성</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#정의"><i class="fa fa-check"></i><b>1.1</b> 정의</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#특성"><i class="fa fa-check"></i><b>1.2</b> 특성</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.1</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.2</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="index.html"><a href="index.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.3</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="index.html"><a href="index.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.4</b> 불확실성(Uncertainty)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 Import</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#시계열-패키지-및-데이터-타입"><i class="fa fa-check"></i><b>2.1</b> 시계열 패키지 및 데이터 타입</a></li>
+<li class="chapter" data-level="2.2" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#데이터-import의-두가지-방법"><i class="fa fa-check"></i><b>2.2</b> 데이터 Import의 두가지 방법</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="7" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>7</b> Introduction</a></li>
+<li class="chapter" data-level="8" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html"><i class="fa fa-check"></i><b>8</b> 정의 및 특성</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#정의-1"><i class="fa fa-check"></i><b>8.1</b> 정의</a></li>
+<li class="chapter" data-level="8.2" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#특성-1"><i class="fa fa-check"></i><b>8.2</b> 특성</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#자기-상관관계-1"><i class="fa fa-check"></i><b>8.2.1</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="8.2.2" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#추세-경향성trend-1"><i class="fa fa-check"></i><b>8.2.2</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="8.2.3" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#계절성seasonality-순환성cyclic-1"><i class="fa fa-check"></i><b>8.2.3</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="8.2.4" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#불확실성uncertainty-1"><i class="fa fa-check"></i><b>8.2.4</b> 불확실성(Uncertainty)</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><center>
+교육통계를 활용한 데이터 분석 방법
+</center></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="시계열-데이터-import" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> 시계열 데이터 Import</h1>
+<div id="시계열-패키지-및-데이터-타입" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> 시계열 패키지 및 데이터 타입</h2>
+<p>R에서 많이 사용하는 시계열 패키지 및 데이터 타입은 다음의 몇가지가 많이 사용됨</p>
+<ul>
+<li><p>ts(data type) : ts 데이터 타입은 R에서 가장 기본적으로 활용되는 시계열 데이터 타입임. ts 데이터 타입은 ‘stats’ 패키지를 로드해야 사용할 수 있지만 R이 실행될 때 기본적으로 로드되는 패키지이기 때문에 특별한 패키지를 로드하지 않고 바로 활용할 수 있음. 또한 stats 패키지에 포함된 다양한 시계열 데이터 처리 함수를 사용할 수 있어 많이 사용됨.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<ul>
+<li><p>ts 타입 데이터 생성 예 <span class="citation">(<a href="정의-및-특성-1.html#ref-RDocumentation" role="doc-biblioref">R Core Team, n.d.</a>)</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="시계열-데이터-import.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>##      Qtr1 Qtr2 Qtr3 Qtr4
+## 1959         1    2    3
+## 1960    4    5    6    7
+## 1961    8    9   10</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="시계열-데이터-import.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  ts - ts 객체 생성 함수</span></span>
+<span id="cb3-2"><a href="시계열-데이터-import.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  1:10 - ts 객체 함수에 저장되는 데이터 벡터</span></span>
+<span id="cb3-3"><a href="시계열-데이터-import.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  frequency - ts 객체의 시간 간격을 지정하는 매개변수</span></span>
+<span id="cb3-4"><a href="시계열-데이터-import.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  start - ts 객체의 인덱스가 되는 시간의 시작점</span></span></code></pre></div></li>
+</ul></li>
+<li><p>zoo(package &amp; data type) : 시간의 순서로 정렬된 S3 클래스의 데이터 타입으로 수치 벡터나 매트릭스와 팩터의 시계열 데이터를 표현함. zoo는 특정한 인덱스 / 날짜 / 시간 클래스의 독립성과 ts 및 기본 R과의 일관성을 확보하기 위한 표준 제네릭의 확장 방법을 제공하는 것임.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<ul>
+<li><p>zoo 패키지 설치</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="시계열-데이터-import.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(zoo)) {</span>
+<span id="cb4-2"><a href="시계열-데이터-import.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;zoo&#39;</span>)</span>
+<span id="cb4-3"><a href="시계열-데이터-import.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(zoo)</span>
+<span id="cb4-4"><a href="시계열-데이터-import.html#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<li><p>zoo 타입 데이터 생성 예</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="시계열-데이터-import.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zoo</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## 2008-08-01 2008-08-02 2008-08-03 2008-08-04 2008-08-05 
+##  0.4707241  1.6501676  1.1817794 -0.6536758  0.1092915</code></pre></li>
+</ul></li>
+<li><p>xts(package &amp; data type) : xts는 extensible time-series의 준말로 ‘xts’ 패키지를 로드해야 활용할 수 있는 데이터 타입임. 앞서 기술된 zoo 데이터 타입에 종속된 데이터 타입으로 zoo를 확장하여 다양한 시간 기반 데이터 클래스를 균일하게 처리 할 수 있는 데이터 타입임.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<ul>
+<li><p>xts 패키지 설치</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="시계열-데이터-import.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(xts)) {</span>
+<span id="cb7-2"><a href="시계열-데이터-import.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;xts&#39;</span>)</span>
+<span id="cb7-3"><a href="시계열-데이터-import.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(xts)</span>
+<span id="cb7-4"><a href="시계열-데이터-import.html#cb7-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<li><p>xts 타입 데이터 생성 예</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="시계열-데이터-import.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
+<pre><code>##                  [,1]
+## 2008-08-01  1.3442331
+## 2008-08-02  1.0555967
+## 2008-08-03 -0.1225527
+## 2008-08-04  0.7939866
+## 2008-08-05 -0.2784863</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="시계열-데이터-import.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
+<pre><code>##                  [,1]
+## 2008-08-01  0.6826759
+## 2008-08-02 -0.6094092
+## 2008-08-03 -0.3840073
+## 2008-08-04 -0.4171187
+## 2008-08-05 -0.5958465</code></pre>
+<ul>
+<li><p>xts()와 as.xts()의 차이 : xts()는 xts 객체를 생성하는 함수이나 as.xts()는 timeSeries, ts, irts, fts, matrix, data.frame, zoo 객체를 xts객체로 변환하는 함수임.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> 다음과 같은 차이가 발생함.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="시계열-데이터-import.html#cb12-1" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span>
+<span id="cb12-2"><a href="시계열-데이터-import.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(ts)</span></code></pre></div>
+<pre><code>## Error in xts(ts): order.by requires an appropriate time-based object</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="시계열-데이터-import.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(ts)</span></code></pre></div>
+<pre><code>##         [,1]
+## 1959 Q2    1
+## 1959 Q3    2
+## 1959 Q4    3
+## 1960 Q1    4
+## 1960 Q2    5
+## 1960 Q3    6
+## 1960 Q4    7
+## 1961 Q1    8
+## 1961 Q2    9
+## 1961 Q3   10</code></pre></li>
+</ul></li>
+</ul></li>
+<li><p>ts, zoo, xts는 모두 시계열 데이터를 다루는 객체이지만 xts(zoo의 확장판)가 보다 유연한 함수가 있음. 다만 최근에는 ts 객체에도 동일하게 적용할 수 있는 함수가 제공되고 있음. 또한 xts 매뉴얼에 의하면 as.xts와 reclass를 활용하는 것이 xts를 사용하는 것보다 이익이 있다고 명기하고 있음.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="시계열-데이터-import.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ts)  <span class="co"># 시계열 데이터 형태로 보이지 않음</span></span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5 6</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="시계열-데이터-import.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.xts</span>(ts))  <span class="co"># 시계열 형태로 보임</span></span></code></pre></div>
+<pre><code>##         [,1]
+## 1959 Q2    1
+## 1959 Q3    2
+## 1959 Q4    3
+## 1960 Q1    4
+## 1960 Q2    5
+## 1960 Q3    6</code></pre></li>
+<li><p>modeltime(package) : ‘tidymodel’과 같이 사용이 가능한 시계열 예측 프레임워크임. modeltime 패키지에서 제공하는 시계열 모델은 ARIMA, Exponential Smoothing 외에도 ’forecast’ 패키지와 ‘prophet’ 패키지에서 제공하는 추가적인 시계열 모델을 제공함.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> 이 패키지는 ’tidymodel’과 같이 사용하는 기본 사상으로 특별한 시계열 데이터 타입을 제공하지 않고 tibble 데이터 타입을 사용할 수 있다는 장점이 있음.</p>
+<ul>
+<li>modeltime 패키지 설치</li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="시계열-데이터-import.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(modeltime)) {</span>
+<span id="cb20-2"><a href="시계열-데이터-import.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;modeltime&#39;</span>)</span>
+<span id="cb20-3"><a href="시계열-데이터-import.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(modeltime)</span>
+<span id="cb20-4"><a href="시계열-데이터-import.html#cb20-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Warning: package &#39;modeltime&#39; was built under R version 4.0.3</code></pre></li>
+</ul>
+</div>
+<div id="데이터-import의-두가지-방법" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> 데이터 Import의 두가지 방법</h2>
+<ul>
+<li><p>시계열(Time Series) 데이터를 R에서 직접 생성할 수도 있으나 대부분의 경우는 다양한 파일 포맷(Excel, CSV, SPSS 등)으로 저장된 파일에서 읽어들이는 방법이 일반적임.</p></li>
+<li><p>데이터 파일에는 반드시 시계열 데이터의 인덱스로 활용할 수 있는 시간 데이터 컬럼이 필요함.</p></li>
+<li><p>본 문서에서는 다양한 파일 포맷 중 Excel과 CSV파일에서 시계열 데이터를 읽어들여 활용하는 방법을 언급하겠음.</p></li>
+<li><p>파일에서 시계열 데이터를 읽어들이는 방법은 크게 두가지가 있음</p>
+<ul>
+<li><p>데이터를 파일에서 읽어들여 data.frame에 저장 후 저장된 data.frame을 시계열 데이터 타입으로 변환함.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="시계열-데이터-import.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb22-2"><a href="시계열-데이터-import.html#cb22-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;exercise1.xlsx&quot;</span>) <span class="co"># 엑셀 파일로부터 데이터를 읽어옴</span></span>
+<span id="cb22-3"><a href="시계열-데이터-import.html#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="시계열-데이터-import.html#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the first few lines of mydata</span></span>
+<span id="cb22-5"><a href="시계열-데이터-import.html#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mydata)  <span class="co"># 데이터 확인</span></span></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   ...1   Sales AdBudget   GDP
+##   &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+## 1 Mar-81 1020.     659.  252.
+## 2 Jun-81  889.     589   291.
+## 3 Sep-81  795      512.  291.
+## 4 Dec-81 1004.     614.  292.
+## 5 Mar-82 1058.     647.  279.
+## 6 Jun-82  944.     602   254</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="시계열-데이터-import.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ts object called myts</span></span>
+<span id="cb24-2"><a href="시계열-데이터-import.html#cb24-2" aria-hidden="true" tabindex="-1"></a>myts <span class="ot">&lt;-</span> <span class="fu">ts</span>(mydata[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1981</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">4</span>)  <span class="co"># 읽어온 데이터를 ts 객체로 생성</span></span>
+<span id="cb24-3"><a href="시계열-데이터-import.html#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="시계열-데이터-import.html#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(myts)  <span class="co"># 데이터 확인</span></span></code></pre></div>
+<pre><code>## [1] &quot;mts&quot;    &quot;ts&quot;     &quot;matrix&quot;</code></pre></li>
+<li><p>시계열 패키지에서 제공하는 데이터 Import 함수를 이용하여 직접 시계열 데이터 타입으로 읽어들임.</p></li>
+<li><p>다만 xts 패키지와 modeltime 패키지는 외부 데이터를 직접 읽어 올 수 있는 방법 제공하지 않음. xts의 경우는 read.ts(tseries 패키지 필요)나 read.zoo 함수를 이용해 읽어들인 시계열 객체를 as.xts 함수를 이용하여 xts 객체로 변환하고 modeltime은 tidymodel 객체를 변환하여 사용하는 것이 일반적임.</p></li>
+<li><p>ts 객체를 읽어올때 주의할 점은 ts 객체는 파일에 기록된 시간 인덱스를 직접 시간인덱스로 사용할 수 없고 read.ts 함수 호출시 시계열 시작점과 간격을 지정함으로써 일정한 간격의 시계열 데이터를 생성해야 함. 시작점부터 일정한 간격으로 모든 데이터가 기록된 경우는 문제가 없지만 일부 데이터가 결측되는 경우 정확히 읽어들일 수 없음.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="시계열-데이터-import.html#cb26-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(tseries)</span></code></pre></div>
+<pre><code>## Warning: package &#39;tseries&#39; was built under R version 4.0.3</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="시계열-데이터-import.html#cb28-1" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2010-01-01&#39;</span>), <span class="at">length.out =</span> <span class="dv">30</span>, <span class="at">by =</span> <span class="st">&#39;months&#39;</span>), <span class="at">value1 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="at">value2 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
+<span id="cb28-2"><a href="시계열-데이터-import.html#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(df[,<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
+<span id="cb28-3"><a href="시계열-데이터-import.html#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read.ts</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
+<pre><code>##               value1      value2
+## Jan 2010  2.25557123 -0.92352810
+## Feb 2010  0.21973820 -0.10156404
+## Mar 2010  0.14713542 -0.47947759
+## Apr 2010 -0.21600065  0.38222332
+## May 2010  1.29550799  2.53245282
+## Jun 2010  0.68578893  1.54108790
+## Jul 2010 -0.50223037 -1.03754399
+## Aug 2010 -0.44825934  0.07678336
+## Sep 2010 -0.09414722 -1.43875873
+## Oct 2010 -0.07572250  0.79444143
+## Nov 2010  0.66067314 -0.27261801
+## Dec 2010  1.46387403  0.21814994
+## Jan 2011 -1.46530112 -1.18626521
+## Feb 2011 -1.26725425  0.18432121
+## Mar 2011 -0.15470946  0.72991190
+## Apr 2011  0.51679902  0.40477166
+## May 2011  0.79660554 -0.92201558
+## Jun 2011 -0.44569770 -3.53453320
+## Jul 2011 -2.75336968 -1.34299175
+## Aug 2011 -0.33245040  1.22546113
+## Sep 2011  2.14675936  1.12423509
+## Oct 2011  0.23294528  1.41575902
+## Nov 2011 -0.83637941  1.45804765
+## Dec 2011  0.13649185  0.24080084
+## Jan 2012 -0.14217529  0.28830527
+## Feb 2012  0.65081219 -0.21799183
+## Mar 2012 -0.54456415  0.55220475
+## Apr 2012 -0.83974704 -2.38715257
+## May 2012 -0.39253402  0.97598670
+## Jun 2012 -1.30646150 -1.12087555</code></pre></li>
+<li><p>읽어들일 파일에 시간이 기재되어 있는 경우는 zoo 패키지의 read.zoo 함수를 이용하여 zoo 객체로 읽어들인 후 이 객체를 xts 객체로 변환하여 활용하는 방법을 활용할 수 있음. read.ts에 비해 read.zoo는 지정된 주기의 비일정한 시계열 데이터 타입을 불러 들일 수 있다는 장점이 있음. 예를 들어 매일 기록되는 데이터의 경우 read.ts는 중간에 빠지는 날이 없이 지정된 기간동안 매일 기록된 데이터를 가져오지만 read.zoo는 기본적으로 매일 기록된 데이터를 가져온다하더라도 중간중간 빠진 날을 인정하고 가져올 수 있는 방법임.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="시계열-데이터-import.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
+<span id="cb30-2"><a href="시계열-데이터-import.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read.zoo</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">index.column =</span> <span class="dv">1</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##                 value1      value2
+## 2010-01-01  2.25557123 -0.92352810
+## 2010-02-01  0.21973820 -0.10156404
+## 2010-03-01  0.14713542 -0.47947759
+## 2010-04-01 -0.21600065  0.38222332
+## 2010-05-01  1.29550799  2.53245282
+## 2010-06-01  0.68578893  1.54108790
+## 2010-07-01 -0.50223037 -1.03754399
+## 2010-08-01 -0.44825934  0.07678336
+## 2010-09-01 -0.09414722 -1.43875873
+## 2010-10-01 -0.07572250  0.79444143
+## 2010-11-01  0.66067314 -0.27261801
+## 2010-12-01  1.46387403  0.21814994
+## 2011-01-01 -1.46530112 -1.18626521
+## 2011-02-01 -1.26725425  0.18432121
+## 2011-03-01 -0.15470946  0.72991190
+## 2011-04-01  0.51679902  0.40477166
+## 2011-05-01  0.79660554 -0.92201558
+## 2011-06-01 -0.44569770 -3.53453320
+## 2011-07-01 -2.75336968 -1.34299175
+## 2011-08-01 -0.33245040  1.22546113
+## 2011-09-01  2.14675936  1.12423509
+## 2011-10-01  0.23294528  1.41575902
+## 2011-11-01 -0.83637941  1.45804765
+## 2011-12-01  0.13649185  0.24080084
+## 2012-01-01 -0.14217529  0.28830527
+## 2012-02-01  0.65081219 -0.21799183
+## 2012-03-01 -0.54456415  0.55220475
+## 2012-04-01 -0.83974704 -2.38715257
+## 2012-05-01 -0.39253402  0.97598670
+## 2012-06-01 -1.30646150 -1.12087555</code></pre></li>
+<li></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>ts, R document , <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/ts" class="uri">https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/ts</a>, 2021.1.31<a href="시계열-데이터-import.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://cran.r-project.org/web/packages/zoo/zoo.pdf" class="uri">https://cran.r-project.org/web/packages/zoo/zoo.pdf</a><a href="시계열-데이터-import.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://cran.r-project.org/web/packages/xts/xts.pdf" class="uri">https://cran.r-project.org/web/packages/xts/xts.pdf</a><a href="시계열-데이터-import.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://www.rdocumentation.org/packages/xts/versions/0.12.1/topics/as.xts.methods" class="uri">https://www.rdocumentation.org/packages/xts/versions/0.12.1/topics/as.xts.methods</a><a href="시계열-데이터-import.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://cran.r-project.org/web/packages/xts/xts.pdf" class="uri">https://cran.r-project.org/web/packages/xts/xts.pdf</a><a href="시계열-데이터-import.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://cran.r-project.org/web/packages/modeltime/index.html" class="uri">https://cran.r-project.org/web/packages/modeltime/index.html</a><a href="시계열-데이터-import.html#fnref7" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="literature.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["t.pdf", "t.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
