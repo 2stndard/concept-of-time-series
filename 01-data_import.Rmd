@@ -215,6 +215,9 @@ R에서 많이 사용하는 시계열 객체는 대부분 패키지에서 제공
 
 [^data_import-8]: <https://kess.kedi.re.kr/userfile/6711778>
 
+```{=html}
+<!-- -->
+```
 -   직접 시계열 데이터 타입으로 읽어들이는 방법
 
     -   다만 xts 패키지와 modeltime 패키지는 외부 데이터를 직접 읽어 올 수 있는 방법 제공하지 않음. xts의 경우는 read.ts(tseries 패키지 필요)나 read.zoo 함수를 이용해 읽어들인 시계열 객체를 as.xts 함수를 이용하여 xts 객체로 변환하고 modeltime은 tidymodel 객체를 변환하여 사용하는 것이 일반적임.
