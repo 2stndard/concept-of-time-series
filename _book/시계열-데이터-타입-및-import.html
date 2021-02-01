@@ -26,7 +26,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-01-31" />
+<meta name="date" content="2021-02-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -154,26 +154,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html#데이터-import의-두가지-방법"><i class="fa fa-check"></i><b>2.3</b> 데이터 Import의 두가지 방법</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="시계열-visualization.html"><a href="시계열-visualization.html"><i class="fa fa-check"></i><b>3</b> 시계열 Visualization</a></li>
-<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
-<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 handling</a></li>
+<li class="chapter" data-level="5" data-path="시계열-forecasting-part-i.html"><a href="시계열-forecasting-part-i.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting - Part I</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
-<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+<li class="chapter" data-level="5.1" data-path="시계열-forecasting-part-i.html"><a href="시계열-forecasting-part-i.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="시계열-forecasting-part-i.html"><a href="시계열-forecasting-part-i.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii.html"><a href="시계열-forecasting-part-ii.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting - Part II</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="chapter" data-level="7" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>7</b> Introduction</a></li>
-<li class="chapter" data-level="8" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html"><i class="fa fa-check"></i><b>8</b> 정의 및 특성</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#정의-1"><i class="fa fa-check"></i><b>8.1</b> 정의</a></li>
-<li class="chapter" data-level="8.2" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#특성-1"><i class="fa fa-check"></i><b>8.2</b> 특성</a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#자기-상관관계-1"><i class="fa fa-check"></i><b>8.2.1</b> 자기 상관관계</a></li>
-<li class="chapter" data-level="8.2.2" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#추세-경향성trend-1"><i class="fa fa-check"></i><b>8.2.2</b> 추세 경향성(Trend)</a></li>
-<li class="chapter" data-level="8.2.3" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#계절성seasonality-순환성cyclic-1"><i class="fa fa-check"></i><b>8.2.3</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
-<li class="chapter" data-level="8.2.4" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#불확실성uncertainty-1"><i class="fa fa-check"></i><b>8.2.4</b> 불확실성(Uncertainty)</a></li>
-</ul></li>
-</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -211,9 +199,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-2"><a href="시계열-데이터-타입-및-import.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.Date</span>(<span class="dv">10000</span>)  <span class="co"># zoo 패키지에서 as.Date를 overriding하므로 zoo 패키지가 없으면 error</span></span></code></pre></div>
 <pre><code>## [1] &quot;1997-05-19&quot;</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="시계열-데이터-타입-및-import.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.Date</span>()   <span class="co"># today</span></span></code></pre></div>
-<pre><code>## [1] &quot;2021-01-31&quot;</code></pre>
+<pre><code>## [1] &quot;2021-02-01&quot;</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="시계열-데이터-타입-및-import.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.Date</span>() <span class="sc">+</span> <span class="dv">10</span>  <span class="co"># 오늘로부터 10일 후</span></span></code></pre></div>
-<pre><code>## [1] &quot;2021-02-10&quot;</code></pre></li>
+<pre><code>## [1] &quot;2021-02-11&quot;</code></pre></li>
 <li><p>POSIXct, POSIXlt class : Date 객체는 1970년 이후 날짜를 기록하는 객체이지만 POSIXct 객체와 POSIXlt 객체는 1970년 이후 시간을 초단위로 기록하는 객체임. POSIXct는 정수형태로 기록되는 객체이고 POSIXlt는 리스트형태로 기록되는 객체임</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="시계열-데이터-타입-및-import.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.POSIXct</span>(<span class="st">&#39;2021-01-31 12:34:56&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2021-01-31 12:34:56 KST&quot;</code></pre>
@@ -351,7 +339,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>ts(data type) : ts 데이터 타입은 R에서 가장 기본적으로 활용되는 시계열 데이터 타입임. ts 데이터 타입은 ‘stats’ 패키지를 로드해야 사용할 수 있지만 R이 실행될 때 기본적으로 로드되는 패키지이기 때문에 특별한 패키지를 로드하지 않고 바로 활용할 수 있음. 또한 stats 패키지에 포함된 다양한 시계열 데이터 처리 함수를 사용할 수 있어 많이 사용됨.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <ul>
-<li><p>ts 타입 데이터 생성 예 <span class="citation">(<a href="정의-및-특성-1.html#ref-RDocumentation" role="doc-biblioref">R Core Team, n.d.</a>)</span></p>
+<li><p>ts 타입 데이터 생성 예 <span class="citation">(<a href="references.html#ref-RDocumentation" role="doc-biblioref">R Core Team, n.d.</a>)</span></p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="시계열-데이터-타입-및-import.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>##      Qtr1 Qtr2 Qtr3 Qtr4
 ## 1959         1    2    3
@@ -371,8 +359,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb56-4"><a href="시계열-데이터-타입-및-import.html#cb56-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
 <li><p>zoo 타입 데이터 생성 예</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="시계열-데이터-타입-및-import.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zoo</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
-<pre><code>## 2008-08-01 2008-08-02 2008-08-03 2008-08-04 2008-08-05 
-## -1.2852326  0.3107609  1.7717731 -2.2852792  0.5362801</code></pre></li>
+<pre><code>##  2008-08-01  2008-08-02  2008-08-03  2008-08-04  2008-08-05 
+##  1.24004000  1.00520356 -0.09693943 -0.56765338 -0.12599309</code></pre></li>
 </ul></li>
 <li><p>xts(package &amp; data type) : xts는 extensible time-series의 준말로 ‘xts’ 패키지를 로드해야 활용할 수 있는 데이터 타입임. 앞서 기술된 zoo 데이터 타입에 종속된 데이터 타입으로 zoo를 확장하여 다양한 시간 기반 데이터 클래스를 균일하게 처리 할 수 있는 데이터 타입임.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 <ul>
@@ -384,18 +372,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>xts 타입 데이터 생성 예</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="시계열-데이터-타입-및-import.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##                  [,1]
-## 2008-08-01 -1.8424512
-## 2008-08-02 -1.1228499
-## 2008-08-03  0.6241303
-## 2008-08-04  0.2881317
-## 2008-08-05  3.3949898</code></pre>
+## 2008-08-01 -0.8381387
+## 2008-08-02 -0.5477587
+## 2008-08-03 -0.9965066
+## 2008-08-04  0.2972579
+## 2008-08-05 -0.5098946</code></pre>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="시계열-데이터-타입-및-import.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##                  [,1]
-## 2008-08-01  0.6253894
-## 2008-08-02 -0.1434216
-## 2008-08-03  0.3331162
-## 2008-08-04  0.7069095
-## 2008-08-05 -0.8023111</code></pre>
+## 2008-08-01 -0.4670259
+## 2008-08-02  0.4146844
+## 2008-08-03 -0.2889525
+## 2008-08-04  0.7520414
+## 2008-08-05 -0.2491064</code></pre>
 <ul>
 <li><p>xts()와 as.xts()의 차이 : xts()는 xts 객체를 생성하는 함수이나 as.xts()는 timeSeries, ts, irts, fts, matrix, data.frame, zoo 객체를 xts객체로 변환하는 함수임.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> 다음과 같은 차이가 발생함.</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="시계열-데이터-타입-및-import.html#cb64-1" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span>
@@ -433,8 +421,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="시계열-데이터-타입-및-import.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(modeltime)) {</span>
 <span id="cb72-2"><a href="시계열-데이터-타입-및-import.html#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;modeltime&#39;</span>)</span>
 <span id="cb72-3"><a href="시계열-데이터-타입-및-import.html#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(modeltime)</span>
-<span id="cb72-4"><a href="시계열-데이터-타입-및-import.html#cb72-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## Warning: package &#39;modeltime&#39; was built under R version 4.0.3</code></pre></li>
+<span id="cb72-4"><a href="시계열-데이터-타입-및-import.html#cb72-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
 </ul>
 </div>
 <div id="데이터-import의-두가지-방법" class="section level2" number="2.3">
@@ -446,11 +433,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>파일에서 시계열 데이터를 읽어들이는 방법은 크게 두가지가 있음</p>
 <ul>
 <li><p>데이터를 파일에서 읽어들여 data.frame에 저장 후 저장된 data.frame을 시계열 데이터 타입으로 변환함.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="시계열-데이터-타입-및-import.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb74-2"><a href="시계열-데이터-타입-및-import.html#cb74-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;exercise1.xlsx&quot;</span>) <span class="co"># 엑셀 파일로부터 데이터를 읽어옴</span></span>
-<span id="cb74-3"><a href="시계열-데이터-타입-및-import.html#cb74-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-4"><a href="시계열-데이터-타입-및-import.html#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the first few lines of mydata</span></span>
-<span id="cb74-5"><a href="시계열-데이터-타입-및-import.html#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mydata)  <span class="co"># 데이터 확인</span></span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="시계열-데이터-타입-및-import.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb73-2"><a href="시계열-데이터-타입-및-import.html#cb73-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;exercise1.xlsx&quot;</span>) <span class="co"># 엑셀 파일로부터 데이터를 읽어옴</span></span>
+<span id="cb73-3"><a href="시계열-데이터-타입-및-import.html#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="시계열-데이터-타입-및-import.html#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the first few lines of mydata</span></span>
+<span id="cb73-5"><a href="시계열-데이터-타입-및-import.html#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mydata)  <span class="co"># 데이터 확인</span></span></code></pre></div>
+<pre><code>## Warning: `...` is not empty.
+## 
+## We detected these problematic arguments:
+## * `needs_dots`
+## 
+## These dots only exist to allow future extensions and should be empty.
+## Did you misspecify an argument?</code></pre>
 <pre><code>## # A tibble: 6 x 4
 ##   ...1   Sales AdBudget   GDP
 ##   &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
@@ -468,76 +462,75 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>시계열 패키지에서 제공하는 데이터 Import 함수를 이용하여 직접 시계열 데이터 타입으로 읽어들임.</p></li>
 <li><p>다만 xts 패키지와 modeltime 패키지는 외부 데이터를 직접 읽어 올 수 있는 방법 제공하지 않음. xts의 경우는 read.ts(tseries 패키지 필요)나 read.zoo 함수를 이용해 읽어들인 시계열 객체를 as.xts 함수를 이용하여 xts 객체로 변환하고 modeltime은 tidymodel 객체를 변환하여 사용하는 것이 일반적임.</p></li>
 <li><p>ts 객체를 읽어올때 주의할 점은 ts 객체는 파일에 기록된 시간 인덱스를 직접 시간인덱스로 사용할 수 없고 read.ts 함수 호출시 시계열 시작점과 간격을 지정함으로써 일정한 간격의 시계열 데이터를 생성해야 함. 시작점부터 일정한 간격으로 모든 데이터가 기록된 경우는 문제가 없지만 일부 데이터가 결측되는 경우 정확히 읽어들일 수 없음.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="시계열-데이터-타입-및-import.html#cb78-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(tseries)</span></code></pre></div>
-<pre><code>## Warning: package &#39;tseries&#39; was built under R version 4.0.3</code></pre>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="시계열-데이터-타입-및-import.html#cb80-1" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2010-01-01&#39;</span>), <span class="at">length.out =</span> <span class="dv">30</span>, <span class="at">by =</span> <span class="st">&#39;months&#39;</span>), <span class="at">value1 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="at">value2 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
-<span id="cb80-2"><a href="시계열-데이터-타입-및-import.html#cb80-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(df[,<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
-<span id="cb80-3"><a href="시계열-데이터-타입-및-import.html#cb80-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read.ts</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
-<pre><code>##               value1      value2
-## Jan 2010 -0.14660932  0.51528835
-## Feb 2010 -0.67081581 -0.25184326
-## Mar 2010  0.38649961 -1.31115017
-## Apr 2010  0.88063797  1.48138957
-## May 2010  0.18357017  2.30564386
-## Jun 2010  0.98288080  0.25329369
-## Jul 2010  0.06543699 -1.42824010
-## Aug 2010  0.35607486 -0.29278986
-## Sep 2010  0.07219960  0.57912372
-## Oct 2010  0.30446819 -1.48149269
-## Nov 2010  0.67225919  0.40085751
-## Dec 2010  0.12729489  0.80859438
-## Jan 2011  0.53614147 -0.13287611
-## Feb 2011 -0.15227105  0.27113973
-## Mar 2011  0.39249649 -1.90245005
-## Apr 2011 -0.14790142 -0.88597094
-## May 2011 -1.41192443  2.02483216
-## Jun 2011 -0.40310092 -0.37815749
-## Jul 2011  0.83639797  0.19756769
-## Aug 2011  0.42925658  1.22168789
-## Sep 2011  0.06355134  0.05498076
-## Oct 2011  0.48516946  0.22829673
-## Nov 2011 -0.75566417  1.06706676
-## Dec 2011  0.40291008  0.25502307
-## Jan 2012 -0.23817719 -1.02910249
-## Feb 2012 -0.75401814 -0.16517917
-## Mar 2012 -1.20998998  0.01168085
-## Apr 2012 -0.19308202  0.67120835
-## May 2012 -0.92919045  0.91170185
-## Jun 2012 -0.18741482  1.22764064</code></pre></li>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="시계열-데이터-타입-및-import.html#cb78-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(tseries)</span>
+<span id="cb78-2"><a href="시계열-데이터-타입-및-import.html#cb78-2" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2010-01-01&#39;</span>), <span class="at">length.out =</span> <span class="dv">30</span>, <span class="at">by =</span> <span class="st">&#39;months&#39;</span>), <span class="at">value1 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="at">value2 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
+<span id="cb78-3"><a href="시계열-데이터-타입-및-import.html#cb78-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(df[,<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
+<span id="cb78-4"><a href="시계열-데이터-타입-및-import.html#cb78-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read.ts</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
+<pre><code>##               value1     value2
+## Jan 2010 -0.85340138 -1.0653944
+## Feb 2010 -1.64651964 -0.3262034
+## Mar 2010  1.01399450  0.4472068
+## Apr 2010  0.32505849  1.3409934
+## May 2010 -0.12075290 -2.4752411
+## Jun 2010 -1.48076418 -1.5689795
+## Jul 2010 -0.31452484  0.9638674
+## Aug 2010  1.09810506  1.0143899
+## Sep 2010  0.62288517  0.2067041
+## Oct 2010  0.77477310  1.5847040
+## Nov 2010 -0.12552702 -1.4455070
+## Dec 2010  0.04147855 -0.4118697
+## Jan 2011 -0.27947497  0.6092228
+## Feb 2011 -1.87327863  0.3131948
+## Mar 2011  1.24172200 -0.6737735
+## Apr 2011 -0.26094964 -1.3991936
+## May 2011 -0.40010876 -1.1644533
+## Jun 2011  0.57069795  0.8043502
+## Jul 2011 -0.84392503 -1.0998011
+## Aug 2011  0.48687629  0.3796613
+## Sep 2011  0.16036960  0.4693719
+## Oct 2011  0.32960850  0.3656171
+## Nov 2011 -1.37471933  0.9997815
+## Dec 2011 -0.13170558 -0.5394703
+## Jan 2012 -1.06941149 -0.7992560
+## Feb 2012 -0.12830196 -0.4579678
+## Mar 2012 -1.76481198 -0.8911552
+## Apr 2012 -0.13547477 -0.4601454
+## May 2012  0.14663505  0.3017441
+## Jun 2012 -0.18364388 -0.7805638</code></pre></li>
 <li><p>읽어들일 파일에 시간이 기재되어 있는 경우는 zoo 패키지의 read.zoo 함수를 이용하여 zoo 객체로 읽어들인 후 이 객체를 xts 객체로 변환하여 활용하는 방법을 활용할 수 있음. read.ts에 비해 read.zoo는 지정된 주기의 비일정한 시계열 데이터 타입을 불러 들일 수 있다는 장점이 있음. 예를 들어 매일 기록되는 데이터의 경우 read.ts는 중간에 빠지는 날이 없이 지정된 기간동안 매일 기록된 데이터를 가져오지만 read.zoo는 기본적으로 매일 기록된 데이터를 가져온다하더라도 중간중간 빠진 날을 인정하고 가져올 수 있는 방법임.</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="시계열-데이터-타입-및-import.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
-<span id="cb82-2"><a href="시계열-데이터-타입-및-import.html#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read.zoo</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">index.column =</span> <span class="dv">1</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>##                 value1      value2
-## 2010-01-01 -0.14660932  0.51528835
-## 2010-02-01 -0.67081581 -0.25184326
-## 2010-03-01  0.38649961 -1.31115017
-## 2010-04-01  0.88063797  1.48138957
-## 2010-05-01  0.18357017  2.30564386
-## 2010-06-01  0.98288080  0.25329369
-## 2010-07-01  0.06543699 -1.42824010
-## 2010-08-01  0.35607486 -0.29278986
-## 2010-09-01  0.07219960  0.57912372
-## 2010-10-01  0.30446819 -1.48149269
-## 2010-11-01  0.67225919  0.40085751
-## 2010-12-01  0.12729489  0.80859438
-## 2011-01-01  0.53614147 -0.13287611
-## 2011-02-01 -0.15227105  0.27113973
-## 2011-03-01  0.39249649 -1.90245005
-## 2011-04-01 -0.14790142 -0.88597094
-## 2011-05-01 -1.41192443  2.02483216
-## 2011-06-01 -0.40310092 -0.37815749
-## 2011-07-01  0.83639797  0.19756769
-## 2011-08-01  0.42925658  1.22168789
-## 2011-09-01  0.06355134  0.05498076
-## 2011-10-01  0.48516946  0.22829673
-## 2011-11-01 -0.75566417  1.06706676
-## 2011-12-01  0.40291008  0.25502307
-## 2012-01-01 -0.23817719 -1.02910249
-## 2012-02-01 -0.75401814 -0.16517917
-## 2012-03-01 -1.20998998  0.01168085
-## 2012-04-01 -0.19308202  0.67120835
-## 2012-05-01 -0.92919045  0.91170185
-## 2012-06-01 -0.18741482  1.22764064</code></pre></li>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="시계열-데이터-타입-및-import.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
+<span id="cb80-2"><a href="시계열-데이터-타입-및-import.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read.zoo</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">index.column =</span> <span class="dv">1</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##                 value1     value2
+## 2010-01-01 -0.85340138 -1.0653944
+## 2010-02-01 -1.64651964 -0.3262034
+## 2010-03-01  1.01399450  0.4472068
+## 2010-04-01  0.32505849  1.3409934
+## 2010-05-01 -0.12075290 -2.4752411
+## 2010-06-01 -1.48076418 -1.5689795
+## 2010-07-01 -0.31452484  0.9638674
+## 2010-08-01  1.09810506  1.0143899
+## 2010-09-01  0.62288517  0.2067041
+## 2010-10-01  0.77477310  1.5847040
+## 2010-11-01 -0.12552702 -1.4455070
+## 2010-12-01  0.04147855 -0.4118697
+## 2011-01-01 -0.27947497  0.6092228
+## 2011-02-01 -1.87327863  0.3131948
+## 2011-03-01  1.24172200 -0.6737735
+## 2011-04-01 -0.26094964 -1.3991936
+## 2011-05-01 -0.40010876 -1.1644533
+## 2011-06-01  0.57069795  0.8043502
+## 2011-07-01 -0.84392503 -1.0998011
+## 2011-08-01  0.48687629  0.3796613
+## 2011-09-01  0.16036960  0.4693719
+## 2011-10-01  0.32960850  0.3656171
+## 2011-11-01 -1.37471933  0.9997815
+## 2011-12-01 -0.13170558 -0.5394703
+## 2012-01-01 -1.06941149 -0.7992560
+## 2012-02-01 -0.12830196 -0.4579678
+## 2012-03-01 -1.76481198 -0.8911552
+## 2012-04-01 -0.13547477 -0.4601454
+## 2012-05-01  0.14663505  0.3017441
+## 2012-06-01 -0.18364388 -0.7805638</code></pre></li>
 <li></li>
 </ul></li>
 </ul>

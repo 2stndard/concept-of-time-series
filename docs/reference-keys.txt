@@ -35,3 +35,7 @@ arima-방법
 날짜시간-객체-타입
 section
 시계열-visualization
+시계열-데이터-handling
+시계열-forecasting
+시계열-forecasting---part-i
+시계열-forecasting---part-ii

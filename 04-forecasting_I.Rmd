@@ -1,4 +1,4 @@
-# Applications
+# 시계열 forecasting - Part I
 
 Some _significant_ applications are demonstrated in this chapter.
 
