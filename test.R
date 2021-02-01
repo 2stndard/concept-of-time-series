@@ -23,6 +23,11 @@ as.xts(ts)
 
 library(readxl)
 mydata <- read_excel("exercise1.xlsx") # 엑셀 파일로부터 데이터를 읽어옴
+as.xts(mydata[, -1], order.by = as.Date(as.character(mydata[, 1]), format = '%b-%y'))
+
+Sys.setlocale("LC_ALL", "English")
+as.Date(as.character(mydata[, 1]), format = '%b-%y')
+as.Date('Jun-83', format = '%B-%y')
 
 # Look at the first few lines of mydata
 head(mydata)  # 데이터 확인
@@ -128,3 +133,46 @@ getwd()
 rmarkdown::render('./index.Rmd', output_dir='.')
 setwd('../')
 getwd()
+
+
+install.packages('bookdown')
+library(bookdown)
+
+?read_excel
+students.from.excel <- read_excel("./students.xlsx", skip = 16, na = '-', sheet = 1, col_types = c('text', 'text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric'))
+
+glimpse(mydata)
+warnings()
+
+
+students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
+
+glimpse(students)
+?read.csv
+
+students[, 3:18] <- apply(students[, 3:18], 2, function(y) as.numeric(gsub(",", "", y)))
+students.total.ts <- students %>% filter(지역규모 == '계') %>% ts(start = 1999, frequency = 1)
+class(students.total.ts)
+
+students.total.xts <- students %>% filter(지역규모 == '계') %>% select(-지역규모)
+
+students.total.xts <- as.xts(students.total.xts, order.by = as.Date(as.character(students.total.xts[,1]), format = '%Y'))
+
+
+
+glimpse(students.total.xts)
+
+?xts
+
+xts(order.by = as.Date(students[,1], format = '%Y') )
+
+glimpse(as.xts(students.total.xts, order.by = as.Date(as.character(students.total.xts[,1]), format = '%Y')))
+
+as.Date(as.character(students[,1]), format = '%Y')
+?as.Date
+
+
+zoo.class <- read.zoo("testfile_readts.csv", sep = ',', index.column = 1, format = '%Y-%m-%d', header = TRUE)
+class(zoo.class)
+xts.class <- as.xts(zoo.class)
+class(xts.class)
