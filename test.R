@@ -1,13 +1,22 @@
+library(tidyverse)
+library(zoo)
+library(xts)
+library(readxl)
+if(!require(modeltime)) {
+  install.packages('modeltime')
+  library(modeltime)
+}
+library(tseries)
+library(ggthemes)
+library(timetk)
+
 ts <- ts(1:10, frequency = 4, start = c(1959, 2))
 head(ts)
 
 xts
-library(tidyverse)
-library(zoo)
 head(zoo(rnorm(5), as.Date("2008-08-01") + 0:4), 1)
 as.Date("2008-08-01") + 0:2
 
-library(xts)
 as.xts(x = rnorm(5), as.Date("2008-08-01") + 0:4)
 xts(x = rnorm(5), as.Date("2008-08-01") + 0:4)
 
@@ -21,7 +30,6 @@ xts(ts)
 as.xts(ts)
 ?xts
 
-library(readxl)
 mydata <- read_excel("exercise1.xlsx") # 엑셀 파일로부터 데이터를 읽어옴
 as.xts(mydata[, -1], order.by = as.Date(as.character(mydata[, 1]), format = '%b-%y'))
 
@@ -43,13 +51,8 @@ myxts <- as.xts(mydata[,2:4], order.by = as.Date(mydata[,1], format = '%b-%y'), 
 as.Date(as.vector(mydata[,1]), '%b-%y')
 ?as.Date
 
-if(!require(modeltime)) {
-  install.packages('modeltime')
-  library(modeltime)
-}
 
 install.packages('tseries')
-library(tseries)
 data(sunspots)
 st <- start(sunspots)
 class(st)
@@ -153,12 +156,18 @@ glimpse(students)
 students[, 3:18] <- apply(students[, 3:18], 2, function(y) as.numeric(gsub(",", "", y)))
 students.total.ts <- students %>% filter(지역규모 == '계') %>% ts(start = 1999, frequency = 1)
 class(students.total.ts)
+date <- as.Date(as.character(paste0(students.total.xts[,1], '-01-01')), format = '%Y-%m-%d')
 
 students.total.xts <- students %>% filter(지역규모 == '계') %>% select(-지역규모)
 
-students.total.xts <- as.xts(students.total.xts, order.by = as.Date(as.character(students.total.xts[,1]), format = '%Y'))
+students.total.xts <- as.xts(students.total.xts, order.by = as.Date(as.character(paste0(students.total.xts[,1], '-01-01')), format = '%Y-%m-%d'))
+
+students.total.xts <- as.xts(students.total.xts, order.by = as.Date(paste0(students.total.xts[,1], '-01-01'), format = '%Y-%m-%d'))
 
 
+students.total.xts <- as.xts(students.total.xts, order.by = as.Date(date))
+
+class(paste0(students.total.xts[,1], '-01-01'))
 
 glimpse(students.total.xts)
 
@@ -176,3 +185,28 @@ zoo.class <- read.zoo("testfile_readts.csv", sep = ',', index.column = 1, format
 class(zoo.class)
 xts.class <- as.xts(zoo.class)
 class(xts.class)
+
+students.ggplot <- students %>% filter(지역규모 == '계')
+ggplot(data = students.ggplot, aes(x = as.factor(연도), y = 학생수계)) +
+  geom_line(aes(group = 1)) + 
+  geom_point(shape = 'circle') +
+  labs(title = '연도별 학생수', x = '연도') +
+  scale_y_continuous(labels = scales::number_format(big.mark = ',')) + 
+  theme(axis.text.x=element_text(angle=90,hjust=1))
+
+?addLegend
+colnames(students.total.xts)
+?plot.xts
+
+plot.xts(students.total.xts[,2], main = '학교급별 학생수')
+plot.xts(students.total.xts[,5], main = '연도별 학생수', sub = '전체 학생수의 연도별 변화', xlab = '연도',  ylab = '학생수', ylim = c(0, 2200000))
+lines(students.total.xts[,3], col = 'red')
+
+addLegend("topright", legend.names=c('전체', '유치원'), col=c('black', 'red'), lty=c(1,1), lwd=c(2,2), ncol=2, bg="white")
+
+
+students.timetk <- students %>% filter(지역규모 == '계')
+students.timetk <- students
+plot_time_series(.data = students.timetk, .date_var = students.timetk[,1], .value = students.timetk[,4], .color_var = students.timetk[,2], .smooth = F)
+
+
