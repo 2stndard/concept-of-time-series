@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.3 시계열 데이터 Import의 방법 | t.utf8</title>
+  <meta name="description" content="<center>
+교육통계를 활용한 데이터 분석 방법
+</center>" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.3 시계열 데이터 Import의 방법 | t.utf8" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.3 시계열 데이터 Import의 방법 | t.utf8" />
+  
+  
+  
+
+<meta name="author" content="이기준" />
+
+
+<meta name="date" content="2021-02-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="시계열-패키지-및-데이터-타입.html"/>
+<link rel="next" href="시계열-visualization.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">교육통계를 활용한 데이터 분석 방법</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="정의.html"><a href="정의.html"><i class="fa fa-check"></i><b>1.1</b> 정의</a></li>
+<li class="chapter" data-level="1.2" data-path="특성.html"><a href="특성.html"><i class="fa fa-check"></i><b>1.2</b> 특성</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="특성.html"><a href="특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.1</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.2" data-path="특성.html"><a href="특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.2</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="특성.html"><a href="특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.3</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="특성.html"><a href="특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.4</b> 불확실성(Uncertainty)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="section.html"><a href="section.html"><i class="fa fa-check"></i><b>1.3</b> —</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 타입 및 Import</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="날짜시간-객체-타입.html"><a href="날짜시간-객체-타입.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 객체 타입</a></li>
+<li class="chapter" data-level="2.2" data-path="시계열-패키지-및-데이터-타입.html"><a href="시계열-패키지-및-데이터-타입.html"><i class="fa fa-check"></i><b>2.2</b> 시계열 패키지 및 데이터 타입</a></li>
+<li class="chapter" data-level="2.3" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html"><i class="fa fa-check"></i><b>2.3</b> 시계열 데이터 Import의 방법</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="시계열-visualization.html"><a href="시계열-visualization.html"><i class="fa fa-check"></i><b>3</b> 시계열 Visualization</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="ggplot2.html"><a href="ggplot2.html"><i class="fa fa-check"></i><b>3.1</b> ggplot2</a></li>
+<li class="chapter" data-level="3.2" data-path="xts.html"><a href="xts.html"><i class="fa fa-check"></i><b>3.2</b> XTS</a></li>
+<li class="chapter" data-level="3.3" data-path="forecast.html"><a href="forecast.html"><i class="fa fa-check"></i><b>3.3</b> forecast</a></li>
+<li class="chapter" data-level="3.4" data-path="timetk.html"><a href="timetk.html"><i class="fa fa-check"></i><b>3.4</b> timetk</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 handling</a></li>
+<li class="chapter" data-level="5" data-path="시계열-forecasting-part-i.html"><a href="시계열-forecasting-part-i.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting - Part I</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="example-one.html"><a href="example-one.html"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="example-two.html"><a href="example-two.html"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii.html"><a href="시계열-forecasting-part-ii.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting - Part II</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="시계열-forecasting-part-iii.html"><a href="시계열-forecasting-part-iii.html"><i class="fa fa-check"></i><b>6.1</b> 시계열 forecasting - Part III</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><center>
+교육통계를 활용한 데이터 분석 방법
+</center></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="시계열-데이터-import의-방법" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> 시계열 데이터 Import의 방법</h2>
+<ul>
+<li><p>시계열(Time Series) 데이터를 R에서 직접 생성할 수도 있으나 대부분의 경우는 다양한 파일 포맷(Excel, CSV, SPSS 등)으로 저장된 파일에서 읽어들이는 방법이 일반적임.</p></li>
+<li><p>본 문서에서는 다양한 파일 포맷 중 Excel과 CSV파일에서 시계열 데이터를 읽어들여 활용하는 방법을 언급하겠음.</p></li>
+<li><p>파일에서 시계열 데이터를 읽어들이는 방법</p>
+<ul>
+<li><p>데이터를 파일에서 읽어들여 data.frame에 저장 후 저장된 data.frame을 시계열 데이터 타입으로 변환함. 다음 예제에서 사용하는 자료는 연도별 학교급별 학생수 자료로 한국교육개발원 교육통계 서비스 홈페이지에서 다운로드함.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
+<ol style="list-style-type: decimal">
+<li><p>read_excel 함수를 통해 excel 파일을 바로 읽음. 아래의 예제를 실행시 warning이 발생하는 이유는 read_excel 함수는 데이터를 로드할 때 데이터의 형태에 따라 적절한 데이터 타입을 매칭하는데 read_excel 함수에서 추천된 데이터 타입과 지정된 데이터 타입이 다를 경우 발생되는 warning임.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="시계열-데이터-import의-방법.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb73-2"><a href="시계열-데이터-import의-방법.html#cb73-2" aria-hidden="true" tabindex="-1"></a>student.from.excel <span class="ot">&lt;-</span> student_excel <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;./students.xlsx&quot;</span>, <span class="at">skip =</span> <span class="dv">16</span>, <span class="at">na =</span> <span class="st">&#39;-&#39;</span>, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">&#39;text&#39;</span>, <span class="st">&#39;text&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>))</span>
+<span id="cb73-3"><a href="시계열-데이터-import의-방법.html#cb73-3" aria-hidden="true" tabindex="-1"></a> <span class="co"># 엑셀 파일로부터 데이터를 읽어오는데 데이터를 정확히 읽기 위해 데이터 타입을 정해줌</span></span>
+<span id="cb73-4"><a href="시계열-데이터-import의-방법.html#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-5"><a href="시계열-데이터-import의-방법.html#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the first few lines of mydata</span></span>
+<span id="cb73-6"><a href="시계열-데이터-import의-방법.html#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(student.from.excel)  <span class="co"># 데이터 확인</span></span></code></pre></div>
+<pre><code>## # A tibble: 6 x 18
+##   연도  지역규모 학생수계 유치원 초등학교 중학교 고등학교계 일반계고 전문계고
+##   &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 1999  특별/광역시~  4097895 227758  1807584 9.15e5    1121998   742693   379305
+## 2 1999  시        3110148 204246  1437516 6.73e5     783207   503531   279676
+## 3 1999  읍지역     685091  43160   303702 1.39e5     197522    94479   103043
+## 4 1999  면지역     639421  48456   319006 1.44e5     126273    50558    75715
+## 5 1999  특수지역   125803  10546    67729 2.54e4      22140     8128    14012
+## 6 1999  계        8658358 534166  3935537 1.90e6    2251140  1399389   851751
+## # ... with 9 more variables: 일반고 &lt;dbl&gt;, 특목고 &lt;dbl&gt;, 특성화고 &lt;dbl&gt;,
+## #   자율고 &lt;dbl&gt;, 특수학교 &lt;dbl&gt;, 공민학교 &lt;dbl&gt;, 고등공민 &lt;dbl&gt;,
+## #   고등기술학교 &lt;dbl&gt;, 각종학교 &lt;dbl&gt;</code></pre></li>
+<li><p>read.csv 함수를 통해 csv파일을 바로 읽음. 이 경우 문제점은 천단위 콤마(Big mark)가 존재하면 숫자로 인식하지 못하고 문자로 인식한다는 점임. 이를 위해 csv 파일에서 콤마를 제거하거나 문자로 읽어들인 후 콤마를 제거하거나 해야 함.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="시계열-데이터-import의-방법.html#cb75-1" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;./students.csv&#39;</span>, <span class="at">skip =</span> <span class="dv">16</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na =</span> <span class="st">&#39;-&#39;</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb75-2"><a href="시계열-데이터-import의-방법.html#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(student.from.excel)  <span class="co"># 데이터 확인</span></span></code></pre></div>
+<pre><code>## # A tibble: 6 x 18
+##   연도  지역규모 학생수계 유치원 초등학교 중학교 고등학교계 일반계고 전문계고
+##   &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 1999  특별/광역시~  4097895 227758  1807584 9.15e5    1121998   742693   379305
+## 2 1999  시        3110148 204246  1437516 6.73e5     783207   503531   279676
+## 3 1999  읍지역     685091  43160   303702 1.39e5     197522    94479   103043
+## 4 1999  면지역     639421  48456   319006 1.44e5     126273    50558    75715
+## 5 1999  특수지역   125803  10546    67729 2.54e4      22140     8128    14012
+## 6 1999  계        8658358 534166  3935537 1.90e6    2251140  1399389   851751
+## # ... with 9 more variables: 일반고 &lt;dbl&gt;, 특목고 &lt;dbl&gt;, 특성화고 &lt;dbl&gt;,
+## #   자율고 &lt;dbl&gt;, 특수학교 &lt;dbl&gt;, 공민학교 &lt;dbl&gt;, 고등공민 &lt;dbl&gt;,
+## #   고등기술학교 &lt;dbl&gt;, 각종학교 &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="시계열-데이터-import의-방법.html#cb77-1" aria-hidden="true" tabindex="-1"></a>students[, <span class="dv">3</span><span class="sc">:</span><span class="dv">18</span>] <span class="ot">&lt;-</span> <span class="fu">apply</span>(students[, <span class="dv">3</span><span class="sc">:</span><span class="dv">18</span>], <span class="dv">2</span>, <span class="cf">function</span>(y) <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;&quot;</span>, y))) <span class="co"># 콤마 제거</span></span>
+<span id="cb77-2"><a href="시계열-데이터-import의-방법.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(students)</span></code></pre></div>
+<pre><code>##   연도    지역규모 학생수계 유치원 초등학교  중학교 고등학교계 일반계고
+## 1 1999 특별/광역시  4097895 227758  1807584  915139    1121998   742693
+## 2 1999          시  3110148 204246  1437516  673197     783207   503531
+## 3 1999      읍지역   685091  43160   303702  139420     197522    94479
+## 4 1999      면지역   639421  48456   319006  143812     126273    50558
+## 5 1999    특수지역   125803  10546    67729   25388      22140     8128
+## 6 1999          계  8658358 534166  3935537 1896956    2251140  1399389
+##   전문계고 일반고 특목고 특성화고 자율고 특수학교 공민학교 고등공민
+## 1   379305     NA     NA       NA     NA    12217      150      342
+## 2   279676     NA     NA       NA     NA     8375        0      169
+## 3   103043     NA     NA       NA     NA     1287        0        0
+## 4    75715     NA     NA       NA     NA     1611        0        0
+## 5    14012     NA     NA       NA     NA        0        0        0
+## 6   851751     NA     NA       NA     NA    23490      150      511
+##   고등기술학교 각종학교
+## 1         6934     5773
+## 2         1382     2056
+## 3            0        0
+## 4           83      180
+## 5            0        0
+## 6         8399     8009</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="시계열-데이터-import의-방법.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(students)</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre></li>
+</ol></li>
+<li><p>읽어 들인 후에는 시계열 데이터로 변환하는 과정을 거쳐야 함. 여기서는 csv 파일에서 읽어들인 데이터를 변환하겠음.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="시계열-데이터-import의-방법.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb81-2"><a href="시계열-데이터-import의-방법.html#cb81-2" aria-hidden="true" tabindex="-1"></a>students.total.ts <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">ts</span>(<span class="at">start =</span> <span class="dv">1999</span>, <span class="at">frequency =</span> <span class="dv">1</span>)  <span class="co"># ts 객체로 변환</span></span>
+<span id="cb81-3"><a href="시계열-데이터-import의-방법.html#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(students.total.ts)</span></code></pre></div>
+<pre><code>## [1] &quot;mts&quot;    &quot;ts&quot;     &quot;matrix&quot;</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="시계열-데이터-import의-방법.html#cb83-1" aria-hidden="true" tabindex="-1"></a>students.total.xts <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>)</span>
+<span id="cb83-2"><a href="시계열-데이터-import의-방법.html#cb83-2" aria-hidden="true" tabindex="-1"></a>students.total.xts <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(students.total.xts, <span class="at">order.by =</span> <span class="fu">as.Date</span>(<span class="fu">paste0</span>(students.total.xts[,<span class="dv">1</span>], <span class="st">&#39;-01-01&#39;</span>), <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>))  <span class="co"># xts 객체로 변환</span></span>
+<span id="cb83-3"><a href="시계열-데이터-import의-방법.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(students.total.xts)</span></code></pre></div>
+<pre><code>## [1] &quot;xts&quot; &quot;zoo&quot;</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="시계열-데이터-import의-방법.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(students.total.xts)</span></code></pre></div>
+<pre><code>## An &#39;xts&#39; object on 1999-01-01/2020-01-01 containing:
+##   Data: chr [1:22, 1:18] &quot;1999&quot; &quot;2000&quot; &quot;2001&quot; &quot;2002&quot; &quot;2003&quot; &quot;2004&quot; &quot;2005&quot; &quot;2006&quot; ...
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : NULL
+##   ..$ : chr [1:18] &quot;연도&quot; &quot;지역규모&quot; &quot;학생수계&quot; &quot;유치원&quot; ...
+##   Indexed by objects of class: [Date] TZ: UTC
+##   xts Attributes:  
+##  NULL</code></pre></li>
+<li><p>이 과정에서 주의해야할 점은 xts 객체로 변환되는 경우 Numeric 값이 모두 Character값으로 변환된다는 점임. xts 객체는 기본적으로 matrix를 기반으로 하기 때문에 데이터 프레임을 모두 변환하는 경우 Character 컬럼이 있으면 모두 Character로 변환됨. 따라서 Character 컬럼을 제외해 전체 컬럼을 모두 Numeric으로 맞추면 정상적으로 데이터가 변환됨</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="시계열-데이터-import의-방법.html#cb87-1" aria-hidden="true" tabindex="-1"></a>students.total.xts <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>지역규모)</span>
+<span id="cb87-2"><a href="시계열-데이터-import의-방법.html#cb87-2" aria-hidden="true" tabindex="-1"></a>students.total.xts <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(students.total.xts, <span class="at">order.by =</span> <span class="fu">as.Date</span>(<span class="fu">paste0</span>(students.total.xts[,<span class="dv">1</span>], <span class="st">&#39;-01-01&#39;</span>), <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>))</span>
+<span id="cb87-3"><a href="시계열-데이터-import의-방법.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(students.total.xts)</span></code></pre></div>
+<pre><code>## An &#39;xts&#39; object on 1999-01-01/2020-01-01 containing:
+##   Data: num [1:22, 1:17] 1999 2000 2001 2002 2003 ...
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : NULL
+##   ..$ : chr [1:17] &quot;연도&quot; &quot;학생수계&quot; &quot;유치원&quot; &quot;초등학교&quot; ...
+##   Indexed by objects of class: [Date] TZ: UTC
+##   xts Attributes:  
+##  NULL</code></pre></li>
+</ul></li>
+</ul>
+<!-- -->
+<ul>
+<li><p>직접 시계열 데이터 타입으로 읽어들이는 방법</p>
+<ul>
+<li><p>다만 xts 패키지와 modeltime 패키지는 외부 데이터를 직접 읽어 올 수 있는 방법 제공하지 않음. xts의 경우는 read.ts(tseries 패키지 필요)나 read.zoo 함수를 이용해 읽어들인 시계열 객체를 as.xts 함수를 이용하여 xts 객체로 변환하고 modeltime은 tidymodel 객체를 변환하여 사용하는 것이 일반적임.</p></li>
+<li><p>ts 객체를 읽어올때 주의할 점은 ts 객체는 파일에 기록된 시간 인덱스를 직접 시간인덱스로 사용할 수 없고 read.ts 함수 호출시 시계열 시작점과 간격을 지정함으로써 일정한 간격의 시계열 데이터를 생성해야 함. 시작점부터 일정한 간격으로 모든 데이터가 기록된 경우는 문제가 없지만 일부 데이터가 결측되는 경우 정확히 읽어들일 수 없음.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="시계열-데이터-import의-방법.html#cb89-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(tseries)</span></code></pre></div>
+<pre><code>## Warning: package &#39;tseries&#39; was built under R version 4.0.3</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="시계열-데이터-import의-방법.html#cb91-1" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2010-01-01&#39;</span>), <span class="at">length.out =</span> <span class="dv">30</span>, <span class="at">by =</span> <span class="st">&#39;months&#39;</span>), <span class="at">value1 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="at">value2 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
+<span id="cb91-2"><a href="시계열-데이터-import의-방법.html#cb91-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(df[,<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
+<span id="cb91-3"><a href="시계열-데이터-import의-방법.html#cb91-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read.ts</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
+<pre><code>##                value1      value2
+## Jan 2010  0.592943709 -0.22077265
+## Feb 2010 -1.407750969  1.17748662
+## Mar 2010 -0.018940978  0.72849002
+## Apr 2010 -0.408971517  0.27028364
+## May 2010  0.072824870  0.47370438
+## Jun 2010  0.238604087  1.32382194
+## Jul 2010 -0.548859517 -0.50951135
+## Aug 2010  0.424409245  0.03116047
+## Sep 2010 -1.729349619  0.22155995
+## Oct 2010 -0.347603963  0.98104041
+## Nov 2010  0.784821152 -0.03257819
+## Dec 2010 -0.212401037  0.46781850
+## Jan 2011 -0.688337984  0.03281595
+## Feb 2011  0.322328839  1.19377970
+## Mar 2011 -1.671786850 -0.19050360
+## Apr 2011  0.341962809 -0.85093604
+## May 2011  0.679481796 -0.65478104
+## Jun 2011  0.631281537 -1.30723731
+## Jul 2011  1.056169576  1.92622030
+## Aug 2011 -1.267141998 -0.66033494
+## Sep 2011 -0.914390147  0.13182757
+## Oct 2011 -0.906853748  0.14403159
+## Nov 2011  0.671970609  1.62596500
+## Dec 2011 -0.002433035 -0.10144113
+## Jan 2012  0.459670927  1.89668314
+## Feb 2012  1.641604377 -0.49152009
+## Mar 2012  0.098122579 -0.92287824
+## Apr 2012 -1.651380939  0.75022017
+## May 2012  0.145583605 -0.09291303
+## Jun 2012 -0.951491660 -0.11872530</code></pre></li>
+<li><p>읽어들일 파일에 시간이 기재되어 있는 경우는 zoo 패키지의 read.zoo 함수를 이용하여 zoo 객체로 읽어들인 후 이 객체를 xts 객체로 변환하여 활용하는 방법을 활용할 수 있음. read.ts에 비해 read.zoo는 지정된 주기의 비일정한 시계열 데이터 타입을 불러 들일 수 있다는 장점이 있음. 예를 들어 매일 기록되는 데이터의 경우 read.ts는 중간에 빠지는 날이 없이 지정된 기간동안 매일 기록된 데이터를 가져오지만 read.zoo는 기본적으로 매일 기록된 데이터를 가져온다하더라도 중간중간 빠진 날을 인정하고 가져올 수 있는 방법임.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="시계열-데이터-import의-방법.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
+<span id="cb93-2"><a href="시계열-데이터-import의-방법.html#cb93-2" aria-hidden="true" tabindex="-1"></a>zoo.class <span class="ot">&lt;-</span> <span class="fu">read.zoo</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">index.column =</span> <span class="dv">1</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb93-3"><a href="시계열-데이터-import의-방법.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(zoo.class)</span></code></pre></div>
+<pre><code>## [1] &quot;zoo&quot;</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="시계열-데이터-import의-방법.html#cb95-1" aria-hidden="true" tabindex="-1"></a>xts.class <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(zoo.class)</span>
+<span id="cb95-2"><a href="시계열-데이터-import의-방법.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(xts.class)</span></code></pre></div>
+<pre><code>## [1] &quot;xts&quot; &quot;zoo&quot;</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="시계열-데이터-import의-방법.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(xts.class)</span></code></pre></div>
+<pre><code>##                 value1     value2
+## 2010-01-01  0.59294371 -0.2207727
+## 2010-02-01 -1.40775097  1.1774866
+## 2010-03-01 -0.01894098  0.7284900
+## 2010-04-01 -0.40897152  0.2702836
+## 2010-05-01  0.07282487  0.4737044
+## 2010-06-01  0.23860409  1.3238219</code></pre></li>
+</ul></li>
+<li></li>
+</ul>
+
+</div>
+<!-- </div> -->
+<div class="footnotes">
+<hr />
+<ol start="9">
+<li id="fn9"><p><a href="https://kess.kedi.re.kr/userfile/6711778" class="uri">https://kess.kedi.re.kr/userfile/6711778</a><a href="시계열-데이터-import의-방법.html#fnref9" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="시계열-패키지-및-데이터-타입.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="시계열-visualization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["t.pdf", "t.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

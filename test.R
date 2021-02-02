@@ -224,5 +224,5 @@ students.total.ts <- students %>%
   ts(start = c(1999), frequency = 1)
 
 
-autoplot(students.total.ts)
-a10
+autoplot(students.total.ts[,7], lty = 2, lwd = 2)
+?autoplot.ts
