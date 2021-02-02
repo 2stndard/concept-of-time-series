@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 시계열 Visualization | t.utf8</title>
+  <title>3.2 XTS | t.utf8</title>
   <meta name="description" content="<center>
 교육통계를 활용한 데이터 분석 방법
 </center>" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 시계열 Visualization | t.utf8" />
+  <meta property="og:title" content="3.2 XTS | t.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -18,7 +18,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 시계열 Visualization | t.utf8" />
+  <meta name="twitter:title" content="3.2 XTS | t.utf8" />
   
   
   
@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="시계열-데이터-import의-방법.html"/>
-<link rel="next" href="ggplot2.html"/>
+<link rel="prev" href="ggplot2.html"/>
+<link rel="next" href="forecast.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -199,10 +199,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="시계열-visualization" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> 시계열 Visualization</h1>
+<div id="xts" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> XTS</h2>
 <ul>
-<li>시계열 데이터는 일반적으로 가로축(X axis)에는 시간 인덱스가 위치하고 세로축(Y axis)에 값이 표현되는 라인 그래프가 일반적으로 많이 사용됨.이러한 그래프의 형태는 시간의 흐름에 따라 발생하는 추세(Trend), 계절성(Seasonality) 등의 시계열 특성을 표현하고 파악하는데 효율적임. 시계열 데이터 분석에는 시계열 데이터의 직접적인 라인 그래프 외에도 자기 상관 함수(ACF : AutoCorelation Function), 편자기상관함수(PACF : Partial AutoCorelation Function) 등의 다양한 그래프들이 존재하나 이 장에서는 시계열 데이터의 선 그래프를 작성하는 방법을 xts, ggplot2, forecast, timetk 등의 패키지 별로 설명하고자 함.</li>
+<li><p>xts는 시계열 데이터를 다루는 데이터 클래스와 데이터 핸들링 함수, 데이터 ploting 함수 등을 제공한다. 따라서 xts 패키지에서 제공하는 함수는 xts class의 데이터 객체를 대상으로 작동한다.</p></li>
+<li><p>xts 패키지를 사용하여 plot을 작성하려면 plot.xts()함수를 사용한다. plot.xts()을 활용해 작성한 plot에 추가적으로 line, legend 등을 추가하기 위해 add_ 함수를 사용할 수 있다.</p></li>
+<li><p>xts 패키지의 plot.xts를 활용하는 것은 디자인적 측면에서 ggplot보다 못미치지만 시계열 데이터의 흐름을 빠르고 쉽게 파악하는 사용이 간편한 plot 함수를 제공한다는 점에서 큰 장점이 있다.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="xts.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(students.total.xts)</span></code></pre></div>
+<p><img src="t_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<ul>
+<li><p>plot.xts 문법 설명 및 plot 수정</p>
+<ul>
+<li><p>plot.xts 함수에 xts 데이터를 설정함으로써 xts class 데이터에 대한 plot을 간단한 코드로 생성할 수 있다.</p></li>
+<li><p>plot 제목 및 축 제목 : plot.xts로 생성된 plot의 제목은 ‘main’ 매개변수를 사용하여 설정이 가능하고 부제목은 ‘sub’ 매개변수로 설정이 가능하다. 축 제목은 ‘xlab,’ ‘ylab’ 매개변수를 통해 설정한다.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="xts.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(students.total.xts[,<span class="dv">2</span>], <span class="at">main =</span> <span class="st">&#39;연도별 학생수&#39;</span>, <span class="at">sub =</span> <span class="st">&#39;전체 학생수의 연도별 변화&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>,  <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p></li>
+<li><p>plot 축 범위 : plot 축의 범위는 ‘xlim,’ ‘ylim’ 매개변수를 사용하여 설정이 가능하다. 설정시에는 최소값과 최대값을 c() 함수를 사용하여 설정한다.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="xts.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(students.total.xts[,<span class="dv">2</span>], <span class="at">main =</span> <span class="st">&#39;연도별 학생수&#39;</span>, <span class="at">sub =</span> <span class="st">&#39;전체 학생수의 연도별 변화&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>,  <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(students.total.xts[,<span class="dv">2</span>])))</span></code></pre></div>
+<p><img src="t_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p></li>
+<li><p>다변량 시계열 ploting : 다변량 xts의 경우 한번에 다량의 line plot가 자동적으로 생성되는데 일변량 line plot를 여러개 생성해야할 경우는 lines 함수를 사용하여 기존의 plot에 추가할 수 있다.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="xts.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(students.total.xts[,<span class="dv">4</span>], <span class="at">col =</span> <span class="st">&#39;red&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p></li>
+<li><p>범례 추가 : 다중의 line이 하나의 plot에 표현되는 경우 범례가 필요하다. xts에서 범례를 표시하기 위해서는 legend함수를 사용하여 plot에 표시한다.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="xts.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addLegend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend.names=</span><span class="fu">c</span>(<span class="st">&#39;전체&#39;</span>, <span class="st">&#39;초등학교&#39;</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&#39;black&#39;</span>, <span class="st">&#39;red&#39;</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">bg=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p></li>
+</ul></li>
+</ul></li>
 </ul>
 </div>
             </section>
@@ -210,8 +232,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="시계열-데이터-import의-방법.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ggplot2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ggplot2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="forecast.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
