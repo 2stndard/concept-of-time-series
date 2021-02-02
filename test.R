@@ -9,7 +9,7 @@ if(!require(modeltime)) {
 library(tseries)
 library(ggthemes)
 library(timetk)
-
+library(forecast)
 ts <- ts(1:10, frequency = 4, start = c(1959, 2))
 head(ts)
 
@@ -210,3 +210,19 @@ students.timetk <- students
 plot_time_series(.data = students.timetk, .date_var = students.timetk[,1], .value = students.timetk[,4], .color_var = students.timetk[,2], .smooth = F)
 
 
+students %>%
+  plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F)
+
+
+students %>%
+  plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F, .facet_vars = 지역규모)
+
+
+students.total.ts <- students %>% 
+  filter(지역규모 == '계') %>% 
+  select(3:18) %>%
+  ts(start = c(1999), frequency = 1)
+
+
+autoplot(students.total.ts)
+a10
