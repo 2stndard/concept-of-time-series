@@ -132,7 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
+<li><a href="./">교육통계를 활용한 데이터 분석 방법</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 정의 및 특성</a>
@@ -361,7 +361,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>zoo 타입 데이터 생성 예</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="시계열-데이터-타입-및-import.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zoo</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## 2008-08-01 2008-08-02 2008-08-03 2008-08-04 2008-08-05 
-## -0.4030190 -1.0630096 -0.7547177  0.3219950  1.1212206</code></pre></li>
+## -0.8549916  0.1053965  0.3005285 -1.2260091 -0.1007082</code></pre></li>
 </ul></li>
 <li><p>xts(package &amp; data type) : xts는 extensible time-series의 준말로 ‘xts’ 패키지를 로드해야 활용할 수 있는 데이터 타입임. 앞서 기술된 zoo 데이터 타입에 종속된 데이터 타입으로 zoo를 확장하여 다양한 시간 기반 데이터 클래스를 균일하게 처리 할 수 있는 데이터 타입임.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 <ul>
@@ -373,18 +373,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>xts 타입 데이터 생성 예</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="시계열-데이터-타입-및-import.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##                  [,1]
-## 2008-08-01  0.9360830
-## 2008-08-02  0.7188941
-## 2008-08-03  0.9048345
-## 2008-08-04 -1.7143225
-## 2008-08-05 -1.4612748</code></pre>
+## 2008-08-01  2.0477144
+## 2008-08-02 -0.4692525
+## 2008-08-03 -0.2178550
+## 2008-08-04 -1.6122381
+## 2008-08-05 -0.4466748</code></pre>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="시계열-데이터-타입-및-import.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
-<pre><code>##                 [,1]
-## 2008-08-01 1.1391967
-## 2008-08-02 1.3504748
-## 2008-08-03 1.2698812
-## 2008-08-04 1.2010980
-## 2008-08-05 0.8475332</code></pre>
+<pre><code>##                  [,1]
+## 2008-08-01 -0.1945268
+## 2008-08-02  0.7173077
+## 2008-08-03 -1.0702735
+## 2008-08-04  0.1536009
+## 2008-08-05  2.0373691</code></pre>
 <ul>
 <li><p>xts()와 as.xts()의 차이 : xts()는 xts 객체를 생성하는 함수이나 as.xts()는 timeSeries, ts, irts, fts, matrix, data.frame, zoo 객체를 xts객체로 변환하는 함수임.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> 다음과 같은 차이가 발생함.</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="시계열-데이터-타입-및-import.html#cb63-1" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span>
@@ -536,37 +536,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb88-2"><a href="시계열-데이터-타입-및-import.html#cb88-2" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2010-01-01&#39;</span>), <span class="at">length.out =</span> <span class="dv">30</span>, <span class="at">by =</span> <span class="st">&#39;months&#39;</span>), <span class="at">value1 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="at">value2 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
 <span id="cb88-3"><a href="시계열-데이터-타입-및-import.html#cb88-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(df[,<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
 <span id="cb88-4"><a href="시계열-데이터-타입-및-import.html#cb88-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read.ts</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
-<pre><code>##              value1      value2
-## Jan 2010 -0.5679952 -0.94694453
-## Feb 2010  0.5297504 -1.88898883
-## Mar 2010  1.1370330  0.67786830
-## Apr 2010  1.0328026 -1.21918737
-## May 2010 -0.2249513  2.33743657
-## Jun 2010  0.1734417  0.97396796
-## Jul 2010  0.2551542  1.19731510
-## Aug 2010 -0.1223324 -0.78465185
-## Sep 2010 -1.7930695  0.44037460
-## Oct 2010  0.8437591  0.32351346
-## Nov 2010  0.9135010 -1.29105663
-## Dec 2010 -0.1199475 -1.28577262
-## Jan 2011  1.3844004 -0.54401485
-## Feb 2011  0.9064721  0.41896961
-## Mar 2011  0.7515677  0.15389871
-## Apr 2011 -0.7860880  1.78719680
-## May 2011  0.9933101 -1.02806799
-## Jun 2011 -1.7538723 -0.21565166
-## Jul 2011 -1.1704102  2.04529250
-## Aug 2011 -1.2990460  1.97418562
-## Sep 2011 -0.1185841  0.03573332
-## Oct 2011  1.3031198  0.67038599
-## Nov 2011  0.6774536  0.25906732
-## Dec 2011  0.6419511  0.89180085
-## Jan 2012 -0.3346937  0.41116621
-## Feb 2012 -0.2452189 -0.87855135
-## Mar 2012  1.0346819 -1.23245359
-## Apr 2012  1.2351590  0.77210394
-## May 2012 -1.5511471  1.24218733
-## Jun 2012  1.4906353 -0.25843845</code></pre></li>
+<pre><code>##               value1       value2
+## Jan 2010  0.99456936  1.101170604
+## Feb 2010 -0.76190834  1.178442571
+## Mar 2010 -1.10861436  0.863088439
+## Apr 2010  1.99800662  0.415268197
+## May 2010 -1.21442310 -0.487468833
+## Jun 2010 -0.13418508 -2.033769671
+## Jul 2010 -0.86163116  0.303439028
+## Aug 2010  0.68739072  0.291026350
+## Sep 2010 -0.39986840 -1.341856509
+## Oct 2010  0.44389430  0.212617318
+## Nov 2010 -0.49421291  0.862828777
+## Dec 2010 -0.24797638  0.612309288
+## Jan 2011  0.37932473 -0.423986589
+## Feb 2011  0.32460884 -0.140360674
+## Mar 2011 -1.26270055  0.132365213
+## Apr 2011 -0.01344707 -0.328662329
+## May 2011  0.32788574  1.022641315
+## Jun 2011 -1.52737095  0.209506593
+## Jul 2011 -0.12862846  0.372658575
+## Aug 2011 -0.39940666  0.472788170
+## Sep 2011  0.31818877 -0.002747157
+## Oct 2011  0.14165234  1.711597489
+## Nov 2011 -1.66567884  0.999915540
+## Dec 2011 -1.69573984 -0.378756159
+## Jan 2012 -0.15716788 -1.254283985
+## Feb 2012  0.38722787 -0.578605683
+## Mar 2012  0.78097632  1.104997723
+## Apr 2012 -0.21142147 -1.100540436
+## May 2012  0.88887435  1.732837745
+## Jun 2012  0.53186864 -1.102677119</code></pre></li>
 <li><p>읽어들일 파일에 시간이 기재되어 있는 경우는 zoo 패키지의 read.zoo 함수를 이용하여 zoo 객체로 읽어들인 후 이 객체를 xts 객체로 변환하여 활용하는 방법을 활용할 수 있음. read.ts에 비해 read.zoo는 지정된 주기의 비일정한 시계열 데이터 타입을 불러 들일 수 있다는 장점이 있음. 예를 들어 매일 기록되는 데이터의 경우 read.ts는 중간에 빠지는 날이 없이 지정된 기간동안 매일 기록된 데이터를 가져오지만 read.zoo는 기본적으로 매일 기록된 데이터를 가져온다하더라도 중간중간 빠진 날을 인정하고 가져올 수 있는 방법임.</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="시계열-데이터-타입-및-import.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
 <span id="cb90-2"><a href="시계열-데이터-타입-및-import.html#cb90-2" aria-hidden="true" tabindex="-1"></a>zoo.class <span class="ot">&lt;-</span> <span class="fu">read.zoo</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">index.column =</span> <span class="dv">1</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
@@ -577,12 +577,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] &quot;xts&quot; &quot;zoo&quot;</code></pre>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="시계열-데이터-타입-및-import.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(xts.class)</span></code></pre></div>
 <pre><code>##                value1     value2
-## 2010-01-01 -0.5679952 -0.9469445
-## 2010-02-01  0.5297504 -1.8889888
-## 2010-03-01  1.1370330  0.6778683
-## 2010-04-01  1.0328026 -1.2191874
-## 2010-05-01 -0.2249513  2.3374366
-## 2010-06-01  0.1734417  0.9739680</code></pre></li>
+## 2010-01-01  0.9945694  1.1011706
+## 2010-02-01 -0.7619083  1.1784426
+## 2010-03-01 -1.1086144  0.8630884
+## 2010-04-01  1.9980066  0.4152682
+## 2010-05-01 -1.2144231 -0.4874688
+## 2010-06-01 -0.1341851 -2.0337697</code></pre></li>
 </ul></li>
 <li></li>
 </ul>
