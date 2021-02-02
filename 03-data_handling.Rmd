@@ -1,3 +1,49 @@
-# 시계열 데이터 handling
+# 시계열 데이터 Handling
 
-We describe our methods in this chapter.
+R에서는 데이터를 data.frame에 저장하여 사용하는 것이 일반적이다. data.frame에 저장된 데이터의 filtering, slicing, grouping 등에는 여러가지 방법이 있으나 dplyr 패키지에서 제공하는 select, filter, group_by, arrange, mutate 등의 함수를 많이 사용한다. 물론 data.frame에 저장된 시계열 데이터는 dplyr에서 제공하는 함수를 사용할 수 있지만 시계열 class의 객체에 대해서는 핸들링이 되지 않는다. 또한 시계열 데이터의 특성을 사용하는 핸들링의 경우 dplyr 함수로 사용이 어려운 경우도 많기 때문에 시계열 데이터의 핸들링 방법을 익혀둘 필요가 있다. 
+
+## 시계열 데이터 정보 추출
+
+### data.frame(timetk)
+
+### ts, xts
+
+
+## 시계열 데이터 연산
+
+### data.frame(timetk)
+
+### ts, xts
+
+
+
+## 시계열 데이터 Filtering
+
+### data.frame(timetk)
+
+### ts, xts
+
+
+
+## 시계열 데이터 Slicing
+
+### data.frame(timetk)
+
+### ts, xts
+
+
+
+## 시계열 데이터 Grouping
+
+### data.frame(timetk)
+
+### ts, xts
+
+
+
+## 시계열 데이터 Rolling
+
+### data.frame(timetk)
+
+### ts, xts
+
