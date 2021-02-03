@@ -16,6 +16,7 @@ pre {
 }
 pre code {
   white-space: inherit;
+  word-wrap: normal;
 }
 .flushright {
   text-align: right;

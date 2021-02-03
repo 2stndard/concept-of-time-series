@@ -52,7 +52,7 @@
 
 -   ggplot를 활용해 시계열 plot를 표현하기 위해서는 위의 7개 element 중 Geometry는 line 이어야 하며 Aesthetic의 X axis는 시간 인덱스로 설정되는 plot이 많이 사용됨. 앞서 설명한 바와 같이 ggplot는 data.frame을 데이터로 설정이 가능하고 X axis에 시간 컬럼을 설정하기 위해서는 컬럼에 접근이 가능한 컬럼명이 있어야 하기 때문에 ts나 xts 클래스보다는 data.frame을 data로 설정하는 것이 적합함. 2장에서 저장한 students 데이터프레임을 시계열 plot으로 그리면 다음과 같음.
 
-    ```{r}
+    ```{r }
     library(ggplot2)
     students.ggplot <- students %>% filter(지역규모 == '계') # 2장에서 읽어들인 students data.frame에서 합계만 filtering
     ggplot(data = students.ggplot, aes(x = 연도, y = 학생수계)) +

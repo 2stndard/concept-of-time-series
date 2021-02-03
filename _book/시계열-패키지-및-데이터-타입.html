@@ -26,7 +26,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-02" />
+<meta name="date" content="2021-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -160,7 +160,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="forecast.html"><a href="forecast.html"><i class="fa fa-check"></i><b>3.3</b> forecast</a></li>
 <li class="chapter" data-level="3.4" data-path="timetk.html"><a href="timetk.html"><i class="fa fa-check"></i><b>3.4</b> timetk</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 handling</a></li>
+<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html"><i class="fa fa-check"></i><b>4.1</b> 시계열 데이터 정보 다루기</a></li>
+<li class="chapter" data-level="4.2" data-path="시계열-데이터-연산.html"><a href="시계열-데이터-연산.html"><i class="fa fa-check"></i><b>4.2</b> 시계열 데이터 연산</a></li>
+<li class="chapter" data-level="4.3" data-path="시계열-데이터-반올림.html"><a href="시계열-데이터-반올림.html"><i class="fa fa-check"></i><b>4.3</b> 시계열 데이터 반올림</a></li>
+<li class="chapter" data-level="4.4" data-path="시계열-데이터-grouping.html"><a href="시계열-데이터-grouping.html"><i class="fa fa-check"></i><b>4.4</b> 시계열 데이터 Grouping</a></li>
+<li class="chapter" data-level="4.5" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html"><i class="fa fa-check"></i><b>4.5</b> 시계열 데이터 Rolling</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="시계열-forecasting-part-i.html"><a href="시계열-forecasting-part-i.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting - Part I</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="example-one.html"><a href="example-one.html"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
@@ -216,8 +223,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb55-4"><a href="시계열-패키지-및-데이터-타입.html#cb55-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
 <li><p>zoo 타입 데이터 생성 예</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="시계열-패키지-및-데이터-타입.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zoo</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
-<pre><code>##  2008-08-01  2008-08-02  2008-08-03  2008-08-04  2008-08-05 
-##  0.91977341 -1.35848532 -0.01368096  1.21886582  1.08137279</code></pre></li>
+<pre><code>## 2008-08-01 2008-08-02 2008-08-03 2008-08-04 2008-08-05 
+##  0.2067456 -0.5761700  0.4559686 -0.9663082  0.6064663</code></pre></li>
 </ul></li>
 <li><p>xts(package &amp; data type) : xts는 extensible time-series의 준말로 ‘xts’ 패키지를 로드해야 활용할 수 있는 데이터 타입임. 앞서 기술된 zoo 데이터 타입에 종속된 데이터 타입으로 zoo를 확장하여 다양한 시간 기반 데이터 클래스를 균일하게 처리 할 수 있는 데이터 타입임.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 <ul>
@@ -228,19 +235,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb58-4"><a href="시계열-패키지-및-데이터-타입.html#cb58-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
 <li><p>xts 타입 데이터 생성 예</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="시계열-패키지-및-데이터-타입.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
-<pre><code>##                   [,1]
-## 2008-08-01  1.08725532
-## 2008-08-02 -0.18649002
-## 2008-08-03 -0.05568329
-## 2008-08-04  0.15350527
-## 2008-08-05 -1.09962207</code></pre>
+<pre><code>##                  [,1]
+## 2008-08-01 -0.7814559
+## 2008-08-02  0.8410487
+## 2008-08-03  0.3363093
+## 2008-08-04  0.1647065
+## 2008-08-05 -0.3590709</code></pre>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="시계열-패키지-및-데이터-타입.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
-<pre><code>##                   [,1]
-## 2008-08-01  1.29638633
-## 2008-08-02  0.43330719
-## 2008-08-03  1.01939567
-## 2008-08-04 -1.23584081
-## 2008-08-05  0.03591271</code></pre>
+<pre><code>##                  [,1]
+## 2008-08-01 -0.2311419
+## 2008-08-02  1.0470466
+## 2008-08-03  0.5671304
+## 2008-08-04  0.5924161
+## 2008-08-05 -0.2994021</code></pre>
 <ul>
 <li><p>xts()와 as.xts()의 차이 : xts()는 xts 객체를 생성하는 함수이나 as.xts()는 timeSeries, ts, irts, fts, matrix, data.frame, zoo 객체를 xts객체로 변환하는 함수임.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> 다음과 같은 차이가 발생함.</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="시계열-패키지-및-데이터-타입.html#cb63-1" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span>

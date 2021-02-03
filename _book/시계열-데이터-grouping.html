@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.5 시계열 데이터 Grouping | t.utf8</title>
+  <title>4.4 시계열 데이터 Grouping | t.utf8</title>
   <meta name="description" content="<center>
 교육통계를 활용한 데이터 분석 방법
 </center>" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.5 시계열 데이터 Grouping | t.utf8" />
+  <meta property="og:title" content="4.4 시계열 데이터 Grouping | t.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -18,7 +18,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.5 시계열 데이터 Grouping | t.utf8" />
+  <meta name="twitter:title" content="4.4 시계열 데이터 Grouping | t.utf8" />
   
   
   
@@ -26,14 +26,14 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-03" />
+<meta name="date" content="2021-02-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="시계열-데이터-slicing.html"/>
+<link rel="prev" href="시계열-데이터-반올림.html"/>
 <link rel="next" href="시계열-데이터-rolling.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -163,26 +163,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html"><i class="fa fa-check"></i><b>4.1</b> 시계열 데이터 정보 다루기</a></li>
 <li class="chapter" data-level="4.2" data-path="시계열-데이터-연산.html"><a href="시계열-데이터-연산.html"><i class="fa fa-check"></i><b>4.2</b> 시계열 데이터 연산</a></li>
-<li class="chapter" data-level="4.3" data-path="시계열-데이터-기간.html"><a href="시계열-데이터-기간.html"><i class="fa fa-check"></i><b>4.3</b> 시계열 데이터 기간</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="시계열-데이터-기간.html"><a href="시계열-데이터-기간.html#data.frametimetk"><i class="fa fa-check"></i><b>4.3.1</b> data.frame(timetk)</a></li>
-<li class="chapter" data-level="4.3.2" data-path="시계열-데이터-기간.html"><a href="시계열-데이터-기간.html#ts-xts"><i class="fa fa-check"></i><b>4.3.2</b> ts, xts</a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="시계열-데이터-slicing.html"><a href="시계열-데이터-slicing.html"><i class="fa fa-check"></i><b>4.4</b> 시계열 데이터 Slicing</a>
-<ul>
-<li class="chapter" data-level="4.4.1" data-path="시계열-데이터-slicing.html"><a href="시계열-데이터-slicing.html#data.frametimetk-1"><i class="fa fa-check"></i><b>4.4.1</b> data.frame(timetk)</a></li>
-<li class="chapter" data-level="4.4.2" data-path="시계열-데이터-slicing.html"><a href="시계열-데이터-slicing.html#ts-xts-1"><i class="fa fa-check"></i><b>4.4.2</b> ts, xts</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="시계열-데이터-grouping.html"><a href="시계열-데이터-grouping.html"><i class="fa fa-check"></i><b>4.5</b> 시계열 데이터 Grouping</a>
-<ul>
-<li class="chapter" data-level="4.5.1" data-path="시계열-데이터-grouping.html"><a href="시계열-데이터-grouping.html#data.frametimetk-2"><i class="fa fa-check"></i><b>4.5.1</b> data.frame(timetk)</a></li>
-<li class="chapter" data-level="4.5.2" data-path="시계열-데이터-grouping.html"><a href="시계열-데이터-grouping.html#ts-xts-2"><i class="fa fa-check"></i><b>4.5.2</b> ts, xts</a></li>
-</ul></li>
-<li class="chapter" data-level="4.6" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html"><i class="fa fa-check"></i><b>4.6</b> 시계열 데이터 Rolling</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html#data.frametimetk-3"><i class="fa fa-check"></i><b>4.6.1</b> data.frame(timetk)</a></li>
-<li class="chapter" data-level="4.6.2" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html#ts-xts-3"><i class="fa fa-check"></i><b>4.6.2</b> ts, xts</a></li>
-</ul></li>
+<li class="chapter" data-level="4.3" data-path="시계열-데이터-반올림.html"><a href="시계열-데이터-반올림.html"><i class="fa fa-check"></i><b>4.3</b> 시계열 데이터 반올림</a></li>
+<li class="chapter" data-level="4.4" data-path="시계열-데이터-grouping.html"><a href="시계열-데이터-grouping.html"><i class="fa fa-check"></i><b>4.4</b> 시계열 데이터 Grouping</a></li>
+<li class="chapter" data-level="4.5" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html"><i class="fa fa-check"></i><b>4.5</b> 시계열 데이터 Rolling</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="시계열-forecasting-part-i.html"><a href="시계열-forecasting-part-i.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting - Part I</a>
 <ul>
@@ -216,21 +199,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="시계열-데이터-grouping" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> 시계열 데이터 Grouping</h2>
-<div id="data.frametimetk-2" class="section level3" number="4.5.1">
-<h3><span class="header-section-number">4.5.1</span> data.frame(timetk)</h3>
-</div>
-<div id="ts-xts-2" class="section level3" number="4.5.2">
-<h3><span class="header-section-number">4.5.2</span> ts, xts</h3>
-</div>
+<div id="시계열-데이터-grouping" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> 시계열 데이터 Grouping</h2>
+<p>시계열 데이터를 사용할 때 많이 사용하는 계산은 월별 평균, 주별 합계 등 일정 단위별로 그룹핑한 후 그룹함수를 적용하여 산출하는 작업이다. 아쉽게도 앞서 사용한 lubridate 패키지에서는 시계열 데이터를 주단위, 월단위, 년단위 등으로 그룹핑하는 함수를 제공하지 않는다. 따라서 lubridate 함수를 이용하여 그룹화하기 위해서는 dplyr에서 제공하는 pipe 연산자와 함수를 같이 사용하여 산출할 수 있다. 하지만 앞장에서 소개한 timetk 패키지에서는 그룹핑하여 평균을 내거나 합계를 내는 함수를 제공하기 때문에 이를 사용할 수도 있다.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="시계열-데이터-grouping.html#cb91-1" aria-hidden="true" tabindex="-1"></a>loan <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;./한국장학재단_일일대출실행통계_20191231.csv&#39;</span>,</span>
+<span id="cb91-2"><a href="시계열-데이터-grouping.html#cb91-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na =</span> <span class="st">&#39;-&#39;</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb91-3"><a href="시계열-데이터-grouping.html#cb91-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb91-4"><a href="시계열-데이터-grouping.html#cb91-4" aria-hidden="true" tabindex="-1"></a>loan<span class="sc">$</span>기준일자 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(loan<span class="sc">$</span>기준일자)</span>
+<span id="cb91-5"><a href="시계열-데이터-grouping.html#cb91-5" aria-hidden="true" tabindex="-1"></a>loan <span class="sc">%&gt;%</span></span>
+<span id="cb91-6"><a href="시계열-데이터-grouping.html#cb91-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">month =</span> <span class="fu">month</span>(기준일자), <span class="at">year =</span> <span class="fu">year</span>(기준일자)) <span class="sc">%&gt;%</span></span>
+<span id="cb91-7"><a href="시계열-데이터-grouping.html#cb91-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month, year) <span class="sc">%&gt;%</span></span>
+<span id="cb91-8"><a href="시계열-데이터-grouping.html#cb91-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(total.신규실행건수 <span class="ot">=</span> <span class="fu">sum</span>(당일신규실행건수), </span>
+<span id="cb91-9"><a href="시계열-데이터-grouping.html#cb91-9" aria-hidden="true" tabindex="-1"></a>            total.신규실행액수 <span class="ot">=</span> <span class="fu">sum</span>(당일신규실행금액.억원.))</span></code></pre></div>
+<pre><code>## # A tibble: 12 x 4
+## # Groups:   month [12]
+##    month  year total.신규실행건수 total.신규실행액수
+##    &lt;dbl&gt; &lt;dbl&gt;              &lt;int&gt;              &lt;int&gt;
+##  1     1  2019              47507               1059
+##  2     2  2019             305948               5965
+##  3     3  2019             146234               2183
+##  4     4  2019              57716                602
+##  5     5  2019              25083                261
+##  6     6  2019                  0                  0
+##  7     7  2019              40107                376
+##  8     8  2019             353268               6071
+##  9     9  2019             115432               1671
+## 10    10  2019              57523                511
+## 11    11  2019              27571                238
+## 12    12  2019                  0                  0</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="시계열-데이터-grouping.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(timetk)</span>
+<span id="cb93-2"><a href="시계열-데이터-grouping.html#cb93-2" aria-hidden="true" tabindex="-1"></a>loan <span class="sc">%&gt;%</span> </span>
+<span id="cb93-3"><a href="시계열-데이터-grouping.html#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_by_time</span>(<span class="at">.date_var =</span> 기준일자, <span class="at">.by =</span> <span class="st">&#39;month&#39;</span>, </span>
+<span id="cb93-4"><a href="시계열-데이터-grouping.html#cb93-4" aria-hidden="true" tabindex="-1"></a>                    total.신규실행건수  <span class="ot">=</span> <span class="fu">sum</span>(당일신규실행건수), </span>
+<span id="cb93-5"><a href="시계열-데이터-grouping.html#cb93-5" aria-hidden="true" tabindex="-1"></a>                    total.신규실행액수 <span class="ot">=</span> <span class="fu">sum</span>(당일신규실행금액.억원.),</span>
+<span id="cb93-6"><a href="시계열-데이터-grouping.html#cb93-6" aria-hidden="true" tabindex="-1"></a>                    mean.건수 <span class="ot">=</span> <span class="fu">mean</span>(당일신규실행건수))</span></code></pre></div>
+<pre><code>## # A tibble: 12 x 4
+##    기준일자   total.신규실행건수 total.신규실행액수 mean.건수
+##    &lt;date&gt;                  &lt;int&gt;              &lt;int&gt;     &lt;dbl&gt;
+##  1 2019-01-01              47507               1059      516.
+##  2 2019-02-01             305948               5965     2732.
+##  3 2019-03-01             146234               2183     1179.
+##  4 2019-04-01              57716                602      481.
+##  5 2019-05-01              25083                261      202.
+##  6 2019-06-01                  0                  0        0 
+##  7 2019-07-01              40107                376      323.
+##  8 2019-08-01             353268               6071     2849.
+##  9 2019-09-01             115432               1671      962.
+## 10 2019-10-01              57523                511      464.
+## 11 2019-11-01              27571                238      238.
+## 12 2019-12-01                  0                  0        0</code></pre>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="시계열-데이터-slicing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="시계열-데이터-반올림.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="시계열-데이터-rolling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

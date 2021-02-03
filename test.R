@@ -293,3 +293,60 @@ as.duration(int)
 int <- interval(as.Date('1973-09-08'), as.Date('2021-02-03'))
 as.period(int)
 as.duration(int)
+
+
+as.Date('2011-01-01') + years(1)
+as.Date('2011-01-01') + dyears(1)
+leap_year(2012)
+as.Date('2012-01-01') + years(1)
+as.Date('2012-01-01') + dyears(1)
+library(rmarkdown)
+render('03-data_handling.Rmd')
+
+as.Date('2012-01-01') + weeks(0:5)
+
+
+x <- ymd_hms("2009-08-03 12:01:59.23")
+round_date(x, ".5s")
+round_date(x, "sec")
+round_date(x, "second")
+round_date(x, "minute")
+round_date(x, "5 mins")
+round_date(x, "hour")
+round_date(x, "2 hours")
+round_date(x, "day")
+round_date(x, "week")
+round_date(x, "month")
+round_date(x, "bimonth")
+round_date(x, "quarter") == round_date(x, "3 months")
+round_date(x, "halfyear")
+round_date(x, "year")
+
+
+한국장학재단_일일대출실행통계_20191231
+
+
+loan <- read.csv('./한국장학재단_일일대출실행통계_20191231.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
+glimpse(loan)
+loan$기준일자 <- as.Date(loan$기준일자)
+
+
+?rollmean
+loan %>% 
+  filter(상품명 == '취업후상환학자금_등록금') %>% 
+  select(기준일자, 당일신규실행건수) %>%
+  mutate(roll = rollmean(당일신규실행건수, k = 30, fill = NA))
+
+
+loan %>%
+  mutate(month = month(기준일자), year = year(기준일자))
+  group_by(month, year, 말일) %>%
+  summarise(total.신규실행건수 = sum(당일신규실행건수), 
+            total.신규실행액수 = sum(당일신규실행금액.억원.))
+
+47507/31
+
+library(timetk)
+loan %>% 
+  summarise_by_time(.date_var = 기준일자, .by = 'month', total.신규실행건수  = sum(당일신규실행건수), total.신규실행액수 = sum(당일신규실행금액.억원.), mean.건수 = mean(당일신규실행건수))
+  

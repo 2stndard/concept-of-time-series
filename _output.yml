@@ -1,6 +1,8 @@
 bookdown::gitbook:
   css: style.css
   split_by: section
+  split_bib: no
+  citation_package: biblatex
   config:
     toc:
       before: |
