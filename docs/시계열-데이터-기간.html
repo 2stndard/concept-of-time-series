@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.2 시계열 데이터 연산 | t.utf8</title>
+  <title>4.3 시계열 데이터 기간 | t.utf8</title>
   <meta name="description" content="<center>
 교육통계를 활용한 데이터 분석 방법
 </center>" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.2 시계열 데이터 연산 | t.utf8" />
+  <meta property="og:title" content="4.3 시계열 데이터 기간 | t.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -18,7 +18,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.2 시계열 데이터 연산 | t.utf8" />
+  <meta name="twitter:title" content="4.3 시계열 데이터 기간 | t.utf8" />
   
   
   
@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="시계열-데이터-정보-다루기.html"/>
-<link rel="next" href="시계열-데이터-기간.html"/>
+<link rel="prev" href="시계열-데이터-연산.html"/>
+<link rel="next" href="시계열-데이터-slicing.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -216,26 +216,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="시계열-데이터-연산" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> 시계열 데이터 연산</h2>
-<p>시간의 연산은 일반적으로 오늘로부터 며칠후, 언제로부터 몇개월전 등과 같은 연산을 의미한다. lubridate 패키지에서는 시간의 연산을 위해 몇개의 함수를 제공하는데 전과 후를 구분하는데에는 수학기호 +와 -를 사용한다.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="시계열-데이터-연산.html#cb31-1" aria-hidden="true" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">today</span>()</span>
-<span id="cb31-2"><a href="시계열-데이터-연산.html#cb31-2" aria-hidden="true" tabindex="-1"></a>today <span class="sc">+</span> <span class="dv">100</span>   <span class="co"># 오늘부터 100일 후</span></span></code></pre></div>
-<pre><code>## [1] &quot;2021-05-14&quot;</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="시계열-데이터-연산.html#cb33-1" aria-hidden="true" tabindex="-1"></a>today <span class="sc">-</span> <span class="fu">months</span>(<span class="dv">2</span>)  <span class="co"># 오늘부터 2개월 전  </span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-12-03&quot;</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="시계열-데이터-연산.html#cb35-1" aria-hidden="true" tabindex="-1"></a>today <span class="sc">-</span> <span class="fu">years</span>(<span class="dv">1</span>)   <span class="co">#오늘부터 1년전</span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-02-03&quot;</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="시계열-데이터-연산.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.Date</span>(<span class="st">&#39;2021-01-01&#39;</span>) <span class="sc">-</span> <span class="fu">as.Date</span>(<span class="st">&#39;1980-01-01&#39;</span>)  <span class="co"># 1980년 1월 1일 이후 날짜 수</span></span></code></pre></div>
-<pre><code>## Time difference of 14976 days</code></pre>
+<div id="시계열-데이터-기간" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> 시계열 데이터 기간</h2>
+<p>앞선 예에서 1980년 1월 1일부터 오늘까지는 14,976일로 계산되었다. 그러나 우리는 보통 몇년 몇월 몇일로 표현된다. lubridate에서는 이렇게 몇년 몇월 몇일로 변환하는 것을 interval()함수를 사용하여 계산한다. 하지만 바로 계산되는 것은 아니고 interval()함수에 의해 반환되는 값은 interval 클래스의 데이터값으로 시작점으로부터의 초를 기록한다. 이렇게 변환된 interval 객체를 올바르게 표현하기 위해서는 interval 객체를 period 나 duration 클래스 객체로 변환하여야 한다.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="시계열-데이터-기간.html#cb39-1" aria-hidden="true" tabindex="-1"></a>int <span class="ot">&lt;-</span> <span class="fu">interval</span>(<span class="fu">as.Date</span>(<span class="st">&#39;1980-01-01&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2021-12-31&#39;</span>))</span>
+<span id="cb39-2"><a href="시계열-데이터-기간.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.period</span>(int)   <span class="co"># 년월일 형태로 기간 반환</span></span></code></pre></div>
+<pre><code>## [1] &quot;41y 11m 30d 0H 0M 0S&quot;</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="시계열-데이터-기간.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.duration</span>(int)  <span class="co"># 경과 초 형태로 기간 반환</span></span></code></pre></div>
+<pre><code>## [1] &quot;1325376000s (~42 years)&quot;</code></pre>
+<div id="data.frametimetk" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> data.frame(timetk)</h3>
+</div>
+<div id="ts-xts" class="section level3" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> ts, xts</h3>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="시계열-데이터-정보-다루기.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="시계열-데이터-기간.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="시계열-데이터-연산.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="시계열-데이터-slicing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

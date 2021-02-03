@@ -160,6 +160,9 @@ date <- as.Date(as.character(paste0(students.total.xts[,1], '-01-01')), format =
 
 students.total.xts <- students %>% filter(지역규모 == '계') %>% select(-지역규모)
 
+students.total.xts <- as.xts(students.total.xts, order.by = as.Date(as.character(students.total.xts[,1]), format = '%Y'))
+
+
 students.total.xts <- as.xts(students.total.xts, order.by = as.Date(as.character(paste0(students.total.xts[,1], '-01-01')), format = '%Y-%m-%d'))
 
 students.total.xts <- as.xts(students.total.xts, order.by = as.Date(paste0(students.total.xts[,1], '-01-01'), format = '%Y-%m-%d'))
@@ -226,3 +229,67 @@ students.total.ts <- students %>%
 
 autoplot(students.total.ts[,7], lty = 2, lwd = 2)
 ?autoplot.ts
+
+
+
+library(lubridate)
+
+test.time.date <- Sys.time()
+test.time.char <- as.character(Sys.time())
+test.time.xts <- as.xts(Sys.time())
+year(test.time.date)
+month(test.time.char)
+day(test.time.xts)
+yday(test.time.date)
+qday(test.time.char)
+wday(test.time.xts, label = T, abbr = T)
+hour(test.time.date)
+minute(test.time.char)
+second(test.time.xts)
+week(test.time.date)
+quarter(test.time.char, with_year = T)
+semester(test.time.xts, with_year = T)
+am(test.time.date)
+pm(test.time.char)
+leap_year(test.time.date)
+
+days_in_month(test.time.date)
+
+format(test.time,"%S")
+
+library(stringr)
+test.time <- as.character(Sys.time())
+str_sub(test.time, start = 1, end = 4)
+str_sub(test.time, start = 6, end = 7)
+str_sub(test.time, start = 9, end = 10)
+str_sub(test.time, start = 12, end = 13)
+str_sub(test.time, start = 15, end = 16)
+str_sub(test.time, start = 18, end = 19)
+?str_sub
+
+
+test.time <- as.POSIXct(Sys.time())
+test.time <- as.xts(Sys.time())
+test.time <- as.ts(Sys.time())
+
+class(test.time)
+
+as.POSIXct(ts)
+
+today <- today()
+today + 100
+test.time - months(2)
+test.time - years(1)
+test.time - 50
+
+today + 1
+class(today)
+
+int <- interval(as.Date('1980-01-01'), as.Date('2021-12-31'))
+as.period(int)
+as.duration(int)
+
+
+int <- interval(as.Date('1973-09-08'), as.Date('2021-02-03'))
+as.period(int)
+as.duration(int)

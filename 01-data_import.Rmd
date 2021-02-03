@@ -62,7 +62,7 @@
 
         : standard date format codes
 
-```{r}
+```{r paged.print=TRUE}
 as.Date('01/12/2010', format = '%d/%m/%Y')
 as.Date('01jan21', format = '%d%b%y')
 Sys.setlocale("LC_ALL", "English")
