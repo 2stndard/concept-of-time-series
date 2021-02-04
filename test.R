@@ -371,11 +371,12 @@ x + dyears(1)
 last(loan.xts[10,], '1 year')
 
 
-x <- as.xts(x = rnorm(100), order.by = as.Date("2008-08-01") + 0:99)
-first(x, '1 week', n = 2)
+x <- as.xts(x = rnorm(500), order.by = as.Date("2008-08-01") + 0:499)
+last(x, 'month')
+first(x, '2 weeks')
 x[endpoints(x), ]
 ndays(x)
-
+?last
 apply.monthly(loan.xts[,1], sum)
 
 temps <- read.zoo('D:/R/git/Manipulating-Time-Series-Data-with-xts-and-zoo-in-R/temps.csv', sep = ',', header = T)

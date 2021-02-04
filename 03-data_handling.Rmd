@@ -97,6 +97,10 @@ as.Date('2012-01-01') + dweeks(0:10)
 
 [^data_handling-2]: <https://rdrr.io/cran/lubridate/man/round_date.html>
 
+-   lubridate 패키지
+
+lubridate 패키지에서는 시간 데이터의 반올림을 위해 round_date(), 내림을 위해 floor_date(), 올림을 위해 ceiling_date() 함수를 제공한다. 매개변수로 'day', 'week', 'month', 'halfyear', 'year' 등을 설정하여 반올림, 올림, 내림의 기본 단위를 지정할 수 있다.
+
 ```{r}
 x <- as.Date("2009-08-03")
 round_date(x, "day")         # 일단위로 반올림
@@ -120,17 +124,34 @@ ceiling_date(x, "year")      # 년단위로 올림
 days_in_month(as.Date('2012-2', format = '%Y-%d'))  # 말일을 구하는 코드
 ```
 
-xts 클래스 데이터 객체에서는 위의 예제를 적용할 수 없다. 다만 xts 패키지에서는 floor_date와 ceiling_date와 유사한 기능을 수행하는 함수, first(), last()를 제공한다. first()는 함수에서 지정된 단위의 첫번째 날짜를 리턴하고 last()는 지정된 단위의 마지막 날짜를 리턴한다.
+-   xts 패키지
+
+xts 클래스 데이터 객체에서는 위의 예제를 적용할 수 없다. 다만 xts 패키지에서는 floor_date와 ceiling_date와 유사한 기능을 수행하는 함수, first(), last()를 제공한다. first()는 함수에서 지정된 단위의 첫번째 날짜를 리턴하고 last()는 지정된 단위의 마지막 날짜를 리턴한다. endpoints 함수는 기본값으로 매월 마지막 날짜를 반환하지만 매개변수를 설정함으로써 매주 마지막날, 매월 마지막날, 매년 마지막날 등을 반환할 수 있다
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+detach(package:dplyr)
+```
 
 ```{r}
-
+x <- xts(1:100, Sys.Date()+1:100)
+first(x, 10)
+first(x, '1 day')
+first(x, '4 days')
+first(x, 'month')
+last(x, 10)
+last(x, '2 weeks')
 ```
 
 ## 시계열 데이터 Grouping
 
 시계열 데이터를 사용할 때 많이 사용하는 계산은 월별 평균, 주별 합계 등 일정 단위별로 그룹핑한 후 그룹함수를 적용하여 산출하는 작업이다. 아쉽게도 앞서 사용한 lubridate 패키지에서는 시계열 데이터를 주단위, 월단위, 년단위 등으로 그룹핑하는 함수를 제공하지 않는다. 따라서 lubridate 함수를 이용하여 그룹화하기 위해서는 dplyr에서 제공하는 pipe 연산자와 함수를 같이 사용하여 산출할 수 있다. 하지만 앞장에서 소개한 timetk 패키지에서는 그룹핑하여 평균을 내거나 합계를 내는 함수를 제공하기 때문에 이를 사용할 수도 있다.
 
+-   lubridate 패키지
+
+먼저 그룹핑을 하기 위한 단위를 설정하기 위해 lubridate 패키지의 year, month, week 등의 함수를 사용하여 해당 일의 년, 월, 주등을 산출하고 mutate 함수를 사용하여 컬럼으로 만들어준다. 다음 group_by 함수를 사용하여 데이터를 그룹핑하고 summarise 함수를 통해 sum, mean 등의 그룹 함수를 사용하여 원하는 값을 산출한다.
+
 ```{r message=FALSE, warning=FALSE}
+library(dplyr)
 loan <- read.csv('./한국장학재단_일일대출실행통계_20191231.csv',
                  header = TRUE, na = '-', strip.white = TRUE,
                  stringsAsFactors = TRUE)
@@ -142,20 +163,79 @@ loan %>%
             total.신규실행액수 = sum(당일신규실행금액.억원.))
 ```
 
+-   timetk 패키지
+
+timetk 패키지에서는 그룹핑을 위해 summarise_by_time() 함수를 제공한다. 매개변수로 .date_var(시간컬럼), .by(그룹핑 단위) 등을 설정하고 산출하기 원하는 컬럼명과 그룹함수를 기재하여 원하는 값을 얻을 수 있다.
+
 ```{r message=FALSE, warning=FALSE}
 library(timetk)
+loan %>% 
+  summarise_by_time(.date_var = 기준일자, .by = 'week', 
+                    total.신규실행건수  = sum(당일신규실행건수), 
+                    total.신규실행액수 = sum(당일신규실행금액.억원.),
+                    mean.건수 = mean(당일신규실행건수))
 loan %>% 
   summarise_by_time(.date_var = 기준일자, .by = 'month', 
                     total.신규실행건수  = sum(당일신규실행건수), 
                     total.신규실행액수 = sum(당일신규실행금액.억원.),
                     mean.건수 = mean(당일신규실행건수))
+loan %>% 
+  summarise_by_time(.date_var = 기준일자, .by = 'quarter', 
+                    total.신규실행건수  = sum(당일신규실행건수), 
+                    total.신규실행액수 = sum(당일신규실행금액.억원.),
+                    mean.건수 = mean(당일신규실행건수))
 ```
+
+-   xts 패키지
 
 data.frame 클래스의 시계열 객체는 위와 같이 dplyr 패키지의 기능을 이용해 그룹핑하고 그룹함수를 적용용하지만 xts 클래스에서는 시간 유닛별로 그룹핑하여 그룹함수를 적용할 수 있는 함수를 지원한다. 따라서 연 평균, 월 합계와 같은 작업에 편리하게 사용할 수 있다.
 
-```{r}
+```{r warning=FALSE}
 loan.xts <- as.xts(loan[, -c(1, 2)], order.by = loan$기준일자)
 apply.monthly(loan.xts[,1], sum)
+apply.weekly(loan.xts[,1], sum) %>% head(10)
+apply.quarterly(loan.xts[,1], sum)
 ```
 
 ## 시계열 데이터 Rolling
+
+주식투자를 하는 분들은 주식거래 프로그램에서 많은 시계열 그래프들을 보게된다. 이들 그래프 중에 어떤 그래프에는 MA(5), MA(10)과 같은 표기가 된 line plot을 볼 수 있는데 이를 이동평균이라고 한다. 최근 5일 평균, 최근 10일 평균과 같이 평균의 기준 범위가 날짜별로 달라지면서 평균을 구하게 되는데 이와 같이 기준일에서 특정 기간의 일, 월의 집합 함수를 적용하는 과정을 rolling이라 하고 rolling의 기간을 rolling window라고 한다. rolling도 앞선 group과 같이 lubridate 패키지에서 제공하는 함수를 dplyr 함수와 파이프라인을 사용하는 방법, timetk 패키지를 사용하는 방법, xts 패키지를 사용하는 방법을 설명하고자 한다.
+
+-   lubridate 패키지
+
+lubridate 패키지를 사용하여 data.frame 클래스 객체에 대한 rolling은 좀 복잡하다. 하지만 zoo 패키지에서 제공하는 roll\* 함수를 사용하면 비교적 쉽게 rolling을 수행할 수있어 이 방법을 소개하고자 한다. 사실 이 방법에서는 lubridate 패키지 함수는 사용되지 않는데 mutate 함수를 이용하여 새로운 컬럼을 생성하는데 각 컬럼을 생성하는 함수로 zoo 패키지의 roll\* 함수를 사용한다. roll\* 함수는 rollapply()와 rollmean()의 두가지를 제공하는데 rollapply는 apply함수를 rolling용으로 수정한 버젼이고 rollapply 함수에 mean을 적용하는 경우가 많기 때문에 추가적으로 이동평균을 구하는 함수를 제공한다.
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+detach(package:xts)
+```
+
+```{r}
+library(zoo)
+loan %>%
+  mutate(ma3 = rollmean(당일신규실행건수, k = 3, fill = NA),
+         sum3 = rollapply(당일신규실행건수, 3, sum, fill = NA)) %>%
+  select(당일신규실행건수, ma3, sum3) %>%
+  head(10)
+```
+
+-   timetk 패키지
+
+```{r}
+ma3 <- slidify(mean, .period = 3, .align = "center")
+sum3 <- slidify(sum, .period = 3, .align = "center")
+
+loan %>%
+  mutate(ma3 = ma3(당일신규실행건수), sum3 = sum3(당일신규실행건수)) %>%
+  select(당일신규실행건수, ma3, sum3) %>%
+  head(10)
+```
+
+-   xts 패키지
+
+```{r}
+
+```
+
+## 시계열 데이터 filtering
+
+## 시계열 데이터 subsetting
