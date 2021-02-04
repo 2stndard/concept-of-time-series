@@ -395,3 +395,13 @@ days_in_month(as.Date('2012-2', format = '%Y-%d', tz = 'american'))
 
 
 local_time(as.Date('2012-2', format = '%Y-%d'), 'Europe/Amsterdam')
+
+?economics 
+
+ma3 <- slidify(mean, .period = 3, .align = "right")
+sum3 <- slidify(sum, .period = 3, .align = "right")
+class(ma3)
+loan %>%
+  mutate(ma3 = ma3(당일신규실행건수), sum3 = sum3(당일신규실행건수)) %>%
+  select(당일신규실행건수, ma3, sum3) %>%
+  head(10)
