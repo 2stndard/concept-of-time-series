@@ -248,6 +248,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 2019-10-01              57523                511      464.
 ## 11 2019-11-01              27571                238      238.
 ## 12 2019-12-01                  0                  0        0</code></pre>
+<p>data.frame 클래스의 시계열 객체는 위와 같이 dplyr 패키지의 기능을 이용해 그룹핑하고 그룹함수를 적용용하지만 xts 클래스에서는 시간 유닛별로 그룹핑하여 그룹함수를 적용할 수 있는 함수를 지원한다. 따라서 연 평균, 월 합계와 같은 작업에 편리하게 사용할 수 있다.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="시계열-데이터-grouping.html#cb95-1" aria-hidden="true" tabindex="-1"></a>loan.xts <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(loan[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], <span class="at">order.by =</span> loan<span class="sc">$</span>기준일자)</span>
+<span id="cb95-2"><a href="시계열-데이터-grouping.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.monthly</span>(loan.xts[,<span class="dv">1</span>], sum)</span></code></pre></div>
+<pre><code>##            당일신규실행건수
+## 2019-01-31            47507
+## 2019-02-28           305948
+## 2019-03-31           146234
+## 2019-04-30            57716
+## 2019-05-31            25083
+## 2019-06-30                0
+## 2019-07-31            40107
+## 2019-08-31           353268
+## 2019-09-30           115432
+## 2019-10-31            57523
+## 2019-11-30            27571
+## 2019-12-31                0</code></pre>
 </div>
             </section>
 

@@ -350,3 +350,47 @@ library(timetk)
 loan %>% 
   summarise_by_time(.date_var = 기준일자, .by = 'month', total.신규실행건수  = sum(당일신규실행건수), total.신규실행액수 = sum(당일신규실행금액.억원.), mean.건수 = mean(당일신규실행건수))
   
+
+as.Date('2011-01-01') + years(1)
+x <- as.xts(as.Date('2011-01-01'))
+x + dyears(1)
+leap_year(2012)
+as.Date('2012-01-01') + years(1)
+as.Date('2012-01-01') + dyears(1)
+as.Date('2012-01-01') + weeks(0:10)
+as.Date('2012-01-01') + dweeks(0:10)
+
+
+x + 100
+students.total.xts[1,1]
+
+loan.xts <- as.xts(loan[, -c(1, 2)], order.by = loan$기준일자)
+loan.xts[,3] <- as.numeric(loan.xts[,3])
+x <- as.xts(as.Date("2009-08-03"))
+x + dyears(1)
+last(loan.xts[10,], '1 year')
+
+
+x <- as.xts(x = rnorm(100), order.by = as.Date("2008-08-01") + 0:99)
+first(x, '1 week', n = 2)
+x[endpoints(x), ]
+ndays(x)
+
+apply.monthly(loan.xts[,1], sum)
+
+temps <- read.zoo('D:/R/git/Manipulating-Time-Series-Data-with-xts-and-zoo-in-R/temps.csv', sep = ',', header = T)
+class(temps)
+
+# Create lastweek using the last 1 week of temps
+lastweek <- last(temps, "1 week")
+
+# Print the last 2 observations in lastweek
+last(lastweek, n = 2)
+
+# Extract all but the first two days of lastweek
+first(lastweek, "-2 day")
+days_in_month(2)
+days_in_month(as.Date('2012-2', format = '%Y-%d', tz = 'american'))
+
+
+local_time(as.Date('2012-2', format = '%Y-%d'), 'Europe/Amsterdam')

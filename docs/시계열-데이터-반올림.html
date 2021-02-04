@@ -233,8 +233,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] &quot;2010-01-01&quot;</code></pre>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="시계열-데이터-반올림.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling_date</span>(x, <span class="st">&quot;year&quot;</span>)      <span class="co"># 년단위로 올림</span></span></code></pre></div>
 <pre><code>## [1] &quot;2010-01-01&quot;</code></pre>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="시계열-데이터-반올림.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">day</span>(<span class="fu">ceiling_date</span>(<span class="fu">floor_date</span>(x, <span class="at">unit =</span> <span class="st">&quot;month&quot;</span>), <span class="at">unit=</span> <span class="st">&quot;month&quot;</span>) <span class="sc">-</span> <span class="dv">1</span> )  <span class="co"># 말일을 구하는 코드</span></span></code></pre></div>
-<pre><code>## [1] 31</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="시계열-데이터-반올림.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">days_in_month</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2012-2&#39;</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%d&#39;</span>))  <span class="co"># 말일을 구하는 코드</span></span></code></pre></div>
+<pre><code>## Feb 
+##  29</code></pre>
+<p>xts 클래스 데이터 객체에서는 위의 예제를 적용할 수 없다. 다만 xts 패키지에서는 floor_date와 ceiling_date와 유사한 기능을 수행하는 함수, first(), last()를 제공한다. first()는 함수에서 지정된 단위의 첫번째 날짜를 리턴하고 last()는 지정된 단위의 마지막 날짜를 리턴한다.</p>
 </div>
 <div class="footnotes">
 <hr />

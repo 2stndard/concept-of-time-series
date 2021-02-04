@@ -26,7 +26,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-03" />
+<meta name="date" content="2021-02-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -208,40 +208,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="ggplot2" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> ggplot2</h2>
+<p>ggplot2는 시계열 데이터 이외에 다양한 plot을 그리는 방법을 제공하는 R의 대표적인 plot 작도 패키지로 널리 사용되고 있음. ggplot2는 R-Studio의 수석 데이터 사이언티스트인 Hadley Wickham이 주도적으로 개발한 패키지로 2005년 발간된 Leland Wilkinson의 The Grammar of Graphics을 기본으로 작성되었음.</p>
+<p>The Grammar of Graphics는 데이터를 효과적으로 표현하기 위해 다음과 같은 7가지 element를 통해 표현할 것을 제안함.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> ggplot2 plot의 시작은 ggplot 함수를 호출하면서 시작하는데 다음의 각각 element들을 + 기호를 사용하여 누적시켜가면서 하나의 plot를 생성함.</p>
 <ul>
-<li><p>ggplot2는 시계열 데이터 이외에 다양한 plot을 그리는 방법을 제공하는 R의 대표적인 plot 작도 패키지로 널리 사용되고 있음. ggplot2는 R-Studio의 수석 데이터 사이언티스트인 Hadley Wickham이 주도적으로 개발한 패키지로 2005년 발간된 Leland Wilkinson의 The Grammar of Graphics을 기본으로 작성되었음.</p></li>
-<li><p>The Grammar of Graphics는 데이터를 효과적으로 표현하기 위해 다음과 같은 7가지 element를 통해 표현할 것을 제안함.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> ggplot2 plot의 시작은 ggplot 함수를 호출하면서 시작하는데 다음의 각각 element들을 + 기호를 사용하여 누적시켜가면서 하나의 plot를 생성함.</p>
-<ol style="list-style-type: decimal">
-<li><p>data</p>
+<li>data</li>
+</ul>
+<p>plot에서 표현해야할 데이터를 지정함. 하나의 ggplot2 plot 안에는 하나 이상의 데이터를 포함시킬수 있는데 기본적으로 하나의 데이터는 ggplot 함수에 포함되어야 하며 추가적인 데이터를 표현하기 위해서는 +로 연결되는 geom_ 함수에 설정하여 사용할 수 있음. ggplot에서 지원하는 데이터 타입은 data frame인데 data frame이 아닌 객체가 설정되면 내부적으로 data.frame으로 변환(fortify 함수를 활용)하여 데이터로 설정함.</p>
 <ul>
-<li>plot에서 표현해야할 데이터를 지정함. 하나의 ggplot2 plot 안에는 하나 이상의 데이터를 포함시킬수 있는데 기본적으로 하나의 데이터는 ggplot 함수에 포함되어야 하며 추가적인 데이터를 표현하기 위해서는 +로 연결되는 geom_ 함수에 설정하여 사용할 수 있음. ggplot에서 지원하는 데이터 타입은 data frame인데 data frame이 아닌 객체가 설정되면 내부적으로 data.frame으로 변환(fortify 함수를 활용)하여 데이터로 설정함.</li>
-</ul></li>
-<li><p>Aesthetics</p>
+<li>Aesthetics</li>
+</ul>
+<p>Aesthetics는 데이터의 컬럼을 시각적 속성에 매핑시키는 element임. Aesthetics는 ggplot 함수와 geom_함수로 표현되는 개별 레이어에서 aes 매개변수를 이용하여 매핑 가능함. 매핑 가능한 시각적 속성은 X axis, Y axis, color, size 등임.</p>
 <ul>
-<li>Aesthetics는 데이터의 컬럼을 시각적 속성에 매핑시키는 element임. Aesthetics는 ggplot 함수와 geom_함수로 표현되는 개별 레이어에서 aes 매개변수를 이용하여 매핑 가능함. 매핑 가능한 시각적 속성은 X axis, Y axis, color, size 등임.</li>
-</ul></li>
-<li><p>Geometries</p>
+<li>Geometries</li>
+</ul>
+<p>Geometries는 plot에서 실질적으로 표현되는 point, line, bar 등의 그래픽 element를 설정함. 일반적으로 하나의 Geometries는 하나의 layer를 생성하여 표현되는데 여러 Geometry layer가 겹쳐져서 하나의 plot을 생성하게 됨.</p>
 <ul>
-<li>Geometries는 plot에서 실질적으로 표현되는 point, line, bar 등의 그래픽 element를 설정함. 일반적으로 하나의 Geometries는 하나의 layer를 생성하여 표현되는데 여러 Geometry layer가 겹쳐져서 하나의 plot을 생성하게 됨.</li>
-</ul></li>
-<li><p>Facet</p>
+<li>Facet</li>
+</ul>
+<p>plot에 표현되는 데이터가 일변량(univariate)이 아닌 다변량(multivariate)인 경우 하나의 plot에 다변량을 표현하면 여러 Geometries가 혼재되어 데이터의 분석이 어려움. 이런 경우 다변량을 일변량화하여 일변량 plot을 다중으로 표현할 때 사용하는 element임.</p>
 <ul>
-<li>plot에 표현되는 데이터가 일변량(univariate)이 아닌 다변량(multivariate)인 경우 하나의 plot에 다변량을 표현하면 여러 Geometries가 혼재되어 데이터의 분석이 어려움. 이런 경우 다변량을 일변량화하여 일변량 plot을 다중으로 표현할 때 사용하는 element임.</li>
-</ul></li>
-<li><p>Statistics</p>
+<li>Statistics</li>
+</ul>
+<p>mean, median 등 표현할 데이터의 통계값을 표현할 필요가 있을 때 사용하는 element임.</p>
 <ul>
-<li>mean, median 등 표현할 데이터의 통계값을 표현할 필요가 있을 때 사용하는 element임.</li>
-</ul></li>
-<li><p>Coordinates</p>
+<li>Coordinates</li>
+</ul>
+<p>plot에 표현되는 2차원 좌표계를 설정하기 위한 element임. X axis와 Y axis의 limit, label 등을 설정할 수 있음.</p>
 <ul>
-<li>plot에 표현되는 2차원 좌표계를 설정하기 위한 element임. X axis와 Y axis의 limit, label 등을 설정할 수 있음.</li>
-</ul></li>
-<li><p>Theme</p>
-<ul>
-<li>plot 제목, axis 제목, axis 단위, legend 등 plot의 전반적인 디자인을 꾸며줄 수 있음. 미리 정의된 Theme을 적용하여 설정할 수 있음.</li>
-</ul></li>
-</ol></li>
-<li><p>ggplot를 활용해 시계열 plot를 표현하기 위해서는 위의 7개 element 중 Geometry는 line 이어야 하며 Aesthetic의 X axis는 시간 인덱스로 설정되는 plot이 많이 사용됨. 앞서 설명한 바와 같이 ggplot는 data.frame을 데이터로 설정이 가능하고 X axis에 시간 컬럼을 설정하기 위해서는 컬럼에 접근이 가능한 컬럼명이 있어야 하기 때문에 ts나 xts 클래스보다는 data.frame을 data로 설정하는 것이 적합함. 2장에서 저장한 students 데이터프레임을 시계열 plot으로 그리면 다음과 같음.</p>
+<li>Theme</li>
+</ul>
+<p>plot 제목, axis 제목, axis 단위, legend 등 plot의 전반적인 디자인을 꾸며줄 수 있음. 미리 정의된 Theme을 적용하여 설정할 수 있음.</p>
+<p>ggplot를 활용해 시계열 plot를 표현하기 위해서는 위의 7개 element 중 Geometry는 line 이어야 하며 Aesthetic의 X axis는 시간 인덱스로 설정되는 plot이 많이 사용됨. 앞서 설명한 바와 같이 ggplot는 data.frame을 데이터로 설정이 가능하고 X axis에 시간 컬럼을 설정하기 위해서는 컬럼에 접근이 가능한 컬럼명이 있어야 하기 때문에 ts나 xts 클래스보다는 data.frame을 data로 설정하는 것이 적합함. 2장에서 저장한 students 데이터프레임을 시계열 plot으로 그리면 다음과 같음.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="ggplot2.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-2"><a href="ggplot2.html#cb1-2" aria-hidden="true" tabindex="-1"></a>students.ggplot <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>) <span class="co"># 2장에서 읽어들인 students data.frame에서 합계만 filtering</span></span>
 <span id="cb1-3"><a href="ggplot2.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> students.ggplot, <span class="fu">aes</span>(<span class="at">x =</span> 연도, <span class="at">y =</span> 학생수계)) <span class="sc">+</span></span>
@@ -287,7 +284,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="t_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p></li>
 </ul></li>
 <li><p>ggplot외 타 패키지에서 제공하는 plot은 ggplot에서 제공하는 기능만큼 다양한 기능을 제공하지 않는다. 디자인이 중요한 plot을 작성하기 위해서는 ggplot의 다양한 기능을 사용하여 plot을 작성하는 것이 바람직하다. 이외에 ggplot에 관련한 자세한 사항은 다른 문서를 참조할 것을 권한다.</p></li>
-</ul></li>
 </ul>
 </div>
 <div class="footnotes">
