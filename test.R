@@ -405,3 +405,34 @@ loan %>%
   mutate(ma3 = ma3(당일신규실행건수), sum3 = sum3(당일신규실행건수)) %>%
   select(당일신규실행건수, ma3, sum3) %>%
   head(10)
+install.packages('tibbletime')
+library(tibbletime)
+
+as_tbl_time(loan, index = 기준일자) %>%
+  collapse_by('monthly') %>%
+  group_by(기준일자) %>% 
+  summarise(total.신규실행건수 = sum(당일신규실행건수), 
+            total.신규실행액수 = sum(당일신규실행금액.억원.)) %>%
+  mutate(cum.건수 = cumsum(total.신규실행건수), 
+         cum.액수 = cumsum(total.신규실행액수))%>%
+  select(1, 2, 4, 3, 5)
+
+as_tbl_time(loan, index = 기준일자)
+?as_tbl_time
+
+
+as_tbl_time(loan, index = 기준일자) %>%
+  collapse_by('monthly') %>%
+  group_by(기준일자) %>% 
+  mutate(cumsum.건수 = cumsum(당일신규실행건수), 
+         cumsum.액수 = cumsum(당일신규실행금액.억원.)) %>%
+  head(20)
+
+
+split(loan.xts, f = 'months')
+lapply(split(loan.xts, f = 'months'), cumsum)
+dim(do.call(rbind, lapply(split(loan.xts, f = 'months'), cumsum)))
+
+
+loan %>%
+  filter(기준일자 >= as.Date('2019-03-01') & 기준일자 <= as.Date('2019-03-03'))

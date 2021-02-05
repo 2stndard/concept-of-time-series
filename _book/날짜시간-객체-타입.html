@@ -165,9 +165,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="시계열-데이터-연산.html"><a href="시계열-데이터-연산.html"><i class="fa fa-check"></i><b>4.2</b> 시계열 데이터 연산</a></li>
 <li class="chapter" data-level="4.3" data-path="시계열-데이터-반올림.html"><a href="시계열-데이터-반올림.html"><i class="fa fa-check"></i><b>4.3</b> 시계열 데이터 반올림</a></li>
 <li class="chapter" data-level="4.4" data-path="시계열-데이터-grouping.html"><a href="시계열-데이터-grouping.html"><i class="fa fa-check"></i><b>4.4</b> 시계열 데이터 Grouping</a></li>
-<li class="chapter" data-level="4.5" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html"><i class="fa fa-check"></i><b>4.5</b> 시계열 데이터 Rolling</a></li>
-<li class="chapter" data-level="4.6" data-path="시계열-데이터-filtering.html"><a href="시계열-데이터-filtering.html"><i class="fa fa-check"></i><b>4.6</b> 시계열 데이터 filtering</a></li>
-<li class="chapter" data-level="4.7" data-path="시계열-데이터-subsetting.html"><a href="시계열-데이터-subsetting.html"><i class="fa fa-check"></i><b>4.7</b> 시계열 데이터 subsetting</a></li>
+<li class="chapter" data-level="4.5" data-path="시계열-데이터-ohlc.html"><a href="시계열-데이터-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 시계열 데이터 OHLC</a></li>
+<li class="chapter" data-level="4.6" data-path="시계열-데이터-누적값.html"><a href="시계열-데이터-누적값.html"><i class="fa fa-check"></i><b>4.6</b> 시계열 데이터 누적값</a></li>
+<li class="chapter" data-level="4.7" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html"><i class="fa fa-check"></i><b>4.7</b> 시계열 데이터 Rolling</a></li>
+<li class="chapter" data-level="4.8" data-path="시계열-데이터-filtering.html"><a href="시계열-데이터-filtering.html"><i class="fa fa-check"></i><b>4.8</b> 시계열 데이터 Filtering</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="시계열-forecasting-part-i.html"><a href="시계열-forecasting-part-i.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting - Part I</a>
 <ul>
@@ -205,7 +206,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.1</span> 날짜/시간 객체 타입</h2>
 <p>시계열 객체 타입에는 반드시 시간을 표기하는 데이터가 인덱스로 사용되어야 함. R에는 시간을 표기하는 다양한 객체가 존재함</p>
 <ul>
-<li><p>Date class : R base에서 기본적으로 제공하는 객체 타입으로 1970년 이후의 달력상의 날짜 수를 기록하는 데이터 타입으로 양수일 경우 1970년 이후의 날짜이며 음수인 경우 1970년 이전의 날짜를 표시함. Date class는 실제 R내부에 저장시에는 정수형태로 저장됨. Date 객체의 기본적인 표현 방식은 ‘yyyy-mm-dd’ 형태임.</p>
+<li>Date class</li>
+</ul>
+<p>R base에서 기본적으로 제공하는 객체 타입으로 1970년 이후의 달력상의 날짜 수를 기록하는 데이터 타입으로 양수일 경우 1970년 이후의 날짜이며 음수인 경우 1970년 이전의 날짜를 표시함. Date class는 실제 R내부에 저장시에는 정수형태로 저장됨. Date 객체의 기본적인 표현 방식은 ‘yyyy-mm-dd’ 형태임.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="날짜시간-객체-타입.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.Date</span>(<span class="st">&#39;2021-01-31&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2021-01-31&quot;</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="날짜시간-객체-타입.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unclass</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2021-01-31&#39;</span>))</span></code></pre></div>
@@ -216,8 +219,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="날짜시간-객체-타입.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.Date</span>()   <span class="co"># today</span></span></code></pre></div>
 <pre><code>## [1] &quot;2021-02-05&quot;</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="날짜시간-객체-타입.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.Date</span>() <span class="sc">+</span> <span class="dv">10</span>  <span class="co"># 오늘로부터 10일 후</span></span></code></pre></div>
-<pre><code>## [1] &quot;2021-02-15&quot;</code></pre></li>
-<li><p>POSIXct, POSIXlt class : Date 객체는 1970년 이후 날짜를 기록하는 객체이지만 POSIXct 객체와 POSIXlt 객체는 1970년 이후 시간을 초단위로 기록하는 객체임. POSIXct는 정수형태로 기록되는 객체이고 POSIXlt는 리스트형태로 기록되는 객체임</p>
+<pre><code>## [1] &quot;2021-02-15&quot;</code></pre>
+<ul>
+<li>POSIXct, POSIXlt class</li>
+</ul>
+<p>Date 객체는 1970년 이후 날짜를 기록하는 객체이지만 POSIXct 객체와 POSIXlt 객체는 1970년 이후 시간을 초단위로 기록하는 객체임. POSIXct는 정수형태로 기록되는 객체이고 POSIXlt는 리스트형태로 기록되는 객체임</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="날짜시간-객체-타입.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.POSIXct</span>(<span class="st">&#39;2021-01-31 12:34:56&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2021-01-31 12:34:56 KST&quot;</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="날짜시간-객체-타입.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unclass</span>(<span class="fu">as.POSIXct</span>(<span class="st">&#39;2021-01-31 12:34:55&#39;</span>))</span></code></pre></div>
@@ -264,8 +270,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $gmtoff
 ## [1] NA</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="날짜시간-객체-타입.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.POSIXlt</span>(<span class="st">&#39;2021-12-31 12:34:56&#39;</span>)<span class="sc">$</span>year</span></code></pre></div>
-<pre><code>## [1] 121</code></pre></li>
-<li><p>yearmon, yearqtr class : yearmon과 yearqtr 객체는 모두 zoo 패키지에서 제공하는 객체로 yearmon 객체는 월별 데이터를 표현하는 객체이고 yearqtr는 분기 데이터를 표현하는 객체임. yearmon 객체는 1월을 0으로 2월을 1/12 = 0.083, 12월을 11/12 = 0.917 으로 표기하고 yearqtr 객체는 각 분기마다 0.25씩 더해서 저장됨.</p>
+<pre><code>## [1] 121</code></pre>
+<ul>
+<li>yearmon, yearqtr class</li>
+</ul>
+<p>yearmon과 yearqtr 객체는 모두 zoo 패키지에서 제공하는 객체로 yearmon 객체는 월별 데이터를 표현하는 객체이고 yearqtr는 분기 데이터를 표현하는 객체임. yearmon 객체는 1월을 0으로 2월을 1/12 = 0.083, 12월을 11/12 = 0.917 으로 표기하고 yearqtr 객체는 각 분기마다 0.25씩 더해서 저장됨.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="날짜시간-객체-타입.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.yearmon</span>(<span class="st">&quot;2007-02&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2 2007&quot;</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="날짜시간-객체-타입.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.yearmon</span>(<span class="st">&quot;2007-12&quot;</span>)</span></code></pre></div>
@@ -283,10 +292,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="날짜시간-객체-타입.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unclass</span>(<span class="fu">as.yearqtr</span>(<span class="st">&quot;2007-01&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] 2007</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="날짜시간-객체-타입.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unclass</span>(<span class="fu">as.yearqtr</span>(<span class="st">&quot;2007-04&quot;</span>))</span></code></pre></div>
-<pre><code>## [1] 2007.75</code></pre></li>
-<li><p>날짜, 시간 객체 표현 포맷</p>
+<pre><code>## [1] 2007.75</code></pre>
 <ul>
-<li><p>날짜와 시간을 표현하는 방법은 매우 여러가지가 있음. R에서는 format 함수의 표준 코드를 사용하여 날짜, 시간의 표현 방법을 다양하게 변경할 수 있음. 또한 R의 지역설정에 따라 표현되는 날짜 형태도 다름. 우리나라 지역설정으로는 %B, %b는 ‘January,’ ‘Jan’ 이 아닌 ’1월’로 표기됨.</p>
+<li>날짜, 시간 객체 표현 포맷</li>
+</ul>
+<p>날짜와 시간을 표현하는 방법은 매우 여러가지가 있음. R에서는 format 함수의 표준 코드를 사용하여 날짜, 시간의 표현 방법을 다양하게 변경할 수 있음. 또한 R의 지역설정에 따라 표현되는 날짜 형태도 다름. 우리나라 지역설정으로는 %B, %b는 ‘January,’ ‘Jan’ 이 아닌 ’1월’로 표기됨.</p>
 <table>
 <caption>standard date format codes</caption>
 <thead>
@@ -328,9 +338,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="center">10</td>
 </tr>
 </tbody>
-</table></li>
-</ul></li>
-</ul>
+</table>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="날짜시간-객체-타입.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.Date</span>(<span class="st">&#39;01/12/2010&#39;</span>, <span class="at">format =</span> <span class="st">&#39;%d/%m/%Y&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2010-12-01&quot;</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="날짜시간-객체-타입.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.Date</span>(<span class="st">&#39;01jan21&#39;</span>, <span class="at">format =</span> <span class="st">&#39;%d%b%y&#39;</span>)</span></code></pre></div>
@@ -343,9 +351,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] &quot;LC_COLLATE=Korean_Korea.949;LC_CTYPE=Korean_Korea.949;LC_MONETARY=Korean_Korea.949;LC_NUMERIC=C;LC_TIME=Korean_Korea.949&quot;</code></pre>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="날짜시간-객체-타입.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.Date</span>(<span class="st">&#39;011월21&#39;</span>, <span class="at">format =</span> <span class="st">&#39;%d%b%y&#39;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2021-01-01&quot;</code></pre>
-<ul>
-<li></li>
-</ul>
 </div>
             </section>
 

@@ -172,9 +172,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="시계열-데이터-연산.html"><a href="시계열-데이터-연산.html"><i class="fa fa-check"></i><b>4.2</b> 시계열 데이터 연산</a></li>
 <li class="chapter" data-level="4.3" data-path="시계열-데이터-반올림.html"><a href="시계열-데이터-반올림.html"><i class="fa fa-check"></i><b>4.3</b> 시계열 데이터 반올림</a></li>
 <li class="chapter" data-level="4.4" data-path="시계열-데이터-grouping.html"><a href="시계열-데이터-grouping.html"><i class="fa fa-check"></i><b>4.4</b> 시계열 데이터 Grouping</a></li>
-<li class="chapter" data-level="4.5" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html"><i class="fa fa-check"></i><b>4.5</b> 시계열 데이터 Rolling</a></li>
-<li class="chapter" data-level="4.6" data-path="시계열-데이터-filtering.html"><a href="시계열-데이터-filtering.html"><i class="fa fa-check"></i><b>4.6</b> 시계열 데이터 filtering</a></li>
-<li class="chapter" data-level="4.7" data-path="시계열-데이터-subsetting.html"><a href="시계열-데이터-subsetting.html"><i class="fa fa-check"></i><b>4.7</b> 시계열 데이터 subsetting</a></li>
+<li class="chapter" data-level="4.5" data-path="시계열-데이터-ohlc.html"><a href="시계열-데이터-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 시계열 데이터 OHLC</a></li>
+<li class="chapter" data-level="4.6" data-path="시계열-데이터-누적값.html"><a href="시계열-데이터-누적값.html"><i class="fa fa-check"></i><b>4.6</b> 시계열 데이터 누적값</a></li>
+<li class="chapter" data-level="4.7" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html"><i class="fa fa-check"></i><b>4.7</b> 시계열 데이터 Rolling</a></li>
+<li class="chapter" data-level="4.8" data-path="시계열-데이터-filtering.html"><a href="시계열-데이터-filtering.html"><i class="fa fa-check"></i><b>4.8</b> 시계열 데이터 Filtering</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="시계열-forecasting-part-i.html"><a href="시계열-forecasting-part-i.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting - Part I</a>
 <ul>
@@ -210,10 +211,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="xts" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> XTS</h2>
-<ul>
-<li><p>xts는 시계열 데이터를 다루는 데이터 클래스와 데이터 핸들링 함수, 데이터 ploting 함수 등을 제공한다. 따라서 xts 패키지에서 제공하는 함수는 xts class의 데이터 객체를 대상으로 작동한다.</p></li>
-<li><p>xts 패키지를 사용하여 plot을 작성하려면 plot.xts()함수를 사용한다. plot.xts()을 활용해 작성한 plot에 추가적으로 line, legend 등을 추가하기 위해 add_ 함수를 사용할 수 있다.</p></li>
-<li><p>xts 패키지의 plot.xts를 활용하는 것은 디자인적 측면에서 ggplot보다 못미치지만 시계열 데이터의 흐름을 빠르고 쉽게 파악하는 사용이 간편한 plot 함수를 제공한다는 점에서 큰 장점이 있다.</p>
+<p>xts는 시계열 데이터를 다루는 데이터 클래스와 데이터 핸들링 함수, 데이터 ploting 함수 등을 제공한다. 따라서 xts 패키지에서 제공하는 함수는 xts class의 데이터 객체를 대상으로 작동한다.</p>
+<p>xts 패키지를 사용하여 plot을 작성하려면 plot.xts()함수를 사용한다. plot.xts()을 활용해 작성한 plot에 추가적으로 line, legend 등을 추가하기 위해 add_ 함수를 사용할 수 있다.</p>
+<p>xts 패키지의 plot.xts를 활용하는 것은 디자인적 측면에서 ggplot보다 못미치지만 시계열 데이터의 흐름을 빠르고 쉽게 파악하는 사용이 간편한 plot 함수를 제공한다는 점에서 큰 장점이 있다.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="xts.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(students.total.xts)</span></code></pre></div>
 <p><img src="t_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <ul>
@@ -232,7 +232,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>범례 추가 : 다중의 line이 하나의 plot에 표현되는 경우 범례가 필요하다. xts에서 범례를 표시하기 위해서는 legend함수를 사용하여 plot에 표시한다.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="xts.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addLegend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend.names=</span><span class="fu">c</span>(<span class="st">&#39;전체&#39;</span>, <span class="st">&#39;초등학교&#39;</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&#39;black&#39;</span>, <span class="st">&#39;red&#39;</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">bg=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p></li>
-</ul></li>
 </ul></li>
 </ul>
 </div>

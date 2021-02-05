@@ -172,9 +172,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="시계열-데이터-연산.html"><a href="시계열-데이터-연산.html"><i class="fa fa-check"></i><b>4.2</b> 시계열 데이터 연산</a></li>
 <li class="chapter" data-level="4.3" data-path="시계열-데이터-반올림.html"><a href="시계열-데이터-반올림.html"><i class="fa fa-check"></i><b>4.3</b> 시계열 데이터 반올림</a></li>
 <li class="chapter" data-level="4.4" data-path="시계열-데이터-grouping.html"><a href="시계열-데이터-grouping.html"><i class="fa fa-check"></i><b>4.4</b> 시계열 데이터 Grouping</a></li>
-<li class="chapter" data-level="4.5" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html"><i class="fa fa-check"></i><b>4.5</b> 시계열 데이터 Rolling</a></li>
-<li class="chapter" data-level="4.6" data-path="시계열-데이터-filtering.html"><a href="시계열-데이터-filtering.html"><i class="fa fa-check"></i><b>4.6</b> 시계열 데이터 filtering</a></li>
-<li class="chapter" data-level="4.7" data-path="시계열-데이터-subsetting.html"><a href="시계열-데이터-subsetting.html"><i class="fa fa-check"></i><b>4.7</b> 시계열 데이터 subsetting</a></li>
+<li class="chapter" data-level="4.5" data-path="시계열-데이터-ohlc.html"><a href="시계열-데이터-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 시계열 데이터 OHLC</a></li>
+<li class="chapter" data-level="4.6" data-path="시계열-데이터-누적값.html"><a href="시계열-데이터-누적값.html"><i class="fa fa-check"></i><b>4.6</b> 시계열 데이터 누적값</a></li>
+<li class="chapter" data-level="4.7" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html"><i class="fa fa-check"></i><b>4.7</b> 시계열 데이터 Rolling</a></li>
+<li class="chapter" data-level="4.8" data-path="시계열-데이터-filtering.html"><a href="시계열-데이터-filtering.html"><i class="fa fa-check"></i><b>4.8</b> 시계열 데이터 Filtering</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="시계열-forecasting-part-i.html"><a href="시계열-forecasting-part-i.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting - Part I</a>
 <ul>
@@ -210,11 +211,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="forecast" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> forecast</h2>
-<ul>
-<li><p>forecast 패키지는 시계열 자료의 시각화와 분석 방법과 도구를 제공하는 패키지로 호주의 Rob Hyndman교수가 주도하여 개발하였다.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> 이 패키지는 단변량(Univariate) 시계열 데이터를 다루도록 설계되었고 ploting에는 ggplot2 패키지를 기반으로 사용하고 있다.</p></li>
-<li><p>forecast 패키지에서는 시계열 ploting 방법으로 autoplot()함수를 제공하고 있다. 사실 forecast 패키지에서 사용하는 autoplot() 함수는 ggplot2에서 제공하는 함수이지만 ggplot2에서는 ts 데이터 클래스를 지원하지 않는다. 따라서 autoplot() 함수에 전달된 데이터가 ts 클래스인 경우는 ggplot2 패키지의 autoplot() 함수가 아닌 forecast에서 제공하는 autoplot() 함수(autoplot.ts 또는 autoplot.mts)를 호출하여 plot을 생성한다.</p></li>
-<li><p>autoplot()는 ggplot2와 마찬가지로 geometries layer를 겹쳐가면서 최종 plot를 생성하는데 + 기호를 사용하여 autolayer() 함수를 통해 layer를 겹칠 수 있다.</p></li>
-<li><p>autoplot()에서 사용하는 객체는 ts객체를 사용해야 한다.</p>
+<p>forecast 패키지는 시계열 자료의 시각화와 분석 방법과 도구를 제공하는 패키지로 호주의 Rob Hyndman교수가 주도하여 개발하였다.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> 이 패키지는 단변량(Univariate) 시계열 데이터를 다루도록 설계되었고 ploting에는 ggplot2 패키지를 기반으로 사용하고 있다.</p>
+<p>forecast 패키지에서는 시계열 ploting 방법으로 autoplot()함수를 제공하고 있다. 사실 forecast 패키지에서 사용하는 autoplot() 함수는 ggplot2에서 제공하는 함수이지만 ggplot2에서는 ts 데이터 클래스를 지원하지 않는다. 따라서 autoplot() 함수에 전달된 데이터가 ts 클래스인 경우는 ggplot2 패키지의 autoplot() 함수가 아닌 forecast에서 제공하는 autoplot() 함수(autoplot.ts 또는 autoplot.mts)를 호출하여 plot을 생성한다.</p>
+<p>autoplot()는 ggplot2와 마찬가지로 geometries layer를 겹쳐가면서 최종 plot를 생성하는데 + 기호를 사용하여 autolayer() 함수를 통해 layer를 겹칠 수 있다.</p>
+<p>autoplot()에서 사용하는 객체는 ts객체를 사용해야 한다.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="forecast.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
 <span id="cb13-2"><a href="forecast.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(students.total.ts)</span></code></pre></div>
 <p><img src="t_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
@@ -247,7 +247,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-4"><a href="forecast.html#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(students.total.ts[,<span class="dv">5</span>], <span class="at">series =</span> <span class="st">&#39;고등학교&#39;</span>, <span class="at">lty =</span> <span class="dv">4</span>, <span class="at">lwd =</span> <span class="fl">1.6</span>) <span class="sc">+</span> </span>
 <span id="cb18-5"><a href="forecast.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span><span class="fu">number_format</span>(<span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p></li>
-</ul></li>
 </ul></li>
 </ul>
 </div>
