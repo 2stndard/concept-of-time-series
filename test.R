@@ -436,3 +436,6 @@ dim(do.call(rbind, lapply(split(loan.xts, f = 'months'), cumsum)))
 
 loan %>%
   filter(기준일자 >= as.Date('2019-03-01') & 기준일자 <= as.Date('2019-03-03'))
+
+
+white_noise <- arima.sim(model = list(order = c(0,0,0)), n = 100)
