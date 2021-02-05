@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5.3 ACF와 PACF | t.utf8</title>
+  <meta name="description" content="<center>
+교육통계를 활용한 데이터 분석 방법
+</center>" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5.3 ACF와 PACF | t.utf8" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5.3 ACF와 PACF | t.utf8" />
+  
+  
+  
+
+<meta name="author" content="이기준" />
+
+
+<meta name="date" content="2021-02-06" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="지연lag와-차분diff.html"/>
+<link rel="next" href="백색-잡음white-noise.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">교육통계를 활용한 데이터 분석 방법</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="정의.html"><a href="정의.html"><i class="fa fa-check"></i><b>1.1</b> 정의</a></li>
+<li class="chapter" data-level="1.2" data-path="특성.html"><a href="특성.html"><i class="fa fa-check"></i><b>1.2</b> 특성</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="특성.html"><a href="특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.1</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.2" data-path="특성.html"><a href="특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.2</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="특성.html"><a href="특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.3</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="특성.html"><a href="특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.4</b> 불확실성(Uncertainty)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 타입 및 Import</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="날짜시간-객체-타입.html"><a href="날짜시간-객체-타입.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 객체 타입</a></li>
+<li class="chapter" data-level="2.2" data-path="시계열-패키지-및-데이터-타입.html"><a href="시계열-패키지-및-데이터-타입.html"><i class="fa fa-check"></i><b>2.2</b> 시계열 패키지 및 데이터 타입</a></li>
+<li class="chapter" data-level="2.3" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html"><i class="fa fa-check"></i><b>2.3</b> 시계열 데이터 Import의 방법</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="시계열-visualization.html"><a href="시계열-visualization.html"><i class="fa fa-check"></i><b>3</b> 시계열 Visualization</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="ggplot2.html"><a href="ggplot2.html"><i class="fa fa-check"></i><b>3.1</b> ggplot2</a></li>
+<li class="chapter" data-level="3.2" data-path="xts.html"><a href="xts.html"><i class="fa fa-check"></i><b>3.2</b> XTS</a></li>
+<li class="chapter" data-level="3.3" data-path="forecast.html"><a href="forecast.html"><i class="fa fa-check"></i><b>3.3</b> forecast</a></li>
+<li class="chapter" data-level="3.4" data-path="timetk.html"><a href="timetk.html"><i class="fa fa-check"></i><b>3.4</b> timetk</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html"><i class="fa fa-check"></i><b>4.1</b> 시계열 데이터 정보 다루기</a></li>
+<li class="chapter" data-level="4.2" data-path="시계열-데이터-연산.html"><a href="시계열-데이터-연산.html"><i class="fa fa-check"></i><b>4.2</b> 시계열 데이터 연산</a></li>
+<li class="chapter" data-level="4.3" data-path="시계열-데이터-반올림.html"><a href="시계열-데이터-반올림.html"><i class="fa fa-check"></i><b>4.3</b> 시계열 데이터 반올림</a></li>
+<li class="chapter" data-level="4.4" data-path="시계열-데이터-grouping.html"><a href="시계열-데이터-grouping.html"><i class="fa fa-check"></i><b>4.4</b> 시계열 데이터 Grouping</a></li>
+<li class="chapter" data-level="4.5" data-path="시계열-데이터-ohlc.html"><a href="시계열-데이터-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 시계열 데이터 OHLC</a></li>
+<li class="chapter" data-level="4.6" data-path="시계열-데이터-누적값.html"><a href="시계열-데이터-누적값.html"><i class="fa fa-check"></i><b>4.6</b> 시계열 데이터 누적값</a></li>
+<li class="chapter" data-level="4.7" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html"><i class="fa fa-check"></i><b>4.7</b> 시계열 데이터 Rolling</a></li>
+<li class="chapter" data-level="4.8" data-path="시계열-데이터-filtering.html"><a href="시계열-데이터-filtering.html"><i class="fa fa-check"></i><b>4.8</b> 시계열 데이터 Filtering</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="정상성stationary-비정상성non-stationary.html"><a href="정상성stationary-비정상성non-stationary.html"><i class="fa fa-check"></i><b>5.1</b> 정상성(Stationary), 비정상성(Non-Stationary)</a></li>
+<li class="chapter" data-level="5.2" data-path="지연lag와-차분diff.html"><a href="지연lag와-차분diff.html"><i class="fa fa-check"></i><b>5.2</b> 지연(Lag)와 차분(Diff)</a></li>
+<li class="chapter" data-level="5.3" data-path="acf와-pacf.html"><a href="acf와-pacf.html"><i class="fa fa-check"></i><b>5.3</b> ACF와 PACF</a></li>
+<li class="chapter" data-level="5.4" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.4</b> 백색 잡음(White Noise)</a></li>
+<li class="chapter" data-level="5.5" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.5</b> 시계열 분해(Decomposition)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii.html"><a href="시계열-forecasting-part-ii.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting - Part II</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="시계열-forecasting-part-iii.html"><a href="시계열-forecasting-part-iii.html"><i class="fa fa-check"></i><b>6.1</b> 시계열 forecasting - Part III</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><center>
+교육통계를 활용한 데이터 분석 방법
+</center></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="acf와-pacf" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> ACF와 PACF</h2>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="지연lag와-차분diff.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="백색-잡음white-noise.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["t.pdf", "t.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

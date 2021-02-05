@@ -91,3 +91,11 @@ ts-xts-5
 시계열-데이터-subsetting
 시계열-데이터-ohlc
 시계열-데이터-누적값
+시계열-forecasting---part-i-기초컨셉
+정상성stationary-비정상성non-stationary
+지연lag와-차분diff
+acf와-pacf
+백색-잡음white-noise
+시계열-분해decomposition
+시계열-forecasting-part-i---기초컨셉
+시계열-forecasting-part-ii---시계열-모델링-알고리즘

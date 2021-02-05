@@ -1,7 +1,51 @@
-# 시계열 forecasting - Part I
+# 시계열 forecasting Part I - 기초컨셉
 
-Some _significant_ applications are demonstrated in this chapter.
+시계열 데이터를 기반으로 미래 예측을 하는데에는 사용하는 알고리즘은 일반적으로 알려진 머신러닝 알고리즘과는 조금 다른 특징이 있다. 앞에서 설명했다시피 머신러닝 알고리즘은 크게 선형 회귀분석, 로지스틱 회귀분석과 같은 회귀(regression) 알고리즘, 의사 결정 트리, 랜덤 포레스트, k 근접 이웃 알고리즘과 같은 분류(classification) 알고리즘, k-means, DB-scan과 같은 군집(clustering) 알고리즘, 신경망 알고리즘을 활용한 딥러닝 알고리즘 등이 있다. 이런 대부분의 알고리즘은 주어진 훈련(training) 데이터 셋을 기반으로 모델을 생성하고 예측을 위한 새로운 데이터 셋을 모델에 적용함으로써 미래 데이터 섯에 대한 예측을 시행한다.
 
-## Example one
+그러나 시계열 데이터의 미래예측은 기존 데이터 셋을 활용하여 예측 모델을 만드는 것은 동일하지만 예측에 사용해야하는 미래 데이터는 시간이 입력된다.따라서 새로운 데이터셋이라는 것이 필요없게 된다. 과거 데이터의 패턴을 인지하여 미래에도 이 패턴이 유지된다는 가정하에 시간에 따른 새로운 데이터 셋을 만들어 낸다는 점이 큰 차이이다.
 
-## Example two
+이 과정에서 필수적으로 분석되어야 것이 데이터들 간에 장기적인 패턴인 추세(Trend)와 중기적인 패턴인 계절성(seasonality), 단기적인 패턴, 바로 앞 데이터와의 관계인 자기 상관 관계(autorelationa)이다. 결국 시계열 데이터를 분석한다는 것은 추세, 계절성, 자기상관관계 등의 시계열성 특성을 최대한 추출해내어 미래에 적용함으로써 예측값을 추정하는 방법이다.
+
+시계열 데이터에서 추세, 계절성, 자기상관관계의 특성을 모두 제거하고 나면 결국 백색 잡음(white noise)만 남게 된다. 마치 벼에서 쌀을 탈곡하고 나면 죽정이만 남는 것과 같은 방법이다.
+
+그렇다면 시계열 예측 알고리즘을 적용하기 위해 시계열 데이터의 특성을 추출하기 위한 몇가지 개념을 이번 장에서 살펴보고 넘어가고자 한다.
+
+## 정상성(Stationary), 비정상성(Non-Stationary)
+
+정상성 시계열은 한마디로 말하자면 어떤 시계열적 특성이 없는 데이터를 말한다. 반대로 비정성성 시계열이라고 하는 것은 추세, 계절성 등 시계열적 특성을 보유하고 있는 데이터를 말한다.
+
+시계열 예측은 정상성 시계열에서만 가능하기 때문에 비정상성 시계열 데이터에 적절한 조작을 가해서 정상성 데이터로 만드는 과정을 모델링하는 과정을 말한다.
+
+정상성 시계열 데이터는 다음과 같은 특성을 가진다.
+
+-   일정한 평균(등평균성)과 일정한 분산(등분산성)[^forecasting_i-1]
+
+[^forecasting_i-1]: <https://boostedml.com/2020/05/stationarity-and-non-stationary-time-series-with-applications-in-r.html>
+
+정상성 시계열 데이터는 시간의 흐름에 따른 데이터의 평균(시계열 데이터의 rolling window 평균)이 일정하다는 의미이다. 데이터의 처음부터 시차 이동평균을 구했을 때 그 평균값이 일정하게 유지되어야 한다.
+
+-   일정한 분산(등분산성)[^forecasting_i-2]
+
+[^forecasting_i-2]: <https://boostedml.com/2020/05/stationarity-and-non-stationary-time-series-with-applications-in-r.html>
+
+정상성 시계열 데이터는 시간의 흐름에 따른 데이터의 분산(시계열 데이터의 rolliing window 분산)이 일정하다는 의미이다. 등평균성과 같이 시차 이동분산을 구했을때 그 분산 값이 일정하게 유지된다는 것이다.
+
+```{r echo =FALSE, warning=FALSE, message=FALSE}
+set.seed(345)
+stationary <- arima.sim(model = list(order = c(0,0,0)), n = 200)
+ts.plot(stationary)
+```
+
+```{r echo =FALSE, warning=FALSE, message=FALSE}
+set.seed(345)
+non_stationary <- arima.sim(model = list(order = c(0, 1, 0)), n = 200)
+ts.plot(non_stationary)
+```
+
+## 지연(Lag)와 차분(Diff)
+
+## ACF와 PACF
+
+## 백색 잡음(White Noise)
+
+## 시계열 분해(Decomposition)
