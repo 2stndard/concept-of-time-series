@@ -1,3 +1,17 @@
 # 시계열 forecasting Part II - 시계열 모델링 알고리즘
 
 We have finished a nice book.
+
+## Simple 모델링 알고리즘
+
+## Regression 모델
+
+## Exponential Smoothing 모델
+
+## ARIMA 모델
+
+## TBAT 모델
+
+## Neural Network 모델
+
+## Bootstrapping과 Begging 모델

@@ -99,3 +99,13 @@ acf와-pacf
 시계열-분해decomposition
 시계열-forecasting-part-i---기초컨셉
 시계열-forecasting-part-ii---시계열-모델링-알고리즘
+지연lag와-차분difference
+적합값fitted-value-와-잔차residuals
+simple-모델링-알고리즘
+regression-모델
+exponential-smoothing-모델
+arima-모델
+tbat-모델
+neural-network-모델
+bootstrapping과-begging-모델
+시계열-forecasting-part-iii---성능-분석

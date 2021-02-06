@@ -26,7 +26,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-06" />
+<meta name="date" content="2021-02-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -173,15 +173,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="정상성stationary-비정상성non-stationary.html"><a href="정상성stationary-비정상성non-stationary.html"><i class="fa fa-check"></i><b>5.1</b> 정상성(Stationary), 비정상성(Non-Stationary)</a></li>
-<li class="chapter" data-level="5.2" data-path="지연lag와-차분diff.html"><a href="지연lag와-차분diff.html"><i class="fa fa-check"></i><b>5.2</b> 지연(Lag)와 차분(Diff)</a></li>
+<li class="chapter" data-level="5.2" data-path="지연lag와-차분difference.html"><a href="지연lag와-차분difference.html"><i class="fa fa-check"></i><b>5.2</b> 지연(Lag)와 차분(Difference)</a></li>
 <li class="chapter" data-level="5.3" data-path="acf와-pacf.html"><a href="acf와-pacf.html"><i class="fa fa-check"></i><b>5.3</b> ACF와 PACF</a></li>
-<li class="chapter" data-level="5.4" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.4</b> 백색 잡음(White Noise)</a></li>
-<li class="chapter" data-level="5.5" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.5</b> 시계열 분해(Decomposition)</a></li>
+<li class="chapter" data-level="5.4" data-path="적합값fitted-value-와-잔차residuals.html"><a href="적합값fitted-value-와-잔차residuals.html"><i class="fa fa-check"></i><b>5.4</b> 적합값(fitted value) 와 잔차(residuals)</a></li>
+<li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
+<li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 모델링 알고리즘</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="시계열-forecasting-part-iii.html"><a href="시계열-forecasting-part-iii.html"><i class="fa fa-check"></i><b>6.1</b> 시계열 forecasting - Part III</a></li>
+<li class="chapter" data-level="6.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델링 알고리즘</a></li>
+<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a></li>
+<li class="chapter" data-level="6.3" data-path="exponential-smoothing-모델.html"><a href="exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> Exponential Smoothing 모델</a></li>
+<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a></li>
+<li class="chapter" data-level="6.5" data-path="tbat-모델.html"><a href="tbat-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBAT 모델</a></li>
+<li class="chapter" data-level="6.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.6</b> Neural Network 모델</a></li>
+<li class="chapter" data-level="6.7" data-path="bootstrapping과-begging-모델.html"><a href="bootstrapping과-begging-모델.html"><i class="fa fa-check"></i><b>6.7</b> Bootstrapping과 Begging 모델</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-성능-분석.html"><a href="시계열-forecasting-part-iii-성능-분석.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 성능 분석</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -216,11 +224,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## Time difference of 14976 days</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="시계열-데이터-연산.html#cb33-1" aria-hidden="true" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">today</span>()</span>
 <span id="cb33-2"><a href="시계열-데이터-연산.html#cb33-2" aria-hidden="true" tabindex="-1"></a>today <span class="sc">+</span> <span class="dv">100</span>   <span class="co"># 오늘부터 100일 후</span></span></code></pre></div>
-<pre><code>## [1] &quot;2021-05-17&quot;</code></pre>
+<pre><code>## [1] &quot;2021-05-18&quot;</code></pre>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="시계열-데이터-연산.html#cb35-1" aria-hidden="true" tabindex="-1"></a>today <span class="sc">-</span> <span class="fu">months</span>(<span class="dv">2</span>)  <span class="co"># 오늘부터 2개월 전  </span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-12-06&quot;</code></pre>
+<pre><code>## [1] &quot;2020-12-07&quot;</code></pre>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="시계열-데이터-연산.html#cb37-1" aria-hidden="true" tabindex="-1"></a>today <span class="sc">-</span> <span class="fu">years</span>(<span class="dv">1</span>)   <span class="co">#오늘부터 1년전</span></span></code></pre></div>
-<pre><code>## [1] &quot;2020-02-06&quot;</code></pre>
+<pre><code>## [1] &quot;2020-02-07&quot;</code></pre>
 <ul>
 <li>시계열 데이터 기간</li>
 </ul>

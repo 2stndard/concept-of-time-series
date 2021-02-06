@@ -439,3 +439,89 @@ loan %>%
 
 
 white_noise <- arima.sim(model = list(order = c(0,0,0)), n = 100)
+
+
+students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
+students[, 3:18] <- apply(students[, 3:18], 2, function(y) as.numeric(gsub(",", "", y)))
+students.total.xts <- students %>% filter(지역규모 == '계') %>% select(-지역규모)
+students.total.xts <- as.xts(students.total.xts, order.by = as.Date(paste0(students.total.xts[,1], '-01-01'), format = '%Y-%m-%d'))
+library(timetk)
+students.total.ts <- students %>% 
+  filter(지역규모 == '계') %>% 
+  select(3:18) %>%
+  ts(start = c(1999), frequency = 1)
+
+students %>%
+  filter(지역규모 == '계') %>%
+  mutate(lag1 = lag(학생수계, 1), 
+         lag3 = lag(학생수계, 3)) %>%
+  select(연도, 학생수계, lag1, lag3) %>%
+  head(10)
+
+students %>%
+  filter(지역규모 == '계') %>%
+  mutate(diff1 = c(0, diff(학생수계, lag = 1)), 
+         diff3 = c(0, 0, 0, diff(학생수계, lag = 3))) %>%
+  select(연도, 학생수계, diff1, diff3) %>%
+  head(10)
+
+         
+students %>%
+  filter(지역규모 == '계') %>%
+  mutate(lag1 = lag(학생수계, 1), 
+         lag3 = lag(학생수계, 3), 
+         diff1 = c(0, diff(학생수계, lag = 1)), 
+         diff3 = c(0, 0, 0, diff(학생수계, lag = 3)), 
+         diff1.cal = ifelse(!is.na(lag1), 학생수계-lag1, 0), 
+         diff3.cal = ifelse(!is.na(lag3), 학생수계-lag3, 0))%>%
+  select(연도, 학생수계, lag1, diff1, diff1.cal, lag3, diff3, diff3.cal) %>%
+  head(10)
+
+
+plot <- students %>%
+  filter(지역규모 == '계') %>%
+  mutate(lag1 = lag(학생수계, 1), 
+         lag3 = lag(학생수계, 3), 
+         diff1 = c(NA, diff(학생수계, lag = 1)), 
+         diff3 = c(NA, NA, NA, diff(학생수계, lag = 3)), 
+         diff1.cal = ifelse(!is.na(lag1), 학생수계-lag1, NA), 
+         diff3.cal = ifelse(!is.na(lag3), 학생수계-lag3, NA)) %>%
+  select(연도, 학생수계, lag1, diff1, diff1.cal, lag3, diff3, diff3.cal)
+xts::as.xts(plot[, c(2, 3, 4)], order.by = as.Date(as.character(plot[, 1]), format = '%Y'))
+
+
+students.total.xts$학생수계.lag1 <- stats::lag(students.total.xts$학생수계, 1)
+
+colnames(employees) <- c('time', 'total', 'employees.edu')
+ts(employees[, 3], start = c(2013, 01), frequency = 12) %>%
+  decompose() %>% autoplot()
+xts(employees[, 3], order.by = as.Date(employees[, 1], format = '%Y. %M')) %>%
+  decompose() %>% autoplot()
+?decompose
+library(seasonal)
+?seas
+ts(employees[, 3], start = c(2013, 01), frequency = 12) %>%
+  seas() %>% autoplot()
+
+
+employees %>%
+  mutate(date = as.Date(employees[, 1], format = '%Y. %M')) %>%
+  select(4, 2) %>%
+  plot_stl_diagnostics(
+    .date = date, .value = total,
+    .feature_set = c("observed", "season", "trend", "remainder"),
+    .frequency = 12,
+    .trend = 12)
+
+tk_get_frequency(as.Date(employees[, 1], format = '%Y. %M'), period = "auto")
+
+employees %>%
+  mutate(date = as.Date(employees[, 1], format = '%Y. %M')) %>%
+  select(4, 2) %>% tk_index() %>% tk_get_frequency(period = "auto")
+
+employees %>%
+  mutate(date = as.Date(employees[, 1], format = '%Y. %M')) %>%
+  select(4, 2) %>%
+  tk_index() %>% tk_get_trend(period = "auto")
+
+ggseasonplot(ts(employees[, 3], start = c(2013, 01), frequency = 12), polar = T)
