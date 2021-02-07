@@ -540,9 +540,45 @@ students.total.ts <- students %>%
 
 glimpse(students.total.ts)
 
-autoplot(meanf(students.total.ts, h = 3, bootstrap = TRUE))
+autoplot(meanf(students.total.ts, h = 10))
+
+mean(students.total.ts) + sqrt(sd(students.total.ts))*1.96
+7598603 + sd(students.total.ts - 7598603)*(sqrt(1+(1/length(students.total.ts))))*1.96
+
+sd(resid(meanf(students.total.ts[,1])))*1.96 + mean(students.total.ts[,1])
+
 class(meanf(students.total.ts, h = 10))
 
 
 class(students.total.ts[1])
   ts(start = c(1999), frequency = 1)
+  
+  students.total.ts <- students %>% 
+    filter(지역규모 == '계') %>% 
+    select(3:18) %>%
+    ts(start = c(1999), frequency = 1)  
+forecast::meanf(students.total.ts[, 1])
+
+install.packages('growthrates')
+library(growthrates)
+growth <- students %>% filter(지역규모 == '계') %>% select(1, 3)
+fit_easylinear(1:22, as.numeric(growth[, 2]))  
+data(bactgrowth, package = 'growthrates')
+class(bactgrowth)
+splitted.data <- multisplit(bactgrowth, c("strain", "conc", "replicate"))
+dat <- splitted.data[[1]]
+plot(value ~ time, data=dat)
+fit <- fit_easylinear(dat$time, dat$value)
+summary(lm(dat$time~dat$value))
+class(dat$time)
+class(dat$value)
+tis::growth.rate(students.total.ts[,1], lag = 1, simple = T)
+install.packages('tis')
+fit_growthmodel(FUN = grow_twostep, p = p, time = dat$time, y = dat$value,
+                lower = lower, upper = upper)
+summary(naive(employees.ts[,2]))
+
+?snaive
+
+
+

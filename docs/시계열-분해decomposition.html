@@ -34,7 +34,7 @@
   
   
 <link rel="prev" href="백색-잡음white-noise.html"/>
-<link rel="next" href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"/>
+<link rel="next" href="정상성-테스트.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -185,6 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="적합값fitted-value-와-잔차residuals.html"><a href="적합값fitted-value-와-잔차residuals.html"><i class="fa fa-check"></i><b>5.4</b> 적합값(fitted value) 와 잔차(residuals)</a></li>
 <li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
 <li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
+<li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 모델링 알고리즘</a>
 <ul>
@@ -237,16 +238,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="시계열-분해decomposition.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees[, <span class="dv">3</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb37-2"><a href="시계열-분해decomposition.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  seasonal<span class="sc">::</span><span class="fu">seas</span>(<span class="at">x11 =</span> <span class="st">&#39;&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/unnamed-chunk-16-4.png" width="672" /></p>
-
+<p>위의 예제에서 사용한 데이터는 통계청 국가통계포털(<a href="https://kosis.kr">https://kosis.kr)</a>에서){.uri}에서 다운로드 받은 자료로 국내통계 &gt; 노동 &gt; 경제활동인구조사 &gt; 취업자 &gt; 산업별 취업자에서 시점을 2013.1월부터 2020.12월까지, 산업구분을 전체 계와 교육서비스업으로 설정 후 행렬전환 기능을 사용하여 행에 기간, 열에 산업을 설정한 후 다운로드 받음. (<a href= 'https://github.com/2stndard/concept-of-time-series/blob/master/%EC%82%B0%EC%97%85%EB%B3%84_%EC%B7%A8%EC%97%85%EC%9E%90_20210206234505.csv'> download</a>)</p>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
 <a href="백색-잡음white-noise.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="정상성-테스트.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

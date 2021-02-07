@@ -109,3 +109,6 @@ tbat-모델
 neural-network-모델
 bootstrapping과-begging-모델
 시계열-forecasting-part-iii---성능-분석
+a-future-like-the-past
+growth-rate-모델
+정상성-테스트

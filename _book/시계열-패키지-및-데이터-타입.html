@@ -178,6 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="적합값fitted-value-와-잔차residuals.html"><a href="적합값fitted-value-와-잔차residuals.html"><i class="fa fa-check"></i><b>5.4</b> 적합값(fitted value) 와 잔차(residuals)</a></li>
 <li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
 <li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
+<li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 모델링 알고리즘</a>
 <ul>
@@ -237,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>zoo 타입 데이터 생성 예</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="시계열-패키지-및-데이터-타입.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zoo</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## 2008-08-01 2008-08-02 2008-08-03 2008-08-04 2008-08-05 
-## -1.1885442  0.2423075  0.7154431  0.7865482  1.5813522</code></pre></li>
+## -0.4378524  1.7065318 -1.1274712  0.8794624  2.0053608</code></pre></li>
 </ul></li>
 <li><p>xts(package &amp; data type) : xts는 extensible time-series의 준말로 ‘xts’ 패키지를 로드해야 활용할 수 있는 데이터 타입임. 앞서 기술된 zoo 데이터 타입에 종속된 데이터 타입으로 zoo를 확장하여 다양한 시간 기반 데이터 클래스를 균일하게 처리 할 수 있는 데이터 타입임.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 <ul>
@@ -248,19 +249,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb58-4"><a href="시계열-패키지-및-데이터-타입.html#cb58-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
 <li><p>xts 타입 데이터 생성 예</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="시계열-패키지-및-데이터-타입.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
-<pre><code>##                  [,1]
-## 2008-08-01 -0.6664708
-## 2008-08-02 -0.8496195
-## 2008-08-03 -0.8275713
-## 2008-08-04  0.7950868
-## 2008-08-05  0.8054734</code></pre>
+<pre><code>##                   [,1]
+## 2008-08-01 -1.55501082
+## 2008-08-02  0.03952169
+## 2008-08-03 -0.26031324
+## 2008-08-04  0.60374626
+## 2008-08-05  0.27644713</code></pre>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="시계열-패키지-및-데이터-타입.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##                  [,1]
-## 2008-08-01 -0.9042348
-## 2008-08-02 -0.3823972
-## 2008-08-03  0.3808302
-## 2008-08-04 -0.6876915
-## 2008-08-05  0.8466479</code></pre>
+## 2008-08-01  0.4809240
+## 2008-08-02  0.4530082
+## 2008-08-03 -0.7534554
+## 2008-08-04  0.6612822
+## 2008-08-05 -0.6412761</code></pre>
 <ul>
 <li><p>xts()와 as.xts()의 차이 : xts()는 xts 객체를 생성하는 함수이나 as.xts()는 timeSeries, ts, irts, fts, matrix, data.frame, zoo 객체를 xts객체로 변환하는 함수임.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> 다음과 같은 차이가 발생함.</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="시계열-패키지-및-데이터-타입.html#cb63-1" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span>

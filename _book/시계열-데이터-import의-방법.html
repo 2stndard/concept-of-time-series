@@ -178,6 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="적합값fitted-value-와-잔차residuals.html"><a href="적합값fitted-value-와-잔차residuals.html"><i class="fa fa-check"></i><b>5.4</b> 적합값(fitted value) 와 잔차(residuals)</a></li>
 <li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
 <li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
+<li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 모델링 알고리즘</a>
 <ul>
@@ -323,36 +324,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb91-2"><a href="시계열-데이터-import의-방법.html#cb91-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(df[,<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
 <span id="cb91-3"><a href="시계열-데이터-import의-방법.html#cb91-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read.ts</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
 <pre><code>##               value1      value2
-## Jan 2010 -1.56990987  0.49521152
-## Feb 2010 -0.60036939  0.74663934
-## Mar 2010 -1.16007672 -1.63698488
-## Apr 2010  0.86593415 -2.82670397
-## May 2010  2.01021661 -0.32197017
-## Jun 2010  1.06867620  0.66191443
-## Jul 2010 -0.29411533  1.41711681
-## Aug 2010  0.31659463 -0.99201381
-## Sep 2010 -0.77827262 -0.75560637
-## Oct 2010  1.28366986 -0.64750129
-## Nov 2010 -1.14991577  1.50182634
-## Dec 2010  0.81665120  0.21373645
-## Jan 2011 -0.03470983 -0.17420070
-## Feb 2011 -0.44085039  1.66609974
-## Mar 2011 -0.80444628  0.79157984
-## Apr 2011 -0.04549712 -0.95528558
-## May 2011 -1.30130686 -0.77008956
-## Jun 2011 -1.58771320 -0.45157223
-## Jul 2011 -1.59899882  0.46486107
-## Aug 2011  0.13073740 -0.03684735
-## Sep 2011  0.22546782  0.01094839
-## Oct 2011 -0.70431776 -0.51872029
-## Nov 2011  2.87444033 -1.02803684
-## Dec 2011 -1.53458984  0.90361129
-## Jan 2012 -0.83405940  1.36226679
-## Feb 2012 -0.11917508  1.73340499
-## Mar 2012 -1.45659024 -0.02164879
-## Apr 2012  1.25129338  0.23769195
-## May 2012 -0.14701231 -0.85837428
-## Jun 2012 -1.08510227 -1.55896877</code></pre>
+## Jan 2010 -0.21734246 -0.49913989
+## Feb 2010  0.19683374 -1.47106270
+## Mar 2010 -1.26488394  1.07284957
+## Apr 2010 -1.67436371 -0.21454095
+## May 2010  0.34124828 -0.21283096
+## Jun 2010 -0.28030211 -0.11101967
+## Jul 2010 -0.75216102  0.49838046
+## Aug 2010  0.38584795  1.03191828
+## Sep 2010  0.33816876  1.11786537
+## Oct 2010  0.76689355  1.85840461
+## Nov 2010  0.22880952  0.62717653
+## Dec 2010  0.34209843  1.60871476
+## Jan 2011 -2.46934445 -1.13935414
+## Feb 2011 -1.45666584 -0.42314650
+## Mar 2011 -0.29468318 -0.26832947
+## Apr 2011 -0.90665768  0.60598156
+## May 2011 -0.31061760 -1.47661149
+## Jun 2011 -0.25813261 -1.76425507
+## Jul 2011 -2.08659925 -0.04598983
+## Aug 2011  1.16460071  0.28430433
+## Sep 2011 -0.30821644 -0.84660415
+## Oct 2011 -1.33104139 -0.38748051
+## Nov 2011  1.53172153 -0.03076467
+## Dec 2011  0.89160590 -0.54807563
+## Jan 2012  0.01328333  0.29392099
+## Feb 2012  1.57641723 -0.32642776
+## Mar 2012 -0.32962049  0.05602135
+## Apr 2012 -0.59277818 -1.02173678
+## May 2012  0.14285820 -0.41197965
+## Jun 2012 -0.69039922 -1.39430032</code></pre>
 <p>읽어들일 파일에 시간이 기재되어 있는 경우는 zoo 패키지의 read.zoo 함수를 이용하여 zoo 객체로 읽어들인 후 이 객체를 xts 객체로 변환하여 활용하는 방법을 활용할 수 있음. read.ts에 비해 read.zoo는 지정된 주기의 비일정한 시계열 데이터 타입을 불러 들일 수 있다는 장점이 있음. 예를 들어 매일 기록되는 데이터의 경우 read.ts는 중간에 빠지는 날이 없이 지정된 기간동안 매일 기록된 데이터를 가져오지만 read.zoo는 기본적으로 매일 기록된 데이터를 가져온다하더라도 중간중간 빠진 날을 인정하고 가져올 수 있는 방법임.</p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="시계열-데이터-import의-방법.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
 <span id="cb93-2"><a href="시계열-데이터-import의-방법.html#cb93-2" aria-hidden="true" tabindex="-1"></a>zoo.class <span class="ot">&lt;-</span> <span class="fu">read.zoo</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">index.column =</span> <span class="dv">1</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
@@ -363,12 +364,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] &quot;xts&quot; &quot;zoo&quot;</code></pre>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="시계열-데이터-import의-방법.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(xts.class)</span></code></pre></div>
 <pre><code>##                value1     value2
-## 2010-01-01 -1.5699099  0.4952115
-## 2010-02-01 -0.6003694  0.7466393
-## 2010-03-01 -1.1600767 -1.6369849
-## 2010-04-01  0.8659342 -2.8267040
-## 2010-05-01  2.0102166 -0.3219702
-## 2010-06-01  1.0686762  0.6619144</code></pre>
+## 2010-01-01 -0.2173425 -0.4991399
+## 2010-02-01  0.1968337 -1.4710627
+## 2010-03-01 -1.2648839  1.0728496
+## 2010-04-01 -1.6743637 -0.2145410
+## 2010-05-01  0.3412483 -0.2128310
+## 2010-06-01 -0.2803021 -0.1110197</code></pre>
 
 </div>
 <!-- </div> -->
