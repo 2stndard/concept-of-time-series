@@ -581,4 +581,3 @@ summary(naive(employees.ts[,2]))
 ?snaive
 
 
-
