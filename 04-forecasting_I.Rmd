@@ -57,7 +57,7 @@ plot.ts(lynx)
 
 정상성 시계열 데이터는 시간의 흐름에 따른 데이터의 분산(시계열 데이터의 rolliing window 분산)이 일정하다는 의미이다. 등평균성과 같이 시차 이동분산을 구했을때 그 분산 값이 일정하게 유지된다는 것이다.
 
-```{r echo =FALSE, warning=FALSE, message=FALSE}
+```{r stationary_distribution, echo =FALSE, warning=FALSE, message=FALSE}
 set.seed(345)
 stationary <- arima.sim(model = list(order = c(0,0,0)), n = 200)
 ts.plot(stationary)
@@ -77,7 +77,7 @@ ts.plot(non_stationary)
 
 지연은 정해진 시간동안 데이터를 앞으로 혹은 뒤로 당기거나 밀어내어 생성되는 데이터를 말한다. 지연은 데이터의 자기상관성(Autocorelation)을 측정하기 위해 필수적으로 필요한 데이터이다. 지연 1의 데이터는 원본 데이터에 시간 period 1만큼 딜레이된 데이터가 생성된다. 예를 들어 매일 기록된 주기의 데이터는 다음날 데이터로 전날 데이터를 사용하는 형태이다. 지연을 구하는 함수는 lag()를 통해 쉽게 산출이 가능하다.
 
-```{r}
+```{r lag}
 students %>%
   filter(지역규모 == '계') %>%
   mutate(lag1 = lag(학생수계, 1), 
@@ -88,7 +88,7 @@ students %>%
 
 timetk 패키지에서도 lag() 함수와 유사한 함수인 lag_vec() 함수를 제공한다.
 
-```{r}
+```{r lag_timetk}
 students %>%
   filter(지역규모 == '계') %>%
   mutate(lag1 = timetk::lag_vec(학생수계, lag = 1), 
@@ -149,7 +149,7 @@ ACF는 AutoCorelation Function의 준말로 자기 상관 관계를 확인할 �
 
 [^forecasting_i-5]: <https://nwfsc-timeseries.github.io/atsa-labs/sec-tslab-correlation-within-and-among-time-series.html>
 
-```{r}
+```{r acf_stat}
 #   stats 패키지의 acf plot
 students %>%
   filter(지역규모 == '계') %>%
@@ -162,7 +162,7 @@ students %>%
   stats::acf(plot = FALSE)
 ```
 
-```{r}
+```{r acf_forecast}
 #   forecast 패키지의 Acf plot
 students %>%
   filter(지역규모 == '계') %>%
@@ -185,7 +185,7 @@ students %>%
   forecast::ggAcf(plot = FALSE)
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r acf_timetk, message=FALSE, warning=FALSE}
 students %>%
   filter(지역규모 == '계') %>%
   select(연도, 학생수계) %>%
@@ -200,7 +200,7 @@ students %>%
 
 PACF 함수도 ACF 함수의 제공과 거의 유사한 형태로 각각의 패키지에서 제공한다. stats 패키지의 pacf(), forecast 패키지의 Pacf() 함수와 ggPacf() 함수, timetk 패키지에는 plot_acf_diagnostics() 함수, ts 패키지의 ts.acf() 함수가 제공된다.
 
-```{r}
+```{r pacf_stats}
 #   stats 패키지의 pacf plot
 students %>%
   filter(지역규모 == '계') %>%
@@ -213,23 +213,23 @@ students %>%
   stats::pacf(plot = FALSE)
 ```
 
-```{r}
-#   forecast 패키지의 Acf plot
+```{r pacf_forecast}
+#   forecast 패키지의 Pacf plot
 students %>%
   filter(지역규모 == '계') %>%
   select(학생수계) %>%
   forecast::Pacf()
-#   forecast 패키지의 Acf 수치
+#   forecast 패키지의 Pacf 수치
 students %>%
   filter(지역규모 == '계') %>%
   select(학생수계) %>%
   forecast::Pacf(plot = FALSE)
-#   forecast 패키지의 ggAcf plot
+#   forecast 패키지의 ggPacf plot
 students %>%
   filter(지역규모 == '계') %>%
   select(학생수계) %>%
   forecast::ggPacf()
-#   forecast 패키지의 ggAcf 수치
+#   forecast 패키지의 ggPacf 수치
 students %>%
   filter(지역규모 == '계') %>%
   select(학생수계) %>%
@@ -250,7 +250,7 @@ students %>%
 
 백색잡음은 시간의 흐름에 따라 독립적이어야 하며 시간의 변화에 관계없이 평균은 0, 분산은 1로 일정하게 유지된다. 하지만 사실상 정확히 평균 0, 분산 1이 유지되는 것은 아니고 대략 평균 0, 분산 1에서 큰 변화가 없다는 것으로 받아들이는 것이 좋다.
 
-```{r echo =FALSE, warning=FALSE, message=FALSE}
+```{r whitenoise, echo =FALSE, warning=FALSE, message=FALSE}
 set.seed(345)
 백색잡음 <- arima.sim(model = list(order = c(0,0,0)), n = 200)
 ts.plot(백색잡음)
@@ -269,7 +269,7 @@ Ljung-Box test는 forecast 패키지의 checkresiduals()함수를 이용하면 �
 
 아래의 예제는 fpp2 패키지에서 제공하는 구글의 주식 종가 데이터를 forecast 패키지에서 제공하는 naive() 모델링한 결과의 잔차를 checkresiduals() 함수에 적용한 결과를 보이고 있다. 결과 plot의 잔차 ACF plot의 자기상관계수는 모두 95% 신뢰구간 아래에 위치하므로 자기상관성이 없다고 볼 수 있고 잔차의 분포도 하나의 이상치를 제외하면 백색잡음과 유사한 패턴을 보이고 있다. 마지막으로 Ljung-Box test 결과를 보면 p-value가 0.05보다 큰 0.3551이기 때문에 잔차의 분포는 백색잡음과 다르지 않다고 판단할 수 있다.
 
-```{r}
+```{r checkresiduals}
 library(forecast)
 data(goog200, package = 'fpp2')
 checkresiduals(naive(goog200))
@@ -279,7 +279,7 @@ checkresiduals(naive(goog200))
 
 앞에서 계속 언급했던 시계열 특성인 추세(Trend), 계절성(Seasonality), 자기상관성(Autocorelation) 중에 자기상관성은 ACF, PACF 함수를 사용하여 확인할 수 있는 방법을 설명하였다. 그렇다면 추세와 계절성은 어떻게 확인할 수 있는가? 몇몇 패키지에서는 시계열 데이터에서 추세와 계절성을 분해하여 볼 함수를 제공한다. , R의 기본 패키지인 stats 패키지에서 decompose(), stl() 함수, seasonal 패키지의 seas() 함수를 통해 시계열을 trend, seasonality, 잔차 등으로 분리하여 ploting 할 수 있다. 각각의 함수는 시계열 decomposition 알고리즘의 차이로 인해 약간씩 결과가 다르게 나타난다.
 
-```{r}
+```{r decomposition}
 employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 colnames(employees) <- c('time', 'total', 'employees.edu')
 ts(employees[, 3], start = c(2013, 01), frequency = 12) %>%
@@ -299,7 +299,7 @@ ts(employees[, 3], start = c(2013, 01), frequency = 12) %>%
 
 ## 정상성 테스트
 
-```{r}
+```{r stationary_test}
 library(tseries)
 Box.test (ts(employees[, 3], start = c(2013, 01), frequency = 12), lag = 1, type = "Ljung") #p-value가 0.05보다 작으면 비정상성
 adf.test(ts(employees[, 3], start = c(2013, 01), frequency = 12)) # p-value 0.05보다 작으면 정상성

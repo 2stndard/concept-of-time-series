@@ -227,23 +227,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>xts 패키지를 사용하여 plot을 작성하려면 plot.xts()함수를 사용한다. plot.xts()을 활용해 작성한 plot에 추가적으로 line, legend 등을 추가하기 위해 add_ 함수를 사용할 수 있다.</p>
 <p>xts 패키지의 plot.xts를 활용하는 것은 디자인적 측면에서 ggplot보다 못미치지만 시계열 데이터의 흐름을 빠르고 쉽게 파악하는 사용이 간편한 plot 함수를 제공한다는 점에서 큰 장점이 있다.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="xts.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(students.total.xts)</span></code></pre></div>
-<p><img src="t_files/figure-html/xts_plot-1.png" width="672" /></p>
+<p><img src="t_files/figure-html/plot_xts-1.png" width="672" /></p>
 <ul>
 <li><p>plot.xts 문법 설명 및 plot 수정</p>
 <ul>
 <li><p>plot.xts 함수에 xts 데이터를 설정함으로써 xts class 데이터에 대한 plot을 간단한 코드로 생성할 수 있다.</p></li>
 <li><p>plot 제목 및 축 제목 : plot.xts로 생성된 plot의 제목은 ‘main’ 매개변수를 사용하여 설정이 가능하고 부제목은 ‘sub’ 매개변수로 설정이 가능하다. 축 제목은 ‘xlab,’ ‘ylab’ 매개변수를 통해 설정한다.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="xts.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(students.total.xts[,<span class="dv">2</span>], <span class="at">main =</span> <span class="st">&#39;연도별 학생수&#39;</span>, <span class="at">sub =</span> <span class="st">&#39;전체 학생수의 연도별 변화&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>,  <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>)</span></code></pre></div>
-<p><img src="t_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p></li>
+<p><img src="t_files/figure-html/plot_xts_title-1.png" width="672" /></p></li>
 <li><p>plot 축 범위 : plot 축의 범위는 ‘xlim,’ ‘ylim’ 매개변수를 사용하여 설정이 가능하다. 설정시에는 최소값과 최대값을 c() 함수를 사용하여 설정한다.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="xts.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(students.total.xts[,<span class="dv">2</span>], <span class="at">main =</span> <span class="st">&#39;연도별 학생수&#39;</span>, <span class="at">sub =</span> <span class="st">&#39;전체 학생수의 연도별 변화&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>,  <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(students.total.xts[,<span class="dv">2</span>])))</span></code></pre></div>
-<p><img src="t_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p></li>
+<p><img src="t_files/figure-html/plot_xts_axis-1.png" width="672" /></p></li>
 <li><p>다변량 시계열 ploting : 다변량 xts의 경우 한번에 다량의 line plot가 자동적으로 생성되는데 일변량 line plot를 여러개 생성해야할 경우는 lines 함수를 사용하여 기존의 plot에 추가할 수 있다.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="xts.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(students.total.xts[,<span class="dv">4</span>], <span class="at">col =</span> <span class="st">&#39;red&#39;</span>)</span></code></pre></div>
-<p><img src="t_files/figure-html/xts_multiplot-1.png" width="672" /></p></li>
+<p><img src="t_files/figure-html/plot_xts_multiplot-1.png" width="672" /></p></li>
 <li><p>범례 추가 : 다중의 line이 하나의 plot에 표현되는 경우 범례가 필요하다. xts에서 범례를 표시하기 위해서는 legend함수를 사용하여 plot에 표시한다.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="xts.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addLegend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend.names=</span><span class="fu">c</span>(<span class="st">&#39;전체&#39;</span>, <span class="st">&#39;초등학교&#39;</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&#39;black&#39;</span>, <span class="st">&#39;red&#39;</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">bg=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
-<p><img src="t_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p></li>
+<p><img src="t_files/figure-html/plot_xts_legend-1.png" width="672" /></p></li>
 </ul></li>
 </ul>
 </div>

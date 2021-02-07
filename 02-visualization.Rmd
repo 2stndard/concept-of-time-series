@@ -127,7 +127,7 @@ xts 패키지를 사용하여 plot을 작성하려면 plot.xts()함수를 사용
 
 xts 패키지의 plot.xts를 활용하는 것은 디자인적 측면에서 ggplot보다 못미치지만 시계열 데이터의 흐름을 빠르고 쉽게 파악하는 사용이 간편한 plot 함수를 제공한다는 점에서 큰 장점이 있다.
 
-```{r xts_plot}
+```{r plot_xts}
 plot.xts(students.total.xts)
 ```
 
@@ -137,25 +137,25 @@ plot.xts(students.total.xts)
 
     -   plot 제목 및 축 제목 : plot.xts로 생성된 plot의 제목은 'main' 매개변수를 사용하여 설정이 가능하고 부제목은 'sub' 매개변수로 설정이 가능하다. 축 제목은 'xlab', 'ylab' 매개변수를 통해 설정한다.
 
-        ```{r}
+        ```{r plot_xts_title}
         plot.xts(students.total.xts[,2], main = '연도별 학생수', sub = '전체 학생수의 연도별 변화', xlab = '연도',  ylab = '학생수')
         ```
 
     -   plot 축 범위 : plot 축의 범위는 'xlim', 'ylim' 매개변수를 사용하여 설정이 가능하다. 설정시에는 최소값과 최대값을 c() 함수를 사용하여 설정한다.
 
-        ```{r}
+        ```{r plot_xts_axis}
         plot.xts(students.total.xts[,2], main = '연도별 학생수', sub = '전체 학생수의 연도별 변화', xlab = '연도',  ylab = '학생수', ylim = c(0, max(students.total.xts[,2])))
         ```
 
     -   다변량 시계열 ploting : 다변량 xts의 경우 한번에 다량의 line plot가 자동적으로 생성되는데 일변량 line plot를 여러개 생성해야할 경우는 lines 함수를 사용하여 기존의 plot에 추가할 수 있다.
 
-        ```{r xts_multiplot}
+        ```{r plot_xts_multiplot}
         lines(students.total.xts[,4], col = 'red')
         ```
 
     -   범례 추가 : 다중의 line이 하나의 plot에 표현되는 경우 범례가 필요하다. xts에서 범례를 표시하기 위해서는 legend함수를 사용하여 plot에 표시한다.
 
-        ```{r}
+        ```{r plot_xts_legend}
         addLegend("topright", legend.names=c('전체', '초등학교'), col=c('black', 'red'), lty=c(1,1), lwd=c(2,2), ncol=2, bg="white")
         ```
 
