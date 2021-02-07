@@ -54,7 +54,7 @@ plot 제목, axis 제목, axis 단위, legend 등 plot의 전반적인 디자인
 
 ggplot를 활용해 시계열 plot를 표현하기 위해서는 위의 7개 element 중 Geometry는 line 이어야 하며 Aesthetic의 X axis는 시간 인덱스로 설정되는 plot이 많이 사용됨. 앞서 설명한 바와 같이 ggplot는 data.frame을 데이터로 설정이 가능하고 X axis에 시간 컬럼을 설정하기 위해서는 컬럼에 접근이 가능한 컬럼명이 있어야 하기 때문에 ts나 xts 클래스보다는 data.frame을 data로 설정하는 것이 적합함. 2장에서 저장한 students 데이터프레임을 시계열 plot으로 그리면 다음과 같음.
 
-```{r }
+```{r ggplot_overall}
 library(ggplot2)
 students.ggplot <- students %>% filter(지역규모 == '계') # 2장에서 읽어들인 students data.frame에서 합계만 filtering
 ggplot(data = students.ggplot, aes(x = 연도, y = 학생수계)) +
@@ -67,21 +67,21 @@ ggplot(data = students.ggplot, aes(x = 연도, y = 학생수계)) +
 
     -   aes : Aesthetic element를 설정하는 부분으로 'x =' 은 가로축에 바인딩 될 컬럼명, 'y = '은 세로축에 바인딩 될 컬럼명을 설정하는데 가로축은 시간이 포함된 컬럼을 설정해야 올바른 시계열 plot임. 위의 예제에서 X axis에 연도 컬럼을 바인딩했는데 student data.frame에 연도 컬럼은 integer class이기 때문에 바로 연도 컬럼을 바인딩 하면 연도가 다 표기되지 않고 일부 연도만 가로축에 표기됨. 연도 전체를 표기하기 위해 연도컬럼을 as.factor 함수를 사용해 factor class로 변환함
 
-        ```{r}
+        ```{r ggplot_aes}
         ggplot(data = students.ggplot, aes(x = as.factor(연도), y = 학생수계)) +
           geom_line(aes(group = 1))
         ```
 
     -   geom_line : plot에 직접적으로 표기될 Geometries를 line으로 설정하는 부분임. 다른 Geometries와 달리 line plot은 하나의 라인으로 묶이는 데이터 그룹을 지정해야 하는데, 위의 예와 같이 데이터 그룹이 하나밖에 없을때는 1로 설정 가능함. 만약 다변량 라인 플롯을 작성시에는 그룹핑이 가능한 컬럼을 확보하고 이 컬럼을 'group ='로 지정하여 ploting함.
 
-        ```{r}
+        ```{r ggplot_geomline}
         ggplot(data = students, aes(x = 연도, y = 학생수계)) +
           geom_line(aes(group = 지역규모, color = 지역규모))
         ```
 
     -   데이터 포인트 추가 : plot을 plot을 보다 보기 편하게 만들기 위해 point geometires layer를 추가함. geom_point함수를 사용하며 'shape ='은 point 형태로 circle로 설정함.
 
-        ```{r}
+        ```{r ggplot_datapoint}
         ggplot(data = students.ggplot, aes(x = as.factor(연도), y = 학생수계)) +
           geom_line(aes(group = 1)) + 
           geom_point(shape = 'circle')
@@ -89,7 +89,7 @@ ggplot(data = students.ggplot, aes(x = 연도, y = 학생수계)) +
 
     -   plot 제목, 축 제목 설정 : 축 제목은 aes에서 설정된 컬럼명이 자동 설정되는데 앞서 X axis에 바인딩된 컬럼에 as.factor함수를 적용했기 때문에 축 제목이 'as.factor(연도)'로 설정됨. 또한 전체 plot의 제목을 설정할 필요가 있는데 plot 제목과 X axis의 축 제목을 labs 함수를 사용하여 재설정해야 함.
 
-        ```{r}
+        ```{r ggplot_plottitle}
         ggplot(data = students.ggplot, aes(x = as.factor(연도), y = 학생수계)) +
           geom_line(aes(group = 1)) + 
           geom_point(shape = 'circle') +
@@ -98,7 +98,7 @@ ggplot(data = students.ggplot, aes(x = 연도, y = 학생수계)) +
 
     -   Y axis label : Y axis의 표현을 설정하는 부분으로 'label ='은 Y axis에 표기되는 label 값이 클 경우 자연수가 아닌 지수형태로 표기되어 보기가 불편함. 따라서 지수 형태의 표기를 자연수 형태의 표기로 바꾸어줄 필요가 있으며 천단위에 ,를 찍어 보다 보기 편하게 설정함
 
-        ```{r}
+        ```{r ggplot_Yaxislabel}
         ggplot(data = students.ggplot, aes(x = as.factor(연도), y = 학생수계)) +
           geom_line(aes(group = 1)) + 
           geom_point(shape = 'circle') +
@@ -108,7 +108,7 @@ ggplot(data = students.ggplot, aes(x = 연도, y = 학생수계)) +
 
     -   X axis label : X axis label이 너무 붙어있어서 연도가 정확히 보이지 않음. 따라서 연도를 90도 회전하여 세로쓰기하면 보다 보기가 편함.
 
-        ```{r}
+        ```{r ggplot_Xaxislabel}
         ggplot(data = students.ggplot, aes(x = as.factor(연도), y = 학생수계)) +
           geom_line(aes(group = 1)) + 
           geom_point(shape = 'circle') +
@@ -127,7 +127,7 @@ xts 패키지를 사용하여 plot을 작성하려면 plot.xts()함수를 사용
 
 xts 패키지의 plot.xts를 활용하는 것은 디자인적 측면에서 ggplot보다 못미치지만 시계열 데이터의 흐름을 빠르고 쉽게 파악하는 사용이 간편한 plot 함수를 제공한다는 점에서 큰 장점이 있다.
 
-```{r}
+```{r xts_plot}
 plot.xts(students.total.xts)
 ```
 
@@ -149,7 +149,7 @@ plot.xts(students.total.xts)
 
     -   다변량 시계열 ploting : 다변량 xts의 경우 한번에 다량의 line plot가 자동적으로 생성되는데 일변량 line plot를 여러개 생성해야할 경우는 lines 함수를 사용하여 기존의 plot에 추가할 수 있다.
 
-        ```{r}
+        ```{r xts_multiplot}
         lines(students.total.xts[,4], col = 'red')
         ```
 
@@ -171,7 +171,7 @@ autoplot()는 ggplot2와 마찬가지로 geometries layer를 겹쳐가면서 최
 
 autoplot()에서 사용하는 객체는 ts객체를 사용해야 한다.
 
-```{r message=FALSE, warning=FALSE}
+```{r forecast_autoplot, message=FALSE, warning=FALSE}
 library(forecast)
 autoplot(students.total.ts)
 ```
@@ -182,13 +182,13 @@ autoplot(students.total.ts)
 
     -   plot 제목 및 축 제목 : autoplot() 함수를 사용해 생성된 plot의 제목은 'main' 매개변수를 통해 설정하고 X, Y 축의 제목은 'xlab', 'ylab' 매개변수를 통해 설정이 가능하다.
 
-        ```{r}
+        ```{r forecast_axistitle}
         autoplot(students.total.ts[,1], main = '연도별 학생수', xlab = '연도', ylab = '학생수')
         ```
 
     -   layer 추가 : 앞서 설명한 바와 같이 autoplot은 ggplot2 패키지를 기반으로 작성되었기 때문에 plot의 표현 방법도 ggplot2와 유사한 방법을 사용한다. ggplot2가 여러 Geometries를 표현할 때 layer를 겹쳐서 생성한 것과 같이 autoplot()도 여러 layer를 겹쳐서 plot을 생성할 수 있다. layer를 생성하는 함수는 autolayer()함수이며 autoplot() 함수 호출 후에 + 기호를 통해 계속 겹쳐서 layer를 생성할 수 있다. 이 경우 각각의 라인을 구분하기 위해 'series' 매개변수를 이용해 legend에 표기될 이름을 설정할 수 있다.
 
-        ```{r}
+        ```{r forecast_autolayer}
         autoplot(students.total.ts[,2], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '유치원') +
           autolayer(students.total.ts[,3], series = '초등학교') +
           autolayer(students.total.ts[,4], series = '중학교') +
@@ -197,7 +197,7 @@ autoplot(students.total.ts)
 
     -   라인 타입 변경 : 라인 형태는 'lty' 매개변수, 라인 두께는 'lwd' 매개변수를 통해 설정이 가능하다.
 
-        ```{r}
+        ```{r forecast_changelty}
         autoplot(students.total.ts[,2], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '유치원', lty = 1, lwd = 1) +
           autolayer(students.total.ts[,3], series = '초등학교', lty = 2, lwd = 1.2) +
           autolayer(students.total.ts[,4], series = '중학교', lty = 3, lwd = 1.4) +
@@ -206,13 +206,13 @@ autoplot(students.total.ts)
 
     -   facet : 다변량 plot을 하나의 plot이 아닌 다중 plot을 사용하기를 원하는 경우는 'facet' 매개변수를 TRUE/FALSE로 설정함으로써 가능하다.
 
-        ```{r}
+        ```{r forecast_facet}
         autoplot(students.total.ts[,2:5], main = '연도별 학생수', xlab = '연도', ylab = '학생수', facet = TRUE)
         ```
 
     -   그외 세부적인 plot의 변경은 ggplot에서 사용하는 방법을 준하여 사용할 수 있다.
 
-        ```{r}
+        ```{r forecast_etc}
         autoplot(students.total.ts[,2], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '유치원', lty = 1, lwd = 1) +
           autolayer(students.total.ts[,3], series = '초등학교', lty = 2, lwd = 1.2) +
           autolayer(students.total.ts[,4], series = '중학교', lty = 3, lwd = 1.4) +
@@ -230,7 +230,7 @@ timetk에서 제공하는 데이터 plot 함수는 plot_time_series() 함수가 
 
 timetk plot이 다른 plot에 비한 장점은 여러가지가 있는데 필자는 가장 큰 장점은 interactive plot이 자동적으로 생성된다는 점을 들수 있다고 본다. plot_time_series() 함수는 plot_ly 패키지를 기반으로 ploting하기 때문에 plot_ly의 기능을 모두 사용할 수 있는데, 마우스를 plot위로 가져가면 해당 마우스 포인트에 대응하는 정보가 표현되거나 드래그하여 plot을 zoom in 할 수 있는 기능을 기본적으로 제공한다.
 
-```{r}
+```{r timetk_plot}
 students %>% filter(지역규모 == '계') %>%
 plot_time_series(.date_var = 연도, .value = 학생수계)
 ```
@@ -241,28 +241,28 @@ plot_time_series(.date_var = 연도, .value = 학생수계)
 
     -   추세선 설정 : 위의 예제에서 .value로 설정된 하나의 컬럼을 ploting되어야 하지만 실제는 두개의 선이 나타난다. 검정색 선은 실제 데이터를 표현하는 line plot이고 파랑색 선은 'LOESS' 평활화된 line plot이 나타난다. 평활화 line은 .smooth 매개변수로 조절 가능하다.
 
-        ```{r}
+        ```{r timetk_smooth}
         students %>% filter(지역규모 == '계') %>%
         plot_time_series(.date_var = 연도, .value = 학생수계, .smooth = FALSE)
         ```
 
     -   다변량 plot : plot_time_series()를 사용하여 다변량 plot을 하기 위해서는 ggplot와 마찬가지로 .value에 매핑한 데이터 컬럼을 분류해줄 컬럼이 필요하다. 다변량 데이터는 컬러로 구분되어 표현되며 자동적으로 범례가 오른쪽에 표시된다.
 
-        ```{r warning=FALSE}
+        ```{r timetk_multiplot, warning=FALSE}
         students %>%
         plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F)
         ```
 
     -   Faceting : 위와 같이 하나의 plot에 다변량 line plot을 작성할 수도 있지만 각각의 line plot을 각각 생성하는 것도 가능하다. ggplot에서도 Faceting이 가능한 것처럼 plot_time_series() 함수에서도 Faceting이 가능하다. Feceting은 .facet_vars를 이용해서 설정이 가능한데 컬러로 구분되는 것과 마찬가지로 .value에 매핑한 데이터 컬럼을 분류해 줄 컬럼을 .facet_vars 매개변수에 설정함으로서 생성할 수 있다.
 
-        ```{r warning=FALSE}
+        ```{r timetk_facet, warning=FALSE}
         students %>%
         plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F, .facet_vars = 지역규모)
         ```
 
     -   그래프 제목, 축 제목 : plot_time_series()로 생성한 plot의 제목과 X, Y 축의 설정은 .title, .x_lab, .y_lab 매개변수를 통해서 설정이 가능하다. 또한 범례의 제목은 .color_lab을 통해 설정이 가능하다.
 
-        ```{r warning=FALSE}
+        ```{r timetk_title, warning=FALSE}
         students %>%
         plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F, .title = '연도별 학생수', .x_lab = '연도', .y_lab = '학생수', .color_lab = '지역규모')
         ```

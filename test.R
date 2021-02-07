@@ -525,3 +525,24 @@ employees %>%
   tk_index() %>% tk_get_trend(period = "auto")
 
 ggseasonplot(ts(employees[, 3], start = c(2013, 01), frequency = 12), polar = T)
+
+
+students %>% filter(지역규모 == '계') %>%
+  ts(start = c('1999'), frequency = 1) %>%
+  meanf(h = 10)
+glimpse(students)
+meanf(students$학생수계, h = 10)
+
+students.total.ts <- students %>% 
+  filter(지역규모 == '계') %>% 
+  select(3) %>%
+  ts(start = c(1999), frequency = 1)
+
+glimpse(students.total.ts)
+
+autoplot(meanf(students.total.ts, h = 3, bootstrap = TRUE))
+class(meanf(students.total.ts, h = 10))
+
+
+class(students.total.ts[1])
+  ts(start = c(1999), frequency = 1)

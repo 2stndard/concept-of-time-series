@@ -4,6 +4,20 @@ We have finished a nice book.
 
 ## Simple 모델링 알고리즘
 
+simple 모델링 알고리즘은 Rob Hyndman의 'Forecasting : principals and practice'에서 그룹핑한 알고리즘과 명칭을 사용했다.[^forecasting-ii-1] 따라서 Simple 모델링이라는 명칭과 알고리즘들은 일반적인 분류는 아닐수 있다.
+
+[^forecasting-ii-1]: <https://otexts.com/fpp2/>
+
+사실 Simple 알고리즘을 보면 '이게 무슨 예측이야?'라고 생각할 수도 있다. 하지만 우리가 매우 쉽게 접하고 사용하는 '평균'이라는 것도 통계적 모델링에 하나라고 보면 Simple 알고리즘도 충분히 시계열 데이터의 모델링으로 볼 수도 있다.
+
+Simple 모델링의 대부분은 매우 간단한 개념을 함수화 하여 미래 예측에 활용할 수 있도록 제작되었다. Simple 모델링에서 제시하는 대부분의 함수는 forecast 패키지(앞에서 설명한 Rob Hyndman이 주도하여 제작된 패키지임)에서 제공하는 함수를 위주로 설명하고자 한다. [^forecasting-ii-2]
+
+[^forecasting-ii-2]: <https://otexts.com/fpp2/simple-methods.html>
+
+-    평균 모델
+
+평균 모델은 우리가 흔히 알고 있는 평균이 앞으로의 미래에도 적용하는 방법이다.
+
 ## Regression 모델
 
 ## Exponential Smoothing 모델
