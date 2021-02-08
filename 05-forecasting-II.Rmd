@@ -19,11 +19,9 @@ employees.ts <- ts(employees, start = c(2013, 01), frequency = 12)
 
 **A future like the past:**
 
-It is obvious from this description that all statistical techniques are based on the assumption that existing patterns will continue into the future. This assumption is more likely to be correct over the short term than it is over the long term, and for this reason these techniques provide us with reasonably accurate forecasts for the immediate future but do quite poorly further into the future (unless the data patterns are extraordinarily stable).
+시계열 예측의 가장 기본적인 가정은 과거의 패턴은 미래에도 계속된다는 가정이다. 이 가정은 단기 미래에서는 데이터가 발생되는 환경이 현재와 유사하기 때문에 불확실성이 작지만 장기 미래로 갈수록 데이터가 발생되는 환경이 달라질 가능성이 높아지면서 예측 데이터에 대한 불확실성이 높아질 수 밖에 없다.
 
-For this same reason, these techniques ordinarily *cannot* predict when the rate of growth in a trend will change significantly---for example, when a period of slow growth in sales will suddenly change to a period of rapid decay.
-
-Such points are called *turning points*. They are naturally of the greatest consequence to the manager, and, as we shall see, the forecaster must use different tools from pure statistical techniques to predict when they will occur.[^forecasting-ii-1]
+이러한 이유때문에 시계열 예측은 외부 충격이나 원인모를 이유에 의한 갑작스런 데이터 흐름 변화를 예측해낼 수 없다는 한계를 지닌다. 그런 지점을 전환점(Turning Point)라고 한다. 이 전환점은 시계열 분석에 있어 중요한 부분이지만 전환점을 예측하기 위해서는 전통적인 시계열 분석 기법보다는 다른 기법을 활용해야 할 수 있다. [^forecasting-ii-1]
 
 [^forecasting-ii-1]: <https://hbr.org/1971/07/how-to-choose-the-right-forecasting-technique>
 
@@ -41,7 +39,7 @@ Simple 모델링의 대부분은 매우 간단한 개념을 함수화 하여 미
 
 [^forecasting-ii-3]: <https://otexts.com/fpp2/simple-methods.html>
 
--   평균 모델(forecast::meanf)
+### 평균 모델(forecast::meanf)
 
 평균 모델은 우리가 흔히 알고 있는 평균이 앞으로의 미래에도 적용하는 방법이다. forecast 패키지에서는 meanf() 함수를 통해 시계열 데이터의 평균을 활용한 미래 예측값을 반환하는 함수를 제공한다. 이 함수에서는 평균 모델에 의한 점 예측값(Point Forecast)뿐 아니라 예측구간 80%와 95%를 산출해 준다. 매개변수를 설정함으로써 이 예측구간을 Bootstrap 방법을 통해 산출할 수도 있다. meanf() 함수의 입력 데이터는 숫자 벡터나 ts 클래스 객체를 사용한다. meanf()함수의 결과를 plot하기 위해서는 autoplot() 함수에 meanf() 결과 객체를 전달하여 ploting 할 수 있다.
 
@@ -54,7 +52,7 @@ autoplot(meanf(employees.ts[,2]))
 autoplot(meanf(employees.ts[,3]))
 ```
 
--   단순(Naive) 모델
+### 단순(Naive) 모델
 
 단순(Naive) 모델은 시계열 측정값의 마지막 값이 지속될 것이라는 가정하에 향후 데이터값을 예측하는 모델이다. 이 모델은 경제 금융 시계열 모델에서 많이 사용된다. [^forecasting-ii-4] 앞선 평균 모델과 달리 Naive 모델의 예측구간은 예측 시간이 늘어날수록 범위가 늘어난다. 일반적으로 시계열 모델의 예측구간은 예측기간이 늘어날 수록 범위가 넓어지는 경향을 지닌다.
 
@@ -69,7 +67,7 @@ summary(naive(employees.ts[,2]))
 autoplot(naive(employees.ts[,3]))
 ```
 
--   계절성 단순(Seasonal Naive) 모델
+### 계절성 단순(Seasonal Naive) 모델
 
 계절성 단순(Seasonal Naive) 모델은 단순(Naive) 모델에서 계절성을 추가한 모델이다. 계절성(Seasonal Pattern)은 주기성(Cyclic Pattern)과 다르다. 계절성은 일정한 주기를 가지고 반복되는 패턴을 의미하지만 주기성은 패턴은 반복되지만 주기가 일정하지 않다는 점에서 다르다. 주기성의 주기는 일반적으로 2년보다 크기때문에 여러 연도에 걸쳐 나타나지만 계절성은 일반적으로 달력의 특성에 연관되어 주기를 갖는 경우가 일반적이다. [^forecasting-ii-5]
 
@@ -84,9 +82,9 @@ summary(snaive(employees.ts[,3], 10))
 autoplot(snaive(employees.ts[,3], 10))
 ```
 
--   random work 모델
+### random work 모델
 
-랜덤 워크는 시간적으로 다음값이 시간적으로 현재값의 영향을 받는다는 이론이다. 주식의 예에서 보면 내일의 종가는 오늘의 종가에 랜덤한 값이 더해지거나 빼져서 결정되는 것과 같은 이치이다. 랜덤 워크에는 어제값 이외에 의미있는 정보가 없기 때문에 예측이 복잡하지 않다[^forecasting-ii-6]. 앞에서 설명한 Naive 모델은 마지막 값이 지속되는 예측인데 이것이 결국 랜덤 워크와 동일한 결과를 가지게 된다. 랜덤 워크는 시간적으로 하나 앞선 값과 현재값을 뺀 차이값들은 백색잡음이 되어야한다는 조건을 만족해야한다. 랜덤 워크 모델은 드리프트가 없는 모델과 드리프트가 존재하는 모델의 두가지 종류가 있다. 드리프트가 존재하는 모델은 랜덤워크 모델을 기반으로 하지만 예측값이 시간의 흐름에 따라 증가하거나 감소하는 모델이다.
+랜덤 워크는 시간적으로 다음값이 시간적으로 현재값의 영향을 받는다는 이론이다. 주식의 예에서 보면 내일의 종가는 오늘의 종가에 랜덤한 값이 더해지거나 빼져서 결정되는 것과 같은 이치이다. 랜덤 워크에는 어제값 이외에 의미있는 정보가 없기 때문에 예측이 복잡하지 않다[^forecasting-ii-6]. 앞에서 설명한 Naive 모델은 마지막 값이 지속되는 예측인데 이것이 결국 랜덤 워크와 동일한 결과를 가지게 된다. 랜덤 워크 모델은 드리프트가 없는 모델과 드리프트가 존재하는 모델의 두가지 종류가 있다. 드리프트가 존재하는 모델은 랜덤워크 모델을 기반으로 하지만 예측값이 시간의 흐름에 따라 증가하거나 감소하는 모델이다.
 
 [^forecasting-ii-6]: <https://robjhyndman.com/files/solutions.pdf>
 
@@ -105,6 +103,20 @@ autoplot(rwf(employees.ts[,2], drift = TRUE))
 summary(rwf(employees.ts[,2], drift = TRUE))
 autoplot(rwf(employees.ts[,3], drift = TRUE))
 ```
+
+랜덤 워크는 시간적으로 하나 앞선 값과 현재값을 뺀 차이값들은 백색잡음이 되어야한다는 조건을 만족해야한다. 따라서 랜덤 워크 모델은 차분을 통해서백색잡음이 될 수도 있고 백색잡음은 누적합계를 통해서 랜덤 워크가 될 수 있다.
+
+```{r randomwalk}
+set.seed(345)
+whitenoise <- ts(rnorm(100), start = 1)  #  white noise simulation 데이터 생성
+ts.plot(whitenoise)
+whitenoise.to.randomwalk <- cumsum(whitenoise) # white noise 데이터로 random walk 생성
+ts.plot(whitenoise.to.randomwalk)
+randomwalk.to.whitenoise <- diff(whitenoise.to.randomwalk) # random walk에서 white noise 생성
+ts.plot(randomwalk.to.whitenoise)
+```
+
+### Simple 모델 비교
 
 위에서 설명한 모델들을 하나의 plot으로 그려보면 모델 간의 차이를 살펴볼 수 있다.
 
@@ -129,6 +141,74 @@ autoplot(meanf(employees.ts[,3], h = 10), PI = FALSE, series = 'Mean') +
 ```
 
 ## Regression 모델
+
+회귀 모델은 선형 회귀(Linear Regression), 비선형 회귀,(Non-linear Regression) 로지스틱 회귀(Logistic Regression) 등의 방법이 있다. 회귀 모델은 종속변수와 독립변수와의 관계를 가장 잘 나타내는 회귀방정식을 도출하여 미래 데이터에 대한 예측치를 생성하는 방법으로 아직도 머신러닝 알고리즘 중에 가장 많이 사용되는 알고리즘 중에 하나이다.[^forecasting-ii-7]
+
+[^forecasting-ii-7]: 이기준 외, 인구지형변화에 따른 머신러닝 기반 고등교육 계열별 수요예측 모형 개발(2020), 한국교육개발원
+
+본 문서에서는 R에서 회귀 알고리즘을 구현하는 방법을 다루지는 않고 시계열 데이터의 회귀 알고리즘을 적용하는 방법에 대해 설명하겠다. 시계열 데이터의 회귀 모델은 두가지로 구분할 수 있다. 첫번째는 두가지이상의 시계열 데이터(Multivariate) 간의 회귀 모델과 한가지 시계열 데이터(Univariate)의 시간에 따른 회귀모델이다. 사실 첫번째 모델의 경우는 일반적 회귀모델과 큰 차이는 없지만 사용하는 함수는 시계열 패키지에서 따로 제공된다. 두번째 모델의 경우는 시계열 데이터의 특성인 추세(trend)와 계절성(season), 반복성(cycle)을 회귀에 반영한다는 점에서 일반적 회귀와는 차이가 있다.
+
+### 시계열 선형회귀(Timer Series Linear Regression) 모델
+
+시계열 선형 회귀 모델은 데이터간의 관계를 가장 잘 나타내는 직선(Linear)을 산출하여 미래 데이터를 예측하는 방법이다. 선형 회귀 모델은 선형 방정식으로 표현되는데 직선의 기울기(Slope)와 Y 축 절편(Intercept)의 계수(Coefficient)가 산출된다. 시계열 데이터의 선형 회귀를 위해서 forecast 패키지에서 tslm()함수, timetk 패키지의 plot_time_series_regressino() 함수(stats::lm() 함수를 사용하여 선형회귀 결과를 ploting하는 함수), modeltime 패키지(timetk 패키지의 모델링 패키지)의 linear_reg() 함수 등을 사용할 수 있다.
+
+-   tslm 함수(forecast 패키지)
+
+forecast 패키지에서 제공하는 tslm() 함수는 시계열 선형회귀 모델을 위한 함수이다. tslm() 함수는 lm() 함수의 래퍼 함수(Wrapper)로 사용법은 비슷하고 시간축이 독립변수에 포함되지 않은 두개 혹은 두개 이상의 시계열 객체에 대한 선형회귀는 lm() 함수의 결과와 같다. 즉 시계열 데이터이지만 독립변수 시간이 포함되지 않는다면 시계열 데이터로써의 특성이 적용되지 않은 양 데이터간의 특성정보만으로 선형회귀 방정식이 얻어진다.
+
+반면 시간을 독립변수로 하여 선형회귀 모형을 적용하기 위해서는 'trend', 'season' 키워드를 함수식의 독립변수에 적용해 줌으로써 시간에 대한 선형회귀 방정식을 얻을 수 있다. 'trend'는 시계열적인 추세를 반영하여 선형회귀 모델을 만들고 'season'은 시계열의 계절성을 반영하여 회귀모델을 만들게 되는데 두가지를 모두 고려할 때는 '+' 기호로 연결하여 사용할 수 있다. 이 과정에서 추가적인 독립변수를 추가할 수도 있는데 독립변수를 추가할 때도 '+' 기호를 사용하여 회귀모델을 만들 수 있다.
+
+```{r tslm}
+# 전체 학생수 예측 모델을 추세를 반영하여 생성
+student.ts.lm <- tslm(students.total.ts[,3] ~ trend, data = students.total.ts)
+summary(student.ts.lm)
+student.ts.lm %>% forecast()  # tslm 함수로 생성된 모델을 forecast()함수를 통해 예측값을 생성
+student.ts.lm %>% forecast() %>% autoplot()
+student.ts.lm <- tslm(students.total.ts[,5] ~ + trend, data = students.total.ts)  # 초등학생 학생수를 예측모델에 독립변수로 트랜드를 사용하는 선형 모델을 생성
+student.ts.lm %>% forecast(h = 22) %>% autoplot()
+student.ts.lm <- tslm(students.total.ts[,5] ~ students.total.ts[,4] + trend, data = students.total.ts)  # 초등학생 학생수를 예측모델에 독립변수로 유치원 학생수와 트랜드를 사용하는 선형 모델을 생성
+student.ts.lm %>% forecast(h = 22) %>% autoplot()
+```
+
+위의 예제에서 사용한 데이터는 연도별 학생수의 합계이다. 이 데이터와 같은 연도별 데이터는 계절성이 존재하지 않기 때문에 season 키워드를 사용하면 아래와 같이 에러를 낸다.
+
+```{r error=TRUE}
+student.ts.lm <- tslm(students.total.ts[,3] ~ trend + season, data = students.total.ts)
+```
+
+전체 취업자수와 교육서비스업 취업자수에 대한 선형회귀분석 모델과 plot은 다음과 같다.
+
+```{r tslm1}
+# 전체 취업자수를 추세(trend)만으로 선형 회귀분석
+employee.total.ts.lm <- tslm(employees.ts[,2] ~ trend, data = employees.ts)
+summary(employee.total.ts.lm)
+employee.total.ts.lm %>% forecast()  # tslm 함수로 생성된 모델을 forecast()함수를 통해 예측값을 생성
+employee.total.ts.lm %>% forecast() %>% autoplot()
+# 전체 취업자수를 추세(trend)와 계절성(season)으로 선형 회귀분석
+employee.total.ts.lm <- tslm(employees.ts[,2] ~ trend + season, data = employees.ts)
+summary(employee.total.ts.lm)
+employee.total.ts.lm %>% forecast()  # tslm 함수로 생성된 모델을 forecast()함수를 통해 예측값을 생성
+employee.total.ts.lm %>% forecast() %>% autoplot()
+# 교육분야 취업자수를 추세(trend)와 계절성(season)으로 선형 회귀분석
+employee.total.ts.lm <- tslm(employees.ts[,3] ~ trend + season, data = employees.ts)
+summary(employee.total.ts.lm)
+employee.total.ts.lm %>% forecast()  # tslm 함수로 생성된 모델을 forecast()함수를 통해 예측값을 생성
+employee.total.ts.lm %>% forecast() %>% autoplot()
+```
+
+선형 회귀분석을 시행할 때 주의해야 할 점은 잔차가 백색 잡음이어야 한다는 점이다. 잔차의 자가회귀성이 존재하는 경우는 시계열적 특성을 여전히 지니고 있기 때문에 이를 제거할 필요가 있다. 다만 이 예측은 '잘못된' 것은 아니나 예측구간이 커지기 때문에 비효율적 예측 모델이 된다.[^forecasting-ii-8]
+
+[^forecasting-ii-8]: <https://otexts.com/fppkr/regression-evaluation.html>
+
+아래의 예에서 보면 전체 학생수를 추세에 의해 선형 회귀분석을 시행한 경우 잔차는 자기 상관성을 지니고 있음을 볼 수 있다. checkresiduals() 함수를 사용하여 확인하는데 plot만 봐도 백색잡음이 아님을 확인할 수 있지만 백색잡음 테스트인 Breusch-Godfrey 테스트 결과(checkresiduals() 함수는 회귀모델에 대해서는 Breusch-Godfrey 테스트를, 나머지는 Ljung-Box 테스트를 시행한다.)의 p-value가 0.05보다 작기 때문에 자기상관성이 존재하여 백색잡음으로 볼 수 없다.
+
+```{r tslm_resid}
+checkresiduals(tslm(students.total.ts[,3] ~ trend, data = students.total.ts))
+```
+
+```{r tslm_resid2}
+checkresiduals(tslm(students.total.ts[,5] ~ + trend, data = students.total.ts))
+```
 
 ## Exponential Smoothing 모델
 

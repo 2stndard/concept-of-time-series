@@ -26,7 +26,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-07" />
+<meta name="date" content="2021-02-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -182,8 +182,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 모델링 알고리즘</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델링 알고리즘</a></li>
-<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a></li>
+<li class="chapter" data-level="6.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델링 알고리즘</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
+<li class="chapter" data-level="6.1.2" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.3" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.4" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> random work 모델</a></li>
+<li class="chapter" data-level="6.1.5" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#시계열-선형회귀timer-series-linear-regression-모델"><i class="fa fa-check"></i><b>6.2.1</b> 시계열 선형회귀(Timer Series Linear Regression) 모델</a></li>
+</ul></li>
 <li class="chapter" data-level="6.3" data-path="exponential-smoothing-모델.html"><a href="exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> Exponential Smoothing 모델</a></li>
 <li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a></li>
 <li class="chapter" data-level="6.5" data-path="tbat-모델.html"><a href="tbat-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBAT 모델</a></li>
@@ -217,9 +227,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="시계열-forecasting-part-ii---시계열-모델링-알고리즘" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> 시계열 forecasting Part II - 시계열 모델링 알고리즘</h1>
 <p><strong>A future like the past:</strong></p>
-<p>It is obvious from this description that all statistical techniques are based on the assumption that existing patterns will continue into the future. This assumption is more likely to be correct over the short term than it is over the long term, and for this reason these techniques provide us with reasonably accurate forecasts for the immediate future but do quite poorly further into the future (unless the data patterns are extraordinarily stable).</p>
-<p>For this same reason, these techniques ordinarily <em>cannot</em> predict when the rate of growth in a trend will change significantly—for example, when a period of slow growth in sales will suddenly change to a period of rapid decay.</p>
-<p>Such points are called <em>turning points</em>. They are naturally of the greatest consequence to the manager, and, as we shall see, the forecaster must use different tools from pure statistical techniques to predict when they will occur.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>시계열 예측의 가장 기본적인 가정은 과거의 패턴은 미래에도 계속된다는 가정이다. 이 가정은 단기 미래에서는 데이터가 발생되는 환경이 현재와 유사하기 때문에 불확실성이 작지만 장기 미래로 갈수록 데이터가 발생되는 환경이 달라질 가능성이 높아지면서 예측 데이터에 대한 불확실성이 높아질 수 밖에 없다.</p>
+<p>이러한 이유때문에 시계열 예측은 외부 충격이나 원인모를 이유에 의한 갑작스런 데이터 흐름 변화를 예측해낼 수 없다는 한계를 지닌다. 그런 지점을 전환점(Turning Point)라고 한다. 이 전환점은 시계열 분석에 있어 중요한 부분이지만 전환점을 예측하기 위해서는 전통적인 시계열 분석 기법보다는 다른 기법을 활용해야 할 수 있다.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p>본 장에서는 세가지 데이터를 이용하여 알고리즘을 적용한다. 첫번째 데이터는 교육통계홈페이지에서 다운로드 받은 students 데이터로 1999년부터 2020년까지의 전국 학생수 데이터이고, 두번째 데이터는 KOSIS에서 다운로드 받은 경제활동인구조사 데이터 중 전체 취업자 데이터로 2003.1월부터 2020년 12월까지의 데이터, 세번째 데이터는 두번째 데이터와 같은 조사에서 얻어진 데이터로 교육서비스업 데이터이다. 첫번째 데이터는 년별 데이터이기 때문에 추세는 보이지만 계절성은 없고 두번째와 세번째 데이터는 월별 데이터이지만 두번째 데이터는 세번째 데이터보다 계절성이 더 짙은 데이터이다.</p>
 </div>
 <div class="footnotes">

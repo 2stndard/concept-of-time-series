@@ -112,3 +112,9 @@ bootstrapping과-begging-모델
 a-future-like-the-past
 growth-rate-모델
 정상성-테스트
+평균-모델forecastmeanf
+단순naive-모델
+계절성-단순seasonal-naive-모델
+random-work-모델
+simple-모델-비교
+시계열-선형회귀timer-series-linear-regression-모델
