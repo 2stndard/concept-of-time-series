@@ -26,7 +26,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-07" />
+<meta name="date" content="2021-02-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -182,8 +182,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 모델링 알고리즘</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델링 알고리즘</a></li>
-<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a></li>
+<li class="chapter" data-level="6.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델링 알고리즘</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
+<li class="chapter" data-level="6.1.2" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.3" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.4" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> random work 모델</a></li>
+<li class="chapter" data-level="6.1.5" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#시계열-선형회귀timer-series-linear-regression-모델"><i class="fa fa-check"></i><b>6.2.1</b> 시계열 선형회귀(Timer Series Linear Regression) 모델</a></li>
+<li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#시계열-비선형-회귀time-series-non-linear-regression-모델"><i class="fa fa-check"></i><b>6.2.2</b> 시계열 비선형 회귀(Time Series Non-Linear Regression) 모델</a></li>
+</ul></li>
 <li class="chapter" data-level="6.3" data-path="exponential-smoothing-모델.html"><a href="exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> Exponential Smoothing 모델</a></li>
 <li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a></li>
 <li class="chapter" data-level="6.5" data-path="tbat-모델.html"><a href="tbat-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBAT 모델</a></li>
@@ -262,71 +273,71 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="시계열-데이터-반올림.html#cb91-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="fu">Sys.Date</span>()<span class="sc">+</span><span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
 <span id="cb91-2"><a href="시계열-데이터-반올림.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">first</span>(x, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##            [,1]
-## 2021-02-08    1
-## 2021-02-09    2
-## 2021-02-10    3
-## 2021-02-11    4
-## 2021-02-12    5
-## 2021-02-13    6
-## 2021-02-14    7
-## 2021-02-15    8
-## 2021-02-16    9
-## 2021-02-17   10</code></pre>
+## 2021-02-10    1
+## 2021-02-11    2
+## 2021-02-12    3
+## 2021-02-13    4
+## 2021-02-14    5
+## 2021-02-15    6
+## 2021-02-16    7
+## 2021-02-17    8
+## 2021-02-18    9
+## 2021-02-19   10</code></pre>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="시계열-데이터-반올림.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">first</span>(x, <span class="st">&#39;1 day&#39;</span>)</span></code></pre></div>
 <pre><code>##            [,1]
-## 2021-02-08    1</code></pre>
+## 2021-02-10    1</code></pre>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="시계열-데이터-반올림.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">first</span>(x, <span class="st">&#39;4 days&#39;</span>)</span></code></pre></div>
 <pre><code>##            [,1]
-## 2021-02-08    1
-## 2021-02-09    2
-## 2021-02-10    3
-## 2021-02-11    4</code></pre>
+## 2021-02-10    1
+## 2021-02-11    2
+## 2021-02-12    3
+## 2021-02-13    4</code></pre>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="시계열-데이터-반올림.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">first</span>(x, <span class="st">&#39;month&#39;</span>)</span></code></pre></div>
 <pre><code>##            [,1]
-## 2021-02-08    1
-## 2021-02-09    2
-## 2021-02-10    3
-## 2021-02-11    4
-## 2021-02-12    5
-## 2021-02-13    6
-## 2021-02-14    7
-## 2021-02-15    8
-## 2021-02-16    9
-## 2021-02-17   10
-## 2021-02-18   11
-## 2021-02-19   12
-## 2021-02-20   13
-## 2021-02-21   14
-## 2021-02-22   15
-## 2021-02-23   16
-## 2021-02-24   17
-## 2021-02-25   18
-## 2021-02-26   19
-## 2021-02-27   20
-## 2021-02-28   21</code></pre>
+## 2021-02-10    1
+## 2021-02-11    2
+## 2021-02-12    3
+## 2021-02-13    4
+## 2021-02-14    5
+## 2021-02-15    6
+## 2021-02-16    7
+## 2021-02-17    8
+## 2021-02-18    9
+## 2021-02-19   10
+## 2021-02-20   11
+## 2021-02-21   12
+## 2021-02-22   13
+## 2021-02-23   14
+## 2021-02-24   15
+## 2021-02-25   16
+## 2021-02-26   17
+## 2021-02-27   18
+## 2021-02-28   19</code></pre>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="시계열-데이터-반올림.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">last</span>(x, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##            [,1]
-## 2021-05-09   91
-## 2021-05-10   92
-## 2021-05-11   93
-## 2021-05-12   94
-## 2021-05-13   95
-## 2021-05-14   96
-## 2021-05-15   97
-## 2021-05-16   98
-## 2021-05-17   99
-## 2021-05-18  100</code></pre>
+## 2021-05-11   91
+## 2021-05-12   92
+## 2021-05-13   93
+## 2021-05-14   94
+## 2021-05-15   95
+## 2021-05-16   96
+## 2021-05-17   97
+## 2021-05-18   98
+## 2021-05-19   99
+## 2021-05-20  100</code></pre>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="시계열-데이터-반올림.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">last</span>(x, <span class="st">&#39;2 weeks&#39;</span>)</span></code></pre></div>
 <pre><code>##            [,1]
-## 2021-05-10   92
-## 2021-05-11   93
-## 2021-05-12   94
-## 2021-05-13   95
-## 2021-05-14   96
-## 2021-05-15   97
-## 2021-05-16   98
-## 2021-05-17   99
-## 2021-05-18  100</code></pre>
+## 2021-05-10   90
+## 2021-05-11   91
+## 2021-05-12   92
+## 2021-05-13   93
+## 2021-05-14   94
+## 2021-05-15   95
+## 2021-05-16   96
+## 2021-05-17   97
+## 2021-05-18   98
+## 2021-05-19   99
+## 2021-05-20  100</code></pre>
 </div>
 <div class="footnotes">
 <hr />

@@ -26,7 +26,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-07" />
+<meta name="date" content="2021-02-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -182,8 +182,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 모델링 알고리즘</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델링 알고리즘</a></li>
-<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a></li>
+<li class="chapter" data-level="6.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델링 알고리즘</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
+<li class="chapter" data-level="6.1.2" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.3" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.4" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> random work 모델</a></li>
+<li class="chapter" data-level="6.1.5" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#시계열-선형회귀timer-series-linear-regression-모델"><i class="fa fa-check"></i><b>6.2.1</b> 시계열 선형회귀(Timer Series Linear Regression) 모델</a></li>
+<li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#시계열-비선형-회귀time-series-non-linear-regression-모델"><i class="fa fa-check"></i><b>6.2.2</b> 시계열 비선형 회귀(Time Series Non-Linear Regression) 모델</a></li>
+</ul></li>
 <li class="chapter" data-level="6.3" data-path="exponential-smoothing-모델.html"><a href="exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> Exponential Smoothing 모델</a></li>
 <li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a></li>
 <li class="chapter" data-level="6.5" data-path="tbat-모델.html"><a href="tbat-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBAT 모델</a></li>
@@ -323,37 +334,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="시계열-데이터-import의-방법.html#cb91-1" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2010-01-01&#39;</span>), <span class="at">length.out =</span> <span class="dv">30</span>, <span class="at">by =</span> <span class="st">&#39;months&#39;</span>), <span class="at">value1 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="at">value2 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
 <span id="cb91-2"><a href="시계열-데이터-import의-방법.html#cb91-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(df[,<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
 <span id="cb91-3"><a href="시계열-데이터-import의-방법.html#cb91-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read.ts</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
-<pre><code>##               value1      value2
-## Jan 2010 -0.21734246 -0.49913989
-## Feb 2010  0.19683374 -1.47106270
-## Mar 2010 -1.26488394  1.07284957
-## Apr 2010 -1.67436371 -0.21454095
-## May 2010  0.34124828 -0.21283096
-## Jun 2010 -0.28030211 -0.11101967
-## Jul 2010 -0.75216102  0.49838046
-## Aug 2010  0.38584795  1.03191828
-## Sep 2010  0.33816876  1.11786537
-## Oct 2010  0.76689355  1.85840461
-## Nov 2010  0.22880952  0.62717653
-## Dec 2010  0.34209843  1.60871476
-## Jan 2011 -2.46934445 -1.13935414
-## Feb 2011 -1.45666584 -0.42314650
-## Mar 2011 -0.29468318 -0.26832947
-## Apr 2011 -0.90665768  0.60598156
-## May 2011 -0.31061760 -1.47661149
-## Jun 2011 -0.25813261 -1.76425507
-## Jul 2011 -2.08659925 -0.04598983
-## Aug 2011  1.16460071  0.28430433
-## Sep 2011 -0.30821644 -0.84660415
-## Oct 2011 -1.33104139 -0.38748051
-## Nov 2011  1.53172153 -0.03076467
-## Dec 2011  0.89160590 -0.54807563
-## Jan 2012  0.01328333  0.29392099
-## Feb 2012  1.57641723 -0.32642776
-## Mar 2012 -0.32962049  0.05602135
-## Apr 2012 -0.59277818 -1.02173678
-## May 2012  0.14285820 -0.41197965
-## Jun 2012 -0.69039922 -1.39430032</code></pre>
+<pre><code>##              value1      value2
+## Jan 2010  1.8565566  0.11218743
+## Feb 2010 -1.3659542 -0.09560624
+## Mar 2010  0.7651265  0.04111102
+## Apr 2010 -0.2474811 -0.83567076
+## May 2010 -0.0724687  0.10212490
+## Jun 2010  0.0857904 -0.41536401
+## Jul 2010 -1.8961604 -0.73099650
+## Aug 2010  1.0879512 -0.89455850
+## Sep 2010  0.7279081 -0.24187191
+## Oct 2010  0.5242810 -1.83964385
+## Nov 2010 -0.7296200  1.19628942
+## Dec 2010 -0.9610997 -1.24291825
+## Jan 2011  1.9159513 -1.16063520
+## Feb 2011  0.5852733  0.31723409
+## Mar 2011  0.9107075 -0.24987503
+## Apr 2011 -1.5406193 -1.49499101
+## May 2011 -1.0019647  0.84256891
+## Jun 2011 -0.4675598  0.38121876
+## Jul 2011 -0.2252749  1.28641263
+## Aug 2011 -1.4249246 -0.72878600
+## Sep 2011  0.8406895 -0.15750466
+## Oct 2011 -1.9572293 -1.97589819
+## Nov 2011  0.2823521 -1.57238771
+## Dec 2011 -0.7382167 -1.04088433
+## Jan 2012 -0.7059737 -0.74872035
+## Feb 2012  0.6971112 -0.45355439
+## Mar 2012  0.1334326  0.50439584
+## Apr 2012  1.0561355  0.06798804
+## May 2012  0.2796311  0.55122775
+## Jun 2012  0.5684466 -0.60929786</code></pre>
 <p>읽어들일 파일에 시간이 기재되어 있는 경우는 zoo 패키지의 read.zoo 함수를 이용하여 zoo 객체로 읽어들인 후 이 객체를 xts 객체로 변환하여 활용하는 방법을 활용할 수 있음. read.ts에 비해 read.zoo는 지정된 주기의 비일정한 시계열 데이터 타입을 불러 들일 수 있다는 장점이 있음. 예를 들어 매일 기록되는 데이터의 경우 read.ts는 중간에 빠지는 날이 없이 지정된 기간동안 매일 기록된 데이터를 가져오지만 read.zoo는 기본적으로 매일 기록된 데이터를 가져온다하더라도 중간중간 빠진 날을 인정하고 가져올 수 있는 방법임.</p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="시계열-데이터-import의-방법.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
 <span id="cb93-2"><a href="시계열-데이터-import의-방법.html#cb93-2" aria-hidden="true" tabindex="-1"></a>zoo.class <span class="ot">&lt;-</span> <span class="fu">read.zoo</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">index.column =</span> <span class="dv">1</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
@@ -363,13 +374,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb95-2"><a href="시계열-데이터-import의-방법.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(xts.class)</span></code></pre></div>
 <pre><code>## [1] &quot;xts&quot; &quot;zoo&quot;</code></pre>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="시계열-데이터-import의-방법.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(xts.class)</span></code></pre></div>
-<pre><code>##                value1     value2
-## 2010-01-01 -0.2173425 -0.4991399
-## 2010-02-01  0.1968337 -1.4710627
-## 2010-03-01 -1.2648839  1.0728496
-## 2010-04-01 -1.6743637 -0.2145410
-## 2010-05-01  0.3412483 -0.2128310
-## 2010-06-01 -0.2803021 -0.1110197</code></pre>
+<pre><code>##                value1      value2
+## 2010-01-01  1.8565566  0.11218743
+## 2010-02-01 -1.3659542 -0.09560624
+## 2010-03-01  0.7651265  0.04111102
+## 2010-04-01 -0.2474811 -0.83567076
+## 2010-05-01 -0.0724687  0.10212490
+## 2010-06-01  0.0857904 -0.41536401</code></pre>
 
 </div>
 <!-- </div> -->

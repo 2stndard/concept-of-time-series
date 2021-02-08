@@ -118,3 +118,4 @@ growth-rate-모델
 random-work-모델
 simple-모델-비교
 시계열-선형회귀timer-series-linear-regression-모델
+시계열-비선형-회귀time-series-non-linear-regression-모델

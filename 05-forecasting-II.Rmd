@@ -150,7 +150,7 @@ autoplot(meanf(employees.ts[,3], h = 10), PI = FALSE, series = 'Mean') +
 
 ### 시계열 선형회귀(Timer Series Linear Regression) 모델
 
-시계열 선형 회귀 모델은 데이터간의 관계를 가장 잘 나타내는 직선(Linear)을 산출하여 미래 데이터를 예측하는 방법이다. 선형 회귀 모델은 선형 방정식으로 표현되는데 직선의 기울기(Slope)와 Y 축 절편(Intercept)의 계수(Coefficient)가 산출된다. 시계열 데이터의 선형 회귀를 위해서 forecast 패키지에서 tslm()함수, timetk 패키지의 plot_time_series_regressino() 함수(stats::lm() 함수를 사용하여 선형회귀 결과를 ploting하는 함수), modeltime 패키지(timetk 패키지의 모델링 패키지)의 linear_reg() 함수 등을 사용할 수 있다.
+시계열 선형 회귀 모델은 데이터간의 관계를 가장 잘 나타내는 직선(Linear)을 산출하여 미래 데이터를 예측하는 방법이다. 선형 회귀 모델은 선형 방정식으로 표현되는데 직선의 기울기(Slope)와 Y 축 절편(Intercept)의 계수(Coefficient)가 산출된다. 시계열 데이터의 선형 회귀를 위해서 forecast 패키지에서 tslm()함수, timetk 패키지의 plot_time_series_regression() 함수(stats::lm() 함수를 사용하여 선형회귀 결과를 ploting하는 함수), modeltime 패키지(timetk 패키지의 모델링 패키지)의 linear_reg() 함수 등을 사용할 수 있다.
 
 -   tslm 함수(forecast 패키지)
 
@@ -196,7 +196,7 @@ employee.total.ts.lm %>% forecast()  # tslm 함수로 생성된 모델을 foreca
 employee.total.ts.lm %>% forecast() %>% autoplot()
 ```
 
-선형 회귀분석을 시행할 때 주의해야 할 점은 잔차가 백색 잡음이어야 한다는 점이다. 잔차의 자가회귀성이 존재하는 경우는 시계열적 특성을 여전히 지니고 있기 때문에 이를 제거할 필요가 있다. 다만 이 예측은 '잘못된' 것은 아니나 예측구간이 커지기 때문에 비효율적 예측 모델이 된다.[^forecasting-ii-8]
+선형 회귀분석을 시행할 때 주의해야 할 점은 잔차가 백색 잡음이어야 한다는 점이다. 잔차의 자가회귀성이 존재하는 경우는 시계열적 특성을 여전히 지니고 있기 때문에 이를 제거할 필요가 있다. 다만 이 예측은 '잘못된' 것은 아니나 예측구간이 커지기 때문에 비효율적 예측 모델이 된다.[^forecasting-ii-8] 또한 예측에 적용해야할 시계열적 특성이 남아있다는 것을 잔차에서 확인할 수 있다.
 
 [^forecasting-ii-8]: <https://otexts.com/fppkr/regression-evaluation.html>
 
@@ -206,9 +206,76 @@ employee.total.ts.lm %>% forecast() %>% autoplot()
 checkresiduals(tslm(students.total.ts[,3] ~ trend, data = students.total.ts))
 ```
 
-```{r tslm_resid2}
-checkresiduals(tslm(students.total.ts[,5] ~ + trend, data = students.total.ts))
+-   plot_time_series_regression 함수(timetk 패키지)
+
+timetk 패키지는 시계열 데이터를 핸들링하고 plotting 하는 데 주로 활용하는 패키지이다. 그래서 모델링을 위한 함수를 바로 제공하지는 않고 plotting 함수에서 회귀 모델을 호출하여 회귀 결과를 plotting 하는 함수를 제공한다. plot_time_series_regression() 함수에서 사용하는 선형회귀 함수에서도 trend, season 을 적용할 수 없다. 다만 ts 객체가 아닌 data.frame 객체를 사용할 수있다는 장점이 있다.
+
+```{r lm_timetk}
+plot_time_series_regression(.data = students %>% filter(지역규모 == '계'), 
+                            .date_var = 연도, 
+                            .formula = 학생수계 ~ 연도, 
+                            .interactive = FALSE, 
+                            .show_summary = TRUE) 
+employees$date <- as.Date(as.yearmon(employees$time, "%Y. %m"))
+
+# plot_time_series_regression에 trend만 반영시
+plot_time_series_regression(.data = employees, 
+                            .date_var = time, 
+                            .formula = total ~ as.numeric(date), 
+                            .interactive = FALSE) 
+# plot_time_series_regression에 trend, season(월)까지 반영시
+plot_time_series_regression(.data = employees, 
+                            .date_var = time, 
+                            .formula = total ~ as.numeric(date) +
+                            lubridate::month(date, label = TRUE), 
+                            .interactive = FALSE) 
+# plot_time_series_regression에 trend만 반영시
+plot_time_series_regression(.data = employees, 
+                            .date_var = time, 
+                            .formula = employees.edu ~ as.numeric(date), 
+                            .interactive = FALSE) 
+# plot_time_series_regression에 trend, season(월)까지 반영시
+plot_time_series_regression(.data = employees, 
+                            .date_var = time, 
+                            .formula = total ~ as.numeric(date) +
+                              lubridate::month(date, label = TRUE), 
+                            .interactive = FALSE) 
 ```
+
+-   linear_reg 함수(parship, modeltime 패키지)
+
+```{r linear_reg, message=FALSE, warning=FALSE}
+library(modeltime)
+library(parsnip)
+library(tidymodels)
+### 트레이닝 셋과 테스트 셋을 나눈다
+splits <- initial_time_split(employees, prop = 0.9)
+###  trend와 season을 반영하여 linear model을 생성
+model_fit_lm <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(total ~ as.numeric(date) + factor(lubridate::month(date, label = TRUE), ordered = FALSE),
+      data = training(splits))
+###  모델 테이블 생성
+model_tbl <- modeltime_table(model_fit_lm)
+###  테스팅 셋으로 모델 교정
+calibration_tbl <- model_tbl %>% modeltime_calibrate(new_data = testing(splits))
+###  3년 예측치 생성후 plotting
+calibration_tbl %>%
+  modeltime_forecast(
+    h = '3 years',
+    actual_data = employees, 
+    conf_interval = 0.95
+  ) %>%
+  plot_modeltime_forecast(
+    .interactive      = TRUE
+  )
+```
+
+### 시계열 비선형 회귀(Time Series Non-Linear Regression) 모델
+
+앞 절에서는 시계열 데이터를 직선으로 적합한 모델을 세워 예측치를 산출하였다. 하지만 시계열 데이터는 등락을 반복하면서 추세를 보이거나 계절마다 등락을 반복하는 계절성을 보이는 등 곡선으로 표현되는 경우가 많다. 따라서 선형 모델보다는 비선형 모델에 적합한 경우가 많다.
+
+비선형 회귀 모델은 데이터를 직선이 아닌 곡선으로 적합한 모델이다. 곡선의 형태에 따라 비선형 방정식의 형태가 달라지는 데 log 형태의 곡선, 지수 형태의 곡선, 다차 방정식에 의한 곡선 등이 있다.
 
 ## Exponential Smoothing 모델
 
