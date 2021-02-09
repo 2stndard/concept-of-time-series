@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6.6 Neural Network 모델 | t.utf8</title>
+  <title>5.8 계절성 테스트 | t.utf8</title>
   <meta name="description" content="<center>
 교육통계를 활용한 데이터 분석 방법
 </center>" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6.6 Neural Network 모델 | t.utf8" />
+  <meta property="og:title" content="5.8 계절성 테스트 | t.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -18,7 +18,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6.6 Neural Network 모델 | t.utf8" />
+  <meta name="twitter:title" content="5.8 계절성 테스트 | t.utf8" />
   
   
   
@@ -33,8 +33,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="tbat-모델.html"/>
-<link rel="next" href="bootstrapping과-begging-모델.html"/>
+<link rel="prev" href="정상성-테스트.html"/>
+<link rel="next" href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -204,12 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
 <li class="chapter" data-level="6.2.3" data-path="regression-모델.html"><a href="regression-모델.html#linear_reg-함수tidymodels-parsnip-modeltime-패키지"><i class="fa fa-check"></i><b>6.2.3</b> linear_reg 함수(tidymodels, parsnip, modeltime 패키지)</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
-<ul>
-<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-방법"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 방법</a></li>
-<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-방법"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 방법</a></li>
-<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-방법"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 방법</a></li>
-</ul></li>
+<li class="chapter" data-level="6.3" data-path="exponential-smoothing-모델.html"><a href="exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> Exponential Smoothing 모델</a></li>
 <li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a></li>
 <li class="chapter" data-level="6.5" data-path="tbat-모델.html"><a href="tbat-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBAT 모델</a></li>
 <li class="chapter" data-level="6.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.6</b> Neural Network 모델</a></li>
@@ -239,16 +234,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="neural-network-모델" class="section level2" number="6.6">
-<h2><span class="header-section-number">6.6</span> Neural Network 모델</h2>
+<div id="계절성-테스트" class="section level2" number="5.8">
+<h2><span class="header-section-number">5.8</span> 계절성 테스트</h2>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="계절성-테스트.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(seastests)</span></code></pre></div>
+<pre><code>## Warning: package &#39;seastests&#39; was built under R version 4.0.3</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="계절성-테스트.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(students.total.ts[,<span class="dv">3</span>]))</span></code></pre></div>
+<pre><code>## Test used:  WO 
+##  
+## Test statistic:  0 
+## P-value:  8.126701e-06 1 1 
+##  
+## The WO - test does not identify  seasonality</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="계절성-테스트.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
+<pre><code>## Test used:  WO 
+##  
+## Test statistic:  1 
+## P-value:  0 1.199041e-14 2.346908e-06 
+##  
+## The WO - test identifies seasonality</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="계절성-테스트.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(employees.ts[,<span class="dv">3</span>]))</span></code></pre></div>
+<pre><code>## Test used:  WO 
+##  
+## Test statistic:  0 
+## P-value:  0.1976637 0.1976739 0.006082959 
+##  
+## The WO - test does not identify  seasonality</code></pre>
+
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="tbat-모델.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bootstrapping과-begging-모델.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="정상성-테스트.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

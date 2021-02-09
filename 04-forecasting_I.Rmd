@@ -10,6 +10,11 @@ students.total.ts <- students %>%
   filter(지역규모 == '계') %>% 
   select(3:18) %>%
   ts(start = c(1999), frequency = 1)
+
+employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
+colnames(employees) <- c('time', 'total', 'employees.edu')
+employees.ts <- ts(employees, start = c(2013, 01), frequency = 12)
+
 ```
 
 # 시계열 forecasting Part I - 기초컨셉
@@ -305,4 +310,13 @@ Box.test (ts(employees[, 3], start = c(2013, 01), frequency = 12), lag = 1, type
 adf.test(ts(employees[, 3], start = c(2013, 01), frequency = 12)) # p-value 0.05보다 작으면 정상성
 kpss.test(ts(employees[, 3], start = c(2013, 01), frequency = 12))
 # p-value가 0.05보다 작으면 비정상성
+```
+
+## 계절성 테스트
+
+```{r message=FALSE, warning=FALSE}
+library(seastests)
+summary(wo(students.total.ts[,3]))
+summary(wo(employees.ts[,2]))
+summary(wo(employees.ts[,3]))
 ```

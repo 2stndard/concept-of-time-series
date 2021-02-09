@@ -10,3 +10,5 @@ tslm(employees.ts[,2] ~ trend, data = employees.ts, lambda = 1) %>%
 employees.ts[,2] %>%
   splinef(lambda = 0) %>%
   autoplot()
+
+summary(wo(employees.ts[,3]))

@@ -19,4 +19,4 @@ tb2 <- ts(pmax(0, t - t_break2), start = 1999)
 
 tslm(students.total.ts[,3] ~ t + tb1 + tb2) %>% forecast(h = 22)
 
-%>% autoplot()
+summary(wo(students.total.ts[,3]))

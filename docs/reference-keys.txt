@@ -122,3 +122,9 @@ simple-모델-비교
 tslm-함수forecast-패키지
 plot_time_series_regression-함수timetk-패키지
 linear_reg-함수parship-modeltime-패키지
+linear_reg-함수tidymodels-parsnip-modeltime-패키지
+계절성-테스트
+지수-평활exponential-smoothing-모델
+단순-지수-평활-방법
+홀트holt-방법
+홀트-윈터holt-winter-방법

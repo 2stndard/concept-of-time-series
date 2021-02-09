@@ -186,6 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
 <li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
 <li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-테스트.html"><a href="계절성-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 테스트</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 모델링 알고리즘</a>
 <ul>
@@ -201,9 +202,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>6.2.1</b> tslm 함수(forecast 패키지)</a></li>
 <li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
-<li class="chapter" data-level="6.2.3" data-path="regression-모델.html"><a href="regression-모델.html#linear_reg-함수parship-modeltime-패키지"><i class="fa fa-check"></i><b>6.2.3</b> linear_reg 함수(parship, modeltime 패키지)</a></li>
+<li class="chapter" data-level="6.2.3" data-path="regression-모델.html"><a href="regression-모델.html#linear_reg-함수tidymodels-parsnip-modeltime-패키지"><i class="fa fa-check"></i><b>6.2.3</b> linear_reg 함수(tidymodels, parsnip, modeltime 패키지)</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="exponential-smoothing-모델.html"><a href="exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> Exponential Smoothing 모델</a></li>
+<li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-방법"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 방법</a></li>
+<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-방법"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 방법</a></li>
+<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-방법"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 방법</a></li>
+</ul></li>
 <li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a></li>
 <li class="chapter" data-level="6.5" data-path="tbat-모델.html"><a href="tbat-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBAT 모델</a></li>
 <li class="chapter" data-level="6.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.6</b> Neural Network 모델</a></li>
@@ -644,13 +650,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="t_files/figure-html/unnamed-chunk-3-6.png" width="672" /></p>
 <p>랜덤 워크는 시간적으로 하나 앞선 값과 현재값을 뺀 차이값들은 백색잡음이 되어야한다는 조건을 만족해야한다. 따라서 랜덤 워크 모델은 차분을 통해서백색잡음이 될 수도 있고 백색잡음은 누적합계를 통해서 랜덤 워크가 될 수 있다.</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="simple-모델링-알고리즘.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
-<span id="cb43-2"><a href="simple-모델링-알고리즘.html#cb43-2" aria-hidden="true" tabindex="-1"></a>whitenoise <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>), <span class="at">start =</span> <span class="dv">1</span>)  <span class="co">#  white noise simulation 데이터 생성</span></span>
+<span id="cb43-2"><a href="simple-모델링-알고리즘.html#cb43-2" aria-hidden="true" tabindex="-1"></a>whitenoise <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>), <span class="at">start =</span> <span class="dv">1</span>)  <span class="do">###  white noise simulation 데이터 생성</span></span>
 <span id="cb43-3"><a href="simple-모델링-알고리즘.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ts.plot</span>(whitenoise)</span></code></pre></div>
 <p><img src="t_files/figure-html/randomwalk-1.png" width="672" /></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="simple-모델링-알고리즘.html#cb44-1" aria-hidden="true" tabindex="-1"></a>whitenoise.to.randomwalk <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(whitenoise) <span class="co"># white noise 데이터로 random walk 생성</span></span>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="simple-모델링-알고리즘.html#cb44-1" aria-hidden="true" tabindex="-1"></a>whitenoise.to.randomwalk <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(whitenoise) <span class="do">### white noise 데이터로 random walk 생성</span></span>
 <span id="cb44-2"><a href="simple-모델링-알고리즘.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ts.plot</span>(whitenoise.to.randomwalk)</span></code></pre></div>
 <p><img src="t_files/figure-html/randomwalk-2.png" width="672" /></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="simple-모델링-알고리즘.html#cb45-1" aria-hidden="true" tabindex="-1"></a>randomwalk.to.whitenoise <span class="ot">&lt;-</span> <span class="fu">diff</span>(whitenoise.to.randomwalk) <span class="co"># random walk에서 white noise 생성</span></span>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="simple-모델링-알고리즘.html#cb45-1" aria-hidden="true" tabindex="-1"></a>randomwalk.to.whitenoise <span class="ot">&lt;-</span> <span class="fu">diff</span>(whitenoise.to.randomwalk) <span class="do">### random walk에서 white noise 생성</span></span>
 <span id="cb45-2"><a href="simple-모델링-알고리즘.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ts.plot</span>(randomwalk.to.whitenoise)</span></code></pre></div>
 <p><img src="t_files/figure-html/randomwalk-3.png" width="672" /></p>
 </div>

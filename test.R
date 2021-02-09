@@ -600,3 +600,6 @@ student.ts.lm %>% forecast(h = 22) %>%
   autoplot() + scale_x_date(limits = as.Date(c('1999-01-01','2030-01-01')))
   
   c(as.Date('1999', format = '%Y'), as.Date('2030', format = '%Y')))
+
+
+skim(students.total.ts)

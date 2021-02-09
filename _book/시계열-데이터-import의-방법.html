@@ -256,37 +256,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb88-2"><a href="시계열-데이터-import의-방법.html#cb88-2" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2010-01-01&#39;</span>), <span class="at">length.out =</span> <span class="dv">30</span>, <span class="at">by =</span> <span class="st">&#39;months&#39;</span>), <span class="at">value1 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="at">value2 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
 <span id="cb88-3"><a href="시계열-데이터-import의-방법.html#cb88-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(df[,<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
 <span id="cb88-4"><a href="시계열-데이터-import의-방법.html#cb88-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read.ts</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
-<pre><code>##               value1      value2
-## Jan 2010  1.25796111 -1.28617862
-## Feb 2010 -0.01140678  0.20199633
-## Mar 2010  2.03289944  0.91378557
-## Apr 2010 -1.77047169  1.10520656
-## May 2010 -0.44190190  0.64899882
-## Jun 2010  0.77759918  1.80184734
-## Jul 2010  1.05592603  0.74967693
-## Aug 2010 -2.98933221 -0.34362994
-## Sep 2010  0.23410642 -1.48897953
-## Oct 2010 -0.01913669 -0.04324279
-## Nov 2010 -0.23091255  0.31892434
-## Dec 2010  0.20642976 -0.90325749
-## Jan 2011  0.13841737  1.42261199
-## Feb 2011 -0.14249912  0.29961003
-## Mar 2011  1.02759838  0.99647765
-## Apr 2011  1.19166048 -0.13464666
-## May 2011 -0.60287102 -0.21642030
-## Jun 2011 -0.58390301 -0.38020449
-## Jul 2011 -1.50234075  0.59365034
-## Aug 2011  0.40523573  0.94960519
-## Sep 2011 -1.32008976 -1.37951430
-## Oct 2011 -1.14228706 -0.07117176
-## Nov 2011 -1.41060133 -0.24957495
-## Dec 2011  0.99554690  0.25713666
-## Jan 2012 -0.23135375 -0.28658530
-## Feb 2012 -0.78109702 -1.91071574
-## Mar 2012 -0.81063085  0.33196439
-## Apr 2012 -0.14200770 -0.27333291
-## May 2012 -1.53532762 -2.21392113
-## Jun 2012 -0.01841445 -1.01449453</code></pre>
+<pre><code>##                value1      value2
+## Jan 2010  2.436144810  1.45766357
+## Feb 2010  1.319165301 -1.18722115
+## Mar 2010  0.521835341 -1.41985641
+## Apr 2010 -1.583835286 -0.92995470
+## May 2010  0.053241713 -2.17123901
+## Jun 2010 -0.185468711  1.60502319
+## Jul 2010 -0.494911161  0.31152787
+## Aug 2010  0.393555772 -1.55963087
+## Sep 2010  0.579946940 -0.90185046
+## Oct 2010 -0.199792481  0.98161227
+## Nov 2010  0.531025226  0.68745024
+## Dec 2010 -0.547166448 -0.58883737
+## Jan 2011 -0.636114098  0.02491087
+## Feb 2011 -1.119882956 -1.49994046
+## Mar 2011  1.749947346 -0.19784489
+## Apr 2011 -0.001981597 -0.46301443
+## May 2011 -1.750112770 -0.57736486
+## Jun 2011  1.614686221  0.85975062
+## Jul 2011  0.803588201 -0.34492966
+## Aug 2011 -0.249126600 -0.64061387
+## Sep 2011 -1.352686363  1.46166754
+## Oct 2011 -0.469588072 -0.90363972
+## Nov 2011  0.695360045  0.49059578
+## Dec 2011  0.014671708 -0.92483518
+## Jan 2012  0.117547735 -0.37797675
+## Feb 2012 -0.670807999  1.59883003
+## Mar 2012 -0.823870738 -0.48694097
+## Apr 2012  0.906463392 -0.13198082
+## May 2012 -0.620279134 -1.02510795
+## Jun 2012 -1.062755201  0.79064160</code></pre>
 <p>읽어들일 파일에 시간이 기재되어 있는 경우는 zoo 패키지의 read.zoo 함수를 이용하여 zoo 객체로 읽어들인 후 이 객체를 xts 객체로 변환하여 활용하는 방법을 활용할 수 있음. read.ts에 비해 read.zoo는 지정된 주기의 비일정한 시계열 데이터 타입을 불러 들일 수 있다는 장점이 있음. 예를 들어 매일 기록되는 데이터의 경우 read.ts는 중간에 빠지는 날이 없이 지정된 기간동안 매일 기록된 데이터를 가져오지만 read.zoo는 기본적으로 매일 기록된 데이터를 가져온다하더라도 중간중간 빠진 날을 인정하고 가져올 수 있는 방법임.</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="시계열-데이터-import의-방법.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
 <span id="cb90-2"><a href="시계열-데이터-import의-방법.html#cb90-2" aria-hidden="true" tabindex="-1"></a>zoo.class <span class="ot">&lt;-</span> <span class="fu">read.zoo</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">index.column =</span> <span class="dv">1</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
@@ -297,12 +297,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] &quot;xts&quot; &quot;zoo&quot;</code></pre>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="시계열-데이터-import의-방법.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(xts.class)</span></code></pre></div>
 <pre><code>##                 value1     value2
-## 2010-01-01  1.25796111 -1.2861786
-## 2010-02-01 -0.01140678  0.2019963
-## 2010-03-01  2.03289944  0.9137856
-## 2010-04-01 -1.77047169  1.1052066
-## 2010-05-01 -0.44190190  0.6489988
-## 2010-06-01  0.77759918  1.8018473</code></pre>
+## 2010-01-01  2.43614481  1.4576636
+## 2010-02-01  1.31916530 -1.1872211
+## 2010-03-01  0.52183534 -1.4198564
+## 2010-04-01 -1.58383529 -0.9299547
+## 2010-05-01  0.05324171 -2.1712390
+## 2010-06-01 -0.18546871  1.6050232</code></pre>
 </div>
 <!-- </div> -->
 

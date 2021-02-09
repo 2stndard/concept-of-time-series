@@ -12,3 +12,7 @@ library(timetk)
 library(forecast)
 library(lubridate)
 library(tidymodels)
+if(!require(skimr)) {
+  install.packages('skimr')
+  library(skimr)
+}

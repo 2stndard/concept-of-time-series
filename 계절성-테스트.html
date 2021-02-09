@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.6 시계열 분해(Decomposition) | 04-forecasting_I.utf8</title>
+  <title>1.8 계절성 테스트 | 04-forecasting_I.utf8</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.6 시계열 분해(Decomposition) | 04-forecasting_I.utf8" />
+  <meta property="og:title" content="1.8 계절성 테스트 | 04-forecasting_I.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.6 시계열 분해(Decomposition) | 04-forecasting_I.utf8" />
+  <meta name="twitter:title" content="1.8 계절성 테스트 | 04-forecasting_I.utf8" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="백색-잡음white-noise.html"/>
-<link rel="next" href="정상성-테스트.html"/>
+<link rel="prev" href="정상성-테스트.html"/>
+
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -169,32 +169,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="시계열-분해decomposition" class="section level2" number="1.6">
-<h2><span class="header-section-number">1.6</span> 시계열 분해(Decomposition)</h2>
-<p>앞에서 계속 언급했던 시계열 특성인 추세(Trend), 계절성(Seasonality), 자기상관성(Autocorelation) 중에 자기상관성은 ACF, PACF 함수를 사용하여 확인할 수 있는 방법을 설명하였다. 그렇다면 추세와 계절성은 어떻게 확인할 수 있는가? 몇몇 패키지에서는 시계열 데이터에서 추세와 계절성을 분해하여 볼 함수를 제공한다. , R의 기본 패키지인 stats 패키지에서 decompose(), stl() 함수, seasonal 패키지의 seas() 함수를 통해 시계열을 trend, seasonality, 잔차 등으로 분리하여 ploting 할 수 있다. 각각의 함수는 시계열 decomposition 알고리즘의 차이로 인해 약간씩 결과가 다르게 나타난다.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="시계열-분해decomposition.html#cb34-1" aria-hidden="true" tabindex="-1"></a>employees <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;./산업별_취업자_20210206234505.csv&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na =</span> <span class="st">&#39;-&#39;</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb34-2"><a href="시계열-분해decomposition.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(employees) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;time&#39;</span>, <span class="st">&#39;total&#39;</span>, <span class="st">&#39;employees.edu&#39;</span>)</span>
-<span id="cb34-3"><a href="시계열-분해decomposition.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees[, <span class="dv">3</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-4"><a href="시계열-분해decomposition.html#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">decompose</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
-<p><img src="04-forecasting_I_files/figure-html/decomposition-1.png" width="672" /></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="시계열-분해decomposition.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees[, <span class="dv">3</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb35-2"><a href="시계열-분해decomposition.html#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stl</span>(<span class="at">s.window =</span> <span class="st">&#39;periodic&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
-<p><img src="04-forecasting_I_files/figure-html/decomposition-2.png" width="672" /></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="시계열-분해decomposition.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees[, <span class="dv">3</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb36-2"><a href="시계열-분해decomposition.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  seasonal<span class="sc">::</span><span class="fu">seas</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
-<p><img src="04-forecasting_I_files/figure-html/decomposition-3.png" width="672" /></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="시계열-분해decomposition.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees[, <span class="dv">3</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb37-2"><a href="시계열-분해decomposition.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  seasonal<span class="sc">::</span><span class="fu">seas</span>(<span class="at">x11 =</span> <span class="st">&#39;&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
-<p><img src="04-forecasting_I_files/figure-html/decomposition-4.png" width="672" /></p>
-<p>위의 예제에서 사용한 데이터는 통계청 국가통계포털(<a href="https://kosis.kr">https://kosis.kr)</a>에서){.uri}에서 다운로드 받은 자료로 국내통계 &gt; 노동 &gt; 경제활동인구조사 &gt; 취업자 &gt; 산업별 취업자에서 시점을 2013.1월부터 2020.12월까지, 산업구분을 전체 계와 교육서비스업으로 설정 후 행렬전환 기능을 사용하여 행에 기간, 열에 산업을 설정한 후 다운로드 받음. (<a href= 'https://github.com/2stndard/concept-of-time-series/blob/master/%EC%82%B0%EC%97%85%EB%B3%84_%EC%B7%A8%EC%97%85%EC%9E%90_20210206234505.csv'> download</a>)</p>
+<div id="계절성-테스트" class="section level2" number="1.8">
+<h2><span class="header-section-number">1.8</span> 계절성 테스트</h2>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="계절성-테스트.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(seastests)</span>
+<span id="cb45-2"><a href="계절성-테스트.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(students.total.ts[,<span class="dv">3</span>]))</span></code></pre></div>
+<pre><code>## Test used:  WO 
+##  
+## Test statistic:  0 
+## P-value:  8.126701e-06 1 1 
+##  
+## The WO - test does not identify  seasonality</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="계절성-테스트.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
+<pre><code>## Test used:  WO 
+##  
+## Test statistic:  1 
+## P-value:  0 1.199041e-14 2.346908e-06 
+##  
+## The WO - test identifies seasonality</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="계절성-테스트.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(employees.ts[,<span class="dv">3</span>]))</span></code></pre></div>
+<pre><code>## Test used:  WO 
+##  
+## Test statistic:  0 
+## P-value:  0.1976637 0.1976739 0.006082959 
+##  
+## The WO - test does not identify  seasonality</code></pre>
 </div>
+<!-- </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="백색-잡음white-noise.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="정상성-테스트.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="정상성-테스트.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
