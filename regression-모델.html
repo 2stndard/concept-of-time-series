@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1.2 Regression 모델 | 05-forecasting-II.utf8</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1.2 Regression 모델 | 05-forecasting-II.utf8" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1.2 Regression 모델 | 05-forecasting-II.utf8" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="simple-모델링-알고리즘.html"/>
+<link rel="next" href="exponential-smoothing-모델.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">교육통계를 활용한 데이터 분석 방법</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><i class="fa fa-check"></i><b>1</b> 시계열 forecasting Part II - 시계열 모델링 알고리즘</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html"><i class="fa fa-check"></i><b>1.1</b> Simple 모델링 알고리즘</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>1.1.1</b> 평균 모델(forecast::meanf)</a></li>
+<li class="chapter" data-level="1.1.2" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#단순naive-모델"><i class="fa fa-check"></i><b>1.1.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="1.1.3" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>1.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="1.1.4" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#random-work-모델"><i class="fa fa-check"></i><b>1.1.4</b> random work 모델</a></li>
+<li class="chapter" data-level="1.1.5" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#simple-모델-비교"><i class="fa fa-check"></i><b>1.1.5</b> Simple 모델 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>1.2</b> Regression 모델</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>1.2.1</b> tslm 함수(forecast 패키지)</a></li>
+<li class="chapter" data-level="1.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>1.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
+<li class="chapter" data-level="1.2.3" data-path="regression-모델.html"><a href="regression-모델.html#linear_reg-함수parship-modeltime-패키지"><i class="fa fa-check"></i><b>1.2.3</b> linear_reg 함수(parship, modeltime 패키지)</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="exponential-smoothing-모델.html"><a href="exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>1.3</b> Exponential Smoothing 모델</a></li>
+<li class="chapter" data-level="1.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>1.4</b> ARIMA 모델</a></li>
+<li class="chapter" data-level="1.5" data-path="tbat-모델.html"><a href="tbat-모델.html"><i class="fa fa-check"></i><b>1.5</b> TBAT 모델</a></li>
+<li class="chapter" data-level="1.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>1.6</b> Neural Network 모델</a></li>
+<li class="chapter" data-level="1.7" data-path="bootstrapping과-begging-모델.html"><a href="bootstrapping과-begging-모델.html"><i class="fa fa-check"></i><b>1.7</b> Bootstrapping과 Begging 모델</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regression-모델" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Regression 모델</h2>
+<p>회귀 모델은 선형 회귀(Linear Regression), 비선형 회귀,(Non-linear Regression) 로지스틱 회귀(Logistic Regression) 등의 방법이 있다. 회귀 모델은 종속변수와 독립변수와의 관계를 가장 잘 나타내는 회귀방정식을 도출하여 미래 데이터에 대한 예측치를 생성하는 방법으로 아직도 머신러닝 알고리즘 중에 가장 많이 사용되는 알고리즘 중에 하나이다.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
+<p>본 문서에서는 R에서 회귀 알고리즘을 구현하는 방법을 다루지는 않고 시계열 데이터의 회귀 알고리즘을 적용하는 방법에 대해 설명하겠다. 시계열 데이터의 회귀 모델은 두가지로 구분할 수 있다. 첫번째는 두가지이상의 시계열 데이터(Multivariate) 간의 회귀 모델과 한가지 시계열 데이터(Univariate)의 시간에 따른 회귀모델이다. 사실 첫번째 모델의 경우는 일반적 회귀모델과 큰 차이는 없지만 사용하는 함수는 시계열 패키지에서 따로 제공된다. 두번째 모델의 경우는 시계열 데이터의 특성인 추세(trend)와 계절성(season), 반복성(cycle)을 회귀에 반영한다는 점에서 일반적 회귀와는 차이가 있다.</p>
+<p>시계열 선형 회귀 모델은 데이터간의 관계를 가장 잘 나타내는 직선(Linear)을 산출하여 미래 데이터를 예측하는 방법이다. 선형 회귀 모델은 선형 방정식으로 표현되는데 직선의 기울기(Slope)와 Y 축 절편(Intercept)의 계수(Coefficient)가 산출된다. 시계열 데이터의 선형 회귀를 위해서 forecast 패키지에서 tslm()함수, timetk 패키지의 plot_time_series_regression() 함수(stats::lm() 함수를 사용하여 선형회귀 결과를 ploting하는 함수), modeltime 패키지(timetk 패키지의 모델링 패키지)의 linear_reg() 함수 등을 사용할 수 있다.</p>
+<div id="tslm-함수forecast-패키지" class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> tslm 함수(forecast 패키지)</h3>
+<p>forecast 패키지에서 제공하는 tslm() 함수는 시계열 선형회귀 모델을 위한 함수이다. tslm() 함수는 lm() 함수의 래퍼 함수(Wrapper)로 사용법은 비슷하고 시간축이 독립변수에 포함되지 않은 두개 혹은 두개 이상의 시계열 객체에 대한 선형회귀는 lm() 함수의 결과와 같다. 즉 시계열 데이터이지만 독립변수 시간이 포함되지 않는다면 시계열 데이터로써의 특성이 적용되지 않은 양 데이터간의 특성정보만으로 선형회귀 방정식이 얻어진다.</p>
+<p>반면 시간을 독립변수로 하여 선형회귀 모형을 적용하기 위해서는 ‘trend’, ‘season’ 키워드를 함수식의 독립변수에 적용해 줌으로써 시간에 대한 선형회귀 방정식을 얻을 수 있다. ‘trend’는 시계열적인 추세를 반영하여 선형회귀 모델을 만들고 ’season’은 시계열의 계절성을 반영하여 회귀모델을 만들게 되는데 두가지를 모두 고려할 때는’+’ 기호로 연결하여 사용할 수 있다. 이 과정에서 추가적인 독립변수를 추가할 수도 있는데 독립변수를 추가할 때도 ‘+’ 기호를 사용하여 회귀모델을 만들 수 있다.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="regression-모델.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 전체 학생수 예측 모델을 추세를 반영하여 생성</span></span>
+<span id="cb49-2"><a href="regression-모델.html#cb49-2" aria-hidden="true" tabindex="-1"></a>student.ts.lm <span class="ot">&lt;-</span> <span class="fu">tslm</span>(students.total.ts[,<span class="dv">3</span>] <span class="sc">~</span> trend, <span class="at">data =</span> students.total.ts)</span>
+<span id="cb49-3"><a href="regression-모델.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(student.ts.lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## tslm(formula = students.total.ts[, 3] ~ trend, data = students.total.ts)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -378680 -174765     -58  210909  243604 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  4402542      91504   48.11  &lt; 2e-16 ***
+## trend         -88325       6967  -12.68 5.12e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 207300 on 20 degrees of freedom
+## Multiple R-squared:  0.8893, Adjusted R-squared:  0.8838 
+## F-statistic: 160.7 on 1 and 20 DF,  p-value: 5.119e-11</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="regression-모델.html#cb51-1" aria-hidden="true" tabindex="-1"></a>student.ts.lm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>()  <span class="co"># tslm 함수로 생성된 모델을 forecast()함수를 통해 예측값을 생성</span></span></code></pre></div>
+<pre><code>##      Point Forecast   Lo 80   Hi 80   Lo 95   Hi 95
+## 2021        2371064 2070723 2671405 1898355 2843772
+## 2022        2282739 1979011 2586467 1804699 2760779
+## 2023        2194414 1887058 2501769 1710664 2678163
+## 2024        2106089 1794874 2417304 1616265 2595912
+## 2025        2017763 1702466 2333061 1521514 2514013
+## 2026        1929438 1609843 2249033 1426426 2432451
+## 2027        1841113 1517015 2165212 1331013 2351214
+## 2028        1752788 1423989 2081588 1235288 2270288
+## 2029        1664463 1330773 1998153 1139266 2189660
+## 2030        1576138 1237376 1914899 1042959 2109317</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="regression-모델.html#cb53-1" aria-hidden="true" tabindex="-1"></a>student.ts.lm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="05-forecasting-II_files/figure-html/tslm-1.png" width="672" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="regression-모델.html#cb54-1" aria-hidden="true" tabindex="-1"></a>student.ts.lm <span class="ot">&lt;-</span> <span class="fu">tslm</span>(students.total.ts[,<span class="dv">5</span>] <span class="sc">~</span> trend, <span class="at">data =</span> students.total.ts)  <span class="co"># 초등학생 학생수를 예측모델에 독립변수로 트랜드를 사용하는 선형 모델을 생성</span></span>
+<span id="cb54-2"><a href="regression-모델.html#cb54-2" aria-hidden="true" tabindex="-1"></a>student.ts.lm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">22</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="05-forecasting-II_files/figure-html/tslm-2.png" width="672" /></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="regression-모델.html#cb55-1" aria-hidden="true" tabindex="-1"></a>student.ts.lm <span class="ot">&lt;-</span> <span class="fu">tslm</span>(students.total.ts[,<span class="dv">5</span>] <span class="sc">~</span> students.total.ts[,<span class="dv">4</span>] <span class="sc">+</span> trend, <span class="at">data =</span> students.total.ts)  <span class="co"># 초등학생 학생수를 예측모델에 독립변수로 유치원 학생수와 트랜드를 사용하는 선형 모델을 생성</span></span>
+<span id="cb55-2"><a href="regression-모델.html#cb55-2" aria-hidden="true" tabindex="-1"></a>student.ts.lm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">22</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="05-forecasting-II_files/figure-html/tslm-3.png" width="672" /></p>
+<p>위의 예제에서 사용한 데이터는 연도별 학생수의 합계이다. 이 데이터와 같은 연도별 데이터는 계절성이 존재하지 않기 때문에 season 키워드를 사용하면 아래와 같이 에러를 낸다.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="regression-모델.html#cb56-1" aria-hidden="true" tabindex="-1"></a>student.ts.lm <span class="ot">&lt;-</span> <span class="fu">tslm</span>(students.total.ts[,<span class="dv">3</span>] <span class="sc">~</span> trend <span class="sc">+</span> season, <span class="at">data =</span> students.total.ts)</span></code></pre></div>
+<pre><code>## Error in tslm(students.total.ts[, 3] ~ trend + season, data = students.total.ts): Non-seasonal data cannot be modelled using a seasonal factor</code></pre>
+<p>전체 취업자수와 교육서비스업 취업자수에 대한 선형회귀분석 모델과 plot은 다음과 같다.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="regression-모델.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 전체 취업자수를 추세(trend)만으로 선형 회귀분석</span></span>
+<span id="cb58-2"><a href="regression-모델.html#cb58-2" aria-hidden="true" tabindex="-1"></a>employee.total.ts.lm <span class="ot">&lt;-</span> <span class="fu">tslm</span>(employees.ts[,<span class="dv">2</span>] <span class="sc">~</span> trend, <span class="at">data =</span> employees.ts)</span>
+<span id="cb58-3"><a href="regression-모델.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(employee.total.ts.lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## tslm(formula = employees.ts[, 2] ~ trend, data = employees.ts)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1256.4  -264.1   119.9   350.6   525.7 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 25430.605     85.545  297.28   &lt;2e-16 ***
+## trend          20.394      1.531   13.32   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 415.8 on 94 degrees of freedom
+## Multiple R-squared:  0.6536, Adjusted R-squared:  0.6499 
+## F-statistic: 177.3 on 1 and 94 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="regression-모델.html#cb60-1" aria-hidden="true" tabindex="-1"></a>employee.total.ts.lm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>()  <span class="co"># tslm 함수로 생성된 모델을 forecast()함수를 통해 예측값을 생성</span></span></code></pre></div>
+<pre><code>##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+## Jan 2021       27408.79 26860.89 27956.69 26565.89 28251.69
+## Feb 2021       27429.18 26880.94 27977.43 26585.75 28272.62
+## Mar 2021       27449.58 26900.97 27998.18 26605.59 28293.56
+## Apr 2021       27469.97 26921.01 28018.94 26625.43 28314.51
+## May 2021       27490.36 26941.03 28039.70 26645.25 28335.48
+## Jun 2021       27510.76 26961.05 28060.47 26665.07 28356.45
+## Jul 2021       27531.15 26981.06 28081.25 26684.87 28377.43
+## Aug 2021       27551.55 27001.06 28102.03 26704.66 28398.43
+## Sep 2021       27571.94 27021.06 28122.82 26724.45 28419.43
+## Oct 2021       27592.33 27041.05 28143.62 26744.22 28440.45</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="regression-모델.html#cb62-1" aria-hidden="true" tabindex="-1"></a>employee.total.ts.lm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="05-forecasting-II_files/figure-html/tslm1-1.png" width="672" /></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="regression-모델.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 전체 취업자수를 추세(trend)와 계절성(season)으로 선형 회귀분석</span></span>
+<span id="cb63-2"><a href="regression-모델.html#cb63-2" aria-hidden="true" tabindex="-1"></a>employee.total.ts.lm <span class="ot">&lt;-</span> <span class="fu">tslm</span>(employees.ts[,<span class="dv">2</span>] <span class="sc">~</span> trend <span class="sc">+</span> season, <span class="at">data =</span> employees.ts)</span>
+<span id="cb63-3"><a href="regression-모델.html#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(employee.total.ts.lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## tslm(formula = employees.ts[, 2] ~ trend + season, data = employees.ts)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -675.70  -42.60   76.66  147.08  312.95 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 24850.616     96.043 258.744  &lt; 2e-16 ***
+## trend          19.457      0.919  21.171  &lt; 2e-16 ***
+## season2         1.168    123.798   0.009  0.99249    
+## season3       318.462    123.808   2.572  0.01189 *  
+## season4       629.005    123.825   5.080 2.29e-06 ***
+## season5       869.174    123.849   7.018 5.63e-10 ***
+## season6       919.342    123.880   7.421 9.13e-11 ***
+## season7       935.260    123.918   7.547 5.14e-11 ***
+## season8       803.429    123.962   6.481 6.13e-09 ***
+## season9       854.597    124.013   6.891 9.94e-10 ***
+## season10      890.516    124.071   7.177 2.75e-10 ***
+## season11      898.809    124.135   7.241 2.07e-10 ***
+## season12      385.477    124.207   3.104  0.00261 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 247.6 on 83 degrees of freedom
+## Multiple R-squared:  0.8915, Adjusted R-squared:  0.8759 
+## F-statistic: 56.86 on 12 and 83 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="regression-모델.html#cb65-1" aria-hidden="true" tabindex="-1"></a>employee.total.ts.lm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>()  <span class="co"># tslm 함수로 생성된 모델을 forecast()함수를 통해 예측값을 생성</span></span></code></pre></div>
+<pre><code>##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+## Jan 2021       26737.91 26392.65 27083.16 26206.34 27269.47
+## Feb 2021       26758.53 26413.28 27103.78 26226.97 27290.09
+## Mar 2021       27095.28 26750.03 27440.53 26563.72 27626.84
+## Apr 2021       27425.28 27080.03 27770.53 26893.72 27956.84
+## May 2021       27684.91 27339.65 28030.16 27153.34 28216.47
+## Jun 2021       27754.53 27409.28 28099.78 27222.97 28286.09
+## Jul 2021       27789.91 27444.65 28135.16 27258.34 28321.47
+## Aug 2021       27677.53 27332.28 28022.78 27145.97 28209.09
+## Sep 2021       27748.16 27402.90 28093.41 27216.59 28279.72
+## Oct 2021       27803.53 27458.28 28148.78 27271.97 28335.09</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="regression-모델.html#cb67-1" aria-hidden="true" tabindex="-1"></a>employee.total.ts.lm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="05-forecasting-II_files/figure-html/tslm1-2.png" width="672" /></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="regression-모델.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 교육분야 취업자수를 추세(trend)와 계절성(season)으로 선형 회귀분석</span></span>
+<span id="cb68-2"><a href="regression-모델.html#cb68-2" aria-hidden="true" tabindex="-1"></a>employee.total.ts.lm <span class="ot">&lt;-</span> <span class="fu">tslm</span>(employees.ts[,<span class="dv">3</span>] <span class="sc">~</span> trend <span class="sc">+</span> season, <span class="at">data =</span> employees.ts)</span>
+<span id="cb68-3"><a href="regression-모델.html#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(employee.total.ts.lm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## tslm(formula = employees.ts[, 3] ~ trend + season, data = employees.ts)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -106.764  -21.988    6.553   23.192  102.373 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1789.2983    19.0207  94.071   &lt;2e-16 ***
+## trend          0.5628     0.1820   3.092   0.0027 ** 
+## season2       -7.5628    24.5174  -0.308   0.7585    
+## season3        6.7493    24.5194   0.275   0.7838    
+## season4       19.0615    24.5228   0.777   0.4392    
+## season5       32.3737    24.5275   1.320   0.1905    
+## season6       41.3108    24.5336   1.684   0.0960 .  
+## season7       41.2480    24.5410   1.681   0.0966 .  
+## season8       31.0602    24.5498   1.265   0.2093    
+## season9       33.1224    24.5599   1.349   0.1811    
+## season10      33.0595    24.5714   1.345   0.1821    
+## season11      36.3717    24.5842   1.479   0.1428    
+## season12      27.5589    24.5983   1.120   0.2658    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 49.03 on 83 degrees of freedom
+## Multiple R-squared:  0.204,  Adjusted R-squared:  0.0889 
+## F-statistic: 1.772 on 12 and 83 DF,  p-value: 0.06634</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="regression-모델.html#cb70-1" aria-hidden="true" tabindex="-1"></a>employee.total.ts.lm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>()  <span class="co"># tslm 함수로 생성된 모델을 forecast()함수를 통해 예측값을 생성</span></span></code></pre></div>
+<pre><code>##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+## Jan 2021       1843.893 1775.518 1912.268 1738.621 1949.165
+## Feb 2021       1836.893 1768.518 1905.268 1731.621 1942.165
+## Mar 2021       1851.768 1783.393 1920.143 1746.496 1957.040
+## Apr 2021       1864.643 1796.268 1933.018 1759.371 1969.915
+## May 2021       1878.518 1810.143 1946.893 1773.246 1983.790
+## Jun 2021       1888.018 1819.643 1956.393 1782.746 1993.290
+## Jul 2021       1888.518 1820.143 1956.893 1783.246 1993.790
+## Aug 2021       1878.893 1810.518 1947.268 1773.621 1984.165
+## Sep 2021       1881.518 1813.143 1949.893 1776.246 1986.790
+## Oct 2021       1882.018 1813.643 1950.393 1776.746 1987.290</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="regression-모델.html#cb72-1" aria-hidden="true" tabindex="-1"></a>employee.total.ts.lm <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="05-forecasting-II_files/figure-html/tslm1-3.png" width="672" /></p>
+<p>선형 회귀분석을 시행할 때 주의해야 할 점은 잔차가 백색 잡음이어야 한다는 점이다. 잔차의 자가회귀성이 존재하는 경우는 시계열적 특성을 여전히 지니고 있기 때문에 이를 제거할 필요가 있다. 다만 이 예측은 ‘잘못된’ 것은 아니나 예측구간이 커지기 때문에 비효율적 예측 모델이 된다.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> 또한 예측에 적용해야할 시계열적 특성이 남아있다는 것을 잔차에서 확인할 수 있다.</p>
+<p>아래의 예에서 보면 전체 학생수를 추세에 의해 선형 회귀분석을 시행한 경우 잔차는 자기 상관성을 지니고 있음을 볼 수 있다. checkresiduals() 함수를 사용하여 확인하는데 plot만 봐도 백색잡음이 아님을 확인할 수 있지만 백색잡음 테스트인 Breusch-Godfrey 테스트 결과(checkresiduals() 함수는 회귀모델에 대해서는 Breusch-Godfrey 테스트를, 나머지는 Ljung-Box 테스트를 시행한다.)의 p-value가 0.05보다 작기 때문에 자기상관성이 존재하여 백색잡음으로 볼 수 없다.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="regression-모델.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(<span class="fu">tslm</span>(students.total.ts[,<span class="dv">3</span>] <span class="sc">~</span> trend, <span class="at">data =</span> students.total.ts))</span></code></pre></div>
+<p><img src="05-forecasting-II_files/figure-html/tslm_resid-1.png" width="672" /></p>
+<pre><code>## 
+##  Breusch-Godfrey test for serial correlation of order up to 5
+## 
+## data:  Residuals from Linear regression model
+## LM test = 16.435, df = 5, p-value = 0.005707</code></pre>
+</div>
+<div id="plot_time_series_regression-함수timetk-패키지" class="section level3" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> plot_time_series_regression 함수(timetk 패키지)</h3>
+<p>timetk 패키지는 시계열 데이터를 핸들링하고 plotting 하는 데 주로 활용하는 패키지이다. 그래서 모델링을 위한 함수를 바로 제공하지는 않고 plotting 함수에서 회귀 모델을 호출하여 회귀 결과를 plotting 하는 함수를 제공한다. plot_time_series_regression() 함수에서 사용하는 선형회귀 함수에서도 trend, season 을 적용할 수 없다. 다만 ts 객체가 아닌 data.frame 객체를 사용할 수있다는 장점이 있다.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="regression-모델.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_time_series_regression</span>(<span class="at">.data =</span> students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>), </span>
+<span id="cb75-2"><a href="regression-모델.html#cb75-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.date_var =</span> 연도, </span>
+<span id="cb75-3"><a href="regression-모델.html#cb75-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.formula =</span> 학생수계 <span class="sc">~</span> 연도, </span>
+<span id="cb75-4"><a href="regression-모델.html#cb75-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.interactive =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb75-5"><a href="regression-모델.html#cb75-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.show_summary =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<pre><code>## 
+## Call:
+## stats::lm(formula = .formula, data = .data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -327962 -206697  -48003  183951  390933 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 273181173   16513086   16.54 3.90e-13 ***
+## 연도          -132164       8218  -16.08 6.61e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 244500 on 20 degrees of freedom
+## Multiple R-squared:  0.9282, Adjusted R-squared:  0.9246 
+## F-statistic: 258.7 on 1 and 20 DF,  p-value: 6.608e-13</code></pre>
+<p><img src="05-forecasting-II_files/figure-html/lm_timetk-1.png" width="672" /></p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="regression-모델.html#cb77-1" aria-hidden="true" tabindex="-1"></a>employees<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">as.yearmon</span>(employees<span class="sc">$</span>time, <span class="st">&quot;%Y. %m&quot;</span>))</span>
+<span id="cb77-2"><a href="regression-모델.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="do">###as.Date(paste0(employees[, 1], &#39;. 01&#39;), format = &#39;%Y. %m. %d&#39;)</span></span>
+<span id="cb77-3"><a href="regression-모델.html#cb77-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-4"><a href="regression-모델.html#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="do">### plot_time_series_regression에 trend만 반영시</span></span>
+<span id="cb77-5"><a href="regression-모델.html#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_time_series_regression</span>(<span class="at">.data =</span> employees, </span>
+<span id="cb77-6"><a href="regression-모델.html#cb77-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.date_var =</span> time, </span>
+<span id="cb77-7"><a href="regression-모델.html#cb77-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.formula =</span> total <span class="sc">~</span> <span class="fu">as.numeric</span>(date), </span>
+<span id="cb77-8"><a href="regression-모델.html#cb77-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.interactive =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
+<p><img src="05-forecasting-II_files/figure-html/lm_timetk-2.png" width="672" /></p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="regression-모델.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="do">### plot_time_series_regression에 trend, season(월)까지 반영시</span></span>
+<span id="cb78-2"><a href="regression-모델.html#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_time_series_regression</span>(<span class="at">.data =</span> employees, </span>
+<span id="cb78-3"><a href="regression-모델.html#cb78-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.date_var =</span> time, </span>
+<span id="cb78-4"><a href="regression-모델.html#cb78-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.formula =</span> total <span class="sc">~</span> <span class="fu">as.numeric</span>(date) <span class="sc">+</span></span>
+<span id="cb78-5"><a href="regression-모델.html#cb78-5" aria-hidden="true" tabindex="-1"></a>                            lubridate<span class="sc">::</span><span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb78-6"><a href="regression-모델.html#cb78-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.interactive =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
+<p><img src="05-forecasting-II_files/figure-html/lm_timetk-3.png" width="672" /></p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="regression-모델.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="do">### plot_time_series_regression에 trend만 반영시</span></span>
+<span id="cb79-2"><a href="regression-모델.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_time_series_regression</span>(<span class="at">.data =</span> employees, </span>
+<span id="cb79-3"><a href="regression-모델.html#cb79-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.date_var =</span> time, </span>
+<span id="cb79-4"><a href="regression-모델.html#cb79-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.formula =</span> employees.edu <span class="sc">~</span> <span class="fu">as.numeric</span>(date), </span>
+<span id="cb79-5"><a href="regression-모델.html#cb79-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.interactive =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
+<p><img src="05-forecasting-II_files/figure-html/lm_timetk-4.png" width="672" /></p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="regression-모델.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot_time_series_regression에 trend, season(월)까지 반영시</span></span>
+<span id="cb80-2"><a href="regression-모델.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_time_series_regression</span>(<span class="at">.data =</span> employees, </span>
+<span id="cb80-3"><a href="regression-모델.html#cb80-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.date_var =</span> time, </span>
+<span id="cb80-4"><a href="regression-모델.html#cb80-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.formula =</span> total <span class="sc">~</span> <span class="fu">as.numeric</span>(date) <span class="sc">+</span></span>
+<span id="cb80-5"><a href="regression-모델.html#cb80-5" aria-hidden="true" tabindex="-1"></a>                              lubridate<span class="sc">::</span><span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb80-6"><a href="regression-모델.html#cb80-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">.interactive =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
+<p><img src="05-forecasting-II_files/figure-html/lm_timetk-5.png" width="672" /></p>
+</div>
+<div id="linear_reg-함수parship-modeltime-패키지" class="section level3" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> linear_reg 함수(parship, modeltime 패키지)</h3>
+<p>본 절에서 설명하는 방법은</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="regression-모델.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeltime)</span>
+<span id="cb81-2"><a href="regression-모델.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(parsnip)</span>
+<span id="cb81-3"><a href="regression-모델.html#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb81-4"><a href="regression-모델.html#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="do">### 트레이닝 셋과 테스트 셋을 나눈다</span></span>
+<span id="cb81-5"><a href="regression-모델.html#cb81-5" aria-hidden="true" tabindex="-1"></a>splits <span class="ot">&lt;-</span> <span class="fu">initial_time_split</span>(employees, <span class="at">prop =</span> <span class="fl">0.9</span>)</span>
+<span id="cb81-6"><a href="regression-모델.html#cb81-6" aria-hidden="true" tabindex="-1"></a><span class="do">###  trend와 season을 반영하여 linear model을 생성</span></span>
+<span id="cb81-7"><a href="regression-모델.html#cb81-7" aria-hidden="true" tabindex="-1"></a>model_fit_lm <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb81-8"><a href="regression-모델.html#cb81-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb81-9"><a href="regression-모델.html#cb81-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(total <span class="sc">~</span> <span class="fu">as.numeric</span>(date) <span class="sc">+</span> <span class="fu">factor</span>(lubridate<span class="sc">::</span><span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>), <span class="at">ordered =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb81-10"><a href="regression-모델.html#cb81-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> <span class="fu">training</span>(splits))</span>
+<span id="cb81-11"><a href="regression-모델.html#cb81-11" aria-hidden="true" tabindex="-1"></a><span class="do">###  모델 테이블 생성</span></span>
+<span id="cb81-12"><a href="regression-모델.html#cb81-12" aria-hidden="true" tabindex="-1"></a>model_tbl <span class="ot">&lt;-</span> <span class="fu">modeltime_table</span>(model_fit_lm)</span>
+<span id="cb81-13"><a href="regression-모델.html#cb81-13" aria-hidden="true" tabindex="-1"></a><span class="do">###  테스팅 셋으로 모델 교정</span></span>
+<span id="cb81-14"><a href="regression-모델.html#cb81-14" aria-hidden="true" tabindex="-1"></a>calibration_tbl <span class="ot">&lt;-</span> model_tbl <span class="sc">%&gt;%</span> <span class="fu">modeltime_calibrate</span>(<span class="at">new_data =</span> <span class="fu">testing</span>(splits))</span>
+<span id="cb81-15"><a href="regression-모델.html#cb81-15" aria-hidden="true" tabindex="-1"></a><span class="do">###  3년 예측치 생성후 plotting</span></span>
+<span id="cb81-16"><a href="regression-모델.html#cb81-16" aria-hidden="true" tabindex="-1"></a>calibration_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb81-17"><a href="regression-모델.html#cb81-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modeltime_forecast</span>(</span>
+<span id="cb81-18"><a href="regression-모델.html#cb81-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">h =</span> <span class="st">&#39;3 years&#39;</span>,</span>
+<span id="cb81-19"><a href="regression-모델.html#cb81-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">actual_data =</span> employees, </span>
+<span id="cb81-20"><a href="regression-모델.html#cb81-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">conf_interval =</span> <span class="fl">0.95</span></span>
+<span id="cb81-21"><a href="regression-모델.html#cb81-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb81-22"><a href="regression-모델.html#cb81-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_modeltime_forecast</span>(</span>
+<span id="cb81-23"><a href="regression-모델.html#cb81-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">.interactive      =</span> <span class="cn">TRUE</span></span>
+<span id="cb81-24"><a href="regression-모델.html#cb81-24" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div id="htmlwidget-1d731d50c8659df42bd9" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1d731d50c8659df42bd9">{"x":{"data":[{"x":["2013-01-01","2013-02-01","2013-03-01","2013-04-01","2013-05-01","2013-06-01","2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01","2014-08-01","2014-09-01","2014-10-01","2014-11-01","2014-12-01","2015-01-01","2015-02-01","2015-03-01","2015-04-01","2015-05-01","2015-06-01","2015-07-01","2015-08-01","2015-09-01","2015-10-01","2015-11-01","2015-12-01","2016-01-01","2016-02-01","2016-03-01","2016-04-01","2016-05-01","2016-06-01","2016-07-01","2016-08-01","2016-09-01","2016-10-01","2016-11-01","2016-12-01","2017-01-01","2017-02-01","2017-03-01","2017-04-01","2017-05-01","2017-06-01","2017-07-01","2017-08-01","2017-09-01","2017-10-01","2017-11-01","2017-12-01","2018-01-01","2018-02-01","2018-03-01","2018-04-01","2018-05-01","2018-06-01","2018-07-01","2018-08-01","2018-09-01","2018-10-01","2018-11-01","2018-12-01","2019-01-01","2019-02-01","2019-03-01","2019-04-01","2019-05-01","2019-06-01","2019-07-01","2019-08-01","2019-09-01","2019-10-01","2019-11-01","2019-12-01","2020-01-01","2020-02-01","2020-03-01","2020-04-01","2020-05-01","2020-06-01","2020-07-01","2020-08-01","2020-09-01","2020-10-01","2020-11-01","2020-12-01","2020-12-01","2020-11-01","2020-10-01","2020-09-01","2020-08-01","2020-07-01","2020-06-01","2020-05-01","2020-04-01","2020-03-01","2020-02-01","2020-01-01","2019-12-01","2019-11-01","2019-10-01","2019-09-01","2019-08-01","2019-07-01","2019-06-01","2019-05-01","2019-04-01","2019-03-01","2019-02-01","2019-01-01","2018-12-01","2018-11-01","2018-10-01","2018-09-01","2018-08-01","2018-07-01","2018-06-01","2018-05-01","2018-04-01","2018-03-01","2018-02-01","2018-01-01","2017-12-01","2017-11-01","2017-10-01","2017-09-01","2017-08-01","2017-07-01","2017-06-01","2017-05-01","2017-04-01","2017-03-01","2017-02-01","2017-01-01","2016-12-01","2016-11-01","2016-10-01","2016-09-01","2016-08-01","2016-07-01","2016-06-01","2016-05-01","2016-04-01","2016-03-01","2016-02-01","2016-01-01","2015-12-01","2015-11-01","2015-10-01","2015-09-01","2015-08-01","2015-07-01","2015-06-01","2015-05-01","2015-04-01","2015-03-01","2015-02-01","2015-01-01","2014-12-01","2014-11-01","2014-10-01","2014-09-01","2014-08-01","2014-07-01","2014-06-01","2014-05-01","2014-04-01","2014-03-01","2014-02-01","2014-01-01","2013-12-01","2013-11-01","2013-10-01","2013-09-01","2013-08-01","2013-07-01","2013-06-01","2013-05-01","2013-04-01","2013-03-01","2013-02-01","2013-01-01","2013-01-01"],"y":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"text":[".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-01-01<br />.value: 24287.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-02-01<br />.value: 24215.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-03-01<br />.value: 24736.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-04-01<br />.value: 25322.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-05-01<br />.value: 25610.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-06-01<br />.value: 25686.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-07-01<br />.value: 25681.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-08-01<br />.value: 25513.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-09-01<br />.value: 25701.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-10-01<br />.value: 25798.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-11-01<br />.value: 25795.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-12-01<br />.value: 25248.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-01-01<br />.value: 25050.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-02-01<br />.value: 25116.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-03-01<br />.value: 25463.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-04-01<br />.value: 25985.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-05-01<br />.value: 26112.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-06-01<br />.value: 26178.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-07-01<br />.value: 26280.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-08-01<br />.value: 26183.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-09-01<br />.value: 26213.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-10-01<br />.value: 26247.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-11-01<br />.value: 26260.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-12-01<br />.value: 25679.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-01-01<br />.value: 25392.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-02-01<br />.value: 25471.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-03-01<br />.value: 25766.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-04-01<br />.value: 26153.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-05-01<br />.value: 26431.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-06-01<br />.value: 26440.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-07-01<br />.value: 26538.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-08-01<br />.value: 26369.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-09-01<br />.value: 26487.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-10-01<br />.value: 26519.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-11-01<br />.value: 26469.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-12-01<br />.value: 26098.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-01-01<br />.value: 25646.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-02-01<br />.value: 25615.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-03-01<br />.value: 25980.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-04-01<br />.value: 26325.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-05-01<br />.value: 26613.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-06-01<br />.value: 26718.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-07-01<br />.value: 26765.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-08-01<br />.value: 26696.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-09-01<br />.value: 26697.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-10-01<br />.value: 26746.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-11-01<br />.value: 26762.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-12-01<br />.value: 26347.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-01-01<br />.value: 25878.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-02-01<br />.value: 25979.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-03-01<br />.value: 26443.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-04-01<br />.value: 26744.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-05-01<br />.value: 26992.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-06-01<br />.value: 27020.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-07-01<br />.value: 27078.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-08-01<br />.value: 26904.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-09-01<br />.value: 27011.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-10-01<br />.value: 27026.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-11-01<br />.value: 27019.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-12-01<br />.value: 26604.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-01-01<br />.value: 26213.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-02-01<br />.value: 26083.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-03-01<br />.value: 26555.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-04-01<br />.value: 26868.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-05-01<br />.value: 27064.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-06-01<br />.value: 27126.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-07-01<br />.value: 27083.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-08-01<br />.value: 26907.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-09-01<br />.value: 27055.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-10-01<br />.value: 27090.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-11-01<br />.value: 27184.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-12-01<br />.value: 26638.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-01-01<br />.value: 26232.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-02-01<br />.value: 26346.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-03-01<br />.value: 26805.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-04-01<br />.value: 27038.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-05-01<br />.value: 27322.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-06-01<br />.value: 27408.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-07-01<br />.value: 27383.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-08-01<br />.value: 27358.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-09-01<br />.value: 27404.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-10-01<br />.value: 27509.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-11-01<br />.value: 27515.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-12-01<br />.value: 27154.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-01-01<br />.value: 26800.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-02-01<br />.value: 26838.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-03-01<br />.value: 26609.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-04-01<br />.value: 26562.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-05-01<br />.value: 26930.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-06-01<br />.value: 27055.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-07-01<br />.value: 27106.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-08-01<br />.value: 27085.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-09-01<br />.value: 27012.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-10-01<br />.value: 27088.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-11-01<br />.value: 27241.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-12-01<br />.value: 26526.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-12-01<br />.value: 26526.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-11-01<br />.value: 27241.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-10-01<br />.value: 27088.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-09-01<br />.value: 27012.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-08-01<br />.value: 27085.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-07-01<br />.value: 27106.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-06-01<br />.value: 27055.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-05-01<br />.value: 26930.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-04-01<br />.value: 26562.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-03-01<br />.value: 26609.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-02-01<br />.value: 26838.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2020-01-01<br />.value: 26800.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-12-01<br />.value: 27154.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-11-01<br />.value: 27515.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-10-01<br />.value: 27509.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-09-01<br />.value: 27404.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-08-01<br />.value: 27358.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-07-01<br />.value: 27383.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-06-01<br />.value: 27408.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-05-01<br />.value: 27322.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-04-01<br />.value: 27038.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-03-01<br />.value: 26805.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-02-01<br />.value: 26346.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2019-01-01<br />.value: 26232.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-12-01<br />.value: 26638.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-11-01<br />.value: 27184.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-10-01<br />.value: 27090.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-09-01<br />.value: 27055.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-08-01<br />.value: 26907.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-07-01<br />.value: 27083.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-06-01<br />.value: 27126.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-05-01<br />.value: 27064.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-04-01<br />.value: 26868.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-03-01<br />.value: 26555.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-02-01<br />.value: 26083.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2018-01-01<br />.value: 26213.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-12-01<br />.value: 26604.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-11-01<br />.value: 27019.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-10-01<br />.value: 27026.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-09-01<br />.value: 27011.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-08-01<br />.value: 26904.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-07-01<br />.value: 27078.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-06-01<br />.value: 27020.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-05-01<br />.value: 26992.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-04-01<br />.value: 26744.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-03-01<br />.value: 26443.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-02-01<br />.value: 25979.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2017-01-01<br />.value: 25878.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-12-01<br />.value: 26347.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-11-01<br />.value: 26762.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-10-01<br />.value: 26746.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-09-01<br />.value: 26697.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-08-01<br />.value: 26696.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-07-01<br />.value: 26765.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-06-01<br />.value: 26718.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-05-01<br />.value: 26613.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-04-01<br />.value: 26325.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-03-01<br />.value: 25980.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-02-01<br />.value: 25615.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2016-01-01<br />.value: 25646.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-12-01<br />.value: 26098.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-11-01<br />.value: 26469.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-10-01<br />.value: 26519.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-09-01<br />.value: 26487.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-08-01<br />.value: 26369.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-07-01<br />.value: 26538.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-06-01<br />.value: 26440.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-05-01<br />.value: 26431.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-04-01<br />.value: 26153.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-03-01<br />.value: 25766.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-02-01<br />.value: 25471.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2015-01-01<br />.value: 25392.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-12-01<br />.value: 25679.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-11-01<br />.value: 26260.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-10-01<br />.value: 26247.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-09-01<br />.value: 26213.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-08-01<br />.value: 26183.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-07-01<br />.value: 26280.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-06-01<br />.value: 26178.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-05-01<br />.value: 26112.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-04-01<br />.value: 25985.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-03-01<br />.value: 25463.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-02-01<br />.value: 25116.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2014-01-01<br />.value: 25050.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-12-01<br />.value: 25248.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-11-01<br />.value: 25795.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-10-01<br />.value: 25798.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-09-01<br />.value: 25701.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-08-01<br />.value: 25513.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-07-01<br />.value: 25681.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-06-01<br />.value: 25686.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-05-01<br />.value: 25610.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-04-01<br />.value: 25322.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-03-01<br />.value: 24736.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-02-01<br />.value: 24215.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-01-01<br />.value: 24287.00",".conf_lo:       NA<br />.conf_hi:       NA<br />.model_desc: ACTUAL<br />.index: 2013-01-01<br />.value: 24287.00"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(44,62,80,0.2)","dash":"none"},"fill":"toself","fillcolor":"rgba(51,51,51,0.2)","hoveron":"points","name":"ACTUAL","legendgroup":"ACTUAL","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":["2021-01-01","2021-02-01","2021-03-01","2021-04-01","2021-05-01","2021-06-01","2021-07-01","2021-08-01","2021-09-01","2021-10-01","2021-11-01","2021-12-01","2022-01-01","2022-02-01","2022-03-01","2022-04-01","2022-05-01","2022-06-01","2022-07-01","2022-08-01","2022-09-01","2022-10-01","2022-11-01","2022-12-01","2023-01-01","2023-02-01","2023-03-01","2023-04-01","2023-05-01","2023-06-01","2023-07-01","2023-08-01","2023-09-01","2023-10-01","2023-11-01","2023-12-01","2023-12-01","2023-12-01","2023-11-01","2023-10-01","2023-09-01","2023-08-01","2023-07-01","2023-06-01","2023-05-01","2023-04-01","2023-03-01","2023-02-01","2023-01-01","2022-12-01","2022-11-01","2022-10-01","2022-09-01","2022-08-01","2022-07-01","2022-06-01","2022-05-01","2022-04-01","2022-03-01","2022-02-01","2022-01-01","2021-12-01","2021-11-01","2021-10-01","2021-09-01","2021-08-01","2021-07-01","2021-06-01","2021-05-01","2021-04-01","2021-03-01","2021-02-01","2021-01-01","2021-01-01"],"y":[25481.2268933849,25501.8518933849,25899.8477016625,26283.7048445196,26527.8477016625,26589.5619873768,26622.7048445196,26497.2762730911,26588.4191302339,26640.8477016625,26650.7048445196,26188.4191302339,25765.0796068925,25785.7046068925,26183.7004151701,26567.5575580273,26811.7004151701,26873.4147008844,26906.5575580273,26781.1289865987,26872.2718437416,26924.7004151701,26934.5575580273,26472.2718437416,26048.9323204002,26069.5573204002,26467.5531286778,26851.4102715349,27095.5531286778,27157.2674143921,27190.4102715349,27064.9817001064,27156.1245572492,27208.5531286778,27218.4102715349,26756.1245572492,26756.1245572492,29725.1782280497,30187.4639423354,30177.6067994783,30125.1782280497,30034.0353709069,30159.4639423354,30126.3210851926,30064.6067994783,29820.4639423354,29436.6067994783,29038.6109912007,29017.9859912007,29441.3255145421,29903.6112288278,29893.7540859707,29841.3255145421,29750.1826573992,29875.6112288278,29842.4683716849,29780.7540859707,29536.6112288278,29152.7540859707,28754.7582776931,28734.1332776931,29157.4728010344,29619.7585153201,29609.901372463,29557.4728010344,29466.3299438916,29591.7585153201,29558.6156581773,29496.901372463,29252.7585153201,28868.901372463,28470.9055641854,28450.2805641854,25481.2268933849],"text":[".conf_lo: 25481.23<br />.conf_hi: 28450.28<br />.model_desc: 1_LM<br />.index: 2021-01-01<br />.value: 26965.75",".conf_lo: 25501.85<br />.conf_hi: 28470.91<br />.model_desc: 1_LM<br />.index: 2021-02-01<br />.value: 26986.38",".conf_lo: 25899.85<br />.conf_hi: 28868.90<br />.model_desc: 1_LM<br />.index: 2021-03-01<br />.value: 27384.37",".conf_lo: 26283.70<br />.conf_hi: 29252.76<br />.model_desc: 1_LM<br />.index: 2021-04-01<br />.value: 27768.23",".conf_lo: 26527.85<br />.conf_hi: 29496.90<br />.model_desc: 1_LM<br />.index: 2021-05-01<br />.value: 28012.37",".conf_lo: 26589.56<br />.conf_hi: 29558.62<br />.model_desc: 1_LM<br />.index: 2021-06-01<br />.value: 28074.09",".conf_lo: 26622.70<br />.conf_hi: 29591.76<br />.model_desc: 1_LM<br />.index: 2021-07-01<br />.value: 28107.23",".conf_lo: 26497.28<br />.conf_hi: 29466.33<br />.model_desc: 1_LM<br />.index: 2021-08-01<br />.value: 27981.80",".conf_lo: 26588.42<br />.conf_hi: 29557.47<br />.model_desc: 1_LM<br />.index: 2021-09-01<br />.value: 28072.95",".conf_lo: 26640.85<br />.conf_hi: 29609.90<br />.model_desc: 1_LM<br />.index: 2021-10-01<br />.value: 28125.37",".conf_lo: 26650.70<br />.conf_hi: 29619.76<br />.model_desc: 1_LM<br />.index: 2021-11-01<br />.value: 28135.23",".conf_lo: 26188.42<br />.conf_hi: 29157.47<br />.model_desc: 1_LM<br />.index: 2021-12-01<br />.value: 27672.95",".conf_lo: 25765.08<br />.conf_hi: 28734.13<br />.model_desc: 1_LM<br />.index: 2022-01-01<br />.value: 27249.61",".conf_lo: 25785.70<br />.conf_hi: 28754.76<br />.model_desc: 1_LM<br />.index: 2022-02-01<br />.value: 27270.23",".conf_lo: 26183.70<br />.conf_hi: 29152.75<br />.model_desc: 1_LM<br />.index: 2022-03-01<br />.value: 27668.23",".conf_lo: 26567.56<br />.conf_hi: 29536.61<br />.model_desc: 1_LM<br />.index: 2022-04-01<br />.value: 28052.08",".conf_lo: 26811.70<br />.conf_hi: 29780.75<br />.model_desc: 1_LM<br />.index: 2022-05-01<br />.value: 28296.23",".conf_lo: 26873.41<br />.conf_hi: 29842.47<br />.model_desc: 1_LM<br />.index: 2022-06-01<br />.value: 28357.94",".conf_lo: 26906.56<br />.conf_hi: 29875.61<br />.model_desc: 1_LM<br />.index: 2022-07-01<br />.value: 28391.08",".conf_lo: 26781.13<br />.conf_hi: 29750.18<br />.model_desc: 1_LM<br />.index: 2022-08-01<br />.value: 28265.66",".conf_lo: 26872.27<br />.conf_hi: 29841.33<br />.model_desc: 1_LM<br />.index: 2022-09-01<br />.value: 28356.80",".conf_lo: 26924.70<br />.conf_hi: 29893.75<br />.model_desc: 1_LM<br />.index: 2022-10-01<br />.value: 28409.23",".conf_lo: 26934.56<br />.conf_hi: 29903.61<br />.model_desc: 1_LM<br />.index: 2022-11-01<br />.value: 28419.08",".conf_lo: 26472.27<br />.conf_hi: 29441.33<br />.model_desc: 1_LM<br />.index: 2022-12-01<br />.value: 27956.80",".conf_lo: 26048.93<br />.conf_hi: 29017.99<br />.model_desc: 1_LM<br />.index: 2023-01-01<br />.value: 27533.46",".conf_lo: 26069.56<br />.conf_hi: 29038.61<br />.model_desc: 1_LM<br />.index: 2023-02-01<br />.value: 27554.08",".conf_lo: 26467.55<br />.conf_hi: 29436.61<br />.model_desc: 1_LM<br />.index: 2023-03-01<br />.value: 27952.08",".conf_lo: 26851.41<br />.conf_hi: 29820.46<br />.model_desc: 1_LM<br />.index: 2023-04-01<br />.value: 28335.94",".conf_lo: 27095.55<br />.conf_hi: 30064.61<br />.model_desc: 1_LM<br />.index: 2023-05-01<br />.value: 28580.08",".conf_lo: 27157.27<br />.conf_hi: 30126.32<br />.model_desc: 1_LM<br />.index: 2023-06-01<br />.value: 28641.79",".conf_lo: 27190.41<br />.conf_hi: 30159.46<br />.model_desc: 1_LM<br />.index: 2023-07-01<br />.value: 28674.94",".conf_lo: 27064.98<br />.conf_hi: 30034.04<br />.model_desc: 1_LM<br />.index: 2023-08-01<br />.value: 28549.51",".conf_lo: 27156.12<br />.conf_hi: 30125.18<br />.model_desc: 1_LM<br />.index: 2023-09-01<br />.value: 28640.65",".conf_lo: 27208.55<br />.conf_hi: 30177.61<br />.model_desc: 1_LM<br />.index: 2023-10-01<br />.value: 28693.08",".conf_lo: 27218.41<br />.conf_hi: 30187.46<br />.model_desc: 1_LM<br />.index: 2023-11-01<br />.value: 28702.94",".conf_lo: 26756.12<br />.conf_hi: 29725.18<br />.model_desc: 1_LM<br />.index: 2023-12-01<br />.value: 28240.65",".conf_lo: 26756.12<br />.conf_hi: 29725.18<br />.model_desc: 1_LM<br />.index: 2023-12-01<br />.value: 28240.65",".conf_lo: 26756.12<br />.conf_hi: 29725.18<br />.model_desc: 1_LM<br />.index: 2023-12-01<br />.value: 28240.65",".conf_lo: 27218.41<br />.conf_hi: 30187.46<br />.model_desc: 1_LM<br />.index: 2023-11-01<br />.value: 28702.94",".conf_lo: 27208.55<br />.conf_hi: 30177.61<br />.model_desc: 1_LM<br />.index: 2023-10-01<br />.value: 28693.08",".conf_lo: 27156.12<br />.conf_hi: 30125.18<br />.model_desc: 1_LM<br />.index: 2023-09-01<br />.value: 28640.65",".conf_lo: 27064.98<br />.conf_hi: 30034.04<br />.model_desc: 1_LM<br />.index: 2023-08-01<br />.value: 28549.51",".conf_lo: 27190.41<br />.conf_hi: 30159.46<br />.model_desc: 1_LM<br />.index: 2023-07-01<br />.value: 28674.94",".conf_lo: 27157.27<br />.conf_hi: 30126.32<br />.model_desc: 1_LM<br />.index: 2023-06-01<br />.value: 28641.79",".conf_lo: 27095.55<br />.conf_hi: 30064.61<br />.model_desc: 1_LM<br />.index: 2023-05-01<br />.value: 28580.08",".conf_lo: 26851.41<br />.conf_hi: 29820.46<br />.model_desc: 1_LM<br />.index: 2023-04-01<br />.value: 28335.94",".conf_lo: 26467.55<br />.conf_hi: 29436.61<br />.model_desc: 1_LM<br />.index: 2023-03-01<br />.value: 27952.08",".conf_lo: 26069.56<br />.conf_hi: 29038.61<br />.model_desc: 1_LM<br />.index: 2023-02-01<br />.value: 27554.08",".conf_lo: 26048.93<br />.conf_hi: 29017.99<br />.model_desc: 1_LM<br />.index: 2023-01-01<br />.value: 27533.46",".conf_lo: 26472.27<br />.conf_hi: 29441.33<br />.model_desc: 1_LM<br />.index: 2022-12-01<br />.value: 27956.80",".conf_lo: 26934.56<br />.conf_hi: 29903.61<br />.model_desc: 1_LM<br />.index: 2022-11-01<br />.value: 28419.08",".conf_lo: 26924.70<br />.conf_hi: 29893.75<br />.model_desc: 1_LM<br />.index: 2022-10-01<br />.value: 28409.23",".conf_lo: 26872.27<br />.conf_hi: 29841.33<br />.model_desc: 1_LM<br />.index: 2022-09-01<br />.value: 28356.80",".conf_lo: 26781.13<br />.conf_hi: 29750.18<br />.model_desc: 1_LM<br />.index: 2022-08-01<br />.value: 28265.66",".conf_lo: 26906.56<br />.conf_hi: 29875.61<br />.model_desc: 1_LM<br />.index: 2022-07-01<br />.value: 28391.08",".conf_lo: 26873.41<br />.conf_hi: 29842.47<br />.model_desc: 1_LM<br />.index: 2022-06-01<br />.value: 28357.94",".conf_lo: 26811.70<br />.conf_hi: 29780.75<br />.model_desc: 1_LM<br />.index: 2022-05-01<br />.value: 28296.23",".conf_lo: 26567.56<br />.conf_hi: 29536.61<br />.model_desc: 1_LM<br />.index: 2022-04-01<br />.value: 28052.08",".conf_lo: 26183.70<br />.conf_hi: 29152.75<br />.model_desc: 1_LM<br />.index: 2022-03-01<br />.value: 27668.23",".conf_lo: 25785.70<br />.conf_hi: 28754.76<br />.model_desc: 1_LM<br />.index: 2022-02-01<br />.value: 27270.23",".conf_lo: 25765.08<br />.conf_hi: 28734.13<br />.model_desc: 1_LM<br />.index: 2022-01-01<br />.value: 27249.61",".conf_lo: 26188.42<br />.conf_hi: 29157.47<br />.model_desc: 1_LM<br />.index: 2021-12-01<br />.value: 27672.95",".conf_lo: 26650.70<br />.conf_hi: 29619.76<br />.model_desc: 1_LM<br />.index: 2021-11-01<br />.value: 28135.23",".conf_lo: 26640.85<br />.conf_hi: 29609.90<br />.model_desc: 1_LM<br />.index: 2021-10-01<br />.value: 28125.37",".conf_lo: 26588.42<br />.conf_hi: 29557.47<br />.model_desc: 1_LM<br />.index: 2021-09-01<br />.value: 28072.95",".conf_lo: 26497.28<br />.conf_hi: 29466.33<br />.model_desc: 1_LM<br />.index: 2021-08-01<br />.value: 27981.80",".conf_lo: 26622.70<br />.conf_hi: 29591.76<br />.model_desc: 1_LM<br />.index: 2021-07-01<br />.value: 28107.23",".conf_lo: 26589.56<br />.conf_hi: 29558.62<br />.model_desc: 1_LM<br />.index: 2021-06-01<br />.value: 28074.09",".conf_lo: 26527.85<br />.conf_hi: 29496.90<br />.model_desc: 1_LM<br />.index: 2021-05-01<br />.value: 28012.37",".conf_lo: 26283.70<br />.conf_hi: 29252.76<br />.model_desc: 1_LM<br />.index: 2021-04-01<br />.value: 27768.23",".conf_lo: 25899.85<br />.conf_hi: 28868.90<br />.model_desc: 1_LM<br />.index: 2021-03-01<br />.value: 27384.37",".conf_lo: 25501.85<br />.conf_hi: 28470.91<br />.model_desc: 1_LM<br />.index: 2021-02-01<br />.value: 26986.38",".conf_lo: 25481.23<br />.conf_hi: 28450.28<br />.model_desc: 1_LM<br />.index: 2021-01-01<br />.value: 26965.75",".conf_lo: 25481.23<br />.conf_hi: 28450.28<br />.model_desc: 1_LM<br />.index: 2021-01-01<br />.value: 26965.75"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(227,26,28,0.2)","dash":"none"},"fill":"toself","fillcolor":"rgba(51,51,51,0.2)","hoveron":"points","name":"1_LM","legendgroup":"1_LM","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":["2013-01-01","2013-02-01","2013-03-01","2013-04-01","2013-05-01","2013-06-01","2013-07-01","2013-08-01","2013-09-01","2013-10-01","2013-11-01","2013-12-01","2014-01-01","2014-02-01","2014-03-01","2014-04-01","2014-05-01","2014-06-01","2014-07-01","2014-08-01","2014-09-01","2014-10-01","2014-11-01","2014-12-01","2015-01-01","2015-02-01","2015-03-01","2015-04-01","2015-05-01","2015-06-01","2015-07-01","2015-08-01","2015-09-01","2015-10-01","2015-11-01","2015-12-01","2016-01-01","2016-02-01","2016-03-01","2016-04-01","2016-05-01","2016-06-01","2016-07-01","2016-08-01","2016-09-01","2016-10-01","2016-11-01","2016-12-01","2017-01-01","2017-02-01","2017-03-01","2017-04-01","2017-05-01","2017-06-01","2017-07-01","2017-08-01","2017-09-01","2017-10-01","2017-11-01","2017-12-01","2018-01-01","2018-02-01","2018-03-01","2018-04-01","2018-05-01","2018-06-01","2018-07-01","2018-08-01","2018-09-01","2018-10-01","2018-11-01","2018-12-01","2019-01-01","2019-02-01","2019-03-01","2019-04-01","2019-05-01","2019-06-01","2019-07-01","2019-08-01","2019-09-01","2019-10-01","2019-11-01","2019-12-01","2020-01-01","2020-02-01","2020-03-01","2020-04-01","2020-05-01","2020-06-01","2020-07-01","2020-08-01","2020-09-01","2020-10-01","2020-11-01","2020-12-01"],"y":[24287,24215,24736,25322,25610,25686,25681,25513,25701,25798,25795,25248,25050,25116,25463,25985,26112,26178,26280,26183,26213,26247,26260,25679,25392,25471,25766,26153,26431,26440,26538,26369,26487,26519,26469,26098,25646,25615,25980,26325,26613,26718,26765,26696,26697,26746,26762,26347,25878,25979,26443,26744,26992,27020,27078,26904,27011,27026,27019,26604,26213,26083,26555,26868,27064,27126,27083,26907,27055,27090,27184,26638,26232,26346,26805,27038,27322,27408,27383,27358,27404,27509,27515,27154,26800,26838,26609,26562,26930,27055,27106,27085,27012,27088,27241,26526],"text":[".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2013-01-01<br />.value: 24287.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2013-02-01<br />.value: 24215.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2013-03-01<br />.value: 24736.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2013-04-01<br />.value: 25322.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2013-05-01<br />.value: 25610.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2013-06-01<br />.value: 25686.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2013-07-01<br />.value: 25681.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2013-08-01<br />.value: 25513.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2013-09-01<br />.value: 25701.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2013-10-01<br />.value: 25798.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2013-11-01<br />.value: 25795.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2013-12-01<br />.value: 25248.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2014-01-01<br />.value: 25050.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2014-02-01<br />.value: 25116.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2014-03-01<br />.value: 25463.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2014-04-01<br />.value: 25985.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2014-05-01<br />.value: 26112.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2014-06-01<br />.value: 26178.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2014-07-01<br />.value: 26280.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2014-08-01<br />.value: 26183.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2014-09-01<br />.value: 26213.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2014-10-01<br />.value: 26247.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2014-11-01<br />.value: 26260.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2014-12-01<br />.value: 25679.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2015-01-01<br />.value: 25392.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2015-02-01<br />.value: 25471.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2015-03-01<br />.value: 25766.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2015-04-01<br />.value: 26153.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2015-05-01<br />.value: 26431.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2015-06-01<br />.value: 26440.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2015-07-01<br />.value: 26538.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2015-08-01<br />.value: 26369.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2015-09-01<br />.value: 26487.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2015-10-01<br />.value: 26519.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2015-11-01<br />.value: 26469.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2015-12-01<br />.value: 26098.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2016-01-01<br />.value: 25646.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2016-02-01<br />.value: 25615.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2016-03-01<br />.value: 25980.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2016-04-01<br />.value: 26325.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2016-05-01<br />.value: 26613.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2016-06-01<br />.value: 26718.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2016-07-01<br />.value: 26765.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2016-08-01<br />.value: 26696.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2016-09-01<br />.value: 26697.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2016-10-01<br />.value: 26746.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2016-11-01<br />.value: 26762.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2016-12-01<br />.value: 26347.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2017-01-01<br />.value: 25878.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2017-02-01<br />.value: 25979.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2017-03-01<br />.value: 26443.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2017-04-01<br />.value: 26744.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2017-05-01<br />.value: 26992.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2017-06-01<br />.value: 27020.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2017-07-01<br />.value: 27078.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2017-08-01<br />.value: 26904.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2017-09-01<br />.value: 27011.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2017-10-01<br />.value: 27026.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2017-11-01<br />.value: 27019.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2017-12-01<br />.value: 26604.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2018-01-01<br />.value: 26213.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2018-02-01<br />.value: 26083.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2018-03-01<br />.value: 26555.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2018-04-01<br />.value: 26868.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2018-05-01<br />.value: 27064.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2018-06-01<br />.value: 27126.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2018-07-01<br />.value: 27083.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2018-08-01<br />.value: 26907.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2018-09-01<br />.value: 27055.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2018-10-01<br />.value: 27090.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2018-11-01<br />.value: 27184.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2018-12-01<br />.value: 26638.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2019-01-01<br />.value: 26232.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2019-02-01<br />.value: 26346.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2019-03-01<br />.value: 26805.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2019-04-01<br />.value: 27038.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2019-05-01<br />.value: 27322.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2019-06-01<br />.value: 27408.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2019-07-01<br />.value: 27383.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2019-08-01<br />.value: 27358.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2019-09-01<br />.value: 27404.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2019-10-01<br />.value: 27509.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2019-11-01<br />.value: 27515.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2019-12-01<br />.value: 27154.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2020-01-01<br />.value: 26800.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2020-02-01<br />.value: 26838.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2020-03-01<br />.value: 26609.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2020-04-01<br />.value: 26562.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2020-05-01<br />.value: 26930.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2020-06-01<br />.value: 27055.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2020-07-01<br />.value: 27106.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2020-08-01<br />.value: 27085.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2020-09-01<br />.value: 27012.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2020-10-01<br />.value: 27088.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2020-11-01<br />.value: 27241.00",".color_mod: ACTUAL<br />.color_mod: ACTUAL<br />.index: 2020-12-01<br />.value: 26526.00"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(44,62,80,1)","dash":"solid"},"hoveron":"points","name":"ACTUAL","legendgroup":"ACTUAL","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":["2021-01-01","2021-02-01","2021-03-01","2021-04-01","2021-05-01","2021-06-01","2021-07-01","2021-08-01","2021-09-01","2021-10-01","2021-11-01","2021-12-01","2022-01-01","2022-02-01","2022-03-01","2022-04-01","2022-05-01","2022-06-01","2022-07-01","2022-08-01","2022-09-01","2022-10-01","2022-11-01","2022-12-01","2023-01-01","2023-02-01","2023-03-01","2023-04-01","2023-05-01","2023-06-01","2023-07-01","2023-08-01","2023-09-01","2023-10-01","2023-11-01","2023-12-01"],"y":[26965.7537287851,26986.3787287851,27384.3745370627,27768.2316799199,28012.3745370627,28074.088822777,28107.2316799199,27981.8031084913,28072.9459656342,28125.3745370627,28135.2316799199,27672.9459656342,27249.6064422928,27270.2314422928,27668.2272505704,28052.0843934275,28296.2272505704,28357.9415362847,28391.0843934275,28265.655821999,28356.7986791418,28409.2272505704,28419.0843934275,27956.7986791418,27533.4591558004,27554.0841558004,27952.079964078,28335.9371069352,28580.079964078,28641.7942497923,28674.9371069352,28549.5085355066,28640.6513926495,28693.079964078,28702.9371069352,28240.6513926495],"text":[".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2021-01-01<br />.value: 26965.75",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2021-02-01<br />.value: 26986.38",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2021-03-01<br />.value: 27384.37",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2021-04-01<br />.value: 27768.23",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2021-05-01<br />.value: 28012.37",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2021-06-01<br />.value: 28074.09",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2021-07-01<br />.value: 28107.23",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2021-08-01<br />.value: 27981.80",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2021-09-01<br />.value: 28072.95",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2021-10-01<br />.value: 28125.37",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2021-11-01<br />.value: 28135.23",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2021-12-01<br />.value: 27672.95",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2022-01-01<br />.value: 27249.61",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2022-02-01<br />.value: 27270.23",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2022-03-01<br />.value: 27668.23",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2022-04-01<br />.value: 28052.08",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2022-05-01<br />.value: 28296.23",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2022-06-01<br />.value: 28357.94",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2022-07-01<br />.value: 28391.08",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2022-08-01<br />.value: 28265.66",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2022-09-01<br />.value: 28356.80",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2022-10-01<br />.value: 28409.23",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2022-11-01<br />.value: 28419.08",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2022-12-01<br />.value: 27956.80",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2023-01-01<br />.value: 27533.46",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2023-02-01<br />.value: 27554.08",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2023-03-01<br />.value: 27952.08",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2023-04-01<br />.value: 28335.94",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2023-05-01<br />.value: 28580.08",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2023-06-01<br />.value: 28641.79",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2023-07-01<br />.value: 28674.94",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2023-08-01<br />.value: 28549.51",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2023-09-01<br />.value: 28640.65",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2023-10-01<br />.value: 28693.08",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2023-11-01<br />.value: 28702.94",".color_mod: 1_LM<br />.color_mod: 1_LM<br />.index: 2023-12-01<br />.value: 28240.65"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(227,26,28,1)","dash":"solid"},"hoveron":"points","name":"1_LM","legendgroup":"1_LM","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.7625570776256,"r":7.30593607305936,"b":25.5707762557078,"l":40.1826484018265},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187},"title":{"text":"Forecast Plot","font":{"color":"rgba(44,62,80,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"date","autorange":true,"range":["2012-06-15","2024-06-17"],"tickmode":"auto","ticktext":["2014","2016","2018","2020","2022","2024"],"tickvals":[16071,16801,17532,18262,18993,19723],"categoryorder":"array","categoryarray":["2014","2016","2018","2020","2022","2024"],"nticks":null,"ticks":"outside","tickcolor":"rgba(204,204,204,1)","ticklen":3.65296803652968,"tickwidth":0.22139200221392,"showticklabels":true,"tickfont":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.22139200221392,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":true,"range":[23916.3768028832,30486.0871394522],"tickmode":"auto","ticktext":["24000","26000","28000","30000"],"tickvals":[24000,26000,28000,30000],"categoryorder":"array","categoryarray":["24000","26000","28000","30000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(204,204,204,1)","ticklen":3.65296803652968,"tickwidth":0.22139200221392,"showticklabels":true,"tickfont":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.22139200221392,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(44,62,80,1)","width":0.33208800332088,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895},"y":0.96751968503937},"annotations":[{"text":"Legend","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"82f4653110ac":{"ymin":{},"ymax":{},"colour":{},"x":{},"y":{},"type":"scatter"},"82f458f318ca":{"colour":{},"x":{},"y":{}}},"cur_data":"82f4653110ac","visdat":{"82f4653110ac":["function (y) ","x"],"82f458f318ca":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="7">
+<li id="fn7"><p>이기준 외, 인구지형변화에 따른 머신러닝 기반 고등교육 계열별 수요예측 모형 개발(2020), 한국교육개발원<a href="regression-모델.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p><a href="https://otexts.com/fppkr/regression-evaluation.html" class="uri">https://otexts.com/fppkr/regression-evaluation.html</a><a href="regression-모델.html#fnref8" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="simple-모델링-알고리즘.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exponential-smoothing-모델.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+</body>
+
+</html>

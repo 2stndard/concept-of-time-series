@@ -1,16 +1,3 @@
-library(tidyverse)
-library(zoo)
-library(xts)
-library(readxl)
-if(!require(modeltime)) {
-  install.packages('modeltime')
-  library(modeltime)
-}
-library(tseries)
-library(ggthemes)
-library(timetk)
-library(forecast)
-library(lubridate)
 ts <- ts(1:10, frequency = 4, start = c(1959, 2))
 head(ts)
 
@@ -504,9 +491,10 @@ library(seasonal)
 ts(employees[, 3], start = c(2013, 01), frequency = 12) %>%
   seas() %>% autoplot()
 
+as.Date(paste0(employees[, 1], '. 01'), format = '%Y. %m. %d')
 
 employees %>%
-  mutate(date = as.Date(as.character(employees[, 1]), format = '%Y. %M')) %>%
+  mutate(date = as.Date(employees[, 1], format = '%Y. %M')) %>%
   select(4, 2) %>%
   plot_stl_diagnostics(
     .date = date, .value = total,
@@ -579,155 +567,36 @@ fit_growthmodel(FUN = grow_twostep, p = p, time = dat$time, y = dat$value,
                 lower = lower, upper = upper)
 summary(naive(employees.ts[,2]))
 
-employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = FALSE)
+?snaive
+
+glimpse(students.ts)
+library(forecast)
+summary(tslm(students.ts[, 3] ~ students.ts[, 2], data = students.ts))
+
+ts.lm <- tslm(students.ts[,1] ~ trend, data = students.ts)
+summary(ts.lm)
+ts.lm %>% forecast() %>% autoplot()
+
+class(ts.lm)
+newdata <- as.ts(as.numeric(students.ts[17:22, 2]))
+
+tslm(students.ts[, 3] ~ students.ts[, 2], data = students.ts) %>% forecast(newdata = newdata) %>% autoplot()
+
+autoplot(forecast.ts.lm)
+summary(lm(students.ts[, 3] ~ students.ts[, 2], data = students))
+
+
+employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 colnames(employees) <- c('time', 'total', 'employees.edu')
+employees.ts <- ts(employees, start = c(2013, 01), frequency = 12)
 
-employees$date <- as.Date(as.yearmon(employees$time, "%Y. %m"))
-
-class(as.character(employees$time))
-employees$date <- gsub(' ', '', employees[,1])
-
-as.Date(as.character(employees$date), format = "%Y.%M")
-
-employees$date <- gsub('.', '-', employees$date)
-employees$date1 <- as.Date(as.character(employees$date), format = '%Y.%M')
-plot_time_series_regression(.data = students %>% filter(지역규모 == '계'), 
-                            .date_var = 연도, 
-                            .formula = 학생수계 ~ 연도, 
-                            .interactive = FALSE, 
-                            .show_summary = TRUE) 
-
-employees %>%
-  mutate(date = as.Date(employees[, 1], format = '%Y. %M'))
-
-plot_time_series_regression(.data = employees, 
-                            .date_var = date, 
-                            .formula = total ~ as.numeric(date) + month(date, label = TRUE), 
-                            .interactive = FALSE, 
-                            .show_summary = TRUE) 
-
-plot_time_series_regression(.data = employees, 
-                            .date_var = date, 
-                            .formula = employees.edu ~ as.numeric(date) + month(date, label = TRUE), 
-                            .interactive = FALSE, 
-                            .show_summary = TRUE) 
-
-lm(employees.edu ~ as.numeric(date) + month(date, label = TRUE), data = employees)
-plot(employees.edu ~ as.numeric(date) + month(date, label = TRUE), data = employees)
-library(modeltime)
-library(parsnip)
-library(tidymodels)
+employee.total.ts.lm <- tslm(employees.ts[,2] ~ employees.ts[,3] + trend + season, data = employees.ts)
+summary(employee.total.ts.lm)
+employee.total.ts.lm %>% forecast(h = 96) %>% autoplot(PI = FALSE)
 
 
-
-####################################################################
-library(parsnip)
-library(tidymodels)
-
-splits <- initial_time_split(employees, prop = 0.9)
-
-model_fit_lm <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(total ~ as.numeric(date) + factor(month(date, label = TRUE), ordered = FALSE),
-      data = training(splits))
-
-model_tbl <- modeltime_table(model_fit_lm)
-
-calibration_tbl <- model_tbl %>% modeltime_calibrate(new_data = testing(splits))
-
-model_tbl %>%
-  modeltime_forecast(
-    h = '3 years',
-    actual_data = employees, 
-    conf_interval = 0.95
-  ) %>%
-  plot_modeltime_forecast(
-    .legend_max_width = 25, # For mobile screens
-    .interactive      = TRUE,
-    .conf_interval_show = TRUE,
-    .conf_interval_fill = "grey20",
-    .conf_interval_alpha = 0.2,
-  )
-
-calibration_tbl %>%
-  modeltime_forecast(
-    h = '3 years',
-    actual_data = employees, 
-    conf_interval = 0.95
-  ) %>%
-  plot_modeltime_forecast(
-    .legend_max_width = 25, # For mobile screens
-    .interactive      = TRUE,
-    .conf_interval_show = TRUE,
-    .conf_interval_fill = "grey20",
-    .conf_interval_alpha = 0.2,
-  )
-
-calibration_tbl %>%
-  modeltime_forecast(
-    h = '3 years', actual_data = employees
-  ) %>% plot_modeltime_forecast()
-
-
-#########################################################
-install.packages('moonBook')
-library(moonBook)
-install.packages('ggiraph')
-require(ggiraph)
-install.packages('ggiraphExtra')
-require(ggiraphExtra)
-require(plyr)
-
-
-ggPredict(linear_reg() %>%
-            set_engine("lm") %>%
-            fit(total ~ as.numeric(date) + factor(month(date, label = TRUE), ordered = FALSE),
-                data = employees))
-plot(linear_reg() %>%
-        set_engine("lm") %>%
-        fit(total ~ as.numeric(date) + factor(month(date, label = TRUE), ordered = FALSE),
-            data = employees))
-
-
-splits <- initial_time_split(employees, prop = 0.9)
-
-model_fit_lm <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(total ~ as.numeric(date) + factor(month(date, label = TRUE), ordered = FALSE),
-      data = employees)
-
-model_tbl <- modeltime_table(model_fit_lm)
-
-calibration_tbl <- model_tbl %>% modeltime_calibrate(new_data = employees)
-
-model_tbl %>%
-  modeltime_forecast(
-    h = '3 years',
-    actual_data = employees, 
-    conf_interval = 0.95
-  ) %>%
-  plot_modeltime_forecast(
-    .legend_max_width = 25, # For mobile screens
-    .interactive      = TRUE,
-    .conf_interval_show = TRUE,
-    .conf_interval_fill = "grey20",
-    .conf_interval_alpha = 0.2,
-  )
-
-calibration_tbl %>%
-  modeltime_forecast(
-    h = '3 years',
-    actual_data = employees
-  ) %>%
-  plot_modeltime_forecast(
-    .legend_max_width = 25, # For mobile screens
-    .interactive      = TRUE,
-    .conf_interval_show = TRUE,
-    .conf_interval_fill = "grey20",
-    .conf_interval_alpha = 0.2,
-  )
-
-calibration_tbl %>%
-  modeltime_forecast(
-    h = '3 years', actual_data = employees
-  ) %>% plot_modeltime_forecast()
+student.ts.lm <- tslm(students.total.ts[,3] ~ students.total.ts[,4] + trend, data = students.total.ts)
+student.ts.lm %>% forecast(h = 22) %>% 
+  autoplot() + scale_x_date(limits = as.Date(c('1999-01-01','2030-01-01')))
+  
+  c(as.Date('1999', format = '%Y'), as.Date('2030', format = '%Y')))

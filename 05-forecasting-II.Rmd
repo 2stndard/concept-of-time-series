@@ -148,11 +148,9 @@ autoplot(meanf(employees.ts[,3], h = 10), PI = FALSE, series = 'Mean') +
 
 본 문서에서는 R에서 회귀 알고리즘을 구현하는 방법을 다루지는 않고 시계열 데이터의 회귀 알고리즘을 적용하는 방법에 대해 설명하겠다. 시계열 데이터의 회귀 모델은 두가지로 구분할 수 있다. 첫번째는 두가지이상의 시계열 데이터(Multivariate) 간의 회귀 모델과 한가지 시계열 데이터(Univariate)의 시간에 따른 회귀모델이다. 사실 첫번째 모델의 경우는 일반적 회귀모델과 큰 차이는 없지만 사용하는 함수는 시계열 패키지에서 따로 제공된다. 두번째 모델의 경우는 시계열 데이터의 특성인 추세(trend)와 계절성(season), 반복성(cycle)을 회귀에 반영한다는 점에서 일반적 회귀와는 차이가 있다.
 
-### 시계열 선형회귀(Timer Series Linear Regression) 모델
-
 시계열 선형 회귀 모델은 데이터간의 관계를 가장 잘 나타내는 직선(Linear)을 산출하여 미래 데이터를 예측하는 방법이다. 선형 회귀 모델은 선형 방정식으로 표현되는데 직선의 기울기(Slope)와 Y 축 절편(Intercept)의 계수(Coefficient)가 산출된다. 시계열 데이터의 선형 회귀를 위해서 forecast 패키지에서 tslm()함수, timetk 패키지의 plot_time_series_regression() 함수(stats::lm() 함수를 사용하여 선형회귀 결과를 ploting하는 함수), modeltime 패키지(timetk 패키지의 모델링 패키지)의 linear_reg() 함수 등을 사용할 수 있다.
 
--   tslm 함수(forecast 패키지)
+### tslm 함수(forecast 패키지)
 
 forecast 패키지에서 제공하는 tslm() 함수는 시계열 선형회귀 모델을 위한 함수이다. tslm() 함수는 lm() 함수의 래퍼 함수(Wrapper)로 사용법은 비슷하고 시간축이 독립변수에 포함되지 않은 두개 혹은 두개 이상의 시계열 객체에 대한 선형회귀는 lm() 함수의 결과와 같다. 즉 시계열 데이터이지만 독립변수 시간이 포함되지 않는다면 시계열 데이터로써의 특성이 적용되지 않은 양 데이터간의 특성정보만으로 선형회귀 방정식이 얻어진다.
 
@@ -164,7 +162,7 @@ student.ts.lm <- tslm(students.total.ts[,3] ~ trend, data = students.total.ts)
 summary(student.ts.lm)
 student.ts.lm %>% forecast()  # tslm 함수로 생성된 모델을 forecast()함수를 통해 예측값을 생성
 student.ts.lm %>% forecast() %>% autoplot()
-student.ts.lm <- tslm(students.total.ts[,5] ~ + trend, data = students.total.ts)  # 초등학생 학생수를 예측모델에 독립변수로 트랜드를 사용하는 선형 모델을 생성
+student.ts.lm <- tslm(students.total.ts[,5] ~ trend, data = students.total.ts)  # 초등학생 학생수를 예측모델에 독립변수로 트랜드를 사용하는 선형 모델을 생성
 student.ts.lm %>% forecast(h = 22) %>% autoplot()
 student.ts.lm <- tslm(students.total.ts[,5] ~ students.total.ts[,4] + trend, data = students.total.ts)  # 초등학생 학생수를 예측모델에 독립변수로 유치원 학생수와 트랜드를 사용하는 선형 모델을 생성
 student.ts.lm %>% forecast(h = 22) %>% autoplot()
@@ -206,7 +204,7 @@ employee.total.ts.lm %>% forecast() %>% autoplot()
 checkresiduals(tslm(students.total.ts[,3] ~ trend, data = students.total.ts))
 ```
 
--   plot_time_series_regression 함수(timetk 패키지)
+### plot_time_series_regression 함수(timetk 패키지)
 
 timetk 패키지는 시계열 데이터를 핸들링하고 plotting 하는 데 주로 활용하는 패키지이다. 그래서 모델링을 위한 함수를 바로 제공하지는 않고 plotting 함수에서 회귀 모델을 호출하여 회귀 결과를 plotting 하는 함수를 제공한다. plot_time_series_regression() 함수에서 사용하는 선형회귀 함수에서도 trend, season 을 적용할 수 없다. 다만 ts 객체가 아닌 data.frame 객체를 사용할 수있다는 장점이 있다.
 
@@ -217,19 +215,20 @@ plot_time_series_regression(.data = students %>% filter(지역규모 == '계'),
                             .interactive = FALSE, 
                             .show_summary = TRUE) 
 employees$date <- as.Date(as.yearmon(employees$time, "%Y. %m"))
+###as.Date(paste0(employees[, 1], '. 01'), format = '%Y. %m. %d')
 
-# plot_time_series_regression에 trend만 반영시
+### plot_time_series_regression에 trend만 반영시
 plot_time_series_regression(.data = employees, 
                             .date_var = time, 
                             .formula = total ~ as.numeric(date), 
                             .interactive = FALSE) 
-# plot_time_series_regression에 trend, season(월)까지 반영시
+### plot_time_series_regression에 trend, season(월)까지 반영시
 plot_time_series_regression(.data = employees, 
                             .date_var = time, 
                             .formula = total ~ as.numeric(date) +
                             lubridate::month(date, label = TRUE), 
                             .interactive = FALSE) 
-# plot_time_series_regression에 trend만 반영시
+### plot_time_series_regression에 trend만 반영시
 plot_time_series_regression(.data = employees, 
                             .date_var = time, 
                             .formula = employees.edu ~ as.numeric(date), 
@@ -242,7 +241,9 @@ plot_time_series_regression(.data = employees,
                             .interactive = FALSE) 
 ```
 
--   linear_reg 함수(parship, modeltime 패키지)
+### linear_reg 함수(parship, modeltime 패키지)
+
+본 절에서 설명하는 방법은
 
 ```{r linear_reg, message=FALSE, warning=FALSE}
 library(modeltime)
@@ -270,12 +271,6 @@ calibration_tbl %>%
     .interactive      = TRUE
   )
 ```
-
-### 시계열 비선형 회귀(Time Series Non-Linear Regression) 모델
-
-앞 절에서는 시계열 데이터를 직선으로 적합한 모델을 세워 예측치를 산출하였다. 하지만 시계열 데이터는 등락을 반복하면서 추세를 보이거나 계절마다 등락을 반복하는 계절성을 보이는 등 곡선으로 표현되는 경우가 많다. 따라서 선형 모델보다는 비선형 모델에 적합한 경우가 많다.
-
-비선형 회귀 모델은 데이터를 직선이 아닌 곡선으로 적합한 모델이다. 곡선의 형태에 따라 비선형 방정식의 형태가 달라지는 데 log 형태의 곡선, 지수 형태의 곡선, 다차 방정식에 의한 곡선 등이 있다.
 
 ## Exponential Smoothing 모델
 
