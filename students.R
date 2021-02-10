@@ -44,3 +44,30 @@ autoplot(students.total.ts[,3], PI = FALSE, series = '원본', color = 'black') 
   autolayer(fitted(ses(students.total.ts[,3], beta = 0.7)), PI = FALSE, series = 'alpha = 0.7') +
   autolayer(fitted(ses(students.total.ts[,3], beta = 0.8)), PI = FALSE, series = 'alpha = 0.8') +
   autolayer(fitted(ses(students.total.ts[,3], beta = 0.9)), PI = FALSE, series = 'alpha = 0.9')
+
+
+
+students.modeltime <- students %>% filter(지역규모 == '계') %>% select(1, 3)
+### 트레이닝 셋과 테스트 셋을 나눈다
+splits <- initial_time_split(students.modeltime, prop = 0.9)
+training(splits)
+testing(splits)
+###  trend와 season을 반영하여 linear model을 생성
+model_fit_lm <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(students.modeltime[,2] ~ students.modeltime[,1],
+      data = students.modeltime)
+###  모델 테이블 생성
+model_tbl <- modeltime_table(model_fit_lm)
+###  테스팅 셋으로 모델 교정
+calibration_tbl <- model_tbl %>% modeltime_calibrate(new_data = students.modeltime[, 3])
+###  3년 예측치 생성후 plotting
+model_tbl %>%
+  modeltime_forecast(
+    #    .newdata = testing(splits),
+    h = 10,
+    actual_data = students.modeltime
+  ) %>%
+  plot_modeltime_forecast(
+    .interactive      = TRUE
+  )
