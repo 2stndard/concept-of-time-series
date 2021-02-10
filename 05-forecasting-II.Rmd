@@ -1,11 +1,13 @@
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-library(dplyr)
+library(tidyverse)
 library(xts)
+library(timetk)
+library(forecast)
 students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 students[, 3:18] <- apply(students[, 3:18], 2, function(y) as.numeric(gsub(",", "", y)))
 students.total.xts <- students %>% filter(지역규모 == '계') %>% select(-지역규모)
 students.total.xts <- as.xts(students.total.xts, order.by = as.Date(paste0(students.total.xts[,1], '-01-01'), format = '%Y-%m-%d'))
-library(timetk)
+
 students.total.ts <- students %>% 
   filter(지역규모 == '계') %>% 
   select(3:18) %>%
@@ -23,6 +25,9 @@ covid19.by.age <- covid19 %>%
   filter(grepl('세', category)) %>% 
   filter(category != '세종')
 covid19.by.age$value1 <- ifelse(is.na(covid19.by.age$value), 0, covid19.by.age$value)
+wide.covid19.by.age <- spread(covid19.by.age, category, value)
+
+wide.covid19.by.age.ts = ts(wide.covid19.by.age[, 2:10], frequency = 365)
 ```
 
 # 시계열 forecasting Part II - 시계열 모델링 알고리즘
@@ -336,13 +341,133 @@ calibration_tbl %>%
 
 [^forecasting-ii-12]: <https://otexts.com/fppkr/expsmooth.html>
 
-최근의 데이터에 가중치를 높게 주기 때문에 추세, 계절성, 순환성이 심하지 않은 단기 데이터의 모델링에 적합한 방법이다. 추세나 계절성이 없는 데이터에 적합한 '단순 지수평활법(Simple Exponential Smoothign), 추세가 있는 데이터에 적합한 홀트(Holt) 방법, 추세와 계절성이 있는 데이터에 적합한 홀트-윈터(Holt-Winter) 방법 등이 있다.
+최근의 데이터에 가중치를 높게 주기 때문에 추세, 계절성, 순환성이 심하지 않은 단기 데이터의 모델링에 적합한 방법이다. 추세나 계절성이 없는 데이터에 적합한 '단순 지수평활 모델(Simple Exponential Smoothign), 추세가 있는 데이터에 적합한 홀트(Holt) 모델, 추세와 계절성이 있는 데이터에 적합한 홀트-윈터(Holt-Winter) 모델 등이 있다.
 
-### 단순 지수 평활 방법
+지수 평활 모델에서 핵심적인 변수는 평활 계수이다. 평활 매개변수는 앞서 설명한 현재와 가까운 과거에 할당하는 가중치를 의미한다. 평활 매개변수은 보통 0에서 1사이의 변수인데 홀트 모델이나 홀트-윈터 모델에서는 추가적인 계수가 추가될 수 있다. 이고 이 가중치를 어떻게 설정하는 가에 따라 예측 모델의 성능도 달라질 수 있다.
 
-### 홀트(Holt) 방법
+필자는 처음 이 모델을 접했을때 왜 지수(Exponential)과 평활(Smoothing) 이라는 이름을 사용했는지 궁금했다. 평활 매개변수를 설명하는 과정에서 명칭에서 지수를 붙인 이유는 설명이 되겠지만 아직도 평활이라는 이름을 붙인 이유는 명쾌하게 이해되지는 않는다. 시계열 데이터에 대한 추세선을 부드럽게, 스무딩하게 만드는 모델이라고 생각이 되나 사실 홀트-윈터 모델을 보면 별로 부드럽지 않다는 느낌이 들어서 이 부분에 대해 잘 아시는 분은 알려주시길 부탁드린다.
 
-### 홀트-윈터(Holt-Winter) 방법
+### 단순 지수 평활 모델(Simple Exponentail Smoothing Model)
+
+단순 지수 평활 모델은 추세, 계절성 등의 시계열적 특성이 비교적 약한 데이터에 적합한 예측 모델이다. 단순 지수 평활 모델을 사용하기 위해서는 우선 평활 계수를 설정해아한다.
+
+평활 계수는 과거치에 대한 가중치로 현재에 가장 가까운 첫번째 과거 데이터에 대한 가중치이다. 이후 가중치 들은 1에서 가중치를 뺀 가중치(1-평활계수)로 설정하고 과거로 계속 갈수록 (1-평활계수)를 계속 곱해서 가중치를 할당한다. 평활 계수를 0.5로 가정하고 학생수 예에 적용해 보면 다음의 표와 같이 가중치가 설정되게 된다. 평활 계수가 지수형태로 계산되기 때문에 평활계수의 합은 1이 될 수 없다.
+
+| 연도 | 가중치(평활계수 = 0.5)                       |
+|:----:|----------------------------------------------|
+| 2020 | 0.5                                          |
+| 2019 | 0.25 = (1 - 0.5)                             |
+| 2018 | 0.125 = (1 - 0.5) \* (1 - 0.5)               |
+| 2017 | 0.0625 = (1 - 0.5) \* (1 - 0.5) \* (1 - 0.5) |
+| ...  | ...                                          |
+
+단순 지수 평활 모델을 적용하는 방법은 forecast 패키지의 ses() 함수를 사용하면 모델을 구축할 수 있다. ses() 함수에서는 평활 계수를 alpha 매개변수를 통해 설정할 수 있지만 설정하지 않으면 자동으로 계산하여 설정해준다. ses() 함수는 뒤에서 설명하는 홀트 모델, 홀트-윈터 모델도 beta와 gamma 매개변수를 통해 생성할 수 있다. ses() 함수를 통해 생성되는 모델은 몇가지 특성값을 가지는데 앞에서 설명한 평활계수가 alpha로 표현되고 초기상태값인 l 값이 나타난다. 단순 지수 평활 모델은 한단계씩 예측해나가는 방법(One Step Forecast)이기 때문에 초기값인 l값부터 시작하여 한단계 앞 값을 예측하고 또 다음 단계를 예측하는 방법으로 수행된다. l 값을 산출하는 방법은 Rob Hyndman의 저서에서 확인할 수 있다.[^forecasting-ii-13] 이는 ses() 모델을 summary() 함수를 통해 실행시키면 확인이 가능하다.
+
+[^forecasting-ii-13]: <https://otexts.com/fpp2/ses.html>
+
+```{r ses, message=FALSE, warning=FALSE}
+ses(students.total.ts[,3])
+autoplot(students.total.ts[,3]) + 
+  autolayer(fitted(ses(students.total.ts[,3])), series = 'ses 적합값') +
+  autolayer(ses(students.total.ts[,3]))
+summary(ses(students.total.ts[,3]))
+ses(students.total.ts[,3], alpha = 0.5)
+ses(students.total.ts[,3], alpha = 0.5) %>% autoplot()
+
+autoplot(employees.ts[,2]) + 
+  autolayer(fitted(ses(employees.ts[,2])), series = 'ses 적합값') +
+  autolayer(ses(employees.ts[,2]))
+```
+
+평활 계수가 클수록 데이터 변화에 빠르게 반응하여 예측의 감응도가 높지만 평활계수가 작으면 데이터의 변화에 느리게 반응하여 예측의 안정성이 높아진다 [^forecasting-ii-14]
+
+[^forecasting-ii-14]: <https://m.blog.naver.com/PostView.nhn?blogId=sigmagil&logNo=221502514892&proxyReferer=https:%2F%2Fwww.google.com%2F>
+
+```{r ses_alpha, message=FALSE, warning=FALSE}
+autoplot(students.total.ts[,3], series = '원본', color = 'black') +
+  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.1)), PI = FALSE, series = 'alpha = 0.1') +  
+  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.2)), PI = FALSE, series = 'alpha = 0.2') + 
+  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.3)), PI = FALSE, series = 'alpha = 0.3') +
+  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.4)), PI = FALSE, series = 'alpha = 0.4') +
+  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.5)), PI = FALSE, series = 'alpha = 0.5') +
+  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.6)), PI = FALSE, series = 'alpha = 0.6') +
+  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.7)), PI = FALSE, series = 'alpha = 0.7') +
+  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.8)), PI = FALSE, series = 'alpha = 0.8') +
+  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.9)), PI = FALSE, series = 'alpha = 0.9')
+```
+
+### 홀트(Holt) 모델
+
+홀트(holt) 모델은 지수 평활 모델을 확장하여 추세를 반영하는 모델이다. 홀트 모델은 추세조정 지수평활법이나 이중 지수 평활법으로 해석되기도 한다. 추세를 반영하기 위해 평활 계수인 alpha와 추세 기울기 값 beta를 사용하여 모델을 세운다. 평활 계수 값과 마찬가지로 추세 기울기 값도 0과 1사이의 값을 지니고 이 값을 반영한 이동평균을 통해 예측값을 산출한다.
+
+홀트 모델은 앞선 단순 지수 평활 모델에 사용했던 ses() 함수에 추세 기울기 값인 beta 값을 추가하여 사용할 수도 있고 forecast 패키지에서 제공하는 holt() 함수를 사용하여 모델을 생성할 수도 있다. 다만 alpha, beta 등의 매개변수를 지정하지 않으면 자동 계산되어 적절한 값이 사용된다.
+
+```{r holt}
+autoplot(students.total.ts[,3]) + 
+  autolayer(fitted(holt(students.total.ts[,3])), series = 'holt 적합값') +
+  autolayer(holt(students.total.ts[,3]))
+summary(holt(students.total.ts[,3]))
+
+holt(employees.ts[,2]) %>% autoplot()
+holt(employees.ts[,3]) %>% autoplot()
+
+autoplot(wide.covid19.by.age.ts[,2]) + 
+  autolayer(fitted(holt(wide.covid19.by.age.ts[,2])), series = '적합값') +
+  autolayer(holt(wide.covid19.by.age.ts[,2]), series = '예측값')
+```
+
+홀트 모델은 위와 같이 일정한 증가, 감소가 나타난다. 추세가 증가 추세이면 예측값이 계속 증가하게 되고 감소추세이면 계속 감소하게 된다. 특히 감소추세 일때 계속 감소하면 어느 순간 음수값을 가질수도 있다. 따라서 감소 추세가 있는 경우 어느정도에서 감소추세를 지연시킬 필요가 있다. holt() 함수에서는 damped 매개변수를 통해 감소추세를 지연시킬 수 있다.
+
+```{r holt_damped}
+autoplot(students.total.ts[,3]) + 
+  autolayer(fitted(holt(students.total.ts[,3])), series = 'holt') +
+  autolayer(fitted(holt(students.total.ts[,3], damped = TRUE)), series = 'holt damped') +
+  autolayer(holt(students.total.ts[,3]), series = '예측', PI = FALSE) + 
+  autolayer(holt(students.total.ts[,3], damped = TRUE), series = 'damped 예측', PI = FALSE)
+
+autoplot(employees.ts[,2]) + 
+  autolayer(fitted(holt(employees.ts[,2])), series = 'holt') +
+  autolayer(fitted(holt(employees.ts[,2], damped = TRUE)), series = 'holt damped') +
+  autolayer(holt(employees.ts[,2]), series = '예측', PI = FALSE) + 
+  autolayer(holt(employees.ts[,2], damped = TRUE), series = 'damped 예측', PI = FALSE)
+```
+
+추세 기울기 값에 따른 변동은 아래 plot과 같이 나타난다. 사실상 추세 기울기 값은 결과값에 큰 차이를 나타내지 않는다.
+
+```{r holt_beta, message=FALSE, warning=FALSE}
+autoplot(employees.ts[,2]) + 
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.1)), PI = FALSE, series = 'beta = 0.1') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.2)), PI = FALSE, series = 'beta = 0.2') + 
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.3)), PI = FALSE, series = 'beta = 0.3') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.4)), PI = FALSE, series = 'beta = 0.4') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.5)), PI = FALSE, series = 'beta = 0.5') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.6)), PI = FALSE, series = 'beta = 0.6') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.7)), PI = FALSE, series = 'beta = 0.7') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.8)), PI = FALSE, series = 'beta = 0.8') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.9)), PI = FALSE, series = 'beta = 0.9')
+```
+
+### 홀트-윈터(Holt-Winter) 모델
+
+홀트-윈터(Holt-Winter) 모델은 단순 지수 평활 모델을 확장하여 추세와 계절성을 반영하는 모델이다. 홀트-윈터 모델은 ses 모델의 alpha, 홀트 모델의 beta에 계절 매개변수인 gamma까지 포함하기 때문에 삼중 지수 평활법이나 계절조정 지수 평활법이라고도 한다.
+
+홀트-윈터 모델도 앞선 홀트 모델과 같이 ses() 함수에 추세 기울기 값인 beta 값과 계절 변수인 gamma 값을 추가하여 사용할 수도 있고 forecast 패키지에서 제공하는 hw() 함수를 사용하여 모델을 생성할 수도 있다. 다만 alpha, beta 등의 매개변수를 지정하지 않으면 자동 계산되어 적절한 값이 사용된다.
+
+홀트-윈터 모델은 가산법(additive)와 승산법(multiplicative)의 두가지 방법이 있다.
+
+```{r hw, message=FALSE, warning=FALSE}
+autoplot(employees.ts[,2]) + 
+  autolayer(fitted(hw(employees.ts[,2])), series = 'hw 적합값') +
+  autolayer(hw(employees.ts[,2], seasonal = 'additive'), PI = FALSE, series = 'additive') + 
+  autolayer(hw(employees.ts[,2], seasonal = 'multiplicative'), PI = FALSE, series = 'multiplicative')
+summary(hw(employees.ts[,2]))
+
+autoplot(employees.ts[,3]) + 
+  autolayer(fitted(hw(employees.ts[,3])), series = 'hw 적합값') +
+  autolayer(hw(employees.ts[,3], seasonal = 'additive'), PI = FALSE, series = 'additive') +
+  autolayer(hw(employees.ts[,3], seasonal = 'multiplicative'), PI = FALSE, series = 'multiplicative')
+summary(hw(employees.ts[,3]))
+```
 
 ## ARIMA 모델
 

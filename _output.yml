@@ -6,7 +6,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">교육통계를 활용한 데이터 분석 방법</a></li>
+        <li><a href="./">교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     download: ["pdf", "epub"]

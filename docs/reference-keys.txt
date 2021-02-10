@@ -128,3 +128,7 @@ linear_reg-함수tidymodels-parsnip-modeltime-패키지
 단순-지수-평활-방법
 홀트holt-방법
 홀트-윈터holt-winter-방법
+고정된-시간-독립변수
+단순-지수-평활-모델simple-exponentail-smoothing-model
+홀트holt-모델
+홀트-윈터holt-winter-모델

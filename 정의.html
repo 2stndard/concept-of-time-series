@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1.1 정의 | index.utf8</title>
   <meta name="description" content="<center>
-교육통계를 활용한 데이터 분석 방법
+교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R
 </center>" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
@@ -26,7 +26,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-09" />
+<meta name="date" content="2021-02-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -69,7 +69,7 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">교육통계를 활용한 데이터 분석 방법</a></li>
+<li><a href="./">교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="시계열-데이터.html"><a href="시계열-데이터.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
@@ -77,10 +77,11 @@
 <li class="chapter" data-level="1.1" data-path="정의.html"><a href="정의.html"><i class="fa fa-check"></i><b>1.1</b> 정의</a></li>
 <li class="chapter" data-level="1.2" data-path="특성.html"><a href="특성.html"><i class="fa fa-check"></i><b>1.2</b> 특성</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="특성.html"><a href="특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.1</b> 자기 상관관계</a></li>
-<li class="chapter" data-level="1.2.2" data-path="특성.html"><a href="특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.2</b> 추세 경향성(Trend)</a></li>
-<li class="chapter" data-level="1.2.3" data-path="특성.html"><a href="특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.3</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
-<li class="chapter" data-level="1.2.4" data-path="특성.html"><a href="특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.4</b> 불확실성(Uncertainty)</a></li>
+<li class="chapter" data-level="1.2.1" data-path="특성.html"><a href="특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
+<li class="chapter" data-level="1.2.2" data-path="특성.html"><a href="특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.3" data-path="특성.html"><a href="특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="특성.html"><a href="특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="특성.html"><a href="특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -96,7 +97,7 @@
         <div class="book-header" role="navigation">
           <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><center>
-교육통계를 활용한 데이터 분석 방법
+교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R
 </center></a>
           </h1>
         </div>
@@ -107,11 +108,9 @@
             <section class="normal" id="section-">
 <div id="정의" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> 정의</h2>
-<ul>
-<li><p>시계열(Time Series) 데이터는 일정한 시간에 따른 순차적 정보량을 기록한 데이터임</p></li>
-<li><p>기록되는 순차적 정보량은 여러 측정치가 가능한데 대부분의 경우 가격, 온도, 인구수 등 수치적 측정치로 기록되는 경우가 많음</p></li>
-<li><p>시계열 데이터는 과거 데이터의 흐름에 따른 경향성(Trend), 계절별이나 특정 기간의 경과에 따른 데이터의 반복적 흐름(Seasonality)를 발견하여 향후 불확실한 미래의 데이터 흐름을 예측(Forecasting)하는데 활용함</p></li>
-</ul>
+<p>시계열(Time Series) 데이터는 일정한 시간에 따른 순차적 정보량을 기록한 데이터이다 .</p>
+<p>기록되는 순차적 정보량은 여러 측정치가 가능한데 대부분의 경우 가격, 온도, 인구수 등 수치적 측정치나 특성(Feature) 등이 기록되지만 이들을 핸들링하는 인덱스는 시간형 타입으로 설정되거나 시간을 나타낼 수 있는 타입으로 설정되어야 한다.</p>
+<p>시계열 데이터는 과거 데이터의 흐름에 따른 경향성(Trend), 계절별이나 특정 기간의 경과에 따른 데이터의 반복적 흐름(Seasonality), 주기적인 데이터의 증감(Cyclic)를 발견하여 향후 불확실한 미래의 데이터 흐름을 예측(Forecasting)하는데 활용할 수 있다.</p>
 </div>
             </section>
 

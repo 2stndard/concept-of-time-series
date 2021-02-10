@@ -1,7 +1,8 @@
 covid19 <- read.csv('./covid19.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 colnames(covid19) <- c('category', 'status', 'date', 'value')
-covid19 <- covid19[, c(3, 1, 2, 4)]
+covid19 <- covid19[, c(3, 1, 4)]
 covid19$date <- as.Date(covid19$date, "%Y. %m. %d")
+
 covid19.by.age <- covid19 %>% 
   filter(grepl('세', category)) %>% 
   filter(category != '세종')
@@ -9,7 +10,18 @@ covid19.by.age <- covid19 %>%
 covid19.by.age %>% distinct(category)
 wide.covid19.by.age <- spread(covid19.by.age, category, value)
 
-xts.wide.covid19.by.age <- as.xts(wide.covid19.by.age[, -c(1, 2)], order.by = wide.covid19.by.age[, 1])
+dayOfYear = as.numeric(format(wide.covid19.by.age[1,1], "%j"))
+wide.covid19.by.age.ts = ts(wide.covid19.by.age[, 2:10], start = c(2020, dayOfYear), frequency = 365)
+
+plot(wide.covid19.by.age.ts[,1], ylab = "Price", xaxt = "n")
+tsp = attributes(wide.covid19.by.age.ts)$tsp
+axis(1, at = seq(tsp[1], tsp[2], along = wide.covid19.by.age.ts), 
+     labels = format(wide.covid19.by.age$date, "%Y-%m-%d"))
+
+
+
+
+xts.wide.covid19.by.age <- as.xts(wide.covid19.by.age[, -c(1)], order.by = wide.covid19.by.age[, 1])
 
 covid19.by.age %>% filter(category %in% c('0-9세', '10-19세')) %>% 
   mutate(cumsum = cumsum(ifelse(is.na(value), 0, value)))
@@ -105,3 +117,19 @@ tslm(value1 ~ trend, data = covid.ts)
 install.packages('seastests')
 library(seastests)
 summary(wo(covid.ts))
+
+
+
+rate = structure(list(Date = c("2012-11-01", "2012-11-02", "2012-11-10", 
+                               "2012-11-11", "2012-11-12", "2012-11-13"), 
+                      Price = c(6.2411, 6.2415, 6.2454, 6.2456, 6.2437, 6.2429)), 
+                 .Names = c("Date", "Price"), class = "data.frame", row.names = c(NA, -6L))
+rate$Date = as.Date(rate$Date, format = "%Y-%m-%d")
+
+dayOfYear = as.numeric(format(rate[1,1], "%j"))
+rate_ts = ts(rate$Price, start = c(2012, dayOfYear), frequency = 365)
+time(rate_ts)
+plot(rate_ts, ylab = "Price", xaxt = "n")
+tsp = attributes(rate_ts)$tsp
+axis(1, at = seq(tsp[1], tsp[2], along = rate_ts), 
+     labels = format(rate$Date, "%Y-%m-%d"))

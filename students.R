@@ -20,3 +20,27 @@ tb2 <- ts(pmax(0, t - t_break2), start = 1999)
 tslm(students.total.ts[,3] ~ t + tb1 + tb2) %>% forecast(h = 22)
 
 summary(wo(students.total.ts[,3]))
+
+((0.99 * 2747215) + (0.01 *2711381))
+
+summary(ses(students.total.ts[,3], h = 5))
+i <- 1
+for(i in 1:nrow(students.total.ts)) {
+  print(i)
+  print(round(mean(students.total.ts[1:i,3]), 3))
+}
+fitted(ses(students.total.ts[,3], h = 5))
+
+mean(students.total.ts[1:10,3])
+
+
+autoplot(students.total.ts[,3], PI = FALSE, series = '원본', color = 'black') +
+  autolayer(fitted(ses(students.total.ts[,3], beta = 0.1)), PI = FALSE, series = 'alpha = 0.1') +  
+  autolayer(fitted(ses(students.total.ts[,3], beta = 0.2)), PI = FALSE, series = 'alpha = 0.2') + 
+  autolayer(fitted(ses(students.total.ts[,3], beta = 0.3)), PI = FALSE, series = 'alpha = 0.3') +
+  autolayer(fitted(ses(students.total.ts[,3], beta = 0.4)), PI = FALSE, series = 'alpha = 0.4') +
+  autolayer(fitted(ses(students.total.ts[,3], beta = 0.5)), PI = FALSE, series = 'alpha = 0.5') +
+  autolayer(fitted(ses(students.total.ts[,3], beta = 0.6)), PI = FALSE, series = 'alpha = 0.6') +
+  autolayer(fitted(ses(students.total.ts[,3], beta = 0.7)), PI = FALSE, series = 'alpha = 0.7') +
+  autolayer(fitted(ses(students.total.ts[,3], beta = 0.8)), PI = FALSE, series = 'alpha = 0.8') +
+  autolayer(fitted(ses(students.total.ts[,3], beta = 0.9)), PI = FALSE, series = 'alpha = 0.9')

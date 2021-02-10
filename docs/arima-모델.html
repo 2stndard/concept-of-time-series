@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6.4 ARIMA 모델 | t.utf8</title>
   <meta name="description" content="<center>
-교육통계를 활용한 데이터 분석 방법
+교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R
 </center>" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
@@ -26,7 +26,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-09" />
+<meta name="date" content="2021-02-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -139,7 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">교육통계를 활용한 데이터 분석 방법</a></li>
+<li><a href="./">교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
@@ -147,10 +147,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="정의.html"><a href="정의.html"><i class="fa fa-check"></i><b>1.1</b> 정의</a></li>
 <li class="chapter" data-level="1.2" data-path="특성.html"><a href="특성.html"><i class="fa fa-check"></i><b>1.2</b> 특성</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="특성.html"><a href="특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.1</b> 자기 상관관계</a></li>
-<li class="chapter" data-level="1.2.2" data-path="특성.html"><a href="특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.2</b> 추세 경향성(Trend)</a></li>
-<li class="chapter" data-level="1.2.3" data-path="특성.html"><a href="특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.3</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
-<li class="chapter" data-level="1.2.4" data-path="특성.html"><a href="특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.4</b> 불확실성(Uncertainty)</a></li>
+<li class="chapter" data-level="1.2.1" data-path="특성.html"><a href="특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
+<li class="chapter" data-level="1.2.2" data-path="특성.html"><a href="특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.3" data-path="특성.html"><a href="특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="특성.html"><a href="특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="특성.html"><a href="특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 타입 및 Import</a>
@@ -206,9 +207,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-방법"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 방법</a></li>
-<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-방법"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 방법</a></li>
-<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-방법"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 방법</a></li>
+<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 모델</a></li>
+<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a></li>
 <li class="chapter" data-level="6.5" data-path="tbat-모델.html"><a href="tbat-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBAT 모델</a></li>
@@ -230,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <div class="book-header" role="navigation">
           <h1>
             <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><center>
-교육통계를 활용한 데이터 분석 방법
+교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R
 </center></a>
           </h1>
         </div>
