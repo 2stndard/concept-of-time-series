@@ -33,3 +33,105 @@ autoplot(employees.ts[,2]) +
   autolayer(fitted(holt(employees.ts[,2], beta = 0.8)), PI = FALSE, series = 'beta = 0.8') +
   autolayer(fitted(holt(employees.ts[,2], beta = 0.9)), PI = FALSE, series = 'beta = 0.9')
 
+
+
+glimpse(employees)
+employees$time <- as.Date(paste0(employees[, 1], '. 01'), format = '%Y. %m. %d')
+
+splits <- initial_time_split(employees, prop = 0.9)
+training(splits)
+testing(splits)
+
+model_fit_lm <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(total ~ as.numeric(time) + factor(lubridate::month(time, label = TRUE), ordered = FALSE),
+      data = training(splits))
+
+model_fit_ets <- exp_smoothing() %>%
+  set_engine(engine = "ets") %>%
+  fit(total ~ time, data = training(splits))
+
+models_tbl <- modeltime_table(
+  model_fit_lm,
+  model_fit_ets
+)
+
+calibration_tbl <- models_tbl %>%
+  modeltime_calibrate(new_data = testing(splits))
+
+calibration_tbl %>%
+  modeltime_forecast(
+    new_data    = testing(splits),
+    actual_data = employees
+  ) %>%
+  plot_modeltime_forecast(
+    .interactive      = TRUE
+  )
+
+models_tbl %>%
+  modeltime_forecast(
+    #    new_data    = testing(splits),
+    h = '5 years',
+    actual_data = employees
+  ) %>%
+  plot_modeltime_forecast(
+    .interactive      = TRUE
+  )
+
+calibration_tbl %>%
+  modeltime_accuracy()
+
+
+##############################################
+splits <- initial_time_split(employees, prop = 0.9)
+training(splits)
+testing(splits)
+
+model_fit_lm1 <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(employees.edu ~ as.numeric(time) + factor(lubridate::month(time, label = TRUE), ordered = FALSE),
+      data = training(splits))
+
+model_fit_ets1 <- exp_smoothing() %>%
+  set_engine(engine = "ets") %>%
+  fit(employees.edu ~ time, data = training(splits))
+
+models_tbl1 <- modeltime_table(
+  model_fit_lm1,
+  model_fit_ets1
+)
+models_tbl1$.model
+calibration_tbl1 <- models_tbl1 %>%
+  modeltime_calibrate(new_data = testing(splits))
+
+calibration_tbl1 %>%
+  modeltime_forecast(
+    new_data    = testing(splits),
+    actual_data = employees
+  ) %>%
+  plot_modeltime_forecast(
+    .interactive      = TRUE
+  )
+model_tbl$.model
+models_tbl1 %>%
+  modeltime_forecast(
+    #    new_data    = testing(splits),
+    h = '5 years',
+    actual_data = employees
+  ) %>%
+  plot_modeltime_forecast(
+    .interactive      = TRUE
+  )
+
+calibration_tbl1 %>%
+  modeltime_accuracy()
+
+?ets
+ets(employees.ts[,2]) %>% forecast(h = 100) %>% autoplot()
+autoplot(employees.ts[,3]) + 
+  autolayer(fitted(ets(employees.ts[,3]))) +
+  autolayer(forecast(ets(employees.ts[,3])))
+
+?ets
+ets(employees.ts[,3], model = 'MAM', alpha = 0.8759, beta = 0.0001, gamma = 0.0001, phi = 0.98) %>%
+  forecast(h = 30) %>% autoplot()

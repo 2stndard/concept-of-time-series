@@ -64,7 +64,7 @@ calibration_tbl %>%
     .interactive      = TRUE
   )
 
-
+glimpse(under10.covid19.by.age)
 under10.covid19.by.age <- covid19.by.age %>% filter(category == '0-9세')
 ###  trend와 season을 반영하여 linear model을 생성
 model_fit_lm <- linear_reg() %>%

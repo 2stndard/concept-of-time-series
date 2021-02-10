@@ -32,7 +32,7 @@ wide.covid19.by.age.ts = ts(wide.covid19.by.age[, 2:10], frequency = 365)
 
 # 시계열 forecasting Part II - 시계열 모델링 알고리즘
 
-**A future like the past:**
+**A future like the past:fdsafdsafd**
 
 시계열 예측의 가장 기본적인 가정은 과거의 패턴은 미래에도 계속된다는 가정이다. 이 가정은 단기 미래에서는 데이터가 발생되는 환경이 현재와 유사하기 때문에 불확실성이 작지만 장기 미래로 갈수록 데이터가 발생되는 환경이 달라질 가능성이 높아지면서 예측 데이터에 대한 불확실성이 높아질 수 밖에 없다.
 

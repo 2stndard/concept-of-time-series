@@ -4,11 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.3 시계열 데이터 반올림 | 03-data_handling.utf8</title>
-  <meta name="description" content="" />
+  <title>4.3 시계열 데이터 반올림 | t.utf8</title>
+  <meta name="description" content="<center>
+교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R
+</center>" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.3 시계열 데이터 반올림 | 03-data_handling.utf8" />
+  <meta property="og:title" content="4.3 시계열 데이터 반올림 | t.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -16,13 +18,15 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.3 시계열 데이터 반올림 | 03-data_handling.utf8" />
+  <meta name="twitter:title" content="4.3 시계열 데이터 반올림 | t.utf8" />
   
   
   
 
+<meta name="author" content="이기준" />
 
 
+<meta name="date" content="2021-02-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -128,20 +132,85 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">교육통계를 활용한 데이터 분석 방법</a></li>
+<li><a href="./">교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터 Handling</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터 정보 다루기</a></li>
-<li class="chapter" data-level="1.2" data-path="시계열-데이터-연산.html"><a href="시계열-데이터-연산.html"><i class="fa fa-check"></i><b>1.2</b> 시계열 데이터 연산</a></li>
-<li class="chapter" data-level="1.3" data-path="시계열-데이터-반올림.html"><a href="시계열-데이터-반올림.html"><i class="fa fa-check"></i><b>1.3</b> 시계열 데이터 반올림</a></li>
-<li class="chapter" data-level="1.4" data-path="시계열-데이터-grouping.html"><a href="시계열-데이터-grouping.html"><i class="fa fa-check"></i><b>1.4</b> 시계열 데이터 Grouping</a></li>
-<li class="chapter" data-level="1.5" data-path="시계열-데이터-ohlc.html"><a href="시계열-데이터-ohlc.html"><i class="fa fa-check"></i><b>1.5</b> 시계열 데이터 OHLC</a></li>
-<li class="chapter" data-level="1.6" data-path="시계열-데이터-누적값.html"><a href="시계열-데이터-누적값.html"><i class="fa fa-check"></i><b>1.6</b> 시계열 데이터 누적값</a></li>
-<li class="chapter" data-level="1.7" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html"><i class="fa fa-check"></i><b>1.7</b> 시계열 데이터 Rolling</a></li>
-<li class="chapter" data-level="1.8" data-path="시계열-데이터-filtering.html"><a href="시계열-데이터-filtering.html"><i class="fa fa-check"></i><b>1.8</b> 시계열 데이터 Filtering</a></li>
+<li class="chapter" data-level="1.1" data-path="정의.html"><a href="정의.html"><i class="fa fa-check"></i><b>1.1</b> 정의</a></li>
+<li class="chapter" data-level="1.2" data-path="특성.html"><a href="특성.html"><i class="fa fa-check"></i><b>1.2</b> 특성</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="특성.html"><a href="특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
+<li class="chapter" data-level="1.2.2" data-path="특성.html"><a href="특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.3" data-path="특성.html"><a href="특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="특성.html"><a href="특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="특성.html"><a href="특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 타입 및 Import</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="날짜시간-객체-타입.html"><a href="날짜시간-객체-타입.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 객체 타입</a></li>
+<li class="chapter" data-level="2.2" data-path="시계열-패키지-및-데이터-타입.html"><a href="시계열-패키지-및-데이터-타입.html"><i class="fa fa-check"></i><b>2.2</b> 시계열 패키지 및 데이터 타입</a></li>
+<li class="chapter" data-level="2.3" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html"><i class="fa fa-check"></i><b>2.3</b> 시계열 데이터 Import의 방법</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="시계열-visualization.html"><a href="시계열-visualization.html"><i class="fa fa-check"></i><b>3</b> 시계열 Visualization</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="ggplot2.html"><a href="ggplot2.html"><i class="fa fa-check"></i><b>3.1</b> ggplot2</a></li>
+<li class="chapter" data-level="3.2" data-path="xts.html"><a href="xts.html"><i class="fa fa-check"></i><b>3.2</b> XTS</a></li>
+<li class="chapter" data-level="3.3" data-path="forecast.html"><a href="forecast.html"><i class="fa fa-check"></i><b>3.3</b> forecast</a></li>
+<li class="chapter" data-level="3.4" data-path="timetk.html"><a href="timetk.html"><i class="fa fa-check"></i><b>3.4</b> timetk</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html"><i class="fa fa-check"></i><b>4.1</b> 시계열 데이터 정보 다루기</a></li>
+<li class="chapter" data-level="4.2" data-path="시계열-데이터-연산.html"><a href="시계열-데이터-연산.html"><i class="fa fa-check"></i><b>4.2</b> 시계열 데이터 연산</a></li>
+<li class="chapter" data-level="4.3" data-path="시계열-데이터-반올림.html"><a href="시계열-데이터-반올림.html"><i class="fa fa-check"></i><b>4.3</b> 시계열 데이터 반올림</a></li>
+<li class="chapter" data-level="4.4" data-path="시계열-데이터-grouping.html"><a href="시계열-데이터-grouping.html"><i class="fa fa-check"></i><b>4.4</b> 시계열 데이터 Grouping</a></li>
+<li class="chapter" data-level="4.5" data-path="시계열-데이터-ohlc.html"><a href="시계열-데이터-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 시계열 데이터 OHLC</a></li>
+<li class="chapter" data-level="4.6" data-path="시계열-데이터-누적값.html"><a href="시계열-데이터-누적값.html"><i class="fa fa-check"></i><b>4.6</b> 시계열 데이터 누적값</a></li>
+<li class="chapter" data-level="4.7" data-path="시계열-데이터-rolling.html"><a href="시계열-데이터-rolling.html"><i class="fa fa-check"></i><b>4.7</b> 시계열 데이터 Rolling</a></li>
+<li class="chapter" data-level="4.8" data-path="시계열-데이터-filtering.html"><a href="시계열-데이터-filtering.html"><i class="fa fa-check"></i><b>4.8</b> 시계열 데이터 Filtering</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="정상성stationary-비정상성non-stationary.html"><a href="정상성stationary-비정상성non-stationary.html"><i class="fa fa-check"></i><b>5.1</b> 정상성(Stationary), 비정상성(Non-Stationary)</a></li>
+<li class="chapter" data-level="5.2" data-path="지연lag와-차분difference.html"><a href="지연lag와-차분difference.html"><i class="fa fa-check"></i><b>5.2</b> 지연(Lag)와 차분(Difference)</a></li>
+<li class="chapter" data-level="5.3" data-path="acf와-pacf.html"><a href="acf와-pacf.html"><i class="fa fa-check"></i><b>5.3</b> ACF와 PACF</a></li>
+<li class="chapter" data-level="5.4" data-path="적합값fitted-value-와-잔차residuals.html"><a href="적합값fitted-value-와-잔차residuals.html"><i class="fa fa-check"></i><b>5.4</b> 적합값(fitted value) 와 잔차(residuals)</a></li>
+<li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
+<li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
+<li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-테스트.html"><a href="계절성-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 테스트</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 모델링 알고리즘</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델링 알고리즘</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
+<li class="chapter" data-level="6.1.2" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.3" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.4" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> random work 모델</a></li>
+<li class="chapter" data-level="6.1.5" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>6.2.1</b> tslm 함수(forecast 패키지)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
+<li class="chapter" data-level="6.2.3" data-path="regression-모델.html"><a href="regression-모델.html#linear_reg-함수tidymodels-parsnip-modeltime-패키지"><i class="fa fa-check"></i><b>6.2.3</b> linear_reg 함수(tidymodels, parsnip, modeltime 패키지)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 모델</a></li>
+<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a></li>
+<li class="chapter" data-level="6.5" data-path="tbat-모델.html"><a href="tbat-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBAT 모델</a></li>
+<li class="chapter" data-level="6.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.6</b> Neural Network 모델</a></li>
+<li class="chapter" data-level="6.7" data-path="bootstrapping과-begging-모델.html"><a href="bootstrapping과-begging-모델.html"><i class="fa fa-check"></i><b>6.7</b> Bootstrapping과 Begging 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-성능-분석.html"><a href="시계열-forecasting-part-iii-성능-분석.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 성능 분석</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -154,7 +223,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><center>
+교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R
+</center></a>
           </h1>
         </div>
 
@@ -162,13 +233,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="시계열-데이터-반올림" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> 시계열 데이터 반올림</h2>
-<p>시간의 계산에서도 숫자의 계산과 같이 올림, 내림, 반올림 등이 가능하다. 숫자의 계산에서는 소수점 세째자리, 천단위 반올림, 올림 등과 같이 반올림될 단위를 지정해야 하는데 시간의 올림, 반올림 연산에도 월에서 반올림을 할것인지 일에서 반올림을 할 것인지와 같은 단위를 지정해야 한다. <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<div id="시계열-데이터-반올림" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> 시계열 데이터 반올림</h2>
+<p>시간의 계산에서도 숫자의 계산과 같이 올림, 내림, 반올림 등이 가능하다. 숫자의 계산에서는 소수점 세째자리, 천단위 반올림, 올림 등과 같이 반올림될 단위를 지정해야 하는데 시간의 올림, 반올림 연산에도 월에서 반올림을 할것인지 일에서 반올림을 할 것인지와 같은 단위를 지정해야 한다.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <ul>
 <li>lubridate 패키지</li>
 </ul>
-<p>lubridate 패키지에서는 시간 데이터의 반올림을 위해 round_date(), 내림을 위해 floor_date(), 올림을 위해 ceiling_date() 함수를 제공한다. 매개변수로 ‘day’, ‘week’, ‘month’, ‘halfyear’, ‘year’ 등을 설정하여 반올림, 올림, 내림의 기본 단위를 지정할 수 있다.</p>
+<p>lubridate 패키지에서는 시간 데이터의 반올림을 위해 round_date(), 내림을 위해 floor_date(), 올림을 위해 ceiling_date() 함수를 제공한다. 매개변수로 ‘day,’ ‘week,’ ‘month,’ ‘halfyear,’ ‘year’ 등을 설정하여 반올림, 올림, 내림의 기본 단위를 지정할 수 있다.</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="시계열-데이터-반올림.html#cb59-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2009-08-03&quot;</span>)</span>
 <span id="cb59-2"><a href="시계열-데이터-반올림.html#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round_date</span>(x, <span class="st">&quot;day&quot;</span>)         <span class="co"># 일단위로 반올림</span></span></code></pre></div>
 <pre><code>## [1] &quot;2009-08-03&quot;</code></pre>
@@ -210,76 +281,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="시계열-데이터-반올림.html#cb91-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="fu">Sys.Date</span>()<span class="sc">+</span><span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
 <span id="cb91-2"><a href="시계열-데이터-반올림.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">first</span>(x, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##            [,1]
-## 2021-02-10    1
-## 2021-02-11    2
-## 2021-02-12    3
-## 2021-02-13    4
-## 2021-02-14    5
-## 2021-02-15    6
-## 2021-02-16    7
-## 2021-02-17    8
-## 2021-02-18    9
-## 2021-02-19   10</code></pre>
+## 2021-02-11    1
+## 2021-02-12    2
+## 2021-02-13    3
+## 2021-02-14    4
+## 2021-02-15    5
+## 2021-02-16    6
+## 2021-02-17    7
+## 2021-02-18    8
+## 2021-02-19    9
+## 2021-02-20   10</code></pre>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="시계열-데이터-반올림.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">first</span>(x, <span class="st">&#39;1 day&#39;</span>)</span></code></pre></div>
 <pre><code>##            [,1]
-## 2021-02-10    1</code></pre>
+## 2021-02-11    1</code></pre>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="시계열-데이터-반올림.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">first</span>(x, <span class="st">&#39;4 days&#39;</span>)</span></code></pre></div>
 <pre><code>##            [,1]
-## 2021-02-10    1
-## 2021-02-11    2
-## 2021-02-12    3
-## 2021-02-13    4</code></pre>
+## 2021-02-11    1
+## 2021-02-12    2
+## 2021-02-13    3
+## 2021-02-14    4</code></pre>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="시계열-데이터-반올림.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">first</span>(x, <span class="st">&#39;month&#39;</span>)</span></code></pre></div>
 <pre><code>##            [,1]
-## 2021-02-10    1
-## 2021-02-11    2
-## 2021-02-12    3
-## 2021-02-13    4
-## 2021-02-14    5
-## 2021-02-15    6
-## 2021-02-16    7
-## 2021-02-17    8
-## 2021-02-18    9
-## 2021-02-19   10
-## 2021-02-20   11
-## 2021-02-21   12
-## 2021-02-22   13
-## 2021-02-23   14
-## 2021-02-24   15
-## 2021-02-25   16
-## 2021-02-26   17
-## 2021-02-27   18
-## 2021-02-28   19</code></pre>
+## 2021-02-11    1
+## 2021-02-12    2
+## 2021-02-13    3
+## 2021-02-14    4
+## 2021-02-15    5
+## 2021-02-16    6
+## 2021-02-17    7
+## 2021-02-18    8
+## 2021-02-19    9
+## 2021-02-20   10
+## 2021-02-21   11
+## 2021-02-22   12
+## 2021-02-23   13
+## 2021-02-24   14
+## 2021-02-25   15
+## 2021-02-26   16
+## 2021-02-27   17
+## 2021-02-28   18</code></pre>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="시계열-데이터-반올림.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">last</span>(x, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##            [,1]
-## 2021-05-11   91
-## 2021-05-12   92
-## 2021-05-13   93
-## 2021-05-14   94
-## 2021-05-15   95
-## 2021-05-16   96
-## 2021-05-17   97
-## 2021-05-18   98
-## 2021-05-19   99
-## 2021-05-20  100</code></pre>
+## 2021-05-12   91
+## 2021-05-13   92
+## 2021-05-14   93
+## 2021-05-15   94
+## 2021-05-16   95
+## 2021-05-17   96
+## 2021-05-18   97
+## 2021-05-19   98
+## 2021-05-20   99
+## 2021-05-21  100</code></pre>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="시계열-데이터-반올림.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">last</span>(x, <span class="st">&#39;2 weeks&#39;</span>)</span></code></pre></div>
 <pre><code>##            [,1]
-## 2021-05-10   90
-## 2021-05-11   91
-## 2021-05-12   92
-## 2021-05-13   93
-## 2021-05-14   94
-## 2021-05-15   95
-## 2021-05-16   96
-## 2021-05-17   97
-## 2021-05-18   98
-## 2021-05-19   99
-## 2021-05-20  100</code></pre>
+## 2021-05-10   89
+## 2021-05-11   90
+## 2021-05-12   91
+## 2021-05-13   92
+## 2021-05-14   93
+## 2021-05-15   94
+## 2021-05-16   95
+## 2021-05-17   96
+## 2021-05-18   97
+## 2021-05-19   98
+## 2021-05-20   99
+## 2021-05-21  100</code></pre>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="2">
-<li id="fn2"><p><a href="https://rdrr.io/cran/lubridate/man/round_date.html" class="uri">https://rdrr.io/cran/lubridate/man/round_date.html</a><a href="시계열-데이터-반올림.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<ol start="3">
+<li id="fn3"><p><a href="https://rdrr.io/cran/lubridate/man/round_date.html" class="uri">https://rdrr.io/cran/lubridate/man/round_date.html</a><a href="시계열-데이터-반올림.html#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -330,11 +401,10 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["t.pdf", "t.epub"],
 "toc": {
 "collapse": "subsection"
-},
-"search": false
+}
 });
 });
 </script>
