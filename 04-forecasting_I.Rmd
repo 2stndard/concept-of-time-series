@@ -318,5 +318,6 @@ kpss.test(ts(employees[, 3], start = c(2013, 01), frequency = 12))
 library(seastests)
 summary(wo(students.total.ts[,3]))
 summary(wo(employees.ts[,2]))
+nsdiffs(employees.ts[,2])   ### seasonality를 제거하기 위해 필요한 차분수
 summary(wo(employees.ts[,3]))
 ```

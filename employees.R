@@ -135,3 +135,25 @@ autoplot(employees.ts[,3]) +
 ?ets
 ets(employees.ts[,3], model = 'MAM', alpha = 0.8759, beta = 0.0001, gamma = 0.0001, phi = 0.98) %>%
   forecast(h = 30) %>% autoplot()
+
+
+autoplot(employees.ts[,2]) + 
+  autolayer(fitted(hw(employees.ts[,2])), series = 'hw 적합값') +
+  autolayer(hw(employees.ts[,2], seasonal = 'additive'), PI = FALSE, series = 'additive') + 
+  autolayer(hw(employees.ts[,2], seasonal = 'multiplicative'), PI = FALSE, series = 'multiplicative')
+
+summary(hw(employees.ts[,2], seasonal = 'additive'))
+
+summary(hw(employees.ts[,2]))
+?dshw
+hw <- HoltWinters(employees.ts[,2])
+forecast <- predict(hw, n.ahead = 12, prediction.interval = T, level = 0.95) 
+plot(hw, forecast)
+autoplot(employees.ts[,2]) +
+  autolayer(fitted(HoltWinters(employees.ts[,2]))[, 1], series = 'HoltWinter') + 
+  autolayer(fitted(hw(employees.ts[,2])), series = 'hw') + 
+  autolayer(predict(hw, n.ahead = 12, prediction.interval = F), series = 'HoltWinter Predict') +
+  autolayer(hw(employees.ts[,2]), PI = FALSE, series = 'hw Predict') 
+  
+
+fitted <- fitted(HoltWinters(employees.ts[,2]))[, 1]

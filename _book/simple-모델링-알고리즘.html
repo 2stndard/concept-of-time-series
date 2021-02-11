@@ -26,7 +26,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-10" />
+<meta name="date" content="2021-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
 <li class="chapter" data-level="6.1.2" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
 <li class="chapter" data-level="6.1.3" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
-<li class="chapter" data-level="6.1.4" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> random work 모델</a></li>
+<li class="chapter" data-level="6.1.4" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
 <li class="chapter" data-level="6.1.5" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
@@ -337,10 +337,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual sd: 261.7975 
 ## 
 ## Error measures:
-##                    ME     RMSE      MAE        MPE      MAPE      MASE
-## Training set 23.56842 261.4803 194.5579 0.08782727 0.7411892 0.6138395
-##                   ACF1
-## Training set 0.4208691
+##                    ME     RMSE      MAE        MPE      MAPE      MASE      ACF1
+## Training set 23.56842 261.4803 194.5579 0.08782727 0.7411892 0.6138395 0.4208691
 ## 
 ## Forecasts:
 ##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
@@ -356,33 +354,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Oct 2021          26526 25466.32 27585.68 24905.36 28146.64</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="simple-모델링-알고리즘.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">naive</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
 <p><img src="t_files/figure-html/naive-2.png" width="672" /></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="simple-모델링-알고리즘.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">naive</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="simple-모델링-알고리즘.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">naive</span>(employees.ts[,<span class="dv">3</span>]))</span></code></pre></div>
 <pre><code>## 
 ## Forecast method: Naive method
 ## 
 ## Model Information:
-## Call: naive(y = employees.ts[, 2]) 
+## Call: naive(y = employees.ts[, 3]) 
 ## 
-## Residual sd: 261.7975 
+## Residual sd: 22.6663 
 ## 
 ## Error measures:
-##                    ME     RMSE      MAE        MPE      MAPE      MASE
-## Training set 23.56842 261.4803 194.5579 0.08782727 0.7411892 0.6138395
-##                   ACF1
-## Training set 0.4208691
+##                     ME     RMSE      MAE        MPE      MAPE      MASE       ACF1
+## Training set 0.7052632 22.55776 18.17895 0.03288917 0.9893977 0.3603189 0.08001357
 ## 
 ## Forecasts:
 ##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
-## Jan 2021          26526 26190.90 26861.10 26013.51 27038.49
-## Feb 2021          26526 26052.10 26999.90 25801.23 27250.77
-## Mar 2021          26526 25945.59 27106.41 25638.34 27413.66
-## Apr 2021          26526 25855.80 27196.20 25501.02 27550.98
-## May 2021          26526 25776.69 27275.31 25380.03 27671.97
-## Jun 2021          26526 25705.17 27346.83 25270.66 27781.34
-## Jul 2021          26526 25639.41 27412.59 25170.07 27881.93
-## Aug 2021          26526 25578.19 27473.81 25076.45 27975.55
-## Sep 2021          26526 25520.70 27531.30 24988.52 28063.48
-## Oct 2021          26526 25466.32 27585.68 24905.36 28146.64</code></pre>
+## Jan 2021           1777 1748.091 1805.909 1732.788 1821.212
+## Feb 2021           1777 1736.117 1817.883 1714.474 1839.526
+## Mar 2021           1777 1726.928 1827.072 1700.422 1853.578
+## Apr 2021           1777 1719.182 1834.818 1688.575 1865.425
+## May 2021           1777 1712.358 1841.642 1678.138 1875.862
+## Jun 2021           1777 1706.188 1847.812 1668.702 1885.298
+## Jul 2021           1777 1700.514 1853.486 1660.025 1893.975
+## Aug 2021           1777 1695.233 1858.767 1651.948 1902.052
+## Sep 2021           1777 1690.273 1863.727 1644.363 1909.637
+## Oct 2021           1777 1685.582 1868.418 1637.188 1916.812</code></pre>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="simple-모델링-알고리즘.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">naive</span>(employees.ts[,<span class="dv">3</span>]))</span></code></pre></div>
 <p><img src="t_files/figure-html/naive-3.png" width="672" /></p>
 </div>
@@ -472,7 +468,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="t_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
 </div>
 <div id="random-work-모델" class="section level3" number="6.1.4">
-<h3><span class="header-section-number">6.1.4</span> random work 모델</h3>
+<h3><span class="header-section-number">6.1.4</span> Random Work 모델</h3>
 <p>랜덤 워크는 시간적으로 다음값이 시간적으로 현재값의 영향을 받는다는 이론이다. 주식의 예에서 보면 내일의 종가는 오늘의 종가에 랜덤한 값이 더해지거나 빼져서 결정되는 것과 같은 이치이다. 랜덤 워크에는 어제값 이외에 의미있는 정보가 없기 때문에 예측이 복잡하지 않다<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>. 앞에서 설명한 Naive 모델은 마지막 값이 지속되는 예측인데 이것이 결국 랜덤 워크와 동일한 결과를 가지게 된다. 랜덤 워크 모델은 드리프트가 없는 모델과 드리프트가 존재하는 모델의 두가지 종류가 있다. 드리프트가 존재하는 모델은 랜덤워크 모델을 기반으로 하지만 예측값이 시간의 흐름에 따라 증가하거나 감소하는 모델이다.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="simple-모델링-알고리즘.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">rwf</span>(students.total.ts[,<span class="dv">1</span>]))</span></code></pre></div>
 <pre><code>## 
@@ -511,10 +507,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual sd: 261.7975 
 ## 
 ## Error measures:
-##                    ME     RMSE      MAE        MPE      MAPE      MASE
-## Training set 23.56842 261.4803 194.5579 0.08782727 0.7411892 0.6138395
-##                   ACF1
-## Training set 0.4208691
+##                    ME     RMSE      MAE        MPE      MAPE      MASE      ACF1
+## Training set 23.56842 261.4803 194.5579 0.08782727 0.7411892 0.6138395 0.4208691
 ## 
 ## Forecasts:
 ##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
@@ -530,33 +524,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Oct 2021          26526 25466.32 27585.68 24905.36 28146.64</code></pre>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="simple-모델링-알고리즘.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">rwf</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
 <p><img src="t_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="simple-모델링-알고리즘.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">rwf</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="simple-모델링-알고리즘.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">rwf</span>(employees.ts[,<span class="dv">3</span>]))</span></code></pre></div>
 <pre><code>## 
 ## Forecast method: Random walk
 ## 
 ## Model Information:
-## Call: rwf(y = employees.ts[, 2]) 
+## Call: rwf(y = employees.ts[, 3]) 
 ## 
-## Residual sd: 261.7975 
+## Residual sd: 22.6663 
 ## 
 ## Error measures:
-##                    ME     RMSE      MAE        MPE      MAPE      MASE
-## Training set 23.56842 261.4803 194.5579 0.08782727 0.7411892 0.6138395
-##                   ACF1
-## Training set 0.4208691
+##                     ME     RMSE      MAE        MPE      MAPE      MASE       ACF1
+## Training set 0.7052632 22.55776 18.17895 0.03288917 0.9893977 0.3603189 0.08001357
 ## 
 ## Forecasts:
 ##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
-## Jan 2021          26526 26190.90 26861.10 26013.51 27038.49
-## Feb 2021          26526 26052.10 26999.90 25801.23 27250.77
-## Mar 2021          26526 25945.59 27106.41 25638.34 27413.66
-## Apr 2021          26526 25855.80 27196.20 25501.02 27550.98
-## May 2021          26526 25776.69 27275.31 25380.03 27671.97
-## Jun 2021          26526 25705.17 27346.83 25270.66 27781.34
-## Jul 2021          26526 25639.41 27412.59 25170.07 27881.93
-## Aug 2021          26526 25578.19 27473.81 25076.45 27975.55
-## Sep 2021          26526 25520.70 27531.30 24988.52 28063.48
-## Oct 2021          26526 25466.32 27585.68 24905.36 28146.64</code></pre>
+## Jan 2021           1777 1748.091 1805.909 1732.788 1821.212
+## Feb 2021           1777 1736.117 1817.883 1714.474 1839.526
+## Mar 2021           1777 1726.928 1827.072 1700.422 1853.578
+## Apr 2021           1777 1719.182 1834.818 1688.575 1865.425
+## May 2021           1777 1712.358 1841.642 1678.138 1875.862
+## Jun 2021           1777 1706.188 1847.812 1668.702 1885.298
+## Jul 2021           1777 1700.514 1853.486 1660.025 1893.975
+## Aug 2021           1777 1695.233 1858.767 1651.948 1902.052
+## Sep 2021           1777 1690.273 1863.727 1644.363 1909.637
+## Oct 2021           1777 1685.582 1868.418 1637.188 1916.812</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="simple-모델링-알고리즘.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">rwf</span>(employees.ts[,<span class="dv">3</span>]))</span></code></pre></div>
 <p><img src="t_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="simple-모델링-알고리즘.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">rwf</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">drift =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
@@ -600,10 +592,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Residual sd: 261.7975 
 ## 
 ## Error measures:
-##                        ME    RMSE      MAE        MPE      MAPE      MASE
-## Training set 9.956667e-13 260.416 190.0696 -0.0013627 0.7245059 0.5996787
-##                   ACF1
-## Training set 0.4208691
+##                        ME    RMSE      MAE        MPE      MAPE      MASE      ACF1
+## Training set 9.956667e-13 260.416 190.0696 -0.0013627 0.7245059 0.5996787 0.4208691
 ## 
 ## Forecasts:
 ##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
@@ -619,34 +609,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Oct 2021       26761.68 25651.60 27871.77 25063.95 28459.41</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="simple-모델링-알고리즘.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">rwf</span>(employees.ts[,<span class="dv">2</span>], <span class="at">drift =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/unnamed-chunk-3-5.png" width="672" /></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="simple-모델링-알고리즘.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">rwf</span>(employees.ts[,<span class="dv">2</span>], <span class="at">drift =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="simple-모델링-알고리즘.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">rwf</span>(employees.ts[,<span class="dv">3</span>], <span class="at">drift =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## 
 ## Forecast method: Random walk with drift
 ## 
 ## Model Information:
-## Call: rwf(y = employees.ts[, 2], drift = TRUE) 
+## Call: rwf(y = employees.ts[, 3], drift = TRUE) 
 ## 
-## Drift: 23.5684  (se 26.8599)
-## Residual sd: 261.7975 
+## Drift: 0.7053  (se 2.3255)
+## Residual sd: 22.6663 
 ## 
 ## Error measures:
-##                        ME    RMSE      MAE        MPE      MAPE      MASE
-## Training set 9.956667e-13 260.416 190.0696 -0.0013627 0.7245059 0.5996787
-##                   ACF1
-## Training set 0.4208691
+##                        ME     RMSE      MAE          MPE      MAPE      MASE
+## Training set 3.111458e-14 22.54673 18.14183 -0.005416266 0.9875987 0.3595832
+##                    ACF1
+## Training set 0.08001357
 ## 
 ## Forecasts:
 ##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
-## Jan 2021       26549.57 26214.06 26885.08 26036.45 27062.68
-## Feb 2021       26573.14 26096.17 27050.11 25843.68 27302.60
-## Mar 2021       26596.71 26009.50 27183.91 25698.66 27494.75
-## Apr 2021       26620.27 25938.75 27301.80 25577.97 27662.58
-## May 2021       26643.84 25877.99 27409.69 25472.58 27815.10
-## Jun 2021       26667.41 25824.24 27510.58 25377.89 27956.93
-## Jul 2021       26690.98 25775.71 27606.25 25291.19 28090.76
-## Aug 2021       26714.55 25731.25 27697.84 25210.72 28218.37
-## Sep 2021       26738.12 25690.07 27786.16 25135.27 28340.96
-## Oct 2021       26761.68 25651.60 27871.77 25063.95 28459.41</code></pre>
+## Jan 2021       1777.705 1748.657 1806.753 1733.280 1822.130
+## Feb 2021       1778.411 1737.115 1819.706 1715.254 1841.567
+## Mar 2021       1779.116 1728.276 1829.955 1701.363 1856.868
+## Apr 2021       1779.821 1720.815 1838.827 1689.579 1870.063
+## May 2021       1780.526 1714.219 1846.833 1679.119 1881.934
+## Jun 2021       1781.232 1708.230 1854.233 1669.586 1892.878
+## Jul 2021       1781.937 1702.693 1861.181 1660.744 1903.130
+## Aug 2021       1782.642 1697.509 1867.776 1652.442 1912.843
+## Sep 2021       1783.347 1692.608 1874.087 1644.574 1922.121
+## Oct 2021       1784.053 1687.942 1880.163 1637.064 1931.042</code></pre>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="simple-모델링-알고리즘.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">rwf</span>(employees.ts[,<span class="dv">3</span>], <span class="at">drift =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/unnamed-chunk-3-6.png" width="672" /></p>
 <p>랜덤 워크는 시간적으로 하나 앞선 값과 현재값을 뺀 차이값들은 백색잡음이 되어야한다는 조건을 만족해야한다. 따라서 랜덤 워크 모델은 차분을 통해서백색잡음이 될 수도 있고 백색잡음은 누적합계를 통해서 랜덤 워크가 될 수 있다.</p>

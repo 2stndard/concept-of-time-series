@@ -24,7 +24,7 @@ covid19$date <- as.Date(covid19$date, "%Y. %m. %d")
 covid19.by.age <- covid19 %>% 
   filter(grepl('세', category)) %>% 
   filter(category != '세종')
-covid19.by.age$value1 <- ifelse(is.na(covid19.by.age$value), 0, covid19.by.age$value)
+covid19.by.age$value <- ifelse(is.na(covid19.by.age$value), 0, covid19.by.age$value)
 wide.covid19.by.age <- spread(covid19.by.age, category, value)
 
 wide.covid19.by.age.ts = ts(wide.covid19.by.age[, 2:10], frequency = 365)
@@ -78,7 +78,7 @@ summary(naive(students.total.ts[,1]))
 autoplot(naive(students.total.ts[,1]))
 summary(naive(employees.ts[,2]))
 autoplot(naive(employees.ts[,2]))
-summary(naive(employees.ts[,2]))
+summary(naive(employees.ts[,3]))
 autoplot(naive(employees.ts[,3]))
 ```
 
@@ -97,7 +97,7 @@ summary(snaive(employees.ts[,3], 10))
 autoplot(snaive(employees.ts[,3], 10))
 ```
 
-### random work 모델
+### Random Work 모델
 
 랜덤 워크는 시간적으로 다음값이 시간적으로 현재값의 영향을 받는다는 이론이다. 주식의 예에서 보면 내일의 종가는 오늘의 종가에 랜덤한 값이 더해지거나 빼져서 결정되는 것과 같은 이치이다. 랜덤 워크에는 어제값 이외에 의미있는 정보가 없기 때문에 예측이 복잡하지 않다[^forecasting-ii-6]. 앞에서 설명한 Naive 모델은 마지막 값이 지속되는 예측인데 이것이 결국 랜덤 워크와 동일한 결과를 가지게 된다. 랜덤 워크 모델은 드리프트가 없는 모델과 드리프트가 존재하는 모델의 두가지 종류가 있다. 드리프트가 존재하는 모델은 랜덤워크 모델을 기반으로 하지만 예측값이 시간의 흐름에 따라 증가하거나 감소하는 모델이다.
 
@@ -108,14 +108,14 @@ summary(rwf(students.total.ts[,1]))
 autoplot(rwf(students.total.ts[,1]))
 summary(rwf(employees.ts[,2]))
 autoplot(rwf(employees.ts[,2]))
-summary(rwf(employees.ts[,2]))
+summary(rwf(employees.ts[,3]))
 autoplot(rwf(employees.ts[,3]))
 
 summary(rwf(students.total.ts[,1], drift = TRUE))
 autoplot(rwf(students.total.ts[,1], drift = TRUE))
 summary(rwf(employees.ts[,2], drift = TRUE))
 autoplot(rwf(employees.ts[,2], drift = TRUE))
-summary(rwf(employees.ts[,2], drift = TRUE))
+summary(rwf(employees.ts[,3], drift = TRUE))
 autoplot(rwf(employees.ts[,3], drift = TRUE))
 ```
 
@@ -173,20 +173,20 @@ forecast 패키지에서 제공하는 tslm() 함수는 시계열 선형회귀 �
 
 ```{r tslm}
 ### 전체 학생수 예측 모델을 추세를 반영하여 생성
-student.ts.lm <- tslm(students.total.ts[,3] ~ trend, data = students.total.ts)
+student.ts.lm <- tslm(students.total.ts[,1] ~ trend, data = students.total.ts)
 summary(student.ts.lm)
 student.ts.lm %>% forecast()  ### tslm 함수로 생성된 모델을 forecast()함수를 통해 예측값을 생성
 student.ts.lm %>% forecast() %>% autoplot()
-student.ts.lm <- tslm(students.total.ts[,5] ~ trend, data = students.total.ts)  ### 초등학생 학생수를 예측모델에 독립변수로 트랜드를 사용하는 선형 모델을 생성
+student.ts.lm <- tslm(students.total.ts[,3] ~ trend, data = students.total.ts)  ### 초등학생 학생수를 예측모델에 독립변수로 트랜드를 사용하는 선형 모델을 생성
 student.ts.lm %>% forecast(h = 22) %>% autoplot()
-student.ts.lm <- tslm(students.total.ts[,5] ~ students.total.ts[,4] + trend, data = students.total.ts)  ### 초등학생 학생수를 예측모델에 독립변수로 유치원 학생수와 트랜드를 사용하는 선형 모델을 생성
+student.ts.lm <- tslm(students.total.ts[,3] ~ students.total.ts[,2] + trend, data = students.total.ts)  ### 초등학생 학생수를 예측모델에 독립변수로 유치원 학생수와 트랜드를 사용하는 선형 모델을 생성
 student.ts.lm %>% forecast(h = 22) %>% autoplot()
 ```
 
 위의 예제에서 사용한 데이터는 연도별 학생수의 합계이다. 이 데이터와 같은 연도별 데이터는 계절성이 존재하지 않기 때문에 season 키워드를 사용하면 아래와 같이 에러를 낸다.
 
 ```{r error=TRUE}
-student.ts.lm <- tslm(students.total.ts[,3] ~ trend + season, data = students.total.ts)
+student.ts.lm <- tslm(students.total.ts[,1] ~ trend + season, data = students.total.ts)
 ```
 
 전체 취업자수와 교육서비스업 취업자수에 대한 선형회귀분석 모델과 plot은 다음과 같다.
@@ -216,7 +216,7 @@ employee.total.ts.lm %>% forecast() %>% autoplot()
 아래의 예에서 보면 전체 학생수를 추세에 의해 선형 회귀분석을 시행한 경우 잔차는 자기 상관성을 지니고 있음을 볼 수 있다. checkresiduals() 함수를 사용하여 확인하는데 plot만 봐도 백색잡음이 아님을 확인할 수 있지만 백색잡음 테스트인 Breusch-Godfrey 테스트 결과(checkresiduals() 함수는 회귀모델에 대해서는 Breusch-Godfrey 테스트를, 나머지는 Ljung-Box 테스트를 시행한다.)의 p-value가 0.05보다 작기 때문에 자기상관성이 존재하여 백색잡음으로 볼 수 없다.
 
 ```{r tslm_resid}
-checkresiduals(tslm(students.total.ts[,3] ~ trend, data = students.total.ts))
+checkresiduals(tslm(students.total.ts[,1] ~ trend, data = students.total.ts))
 ```
 
 ### plot_time_series_regression 함수(timetk 패키지)
@@ -251,7 +251,7 @@ plot_time_series_regression(.data = employees,
 # plot_time_series_regression에 trend, season(월)까지 반영시
 plot_time_series_regression(.data = employees, 
                             .date_var = time, 
-                            .formula = total ~ as.numeric(date) +
+                            .formula = employees.edu ~ as.numeric(date) +
                               lubridate::month(date, label = TRUE), 
                             .interactive = FALSE) 
 ```
@@ -283,6 +283,7 @@ tidymodels, parsnip, modeltime 패키지를 사용하여 시계열 데이터 선
 [^forecasting-ii-11]: <https://www.tidymodels.org/start/models/>
 
 ```{r linear_reg, message=FALSE, warning=FALSE}
+###  parsnip과 modeltime을 전체 취업자수에 적용한 linear modeling(tredn + seasonality)
 library(modeltime)
 library(parsnip)
 library(tidymodels)
@@ -310,7 +311,7 @@ calibration_tbl %>%
 ```
 
 ```{r covid_linear_reg}
-
+###  parsnip과 modeltime을 일별 코로나 발생 데이터(0-9세)에 적용한 linear modeling(tredn + seasonality)
 covid19.by.age$value1 <- ifelse(is.na(covid19.by.age$value), 0, covid19.by.age$value)
 ### 트레이닝 셋과 테스트 셋을 나눈다
 splits <- initial_time_split(covid19.by.age %>% filter(category == '0-9세'), prop = 0.9)
@@ -361,22 +362,31 @@ calibration_tbl %>%
 | 2017 | 0.0625 = (1 - 0.5) \* (1 - 0.5) \* (1 - 0.5) |
 | ...  | ...                                          |
 
+#### forecast::ses() 함수
+
 단순 지수 평활 모델을 적용하는 방법은 forecast 패키지의 ses() 함수를 사용하면 모델을 구축할 수 있다. ses() 함수에서는 평활 계수를 alpha 매개변수를 통해 설정할 수 있지만 설정하지 않으면 자동으로 계산하여 설정해준다. ses() 함수는 뒤에서 설명하는 홀트 모델, 홀트-윈터 모델도 beta와 gamma 매개변수를 통해 생성할 수 있다. ses() 함수를 통해 생성되는 모델은 몇가지 특성값을 가지는데 앞에서 설명한 평활계수가 alpha로 표현되고 초기상태값인 l 값이 나타난다. 단순 지수 평활 모델은 한단계씩 예측해나가는 방법(One Step Forecast)이기 때문에 초기값인 l값부터 시작하여 한단계 앞 값을 예측하고 또 다음 단계를 예측하는 방법으로 수행된다. l 값을 산출하는 방법은 Rob Hyndman의 저서에서 확인할 수 있다.[^forecasting-ii-13] 이는 ses() 모델을 summary() 함수를 통해 실행시키면 확인이 가능하다.
 
 [^forecasting-ii-13]: <https://otexts.com/fpp2/ses.html>
 
 ```{r ses, message=FALSE, warning=FALSE}
-ses(students.total.ts[,3])
-autoplot(students.total.ts[,3]) + 
-  autolayer(fitted(ses(students.total.ts[,3])), series = 'ses 적합값') +
-  autolayer(ses(students.total.ts[,3]))
-summary(ses(students.total.ts[,3]))
-ses(students.total.ts[,3], alpha = 0.5)
-ses(students.total.ts[,3], alpha = 0.5) %>% autoplot()
+### 전체 학생수에 대한 Simple Exponential Smoothing
+ses(students.total.ts[,1])
+autoplot(students.total.ts[,1]) + 
+  autolayer(fitted(ses(students.total.ts[,1])), series = 'ses 적합값') +
+  autolayer(ses(students.total.ts[,1]))
+summary(ses(students.total.ts[,1]))
+ses(students.total.ts[,1], alpha = 0.5)
+ses(students.total.ts[,1], alpha = 0.5) %>% autoplot()
 
+### 전체  취업자수에 대한 Simple Exponential Smoothing
 autoplot(employees.ts[,2]) + 
   autolayer(fitted(ses(employees.ts[,2])), series = 'ses 적합값') +
   autolayer(ses(employees.ts[,2]))
+
+### 코로나 신규확진자수(0-9세)에 대한 Simple Exponential Smoothing
+autoplot(wide.covid19.by.age.ts[,2]) + 
+  autolayer(fitted(ses(wide.covid19.by.age.ts[,2])), series = 'ses 적합값') +
+  autolayer(ses(wide.covid19.by.age.ts[,2]))
 ```
 
 평활 계수가 클수록 데이터 변화에 빠르게 반응하여 예측의 감응도가 높지만 평활계수가 작으면 데이터의 변화에 느리게 반응하여 예측의 안정성이 높아진다 [^forecasting-ii-14]
@@ -384,33 +394,72 @@ autoplot(employees.ts[,2]) +
 [^forecasting-ii-14]: <https://m.blog.naver.com/PostView.nhn?blogId=sigmagil&logNo=221502514892&proxyReferer=https:%2F%2Fwww.google.com%2F>
 
 ```{r ses_alpha, message=FALSE, warning=FALSE}
-autoplot(students.total.ts[,3], series = '원본', color = 'black') +
-  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.1)), PI = FALSE, series = 'alpha = 0.1') +  
-  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.2)), PI = FALSE, series = 'alpha = 0.2') + 
-  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.3)), PI = FALSE, series = 'alpha = 0.3') +
-  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.4)), PI = FALSE, series = 'alpha = 0.4') +
-  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.5)), PI = FALSE, series = 'alpha = 0.5') +
-  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.6)), PI = FALSE, series = 'alpha = 0.6') +
-  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.7)), PI = FALSE, series = 'alpha = 0.7') +
-  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.8)), PI = FALSE, series = 'alpha = 0.8') +
-  autolayer(fitted(ses(students.total.ts[,3], alpha = 0.9)), PI = FALSE, series = 'alpha = 0.9')
+### 전체 학생수의 alpha 값에 따른 적합치와 예측치의 변화
+autoplot(students.total.ts[,1], color = 'black') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.1)), series = 'alpha = 0.1') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.1, PI = FALSE), series = 'alpha = 0.1') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.2)), series = 'alpha = 0.2') + 
+  autolayer(ses(students.total.ts[,1], alpha = 0.2, PI = FALSE), series = 'alpha = 0.2') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.3)), series = 'alpha = 0.3') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.3, PI = FALSE), series = 'alpha = 0.3') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.4)), series = 'alpha = 0.4') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.4, PI = FALSE), series = 'alpha = 0.4') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.5)), series = 'alpha = 0.5') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.5, PI = FALSE), series = 'alpha = 0.5') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.6)), series = 'alpha = 0.6') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.6, PI = FALSE), series = 'alpha = 0.6') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.7)), series = 'alpha = 0.7') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.7, PI = FALSE), series = 'alpha = 0.7') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.8)), series = 'alpha = 0.8') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.8, PI = FALSE), series = 'alpha = 0.8') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.9)), series = 'alpha = 0.9') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.9, PI = FALSE), series = 'alpha = 0.9')
+```
+
+#### stats::HoltWinters() 함수
+
+R에서 기초 통계 패키지로 제공하는 stat 패키지에서 지수 평활 모델을 구축할 수 있는 HoltWinters() 함수를 제공한다. 다음절에서 소개하겠지만 HoltWinter 모델은 지수 평활 모델에서 추세와 계절성을 가진 데이터를 대상으로 구축하는 모델이다. 하지만 stats 패키지에서는 HoltWinters() 함수에 매개변수를 조절함으로써 단순지수평활 모델, 홀트 모델, 홀트-윈터 모델을 각각 구축할 수 있다. HoltWinters() 함수의 beta(추세), gamma(계절성) 매개변수를 모두 FALSE로 설정함으로써 단순 지수 평활 모델을 구축할 수 있다. 계산방식의 차이로 인해 forecast::ses() 함수와는 다소 차이가 난다.
+
+```{r simple_holtwinters}
+### 전체 학생수에 대한 Simple Exponential Smoothing modeling
+HoltWinters(students.total.ts[,1], beta = F, gamma = F)
+plot(HoltWinters(students.total.ts[,1], beta = F, gamma = F))
+HoltWinters(students.total.ts[,1], alpha = 0.1, beta = F, gamma = F)
+plot(HoltWinters(students.total.ts[,1], alpha = 0.1, beta = F, gamma = F))
+
+### 전체  취업자수에 대한 Simple Exponential Smoothing modeling
+plot(HoltWinters(employees.ts[,2], beta = F, gamma = F))
+
+### 코로나 신규확진자수(0-9세)에 대한 Simple Exponential Smoothing modeling
+plot(HoltWinters(wide.covid19.by.age.ts[,2], beta = F, gamma = F))
 ```
 
 ### 홀트(Holt) 모델
 
 홀트(holt) 모델은 지수 평활 모델을 확장하여 추세를 반영하는 모델이다. 홀트 모델은 추세조정 지수평활법이나 이중 지수 평활법으로 해석되기도 한다. 추세를 반영하기 위해 평활 계수인 alpha와 추세 기울기 값 beta를 사용하여 모델을 세운다. 평활 계수 값과 마찬가지로 추세 기울기 값도 0과 1사이의 값을 지니고 이 값을 반영한 이동평균을 통해 예측값을 산출한다.
 
+#### forecast::ses() 함수
+
 홀트 모델은 앞선 단순 지수 평활 모델에 사용했던 ses() 함수에 추세 기울기 값인 beta 값을 추가하여 사용할 수도 있고 forecast 패키지에서 제공하는 holt() 함수를 사용하여 모델을 생성할 수도 있다. 다만 alpha, beta 등의 매개변수를 지정하지 않으면 자동 계산되어 적절한 값이 사용된다.
 
 ```{r holt}
-autoplot(students.total.ts[,3]) + 
-  autolayer(fitted(holt(students.total.ts[,3])), series = 'holt 적합값') +
-  autolayer(holt(students.total.ts[,3]))
-summary(holt(students.total.ts[,3]))
+### 전체 학생수에 대한 Holt modeling
+autoplot(students.total.ts[,1]) + 
+  autolayer(fitted(holt(students.total.ts[,1])), series = '적합값') +
+  autolayer(holt(students.total.ts[,1]), series = '예측값')
+summary(holt(students.total.ts[,1]))
 
-holt(employees.ts[,2]) %>% autoplot()
-holt(employees.ts[,3]) %>% autoplot()
+### 전체  취업자수에 대한 Holt modeling
+autoplot(employees.ts[,2]) + 
+  autolayer(fitted(holt(employees.ts[,2])), series = '적합값') +
+  autolayer(holt(employees.ts[,2]), series = '예측값')
 
+### 교육서비스업  취업자수에 대한 Holt modeling
+autoplot(employees.ts[,3]) + 
+  autolayer(fitted(holt(employees.ts[,3])), series = '적합값') +
+  autolayer(holt(employees.ts[,3]), series = '예측값')
+
+### 코로나 신규확진자수(0-9세)에 대한 Holt modeling
 autoplot(wide.covid19.by.age.ts[,2]) + 
   autolayer(fitted(holt(wide.covid19.by.age.ts[,2])), series = '적합값') +
   autolayer(holt(wide.covid19.by.age.ts[,2]), series = '예측값')
@@ -419,32 +468,59 @@ autoplot(wide.covid19.by.age.ts[,2]) +
 홀트 모델은 위와 같이 일정한 증가, 감소가 나타난다. 추세가 증가 추세이면 예측값이 계속 증가하게 되고 감소추세이면 계속 감소하게 된다. 특히 감소추세 일때 계속 감소하면 어느 순간 음수값을 가질수도 있다. 따라서 감소 추세가 있는 경우 어느정도에서 감소추세를 지연시킬 필요가 있다. holt() 함수에서는 damped 매개변수를 통해 감소추세를 지연시킬 수 있다.
 
 ```{r holt_damped}
-autoplot(students.total.ts[,3]) + 
-  autolayer(fitted(holt(students.total.ts[,3])), series = 'holt') +
-  autolayer(fitted(holt(students.total.ts[,3], damped = TRUE)), series = 'holt damped') +
-  autolayer(holt(students.total.ts[,3]), series = '예측', PI = FALSE) + 
-  autolayer(holt(students.total.ts[,3], damped = TRUE), series = 'damped 예측', PI = FALSE)
+### 전체 학생수에 대한 Holt modeling 비교
+autoplot(students.total.ts[,1]) + 
+  autolayer(fitted(holt(students.total.ts[,1])), series = 'holt') +
+  autolayer(fitted(holt(students.total.ts[,1], damped = TRUE)), series = 'holt damped') +
+  autolayer(holt(students.total.ts[,1]), series = '예측', PI = FALSE) + 
+  autolayer(holt(students.total.ts[,1], damped = TRUE), series = 'damped 예측', PI = FALSE)
 
+### 전체  취업자수에 대한 Holt modeling 비교
 autoplot(employees.ts[,2]) + 
   autolayer(fitted(holt(employees.ts[,2])), series = 'holt') +
   autolayer(fitted(holt(employees.ts[,2], damped = TRUE)), series = 'holt damped') +
   autolayer(holt(employees.ts[,2]), series = '예측', PI = FALSE) + 
   autolayer(holt(employees.ts[,2], damped = TRUE), series = 'damped 예측', PI = FALSE)
+
+### 코로나 신규확진자수(0-9세)에 대한 Holt modeling 비교
+autoplot(wide.covid19.by.age.ts[,2]) + 
+  autolayer(fitted(holt(wide.covid19.by.age.ts[,2])), series = 'holt') +
+  autolayer(fitted(holt(wide.covid19.by.age.ts[,2], damped = TRUE)), series = 'holt damped') +
+  autolayer(holt(wide.covid19.by.age.ts[,2], h = 20), series = '예측', PI = FALSE) + 
+  autolayer(holt(wide.covid19.by.age.ts[,2], h = 20, damped = TRUE), series = 'damped 예측', PI = FALSE)
 ```
 
 추세 기울기 값에 따른 변동은 아래 plot과 같이 나타난다. 사실상 추세 기울기 값은 결과값에 큰 차이를 나타내지 않는다.
 
 ```{r holt_beta, message=FALSE, warning=FALSE}
 autoplot(employees.ts[,2]) + 
-  autolayer(fitted(holt(employees.ts[,2], beta = 0.1)), PI = FALSE, series = 'beta = 0.1') +
-  autolayer(fitted(holt(employees.ts[,2], beta = 0.2)), PI = FALSE, series = 'beta = 0.2') + 
-  autolayer(fitted(holt(employees.ts[,2], beta = 0.3)), PI = FALSE, series = 'beta = 0.3') +
-  autolayer(fitted(holt(employees.ts[,2], beta = 0.4)), PI = FALSE, series = 'beta = 0.4') +
-  autolayer(fitted(holt(employees.ts[,2], beta = 0.5)), PI = FALSE, series = 'beta = 0.5') +
-  autolayer(fitted(holt(employees.ts[,2], beta = 0.6)), PI = FALSE, series = 'beta = 0.6') +
-  autolayer(fitted(holt(employees.ts[,2], beta = 0.7)), PI = FALSE, series = 'beta = 0.7') +
-  autolayer(fitted(holt(employees.ts[,2], beta = 0.8)), PI = FALSE, series = 'beta = 0.8') +
-  autolayer(fitted(holt(employees.ts[,2], beta = 0.9)), PI = FALSE, series = 'beta = 0.9')
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.1)), series = 'beta = 0.1') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.2)), series = 'beta = 0.2') + 
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.3)), series = 'beta = 0.3') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.4)), series = 'beta = 0.4') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.5)), series = 'beta = 0.5') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.6)), series = 'beta = 0.6') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.7)), series = 'beta = 0.7') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.8)), series = 'beta = 0.8') +
+  autolayer(fitted(holt(employees.ts[,2], beta = 0.9)), series = 'beta = 0.9')
+```
+
+#### stats::HoltWinters() 함수
+
+앞서 설명한 바와 같이 R에서 기초 통계 패키지로 제공하는 stat 패키지에서 홀트 모델을 구축하기 위해서는 HoltWinters() 함수를 제공한다. stats 패키지의 HoltWinters() 함수 매개변수인 gamma(계절성) 매개변수를 FALSE로 설정함으로써 홀트 모델을 구축할 수 있다. 계산방식의 차이로 인해 forecast::holt() 함수와는 다소 차이가 난다.
+
+```{r holt_holtwinters}
+### 전체 학생수에 대한 Holt modeling
+HoltWinters(students.total.ts[,1], gamma = F)
+plot(HoltWinters(students.total.ts[,1], gamma = F))
+HoltWinters(students.total.ts[,1], alpha = 0.1, gamma = F)
+plot(HoltWinters(students.total.ts[,1], alpha = 0.1, gamma = F))
+
+### 전체  취업자수에 대한 Holt modeling
+plot(HoltWinters(employees.ts[,2], gamma = F))
+
+### 코로나 신규확진자수(0-9세)에 대한 Holt modeling
+plot(HoltWinters(wide.covid19.by.age.ts[,2], gamma = F))
 ```
 
 ### 홀트-윈터(Holt-Winter) 모델

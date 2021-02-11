@@ -34,18 +34,26 @@ fitted(ses(students.total.ts[,3], h = 5))
 mean(students.total.ts[1:10,3])
 
 
-autoplot(students.total.ts[,3], PI = FALSE, series = '원본', color = 'black') +
-  autolayer(fitted(ses(students.total.ts[,3], beta = 0.1)), PI = FALSE, series = 'alpha = 0.1') +  
-  autolayer(fitted(ses(students.total.ts[,3], beta = 0.2)), PI = FALSE, series = 'alpha = 0.2') + 
-  autolayer(fitted(ses(students.total.ts[,3], beta = 0.3)), PI = FALSE, series = 'alpha = 0.3') +
-  autolayer(fitted(ses(students.total.ts[,3], beta = 0.4)), PI = FALSE, series = 'alpha = 0.4') +
-  autolayer(fitted(ses(students.total.ts[,3], beta = 0.5)), PI = FALSE, series = 'alpha = 0.5') +
-  autolayer(fitted(ses(students.total.ts[,3], beta = 0.6)), PI = FALSE, series = 'alpha = 0.6') +
-  autolayer(fitted(ses(students.total.ts[,3], beta = 0.7)), PI = FALSE, series = 'alpha = 0.7') +
-  autolayer(fitted(ses(students.total.ts[,3], beta = 0.8)), PI = FALSE, series = 'alpha = 0.8') +
-  autolayer(fitted(ses(students.total.ts[,3], beta = 0.9)), PI = FALSE, series = 'alpha = 0.9')
-
-
+autoplot(students.total.ts[,1], color = 'black') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.1)), series = 'alpha = 0.1') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.1, PI = FALSE), series = 'alpha = 0.1') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.2)), series = 'alpha = 0.2') + 
+  autolayer(ses(students.total.ts[,1], alpha = 0.2, PI = FALSE), series = 'alpha = 0.2') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.3)), series = 'alpha = 0.3') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.3, PI = FALSE), series = 'alpha = 0.3') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.4)), series = 'alpha = 0.4') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.4, PI = FALSE), series = 'alpha = 0.4') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.5)), series = 'alpha = 0.5') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.5, PI = FALSE), series = 'alpha = 0.5') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.6)), series = 'alpha = 0.6') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.6, PI = FALSE), series = 'alpha = 0.6') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.7)), series = 'alpha = 0.7') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.7, PI = FALSE), series = 'alpha = 0.7') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.8)), series = 'alpha = 0.8') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.8, PI = FALSE), series = 'alpha = 0.8') +
+  autolayer(fitted(ses(students.total.ts[,1], alpha = 0.9)), series = 'alpha = 0.9') +
+  autolayer(ses(students.total.ts[,1], alpha = 0.9, PI = FALSE), series = 'alpha = 0.9')
+  
 
 students.modeltime <- students %>% filter(지역규모 == '계') %>% select(1, 3)
 students.modeltime[,1] <- as.Date(as.character(paste0(students.modeltime[,1], '-01-01')), format = '%Y-%M-%d')
@@ -141,3 +149,6 @@ models_tbl %>%
   plot_modeltime_forecast(
     .interactive      = TRUE
   )
+
+HoltWinters(students.total.ts[,1])
+Holt

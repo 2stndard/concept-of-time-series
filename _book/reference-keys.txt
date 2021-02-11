@@ -132,3 +132,7 @@ linear_reg-함수tidymodels-parsnip-modeltime-패키지
 단순-지수-평활-모델simple-exponentail-smoothing-model
 홀트holt-모델
 홀트-윈터holt-winter-모델
+forecastses-함수
+statsholtwinters-함수
+forecastses-함수-1
+statsholtwinters-함수-1

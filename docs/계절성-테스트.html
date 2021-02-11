@@ -26,7 +26,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-10" />
+<meta name="date" content="2021-02-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
 <li class="chapter" data-level="6.1.2" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
 <li class="chapter" data-level="6.1.3" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
-<li class="chapter" data-level="6.1.4" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> random work 모델</a></li>
+<li class="chapter" data-level="6.1.4" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
 <li class="chapter" data-level="6.1.5" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
@@ -242,22 +242,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="계절성-테스트" class="section level2" number="5.8">
 <h2><span class="header-section-number">5.8</span> 계절성 테스트</h2>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="계절성-테스트.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(seastests)</span>
-<span id="cb47-2"><a href="계절성-테스트.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(students.total.ts[,<span class="dv">3</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="계절성-테스트.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(seastests)</span>
+<span id="cb45-2"><a href="계절성-테스트.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(students.total.ts[,<span class="dv">3</span>]))</span></code></pre></div>
 <pre><code>## Test used:  WO 
 ##  
 ## Test statistic:  0 
 ## P-value:  8.126701e-06 1 1 
 ##  
 ## The WO - test does not identify  seasonality</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="계절성-테스트.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="계절성-테스트.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
 <pre><code>## Test used:  WO 
 ##  
 ## Test statistic:  1 
 ## P-value:  0 1.199041e-14 2.346908e-06 
 ##  
 ## The WO - test identifies seasonality</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="계절성-테스트.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(employees.ts[,<span class="dv">3</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="계절성-테스트.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(employees.ts[,<span class="dv">3</span>]))</span></code></pre></div>
 <pre><code>## Test used:  WO 
 ##  
 ## Test statistic:  0 
