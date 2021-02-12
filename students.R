@@ -163,6 +163,7 @@ as_tsibble(students, key = 지역규모, index = 연도)
 students.tsibble %>%
   autoplot()
 
+interval(students.tsibble)
 
 data(ansett, packege = 'tsibble')
 library(tsibble)
@@ -178,3 +179,16 @@ autoplot(melsyd_economy, Passengers)
 data(a10)
 library(fpp3)
 library(feasts)
+glimpse(students.tsibble)
+students.tsibble %>%
+  filter(지역규모 == '계') %>%
+  gg_tsdisplay(학생수계)
+
+
+students.tsibble %>%
+  filter(지역규모 == '계') %>%
+  gg_lag(학생수계)
+
+students.tsibble %>%
+  filter(지역규모 == '계') %>%
+  gg_arma()

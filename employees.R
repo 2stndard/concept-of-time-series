@@ -186,4 +186,47 @@ employees %>%
   plot_time_series(.date_var = time, .value = total, .smooth = F, .title = '월별 취업자수', .x_lab = '시간', .y_lab = '확진자수')
 
 
-employees.tsibble <- as_tsibble(employees, index = time)
+employees$yearmonth <- yearmonth(employees$time)
+employees.tsibble <- as_tsibble(employees, index = yearmonth)
+
+summary(employees.tsibble)
+
+yearmonth(employees$time)
+
+interval(employees.tsibble)
+employees.tsibble %>%
+  autoplot(total)
+
+employees.tsibble %>%
+  gg_season(total)
+
+
+employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
+colnames(employees) <- c('time', 'total', 'employees.edu')
+employees$time <- as.Date(paste0(employees$time, '. 01'), format = '%Y. %m. %d')
+employees.ts <- ts(employees, start = c(2013, 01), frequency = 12)
+employees.xts <- xts(employees[,2:3], order.by = employees[,1])
+employees$yearmonth <- yearmonth(employees$time)
+employees.tsibble <- as_tsibble(employees, index = yearmonth)
+
+### 트레이닝 셋과 테스트 셋을 나눈다
+splits <- initial_time_split(employees, prop = 0.9)
+###  trend와 season을 반영하여 linear model을 생성
+model_fit_lm <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(total ~ as.numeric(time) + factor(lubridate::month(time, label = TRUE), ordered = FALSE),
+      data = training(splits))
+###  모델 테이블 생성
+model_tbl <- modeltime_table(model_fit_lm)
+###  테스팅 셋으로 모델 교정
+calibration_tbl <- model_tbl %>% modeltime_calibrate(new_data = testing(splits))
+###  3년 예측치 생성후 plotting
+calibration_tbl %>%
+  modeltime_forecast(
+    h = '3 years',
+    actual_data = employees, 
+    conf_interval = 0.95
+  ) %>%
+  plot_modeltime_forecast(
+    .interactive      = TRUE
+  )

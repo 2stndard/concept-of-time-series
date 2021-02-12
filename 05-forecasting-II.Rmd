@@ -3,19 +3,27 @@ library(tidyverse)
 library(xts)
 library(timetk)
 library(forecast)
+
+library(dplyr)
+library(tsibble)
 students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 students[, 3:18] <- apply(students[, 3:18], 2, function(y) as.numeric(gsub(",", "", y)))
 students.total.xts <- students %>% filter(지역규모 == '계') %>% select(-지역규모)
 students.total.xts <- as.xts(students.total.xts, order.by = as.Date(paste0(students.total.xts[,1], '-01-01'), format = '%Y-%m-%d'))
-
+library(timetk)
 students.total.ts <- students %>% 
   filter(지역규모 == '계') %>% 
   select(3:18) %>%
   ts(start = c(1999), frequency = 1)
+students.tsibble <- as_tsibble(students, key = 지역규모, index = 연도)
 
 employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 colnames(employees) <- c('time', 'total', 'employees.edu')
+employees$time <- as.Date(paste0(employees$time, '. 01'), format = '%Y. %m. %d')
 employees.ts <- ts(employees, start = c(2013, 01), frequency = 12)
+employees.xts <- xts(employees[,2:3], order.by = employees[,1])
+employees$yearmonth <- yearmonth(employees$time)
+employees.tsibble <- as_tsibble(employees, index = yearmonth)
 
 covid19 <- read.csv('./covid19.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 colnames(covid19) <- c('category', 'status', 'date', 'value')
@@ -25,14 +33,16 @@ covid19.by.age <- covid19 %>%
   filter(grepl('세', category)) %>% 
   filter(category != '세종')
 covid19.by.age$value <- ifelse(is.na(covid19.by.age$value), 0, covid19.by.age$value)
-wide.covid19.by.age <- spread(covid19.by.age, category, value)
+wide.covid19.by.age <- tidyr::spread(covid19.by.age, category, value)
 
 wide.covid19.by.age.ts = ts(wide.covid19.by.age[, 2:10], frequency = 365)
+wide.covid19.by.age.xts <- as.xts(wide.covid19.by.age[, 3:10], order.by = wide.covid19.by.age$date)
+wide.covid19.by.age.tsibble <- as_tsibble(wide.covid19.by.age, index = date)
 ```
 
-# 시계열 forecasting Part II - 시계열 모델링 알고리즘
+# 시계열 forecasting Part II - 시계열 예측 모델
 
-**A future like the past:fdsafdsafd**
+**A future like the past:**
 
 시계열 예측의 가장 기본적인 가정은 과거의 패턴은 미래에도 계속된다는 가정이다. 이 가정은 단기 미래에서는 데이터가 발생되는 환경이 현재와 유사하기 때문에 불확실성이 작지만 장기 미래로 갈수록 데이터가 발생되는 환경이 달라질 가능성이 높아지면서 예측 데이터에 대한 불확실성이 높아질 수 밖에 없다.
 
@@ -40,9 +50,9 @@ wide.covid19.by.age.ts = ts(wide.covid19.by.age[, 2:10], frequency = 365)
 
 [^forecasting-ii-1]: <https://hbr.org/1971/07/how-to-choose-the-right-forecasting-technique>
 
-본 장에서는 세가지 데이터를 이용하여 알고리즘을 적용한다. 첫번째 데이터는 교육통계홈페이지에서 다운로드 받은 students 데이터로 1999년부터 2020년까지의 전국 학생수 데이터이고, 두번째 데이터는 KOSIS에서 다운로드 받은 경제활동인구조사 데이터 중 전체 취업자 데이터로 2003.1월부터 2020년 12월까지의 데이터, 세번째 데이터는 두번째 데이터와 같은 조사에서 얻어진 데이터로 교육서비스업 데이터이다. 첫번째 데이터는 년별 데이터이기 때문에 추세는 보이지만 계절성은 없고 두번째와 세번째 데이터는 월별 데이터이지만 두번째 데이터는 세번째 데이터보다 계절성이 더 짙은 데이터이다.
+본 장에서는 시계열 예측을 위한 모델을 설명하기 위해 forecast 패키지에서 제공하는 함수들을 이용한다. 여러가지 시계열 모델을 구축하고 성능평가를 통해 가장 효율적인 모델을 선정해야한다. 과거에는 많은 패키지에서 제공하는 다양한 함수를 사용하여 여러가지 모델을 각각 생성하고 성능평가를 위한 데이터를 생성하여 최선의 성능을 내는 모델을 채택하였다. 그러나 최근에는 여러가지 모델을 하나의 프레임워크에서 수행하여 가장 좋은 모델을 선정하는 방법이 사용된다. 따라서 이 장에서는 모델을 이해하고 다음 장에서 시계열 평가, 시각화를 위한 프레임워크를 소개하고자 한다.
 
-## Simple 모델링 알고리즘
+## Simple 모델
 
 simple 모델링 알고리즘은 Rob Hyndman의 'Forecasting : principals and practice'에서 그룹핑한 알고리즘과 명칭을 사용했다.[^forecasting-ii-2] 따라서 Simple 모델링이라는 명칭과 알고리즘들은 일반적인 분류는 아닐수 있다.
 
@@ -256,91 +266,11 @@ plot_time_series_regression(.data = employees,
                             .interactive = FALSE) 
 ```
 
-### linear_reg 함수(tidymodels, parsnip, modeltime 패키지)
-
-본 절에서 parship 패키지와 modeltime 패키지를 사용하여 선형 회귀 모델을 생성하는 방법을 소개한다. parsnip 패키지는 머신러닝 패키지인 'caret' 패키지를 개발한 Max Kuhn이 개발한 패키지이다. 이 패키지는 R, Spark, Stan 등의 엔진에서 사용하는 함수들이 함수마다 다른 인수를 사용하기 때문에 사용자들이 사용하기 힘들다는 점에 착안하여 인수 이름을 표준화하여 사용할 수 있는 인터페이스를 제공한다.[^forecasting-ii-9]
-
-[^forecasting-ii-9]: <https://cran.r-project.org/web/packages/parsnip/index.html>
-
-parsnip은 R의 여러 패키지에서 유사한 기능으로 제공하는 함수들을 사용하는 표준화된 접근 방법을 제공하는데 이 패키지를 사용하여 전체적인 머신러닝 모델을 생성하기 위해서는 몇가지 더 필요한 패키지를 사용해야한다. tidymodels(tidy 타입의 모델생성), skim(데이터 탐색), rsample(훈련용, 테스트용 데이터 분리), reciepes(데이터 전처리), yardstick(성능 분석)등의 패키지를 사용하는 방법이 많이 사용되고 있다. 그러나 시계열 모델에서는 tidymodels, modeltime 패키지를 사용할 수 있다.
-
-modeltime은 tidymodels 환경에서 시계열 데이터의 예측 프레임워크로 forecast 패키지에서 제공하는 대부분의 예측 방법을 제공하며 facebook에서 개발된 prophet 알고리즘까지 제공한다. [^forecasting-ii-10]
-
-[^forecasting-ii-10]: <https://cran.r-project.org/web/packages/modeltime/index.html>
-
-tidymodels, parsnip, modeltime 패키지를 사용하여 시계열 데이터 선형 회귀 모델은 다음의 순서와 같이 만들 수 있다.
-
-1.  트레이닝 셋과 테스트 셋을 나눈다. (권장되지만 필수는 아니다.)
-
-2.  linear_reg(), set_engine(), fit() 함수를 사용하여 선형 회귀모델을 생성한다. 먼저 linear_reg()함수를 통해 선형 회귀분석을 선언한다. 이 후 set_engine() 함수를 사용하여 선형 회귀 모델을 선정하는 계산방법을 지정한다. 아래의 예제에서는 'lm' 방법을 지정함으로써 최소제곱법을 사용하여 선형 회귀 모델을 선정하게 된다. 마지막으로 모델링을 위한 포뮬라와 데이터를 fit() 함수를 통해 전달함으로서 최종 모델이 생성된다.[^forecasting-ii-11]
-
-3.  생성된 모델을 modeltime_table() 함수에 적용하여 모델 테이블을 생성한다. 향후 설명하겠지만 모델 테이블에 여러 모델을 전달할 수 있는데 모델 테이블에 전달된 각각의 모델은 추후 성능비교 테이블이 제공되기 때문에 여러 모델의 성능을 비교하는데 편리하게 사용될 수 있다 .
-
-4.  modeltime_calibrate() 함수를 사용하여 테스트 데이터를 사용하여 모델을 교정한다. 앞서 테스트 셋을 나누지 않은 경우는 전체 데이터 셋을 사용할 수 있다.
-
-5.  modeltime_forecast() 함수를 사용하여 미래 데이터를 생성한다. 이후 plot_modeltime_forecast() 함수를 사용하여 plotting을 생성한다.
-
-[^forecasting-ii-11]: <https://www.tidymodels.org/start/models/>
-
-```{r linear_reg, message=FALSE, warning=FALSE}
-###  parsnip과 modeltime을 전체 취업자수에 적용한 linear modeling(tredn + seasonality)
-library(modeltime)
-library(parsnip)
-library(tidymodels)
-### 트레이닝 셋과 테스트 셋을 나눈다
-splits <- initial_time_split(employees, prop = 0.9)
-###  trend와 season을 반영하여 linear model을 생성
-model_fit_lm <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(total ~ as.numeric(date) + factor(lubridate::month(date, label = TRUE), ordered = FALSE),
-      data = training(splits))
-###  모델 테이블 생성
-model_tbl <- modeltime_table(model_fit_lm)
-###  테스팅 셋으로 모델 교정
-calibration_tbl <- model_tbl %>% modeltime_calibrate(new_data = testing(splits))
-###  3년 예측치 생성후 plotting
-calibration_tbl %>%
-  modeltime_forecast(
-    h = '3 years',
-    actual_data = employees, 
-    conf_interval = 0.95
-  ) %>%
-  plot_modeltime_forecast(
-    .interactive      = TRUE
-  )
-```
-
-```{r covid_linear_reg}
-###  parsnip과 modeltime을 일별 코로나 발생 데이터(0-9세)에 적용한 linear modeling(tredn + seasonality)
-covid19.by.age$value1 <- ifelse(is.na(covid19.by.age$value), 0, covid19.by.age$value)
-### 트레이닝 셋과 테스트 셋을 나눈다
-splits <- initial_time_split(covid19.by.age %>% filter(category == '0-9세'), prop = 0.9)
-###  trend와 season을 반영하여 linear model을 생성
-model_fit_lm <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(value ~ as.numeric(date),
-      data = training(splits))
-###  모델 테이블 생성
-model_tbl <- modeltime_table(model_fit_lm)
-###  테스팅 셋으로 모델 교정
-calibration_tbl <- model_tbl %>% modeltime_calibrate(new_data = testing(splits))
-###  3년 예측치 생성후 plotting
-calibration_tbl %>%
-  modeltime_forecast(
-#    .newdata = testing(splits),
-    h = '100 days',
-    actual_data = covid19.by.age %>% filter(category == '0-9세')
-    ) %>%
-  plot_modeltime_forecast(
-    .interactive      = TRUE
-  )
-```
-
 ## 지수 평활(Exponential Smoothing) 모델
 
-지수평활 모델은 1950년대에 제안된 모델로 랜덤 워크(Random Walk) 모델과 같이 시계열 적으로 최근의 값이 유지될 확률이 크다는 점에서 나온 모델이다. 다만 랜덤 워크 모델과 같이 마지막 값에 모든 가중치를 둬서 일정하게 유지하는 것이 아닌 현재와 가까운 과거에 더 많은 가중치를 주고 이들의 이동 평균값을 구해서 예측하는 방법이다. [^forecasting-ii-12]
+지수평활 모델은 1950년대에 제안된 모델로 랜덤 워크(Random Walk) 모델과 같이 시계열 적으로 최근의 값이 유지될 확률이 크다는 점에서 나온 모델이다. 다만 랜덤 워크 모델과 같이 마지막 값에 모든 가중치를 둬서 일정하게 유지하는 것이 아닌 현재와 가까운 과거에 더 많은 가중치를 주고 이들의 이동 평균값을 구해서 예측하는 방법이다. [^forecasting-ii-9]
 
-[^forecasting-ii-12]: <https://otexts.com/fppkr/expsmooth.html>
+[^forecasting-ii-9]: <https://otexts.com/fppkr/expsmooth.html>
 
 최근의 데이터에 가중치를 높게 주기 때문에 추세, 계절성, 순환성이 심하지 않은 단기 데이터의 모델링에 적합한 방법이다. 추세나 계절성이 없는 데이터에 적합한 '단순 지수평활 모델(Simple Exponential Smoothign), 추세가 있는 데이터에 적합한 홀트(Holt) 모델, 추세와 계절성이 있는 데이터에 적합한 홀트-윈터(Holt-Winter) 모델 등이 있다.
 
@@ -364,9 +294,9 @@ calibration_tbl %>%
 
 #### forecast::ses() 함수
 
-단순 지수 평활 모델을 적용하는 방법은 forecast 패키지의 ses() 함수를 사용하면 모델을 구축할 수 있다. ses() 함수에서는 평활 계수를 alpha 매개변수를 통해 설정할 수 있지만 설정하지 않으면 자동으로 계산하여 설정해준다. ses() 함수는 뒤에서 설명하는 홀트 모델, 홀트-윈터 모델도 beta와 gamma 매개변수를 통해 생성할 수 있다. ses() 함수를 통해 생성되는 모델은 몇가지 특성값을 가지는데 앞에서 설명한 평활계수가 alpha로 표현되고 초기상태값인 l 값이 나타난다. 단순 지수 평활 모델은 한단계씩 예측해나가는 방법(One Step Forecast)이기 때문에 초기값인 l값부터 시작하여 한단계 앞 값을 예측하고 또 다음 단계를 예측하는 방법으로 수행된다. l 값을 산출하는 방법은 Rob Hyndman의 저서에서 확인할 수 있다.[^forecasting-ii-13] 이는 ses() 모델을 summary() 함수를 통해 실행시키면 확인이 가능하다.
+단순 지수 평활 모델을 적용하는 방법은 forecast 패키지의 ses() 함수를 사용하면 모델을 구축할 수 있다. ses() 함수에서는 평활 계수를 alpha 매개변수를 통해 설정할 수 있지만 설정하지 않으면 자동으로 계산하여 설정해준다. ses() 함수는 뒤에서 설명하는 홀트 모델, 홀트-윈터 모델도 beta와 gamma 매개변수를 통해 생성할 수 있다. ses() 함수를 통해 생성되는 모델은 몇가지 특성값을 가지는데 앞에서 설명한 평활계수가 alpha로 표현되고 초기상태값인 l 값이 나타난다. 단순 지수 평활 모델은 한단계씩 예측해나가는 방법(One Step Forecast)이기 때문에 초기값인 l값부터 시작하여 한단계 앞 값을 예측하고 또 다음 단계를 예측하는 방법으로 수행된다. l 값을 산출하는 방법은 Rob Hyndman의 저서에서 확인할 수 있다.[^forecasting-ii-10] 이는 ses() 모델을 summary() 함수를 통해 실행시키면 확인이 가능하다.
 
-[^forecasting-ii-13]: <https://otexts.com/fpp2/ses.html>
+[^forecasting-ii-10]: <https://otexts.com/fpp2/ses.html>
 
 ```{r ses, message=FALSE, warning=FALSE}
 ### 전체 학생수에 대한 Simple Exponential Smoothing
@@ -389,9 +319,9 @@ autoplot(wide.covid19.by.age.ts[,2]) +
   autolayer(ses(wide.covid19.by.age.ts[,2]))
 ```
 
-평활 계수가 클수록 데이터 변화에 빠르게 반응하여 예측의 감응도가 높지만 평활계수가 작으면 데이터의 변화에 느리게 반응하여 예측의 안정성이 높아진다 [^forecasting-ii-14]
+평활 계수가 클수록 데이터 변화에 빠르게 반응하여 예측의 감응도가 높지만 평활계수가 작으면 데이터의 변화에 느리게 반응하여 예측의 안정성이 높아진다 [^forecasting-ii-11]
 
-[^forecasting-ii-14]: <https://m.blog.naver.com/PostView.nhn?blogId=sigmagil&logNo=221502514892&proxyReferer=https:%2F%2Fwww.google.com%2F>
+[^forecasting-ii-11]: <https://m.blog.naver.com/PostView.nhn?blogId=sigmagil&logNo=221502514892&proxyReferer=https:%2F%2Fwww.google.com%2F>
 
 ```{r ses_alpha, message=FALSE, warning=FALSE}
 ### 전체 학생수의 alpha 값에 따른 적합치와 예측치의 변화
@@ -438,7 +368,7 @@ plot(HoltWinters(wide.covid19.by.age.ts[,2], beta = F, gamma = F))
 
 홀트(holt) 모델은 지수 평활 모델을 확장하여 추세를 반영하는 모델이다. 홀트 모델은 추세조정 지수평활법이나 이중 지수 평활법으로 해석되기도 한다. 추세를 반영하기 위해 평활 계수인 alpha와 추세 기울기 값 beta를 사용하여 모델을 세운다. 평활 계수 값과 마찬가지로 추세 기울기 값도 0과 1사이의 값을 지니고 이 값을 반영한 이동평균을 통해 예측값을 산출한다.
 
-#### forecast::ses() 함수
+#### forecast::holt() 함수
 
 홀트 모델은 앞선 단순 지수 평활 모델에 사용했던 ses() 함수에 추세 기울기 값인 beta 값을 추가하여 사용할 수도 있고 forecast 패키지에서 제공하는 holt() 함수를 사용하여 모델을 생성할 수도 있다. 다만 alpha, beta 등의 매개변수를 지정하지 않으면 자동 계산되어 적절한 값이 사용된다.
 
@@ -529,6 +459,8 @@ plot(HoltWinters(wide.covid19.by.age.ts[,2], gamma = F))
 
 홀트-윈터 모델도 앞선 홀트 모델과 같이 ses() 함수에 추세 기울기 값인 beta 값과 계절 변수인 gamma 값을 추가하여 사용할 수도 있고 forecast 패키지에서 제공하는 hw() 함수를 사용하여 모델을 생성할 수도 있다. 다만 alpha, beta 등의 매개변수를 지정하지 않으면 자동 계산되어 적절한 값이 사용된다.
 
+#### forecast::hw() 함수
+
 홀트-윈터 모델은 가산법(additive)와 승산법(multiplicative)의 두가지 방법이 있다.
 
 ```{r hw, message=FALSE, warning=FALSE}
@@ -549,15 +481,42 @@ summary(hw(employees.ts[,3]))
 
 가산법과 승산법을 사용하는 방법은 hw() 함수에서 seasonal 매개변수를 통해 설정할 수 있다. seasonal 매개변수를 'additive'로 설정하면 가산법, 'multiplicative'를 설정하면 승산법을 사용하여 모델이 구축된다.
 
-사실상 가산법과 승산법 중 어느 방법을 선택해야하는 지를 선택하는 방법은 시각적으로 확인하거나 다음 장에서 설명할 모델 성능 비교 방법을 통해 선택해야한다. 다만 hw() 함수에서 seasonal 매개변수를 설정하지 않으면
+사실상 가산법과 승산법 중 어느 방법을 선택해야하는 지를 선택하는 방법은 시각적으로 확인하거나 다음 장에서 설명할 모델 성능 비교 방법을 통해 선택해야한다.
+
+#### stats::HoltWinters() 함수
+
+```{r hw_holtwinters}
+### 전체  취업자수에 대한 Holt modeling
+HoltWinters(employees.ts[,2])
+plot(HoltWinters(employees.ts[,2]))
+plot(HoltWinters(employees.ts[,3]))
+```
 
 ### ETS 모델
 
-[![출처 : ETS 모델 기반 시계열 예측, LOGPRESSO](ETS.png "ETS 모델 유형")](https://ko.logpresso.com/documents/time-series)
+ETS 모델은 Error, Trend, Season의 앞글자만 따서 만들었다고도 하고 ExponenTial Smoothing의 약자라고도 한다. 앞서 설명한 지수 평활 모델을 잔차(실제값 - 적합값)로 보정한 모델이다. ETS 모델은 모델을 구성하는 방법에 따라 여러가지 모델로 구분될 수 있다. 각 모델은 실 데이터의 측정식(measurement equation)과 측정식에서 추출된 추세, 계절성 등을 통해 추정되는 미래 예측값에 대한 상태식(state equation)에 따라 결정되는데 이를 상태공간모델(status space model)이라고 한다.[^forecasting-ii-12]
+
+[^forecasting-ii-12]: <https://otexts.com/fppkr/ets.html>
+
+상태공간모델에 의한 ETS 모델은 Error에 의한 가법 보정(A), 승법보정(M), 추세에 따른 가법 방법(A), 감쇄 가법 방법(Ad), 추세 없음(N), 계절성에 따른 계절성 없음(N), 가법 계절성(A), 승법 계절성(M)으로 구분된다. 이 8가지 방법을 활용하여 최종 ETS 모델을 결정할 수 있는데 모든 조합이 모델이 되지는 않는다.
+
+forecast의 ets() 함수에는 상태공간모델을 지정할 수 있지만 ets() 함수에서 자동적으로 선정해준다. ets 모델을 autoplot에 적용시키면 각각의 성분별로 plot을 확인할 수 있다.
+
+```{r ets}
+ets(students.total.ts[,1])  ### ETS(A,Ad,N)로 선정 error는 A, trend는 Ad, season은 N
+ets(students.total.ts[,1]) %>% autoplot()
+ets(students.total.ts[,1]) %>% forecast() %>% autoplot()
+ets(employees.ts[,2])
+ets(employees.ts[,2]) %>% autoplot()
+ets(employees.ts[,2]) %>% forecast() %>% autoplot()
+ets(wide.covid19.by.age.ts[,2])
+ets(wide.covid19.by.age.ts[,2]) %>% autoplot()
+ets(wide.covid19.by.age.ts[,2]) %>% forecast() %>% autoplot() 
+```
 
 ## ARIMA 모델
 
-## TBAT 모델
+## TBATs 모델
 
 ## Neural Network 모델
 

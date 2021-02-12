@@ -26,7 +26,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-12" />
+<meta name="date" content="2021-02-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,13 +53,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -156,16 +149,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 타입 및 Import</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="날짜시간-객체-타입.html"><a href="날짜시간-객체-타입.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 객체 타입</a></li>
-<li class="chapter" data-level="2.2" data-path="시계열-패키지-및-데이터-타입.html"><a href="시계열-패키지-및-데이터-타입.html"><i class="fa fa-check"></i><b>2.2</b> 시계열 패키지 및 데이터 타입</a></li>
-<li class="chapter" data-level="2.3" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html"><i class="fa fa-check"></i><b>2.3</b> 시계열 데이터 Import의 방법</a></li>
+<li class="chapter" data-level="2.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 데이터 클래스</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#date-class"><i class="fa fa-check"></i><b>2.1.1</b> Date class</a></li>
+<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-data-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt data class</a></li>
+<li class="chapter" data-level="2.1.3" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#yearmon-yearqtr-class"><i class="fa fa-check"></i><b>2.1.3</b> yearmon, yearqtr class</a></li>
+<li class="chapter" data-level="2.1.4" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#날짜-시간-포맷"><i class="fa fa-check"></i><b>2.1.4</b> 날짜, 시간 포맷</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html"><i class="fa fa-check"></i><b>2.2</b> 시계열 패키지 및 데이터 객체(Object)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#ts"><i class="fa fa-check"></i><b>2.2.1</b> ts</a></li>
+<li class="chapter" data-level="2.2.2" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#zoo"><i class="fa fa-check"></i><b>2.2.2</b> zoo</a></li>
+<li class="chapter" data-level="2.2.3" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#xts"><i class="fa fa-check"></i><b>2.2.3</b> xts</a></li>
+<li class="chapter" data-level="2.2.4" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#tsibble"><i class="fa fa-check"></i><b>2.2.4</b> tsibble</a></li>
+<li class="chapter" data-level="2.2.5" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#modeltime"><i class="fa fa-check"></i><b>2.2.5</b> modeltime</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html"><i class="fa fa-check"></i><b>2.3</b> 시계열 데이터 Import의 방법</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html#파일에서-시계열-데이터로-읽어들이는-방법"><i class="fa fa-check"></i><b>2.3.1</b> 파일에서 시계열 데이터로 읽어들이는 방법</a></li>
+<li class="chapter" data-level="2.3.2" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html#직접-시계열-데이터-타입으로-읽어들이는-방법"><i class="fa fa-check"></i><b>2.3.2</b> 직접 시계열 데이터 타입으로 읽어들이는 방법</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="실습-데이터-생성.html"><a href="실습-데이터-생성.html"><i class="fa fa-check"></i><b>2.4</b> 실습 데이터 생성</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="실습-데이터-생성.html"><a href="실습-데이터-생성.html#월별-데이터---경제활동-인구조사-산업별-취업자수"><i class="fa fa-check"></i><b>2.4.1</b> 월별 데이터 - 경제활동 인구조사 산업별 취업자수</a></li>
+<li class="chapter" data-level="2.4.2" data-path="실습-데이터-생성.html"><a href="실습-데이터-생성.html#일별-데이터---코로나-확진자-수"><i class="fa fa-check"></i><b>2.4.2</b> 일별 데이터 - 코로나 확진자 수</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="시계열-visualization.html"><a href="시계열-visualization.html"><i class="fa fa-check"></i><b>3</b> 시계열 Visualization</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="ggplot2.html"><a href="ggplot2.html"><i class="fa fa-check"></i><b>3.1</b> ggplot2</a></li>
-<li class="chapter" data-level="3.2" data-path="xts.html"><a href="xts.html"><i class="fa fa-check"></i><b>3.2</b> XTS</a></li>
-<li class="chapter" data-level="3.3" data-path="forecast.html"><a href="forecast.html"><i class="fa fa-check"></i><b>3.3</b> forecast</a></li>
-<li class="chapter" data-level="3.4" data-path="timetk.html"><a href="timetk.html"><i class="fa fa-check"></i><b>3.4</b> timetk</a></li>
+<li class="chapter" data-level="3.1" data-path="data-frame-ggplot2-패키지.html"><a href="data-frame-ggplot2-패키지.html"><i class="fa fa-check"></i><b>3.1</b> data.frame : ggplot2 패키지</a></li>
+<li class="chapter" data-level="3.2" data-path="xts-xts-패키지.html"><a href="xts-xts-패키지.html"><i class="fa fa-check"></i><b>3.2</b> xts : xts 패키지</a></li>
+<li class="chapter" data-level="3.3" data-path="ts-forecast-패키지.html"><a href="ts-forecast-패키지.html"><i class="fa fa-check"></i><b>3.3</b> ts : forecast 패키지</a></li>
+<li class="chapter" data-level="3.4" data-path="tsibble-feasts-패키지.html"><a href="tsibble-feasts-패키지.html"><i class="fa fa-check"></i><b>3.4</b> tsibble : feasts 패키지</a></li>
+<li class="chapter" data-level="3.5" data-path="data-frame-timetk-패키지.html"><a href="data-frame-timetk-패키지.html"><i class="fa fa-check"></i><b>3.5</b> data.frame : timetk 패키지</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
 <ul>
@@ -187,23 +203,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
 <li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
 <li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
-<li class="chapter" data-level="5.8" data-path="계절성-테스트.html"><a href="계절성-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-ploting과-테스트.html"><a href="계절성-ploting과-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 ploting과 테스트</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><a href="시계열-forecasting-part-ii-시계열-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 모델링 알고리즘</a>
+<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델링 알고리즘</a>
+<li class="chapter" data-level="6.1" data-path="simple-모델.html"><a href="simple-모델.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
-<li class="chapter" data-level="6.1.2" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
-<li class="chapter" data-level="6.1.3" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
-<li class="chapter" data-level="6.1.4" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
-<li class="chapter" data-level="6.1.5" data-path="simple-모델링-알고리즘.html"><a href="simple-모델링-알고리즘.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+<li class="chapter" data-level="6.1.1" data-path="simple-모델.html"><a href="simple-모델.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
+<li class="chapter" data-level="6.1.2" data-path="simple-모델.html"><a href="simple-모델.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.3" data-path="simple-모델.html"><a href="simple-모델.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.4" data-path="simple-모델.html"><a href="simple-모델.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
+<li class="chapter" data-level="6.1.5" data-path="simple-모델.html"><a href="simple-모델.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
 <ul>
 <li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>6.2.1</b> tslm 함수(forecast 패키지)</a></li>
 <li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
-<li class="chapter" data-level="6.2.3" data-path="regression-모델.html"><a href="regression-모델.html#linear_reg-함수tidymodels-parsnip-modeltime-패키지"><i class="fa fa-check"></i><b>6.2.3</b> linear_reg 함수(tidymodels, parsnip, modeltime 패키지)</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
 <ul>
@@ -213,11 +228,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a></li>
-<li class="chapter" data-level="6.5" data-path="tbat-모델.html"><a href="tbat-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBAT 모델</a></li>
+<li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
 <li class="chapter" data-level="6.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.6</b> Neural Network 모델</a></li>
 <li class="chapter" data-level="6.7" data-path="bootstrapping과-begging-모델.html"><a href="bootstrapping과-begging-모델.html"><i class="fa fa-check"></i><b>6.7</b> Bootstrapping과 Begging 모델</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-성능-분석.html"><a href="시계열-forecasting-part-iii-성능-분석.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 성능 분석</a></li>
+<li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fable.html"><a href="fable.html"><i class="fa fa-check"></i><b>7.1</b> fable</a></li>
+<li class="chapter" data-level="7.2" data-path="modeltime-1.html"><a href="modeltime-1.html"><i class="fa fa-check"></i><b>7.2</b> modeltime</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeltime-1.html"><a href="modeltime-1.html#linear_reg-함수tidymodels-parsnip-modeltime-패키지"><i class="fa fa-check"></i><b>7.2.1</b> linear_reg 함수(tidymodels, parsnip, modeltime 패키지)</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -243,7 +265,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="지수-평활exponential-smoothing-모델" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> 지수 평활(Exponential Smoothing) 모델</h2>
-<p>지수평활 모델은 1950년대에 제안된 모델로 랜덤 워크(Random Walk) 모델과 같이 시계열 적으로 최근의 값이 유지될 확률이 크다는 점에서 나온 모델이다. 다만 랜덤 워크 모델과 같이 마지막 값에 모든 가중치를 둬서 일정하게 유지하는 것이 아닌 현재와 가까운 과거에 더 많은 가중치를 주고 이들의 이동 평균값을 구해서 예측하는 방법이다.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<p>지수평활 모델은 1950년대에 제안된 모델로 랜덤 워크(Random Walk) 모델과 같이 시계열 적으로 최근의 값이 유지될 확률이 크다는 점에서 나온 모델이다. 다만 랜덤 워크 모델과 같이 마지막 값에 모든 가중치를 둬서 일정하게 유지하는 것이 아닌 현재와 가까운 과거에 더 많은 가중치를 주고 이들의 이동 평균값을 구해서 예측하는 방법이다.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
 <p>최근의 데이터에 가중치를 높게 주기 때문에 추세, 계절성, 순환성이 심하지 않은 단기 데이터의 모델링에 적합한 방법이다. 추세나 계절성이 없는 데이터에 적합한 ’단순 지수평활 모델(Simple Exponential Smoothign), 추세가 있는 데이터에 적합한 홀트(Holt) 모델, 추세와 계절성이 있는 데이터에 적합한 홀트-윈터(Holt-Winter) 모델 등이 있다.</p>
 <p>지수 평활 모델에서 핵심적인 변수는 평활 계수이다. 평활 매개변수는 앞서 설명한 현재와 가까운 과거에 할당하는 가중치를 의미한다. 평활 매개변수은 보통 0에서 1사이의 변수인데 홀트 모델이나 홀트-윈터 모델에서는 추가적인 계수가 추가될 수 있다. 이고 이 가중치를 어떻게 설정하는 가에 따라 예측 모델의 성능도 달라질 수 있다.</p>
 <p>필자는 처음 이 모델을 접했을때 왜 지수(Exponential)과 평활(Smoothing) 이라는 이름을 사용했는지 궁금했다. 평활 매개변수를 설명하는 과정에서 명칭에서 지수를 붙인 이유는 설명이 되겠지만 아직도 평활이라는 이름을 붙인 이유는 명쾌하게 이해되지는 않는다. 시계열 데이터에 대한 추세선을 부드럽게, 스무딩하게 만드는 모델이라고 생각이 되나 사실 홀트-윈터 모델을 보면 별로 부드럽지 않다는 느낌이 들어서 이 부분에 대해 잘 아시는 분은 알려주시길 부탁드린다.</p>
@@ -283,9 +305,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 <div id="forecastses-함수" class="section level4" number="6.3.1.1">
 <h4><span class="header-section-number">6.3.1.1</span> forecast::ses() 함수</h4>
-<p>단순 지수 평활 모델을 적용하는 방법은 forecast 패키지의 ses() 함수를 사용하면 모델을 구축할 수 있다. ses() 함수에서는 평활 계수를 alpha 매개변수를 통해 설정할 수 있지만 설정하지 않으면 자동으로 계산하여 설정해준다. ses() 함수는 뒤에서 설명하는 홀트 모델, 홀트-윈터 모델도 beta와 gamma 매개변수를 통해 생성할 수 있다. ses() 함수를 통해 생성되는 모델은 몇가지 특성값을 가지는데 앞에서 설명한 평활계수가 alpha로 표현되고 초기상태값인 l 값이 나타난다. 단순 지수 평활 모델은 한단계씩 예측해나가는 방법(One Step Forecast)이기 때문에 초기값인 l값부터 시작하여 한단계 앞 값을 예측하고 또 다음 단계를 예측하는 방법으로 수행된다. l 값을 산출하는 방법은 Rob Hyndman의 저서에서 확인할 수 있다.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> 이는 ses() 모델을 summary() 함수를 통해 실행시키면 확인이 가능하다.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="지수-평활exponential-smoothing-모델.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수에 대한 Simple Exponential Smoothing</span></span>
-<span id="cb83-2"><a href="지수-평활exponential-smoothing-모델.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>])</span></code></pre></div>
+<p>단순 지수 평활 모델을 적용하는 방법은 forecast 패키지의 ses() 함수를 사용하면 모델을 구축할 수 있다. ses() 함수에서는 평활 계수를 alpha 매개변수를 통해 설정할 수 있지만 설정하지 않으면 자동으로 계산하여 설정해준다. ses() 함수는 뒤에서 설명하는 홀트 모델, 홀트-윈터 모델도 beta와 gamma 매개변수를 통해 생성할 수 있다. ses() 함수를 통해 생성되는 모델은 몇가지 특성값을 가지는데 앞에서 설명한 평활계수가 alpha로 표현되고 초기상태값인 l 값이 나타난다. 단순 지수 평활 모델은 한단계씩 예측해나가는 방법(One Step Forecast)이기 때문에 초기값인 l값부터 시작하여 한단계 앞 값을 예측하고 또 다음 단계를 예측하는 방법으로 수행된다. l 값을 산출하는 방법은 Rob Hyndman의 저서에서 확인할 수 있다.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> 이는 ses() 모델을 summary() 함수를 통해 실행시키면 확인이 가능하다.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="지수-평활exponential-smoothing-모델.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수에 대한 Simple Exponential Smoothing</span></span>
+<span id="cb81-2"><a href="지수-평활exponential-smoothing-모델.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>])</span></code></pre></div>
 <pre><code>##      Point Forecast   Lo 80   Hi 80   Lo 95   Hi 95
 ## 2021        5995252 5786909 6203594 5676619 6313884
 ## 2022        5995252 5700626 6289878 5544660 6445843
@@ -297,11 +319,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2028        5995252 5406022 6584481 5094103 6896401
 ## 2029        5995252 5370280 6620223 5039440 6951063
 ## 2030        5995252 5336474 6654029 4987739 7002765</code></pre>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="지수-평활exponential-smoothing-모델.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(students.total.ts[,<span class="dv">1</span>]) <span class="sc">+</span> </span>
-<span id="cb85-2"><a href="지수-평활exponential-smoothing-모델.html#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>])), <span class="at">series =</span> <span class="st">&#39;ses 적합값&#39;</span>) <span class="sc">+</span></span>
-<span id="cb85-3"><a href="지수-평활exponential-smoothing-모델.html#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="지수-평활exponential-smoothing-모델.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(students.total.ts[,<span class="dv">1</span>]) <span class="sc">+</span> </span>
+<span id="cb83-2"><a href="지수-평활exponential-smoothing-모델.html#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>])), <span class="at">series =</span> <span class="st">&#39;ses 적합값&#39;</span>) <span class="sc">+</span></span>
+<span id="cb83-3"><a href="지수-평활exponential-smoothing-모델.html#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>]))</span></code></pre></div>
 <p><img src="t_files/figure-html/ses-1.png" width="672" /></p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="지수-평활exponential-smoothing-모델.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="지수-평활exponential-smoothing-모델.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>]))</span></code></pre></div>
 <pre><code>## 
 ## Forecast method: Simple exponential smoothing
 ## 
@@ -338,7 +360,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2028        5995252 5406022 6584481 5094103 6896401
 ## 2029        5995252 5370280 6620223 5039440 6951063
 ## 2030        5995252 5336474 6654029 4987739 7002765</code></pre>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="지수-평활exponential-smoothing-모델.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="지수-평활exponential-smoothing-모델.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>##      Point Forecast   Lo 80   Hi 80   Lo 95   Hi 95
 ## 2021        6143847 5780270 6507425 5587804 6699891
 ## 2022        6143847 5737355 6550339 5522172 6765523
@@ -350,46 +372,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2028        6143847 5540922 6746772 5221753 7065941
 ## 2029        6143847 5514113 6773582 5180752 7106943
 ## 2030        6143847 5488399 6799296 5141425 7146269</code></pre>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="지수-평활exponential-smoothing-모델.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="지수-평활exponential-smoothing-모델.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/ses-2.png" width="672" /></p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="지수-평활exponential-smoothing-모델.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체  취업자수에 대한 Simple Exponential Smoothing</span></span>
-<span id="cb91-2"><a href="지수-평활exponential-smoothing-모델.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
-<span id="cb91-3"><a href="지수-평활exponential-smoothing-모델.html#cb91-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(employees.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;ses 적합값&#39;</span>) <span class="sc">+</span></span>
-<span id="cb91-4"><a href="지수-평활exponential-smoothing-모델.html#cb91-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="지수-평활exponential-smoothing-모델.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체  취업자수에 대한 Simple Exponential Smoothing</span></span>
+<span id="cb89-2"><a href="지수-평활exponential-smoothing-모델.html#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
+<span id="cb89-3"><a href="지수-평활exponential-smoothing-모델.html#cb89-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(employees.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;ses 적합값&#39;</span>) <span class="sc">+</span></span>
+<span id="cb89-4"><a href="지수-평활exponential-smoothing-모델.html#cb89-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
 <p><img src="t_files/figure-html/ses-3.png" width="672" /></p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="지수-평활exponential-smoothing-모델.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 신규확진자수(0-9세)에 대한 Simple Exponential Smoothing</span></span>
-<span id="cb92-2"><a href="지수-평활exponential-smoothing-모델.html#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
-<span id="cb92-3"><a href="지수-평활exponential-smoothing-모델.html#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;ses 적합값&#39;</span>) <span class="sc">+</span></span>
-<span id="cb92-4"><a href="지수-평활exponential-smoothing-모델.html#cb92-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="지수-평활exponential-smoothing-모델.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 신규확진자수(0-9세)에 대한 Simple Exponential Smoothing</span></span>
+<span id="cb90-2"><a href="지수-평활exponential-smoothing-모델.html#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
+<span id="cb90-3"><a href="지수-평활exponential-smoothing-모델.html#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;ses 적합값&#39;</span>) <span class="sc">+</span></span>
+<span id="cb90-4"><a href="지수-평활exponential-smoothing-모델.html#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]))</span></code></pre></div>
 <p><img src="t_files/figure-html/ses-4.png" width="672" /></p>
-<p>평활 계수가 클수록 데이터 변화에 빠르게 반응하여 예측의 감응도가 높지만 평활계수가 작으면 데이터의 변화에 느리게 반응하여 예측의 안정성이 높아진다<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="지수-평활exponential-smoothing-모델.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수의 alpha 값에 따른 적합치와 예측치의 변화</span></span>
-<span id="cb93-2"><a href="지수-평활exponential-smoothing-모델.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">color =</span> <span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-3"><a href="지수-평활exponential-smoothing-모델.html#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.1</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.1&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-4"><a href="지수-평활exponential-smoothing-모델.html#cb93-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.1&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-5"><a href="지수-평활exponential-smoothing-모델.html#cb93-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.2</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.2&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb93-6"><a href="지수-평활exponential-smoothing-모델.html#cb93-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.2&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-7"><a href="지수-평활exponential-smoothing-모델.html#cb93-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.3</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.3&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-8"><a href="지수-평활exponential-smoothing-모델.html#cb93-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.3&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-9"><a href="지수-평활exponential-smoothing-모델.html#cb93-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.4</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.4&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-10"><a href="지수-평활exponential-smoothing-모델.html#cb93-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.4&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-11"><a href="지수-평활exponential-smoothing-모델.html#cb93-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.5</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.5&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-12"><a href="지수-평활exponential-smoothing-모델.html#cb93-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.5&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-13"><a href="지수-평활exponential-smoothing-모델.html#cb93-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.6</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.6&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-14"><a href="지수-평활exponential-smoothing-모델.html#cb93-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.6&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-15"><a href="지수-평활exponential-smoothing-모델.html#cb93-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.7</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.7&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-16"><a href="지수-평활exponential-smoothing-모델.html#cb93-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.7&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-17"><a href="지수-평활exponential-smoothing-모델.html#cb93-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.8</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.8&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-18"><a href="지수-평활exponential-smoothing-모델.html#cb93-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.8&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-19"><a href="지수-평활exponential-smoothing-모델.html#cb93-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.9</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.9&#39;</span>) <span class="sc">+</span></span>
-<span id="cb93-20"><a href="지수-평활exponential-smoothing-모델.html#cb93-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.9</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.9&#39;</span>)</span></code></pre></div>
+<p>평활 계수가 클수록 데이터 변화에 빠르게 반응하여 예측의 감응도가 높지만 평활계수가 작으면 데이터의 변화에 느리게 반응하여 예측의 안정성이 높아진다<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="지수-평활exponential-smoothing-모델.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수의 alpha 값에 따른 적합치와 예측치의 변화</span></span>
+<span id="cb91-2"><a href="지수-평활exponential-smoothing-모델.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">color =</span> <span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-3"><a href="지수-평활exponential-smoothing-모델.html#cb91-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.1</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.1&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-4"><a href="지수-평활exponential-smoothing-모델.html#cb91-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.1&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-5"><a href="지수-평활exponential-smoothing-모델.html#cb91-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.2</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.2&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb91-6"><a href="지수-평활exponential-smoothing-모델.html#cb91-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.2&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-7"><a href="지수-평활exponential-smoothing-모델.html#cb91-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.3</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.3&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-8"><a href="지수-평활exponential-smoothing-모델.html#cb91-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.3&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-9"><a href="지수-평활exponential-smoothing-모델.html#cb91-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.4</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.4&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-10"><a href="지수-평활exponential-smoothing-모델.html#cb91-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.4</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.4&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-11"><a href="지수-평활exponential-smoothing-모델.html#cb91-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.5</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.5&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-12"><a href="지수-평활exponential-smoothing-모델.html#cb91-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.5&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-13"><a href="지수-평활exponential-smoothing-모델.html#cb91-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.6</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.6&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-14"><a href="지수-평활exponential-smoothing-모델.html#cb91-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.6&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-15"><a href="지수-평활exponential-smoothing-모델.html#cb91-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.7</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.7&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-16"><a href="지수-평활exponential-smoothing-모델.html#cb91-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.7&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-17"><a href="지수-평활exponential-smoothing-모델.html#cb91-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.8</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.8&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-18"><a href="지수-평활exponential-smoothing-모델.html#cb91-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.8</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.8&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-19"><a href="지수-평활exponential-smoothing-모델.html#cb91-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.9</span>)), <span class="at">series =</span> <span class="st">&#39;alpha = 0.9&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-20"><a href="지수-평활exponential-smoothing-모델.html#cb91-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">ses</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.9</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>), <span class="at">series =</span> <span class="st">&#39;alpha = 0.9&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/ses_alpha-1.png" width="672" /></p>
 </div>
 <div id="statsholtwinters-함수" class="section level4" number="6.3.1.2">
 <h4><span class="header-section-number">6.3.1.2</span> stats::HoltWinters() 함수</h4>
 <p>R에서 기초 통계 패키지로 제공하는 stat 패키지에서 지수 평활 모델을 구축할 수 있는 HoltWinters() 함수를 제공한다. 다음절에서 소개하겠지만 HoltWinter 모델은 지수 평활 모델에서 추세와 계절성을 가진 데이터를 대상으로 구축하는 모델이다. 하지만 stats 패키지에서는 HoltWinters() 함수에 매개변수를 조절함으로써 단순지수평활 모델, 홀트 모델, 홀트-윈터 모델을 각각 구축할 수 있다. HoltWinters() 함수의 beta(추세), gamma(계절성) 매개변수를 모두 FALSE로 설정함으로써 단순 지수 평활 모델을 구축할 수 있다. 계산방식의 차이로 인해 forecast::ses() 함수와는 다소 차이가 난다.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="지수-평활exponential-smoothing-모델.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수에 대한 Simple Exponential Smoothing modeling</span></span>
-<span id="cb94-2"><a href="지수-평활exponential-smoothing-모델.html#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">beta =</span> F, <span class="at">gamma =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="지수-평활exponential-smoothing-모델.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수에 대한 Simple Exponential Smoothing modeling</span></span>
+<span id="cb92-2"><a href="지수-평활exponential-smoothing-모델.html#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">beta =</span> F, <span class="at">gamma =</span> F)</span></code></pre></div>
 <pre><code>## Holt-Winters exponential smoothing without trend and without seasonal component.
 ## 
 ## Call:
@@ -403,9 +425,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Coefficients:
 ##      [,1]
 ## a 5995244</code></pre>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="지수-평활exponential-smoothing-모델.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">beta =</span> F, <span class="at">gamma =</span> F))</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="지수-평활exponential-smoothing-모델.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">beta =</span> F, <span class="at">gamma =</span> F))</span></code></pre></div>
 <p><img src="t_files/figure-html/simple_holtwinters-1.png" width="672" /></p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="지수-평활exponential-smoothing-모델.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">beta =</span> F, <span class="at">gamma =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="지수-평활exponential-smoothing-모델.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">beta =</span> F, <span class="at">gamma =</span> F)</span></code></pre></div>
 <pre><code>## Holt-Winters exponential smoothing without trend and without seasonal component.
 ## 
 ## Call:
@@ -419,28 +441,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Coefficients:
 ##      [,1]
 ## a 7207200</code></pre>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="지수-평활exponential-smoothing-모델.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">beta =</span> F, <span class="at">gamma =</span> F))</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="지수-평활exponential-smoothing-모델.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">beta =</span> F, <span class="at">gamma =</span> F))</span></code></pre></div>
 <p><img src="t_files/figure-html/simple_holtwinters-2.png" width="672" /></p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="지수-평활exponential-smoothing-모델.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체  취업자수에 대한 Simple Exponential Smoothing modeling</span></span>
-<span id="cb100-2"><a href="지수-평활exponential-smoothing-모델.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> F, <span class="at">gamma =</span> F))</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="지수-평활exponential-smoothing-모델.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체  취업자수에 대한 Simple Exponential Smoothing modeling</span></span>
+<span id="cb98-2"><a href="지수-평활exponential-smoothing-모델.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> F, <span class="at">gamma =</span> F))</span></code></pre></div>
 <p><img src="t_files/figure-html/simple_holtwinters-3.png" width="672" /></p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="지수-평활exponential-smoothing-모델.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 신규확진자수(0-9세)에 대한 Simple Exponential Smoothing modeling</span></span>
-<span id="cb101-2"><a href="지수-평활exponential-smoothing-모델.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>], <span class="at">beta =</span> F, <span class="at">gamma =</span> F))</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="지수-평활exponential-smoothing-모델.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 신규확진자수(0-9세)에 대한 Simple Exponential Smoothing modeling</span></span>
+<span id="cb99-2"><a href="지수-평활exponential-smoothing-모델.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>], <span class="at">beta =</span> F, <span class="at">gamma =</span> F))</span></code></pre></div>
 <p><img src="t_files/figure-html/simple_holtwinters-4.png" width="672" /></p>
 </div>
 </div>
 <div id="홀트holt-모델" class="section level3" number="6.3.2">
 <h3><span class="header-section-number">6.3.2</span> 홀트(Holt) 모델</h3>
 <p>홀트(holt) 모델은 지수 평활 모델을 확장하여 추세를 반영하는 모델이다. 홀트 모델은 추세조정 지수평활법이나 이중 지수 평활법으로 해석되기도 한다. 추세를 반영하기 위해 평활 계수인 alpha와 추세 기울기 값 beta를 사용하여 모델을 세운다. 평활 계수 값과 마찬가지로 추세 기울기 값도 0과 1사이의 값을 지니고 이 값을 반영한 이동평균을 통해 예측값을 산출한다.</p>
-<div id="forecastses-함수-1" class="section level4" number="6.3.2.1">
-<h4><span class="header-section-number">6.3.2.1</span> forecast::ses() 함수</h4>
+<div id="forecastholt-함수" class="section level4" number="6.3.2.1">
+<h4><span class="header-section-number">6.3.2.1</span> forecast::holt() 함수</h4>
 <p>홀트 모델은 앞선 단순 지수 평활 모델에 사용했던 ses() 함수에 추세 기울기 값인 beta 값을 추가하여 사용할 수도 있고 forecast 패키지에서 제공하는 holt() 함수를 사용하여 모델을 생성할 수도 있다. 다만 alpha, beta 등의 매개변수를 지정하지 않으면 자동 계산되어 적절한 값이 사용된다.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="지수-평활exponential-smoothing-모델.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수에 대한 Holt modeling</span></span>
-<span id="cb102-2"><a href="지수-평활exponential-smoothing-모델.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(students.total.ts[,<span class="dv">1</span>]) <span class="sc">+</span> </span>
-<span id="cb102-3"><a href="지수-평활exponential-smoothing-모델.html#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>])), <span class="at">series =</span> <span class="st">&#39;적합값&#39;</span>) <span class="sc">+</span></span>
-<span id="cb102-4"><a href="지수-평활exponential-smoothing-모델.html#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>]), <span class="at">series =</span> <span class="st">&#39;예측값&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="지수-평활exponential-smoothing-모델.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수에 대한 Holt modeling</span></span>
+<span id="cb100-2"><a href="지수-평활exponential-smoothing-모델.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(students.total.ts[,<span class="dv">1</span>]) <span class="sc">+</span> </span>
+<span id="cb100-3"><a href="지수-평활exponential-smoothing-모델.html#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>])), <span class="at">series =</span> <span class="st">&#39;적합값&#39;</span>) <span class="sc">+</span></span>
+<span id="cb100-4"><a href="지수-평활exponential-smoothing-모델.html#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>]), <span class="at">series =</span> <span class="st">&#39;예측값&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/holt-1.png" width="672" /></p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="지수-평활exponential-smoothing-모델.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="지수-평활exponential-smoothing-모델.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>]))</span></code></pre></div>
 <pre><code>## 
 ## Forecast method: Holt&#39;s method
 ## 
@@ -464,10 +486,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 571.4867 575.2367 576.9419 
 ## 
 ## Error measures:
-##                     ME     RMSE      MAE        MPE      MAPE     MASE
-## Training set -5106.807 74275.76 46971.89 -0.0472354 0.5836661 0.365499
-##                     ACF1
-## Training set -0.00685211
+##                     ME     RMSE      MAE        MPE      MAPE     MASE        ACF1
+## Training set -5106.807 74275.76 46971.89 -0.0472354 0.5836661 0.365499 -0.00685211
 ## 
 ## Forecasts:
 ##      Point Forecast   Lo 80   Hi 80   Lo 95   Hi 95
@@ -481,61 +501,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2028        4916397 3614582 6218212 2925443 6907352
 ## 2029        4782235 3243885 6320586 2429531 7134940
 ## 2030        4648073 2860364 6435783 1914007 7382139</code></pre>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="지수-평활exponential-smoothing-모델.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체  취업자수에 대한 Holt modeling</span></span>
-<span id="cb105-2"><a href="지수-평활exponential-smoothing-모델.html#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
-<span id="cb105-3"><a href="지수-평활exponential-smoothing-모델.html#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;적합값&#39;</span>) <span class="sc">+</span></span>
-<span id="cb105-4"><a href="지수-평활exponential-smoothing-모델.html#cb105-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>]), <span class="at">series =</span> <span class="st">&#39;예측값&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="지수-평활exponential-smoothing-모델.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체  취업자수에 대한 Holt modeling</span></span>
+<span id="cb103-2"><a href="지수-평활exponential-smoothing-모델.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
+<span id="cb103-3"><a href="지수-평활exponential-smoothing-모델.html#cb103-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;적합값&#39;</span>) <span class="sc">+</span></span>
+<span id="cb103-4"><a href="지수-평활exponential-smoothing-모델.html#cb103-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>]), <span class="at">series =</span> <span class="st">&#39;예측값&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/holt-2.png" width="672" /></p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="지수-평활exponential-smoothing-모델.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 교육서비스업  취업자수에 대한 Holt modeling</span></span>
-<span id="cb106-2"><a href="지수-평활exponential-smoothing-모델.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">3</span>]) <span class="sc">+</span> </span>
-<span id="cb106-3"><a href="지수-평활exponential-smoothing-모델.html#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">3</span>])), <span class="at">series =</span> <span class="st">&#39;적합값&#39;</span>) <span class="sc">+</span></span>
-<span id="cb106-4"><a href="지수-평활exponential-smoothing-모델.html#cb106-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">3</span>]), <span class="at">series =</span> <span class="st">&#39;예측값&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="지수-평활exponential-smoothing-모델.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 교육서비스업  취업자수에 대한 Holt modeling</span></span>
+<span id="cb104-2"><a href="지수-평활exponential-smoothing-모델.html#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">3</span>]) <span class="sc">+</span> </span>
+<span id="cb104-3"><a href="지수-평활exponential-smoothing-모델.html#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">3</span>])), <span class="at">series =</span> <span class="st">&#39;적합값&#39;</span>) <span class="sc">+</span></span>
+<span id="cb104-4"><a href="지수-평활exponential-smoothing-모델.html#cb104-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">3</span>]), <span class="at">series =</span> <span class="st">&#39;예측값&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/holt-3.png" width="672" /></p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="지수-평활exponential-smoothing-모델.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 신규확진자수(0-9세)에 대한 Holt modeling</span></span>
-<span id="cb107-2"><a href="지수-평활exponential-smoothing-모델.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
-<span id="cb107-3"><a href="지수-평활exponential-smoothing-모델.html#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;적합값&#39;</span>) <span class="sc">+</span></span>
-<span id="cb107-4"><a href="지수-평활exponential-smoothing-모델.html#cb107-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]), <span class="at">series =</span> <span class="st">&#39;예측값&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="지수-평활exponential-smoothing-모델.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 신규확진자수(0-9세)에 대한 Holt modeling</span></span>
+<span id="cb105-2"><a href="지수-평활exponential-smoothing-모델.html#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
+<span id="cb105-3"><a href="지수-평활exponential-smoothing-모델.html#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;적합값&#39;</span>) <span class="sc">+</span></span>
+<span id="cb105-4"><a href="지수-평활exponential-smoothing-모델.html#cb105-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]), <span class="at">series =</span> <span class="st">&#39;예측값&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/holt-4.png" width="672" /></p>
 <p>홀트 모델은 위와 같이 일정한 증가, 감소가 나타난다. 추세가 증가 추세이면 예측값이 계속 증가하게 되고 감소추세이면 계속 감소하게 된다. 특히 감소추세 일때 계속 감소하면 어느 순간 음수값을 가질수도 있다. 따라서 감소 추세가 있는 경우 어느정도에서 감소추세를 지연시킬 필요가 있다. holt() 함수에서는 damped 매개변수를 통해 감소추세를 지연시킬 수 있다.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="지수-평활exponential-smoothing-모델.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수에 대한 Holt modeling 비교</span></span>
-<span id="cb108-2"><a href="지수-평활exponential-smoothing-모델.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(students.total.ts[,<span class="dv">1</span>]) <span class="sc">+</span> </span>
-<span id="cb108-3"><a href="지수-평활exponential-smoothing-모델.html#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>])), <span class="at">series =</span> <span class="st">&#39;holt&#39;</span>) <span class="sc">+</span></span>
-<span id="cb108-4"><a href="지수-평활exponential-smoothing-모델.html#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">damped =</span> <span class="cn">TRUE</span>)), <span class="at">series =</span> <span class="st">&#39;holt damped&#39;</span>) <span class="sc">+</span></span>
-<span id="cb108-5"><a href="지수-평활exponential-smoothing-모델.html#cb108-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>]), <span class="at">series =</span> <span class="st">&#39;예측&#39;</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb108-6"><a href="지수-평활exponential-smoothing-모델.html#cb108-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">damped =</span> <span class="cn">TRUE</span>), <span class="at">series =</span> <span class="st">&#39;damped 예측&#39;</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="지수-평활exponential-smoothing-모델.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수에 대한 Holt modeling 비교</span></span>
+<span id="cb106-2"><a href="지수-평활exponential-smoothing-모델.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(students.total.ts[,<span class="dv">1</span>]) <span class="sc">+</span> </span>
+<span id="cb106-3"><a href="지수-평활exponential-smoothing-모델.html#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>])), <span class="at">series =</span> <span class="st">&#39;holt&#39;</span>) <span class="sc">+</span></span>
+<span id="cb106-4"><a href="지수-평활exponential-smoothing-모델.html#cb106-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">damped =</span> <span class="cn">TRUE</span>)), <span class="at">series =</span> <span class="st">&#39;holt damped&#39;</span>) <span class="sc">+</span></span>
+<span id="cb106-5"><a href="지수-평활exponential-smoothing-모델.html#cb106-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>]), <span class="at">series =</span> <span class="st">&#39;예측&#39;</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb106-6"><a href="지수-평활exponential-smoothing-모델.html#cb106-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">damped =</span> <span class="cn">TRUE</span>), <span class="at">series =</span> <span class="st">&#39;damped 예측&#39;</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/holt_damped-1.png" width="672" /></p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="지수-평활exponential-smoothing-모델.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체  취업자수에 대한 Holt modeling 비교</span></span>
-<span id="cb109-2"><a href="지수-평활exponential-smoothing-모델.html#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
-<span id="cb109-3"><a href="지수-평활exponential-smoothing-모델.html#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;holt&#39;</span>) <span class="sc">+</span></span>
-<span id="cb109-4"><a href="지수-평활exponential-smoothing-모델.html#cb109-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">damped =</span> <span class="cn">TRUE</span>)), <span class="at">series =</span> <span class="st">&#39;holt damped&#39;</span>) <span class="sc">+</span></span>
-<span id="cb109-5"><a href="지수-평활exponential-smoothing-모델.html#cb109-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>]), <span class="at">series =</span> <span class="st">&#39;예측&#39;</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb109-6"><a href="지수-평활exponential-smoothing-모델.html#cb109-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">damped =</span> <span class="cn">TRUE</span>), <span class="at">series =</span> <span class="st">&#39;damped 예측&#39;</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="지수-평활exponential-smoothing-모델.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체  취업자수에 대한 Holt modeling 비교</span></span>
+<span id="cb107-2"><a href="지수-평활exponential-smoothing-모델.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
+<span id="cb107-3"><a href="지수-평활exponential-smoothing-모델.html#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;holt&#39;</span>) <span class="sc">+</span></span>
+<span id="cb107-4"><a href="지수-평활exponential-smoothing-모델.html#cb107-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">damped =</span> <span class="cn">TRUE</span>)), <span class="at">series =</span> <span class="st">&#39;holt damped&#39;</span>) <span class="sc">+</span></span>
+<span id="cb107-5"><a href="지수-평활exponential-smoothing-모델.html#cb107-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>]), <span class="at">series =</span> <span class="st">&#39;예측&#39;</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb107-6"><a href="지수-평활exponential-smoothing-모델.html#cb107-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">damped =</span> <span class="cn">TRUE</span>), <span class="at">series =</span> <span class="st">&#39;damped 예측&#39;</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/holt_damped-2.png" width="672" /></p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="지수-평활exponential-smoothing-모델.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 신규확진자수(0-9세)에 대한 Holt modeling 비교</span></span>
-<span id="cb110-2"><a href="지수-평활exponential-smoothing-모델.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
-<span id="cb110-3"><a href="지수-평활exponential-smoothing-모델.html#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;holt&#39;</span>) <span class="sc">+</span></span>
-<span id="cb110-4"><a href="지수-평활exponential-smoothing-모델.html#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>], <span class="at">damped =</span> <span class="cn">TRUE</span>)), <span class="at">series =</span> <span class="st">&#39;holt damped&#39;</span>) <span class="sc">+</span></span>
-<span id="cb110-5"><a href="지수-평활exponential-smoothing-모델.html#cb110-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">20</span>), <span class="at">series =</span> <span class="st">&#39;예측&#39;</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
-<span id="cb110-6"><a href="지수-평활exponential-smoothing-모델.html#cb110-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">20</span>, <span class="at">damped =</span> <span class="cn">TRUE</span>), <span class="at">series =</span> <span class="st">&#39;damped 예측&#39;</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="지수-평활exponential-smoothing-모델.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 신규확진자수(0-9세)에 대한 Holt modeling 비교</span></span>
+<span id="cb108-2"><a href="지수-평활exponential-smoothing-모델.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
+<span id="cb108-3"><a href="지수-평활exponential-smoothing-모델.html#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;holt&#39;</span>) <span class="sc">+</span></span>
+<span id="cb108-4"><a href="지수-평활exponential-smoothing-모델.html#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>], <span class="at">damped =</span> <span class="cn">TRUE</span>)), <span class="at">series =</span> <span class="st">&#39;holt damped&#39;</span>) <span class="sc">+</span></span>
+<span id="cb108-5"><a href="지수-평활exponential-smoothing-모델.html#cb108-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">20</span>), <span class="at">series =</span> <span class="st">&#39;예측&#39;</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb108-6"><a href="지수-평활exponential-smoothing-모델.html#cb108-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">holt</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">20</span>, <span class="at">damped =</span> <span class="cn">TRUE</span>), <span class="at">series =</span> <span class="st">&#39;damped 예측&#39;</span>, <span class="at">PI =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/holt_damped-3.png" width="672" /></p>
 <p>추세 기울기 값에 따른 변동은 아래 plot과 같이 나타난다. 사실상 추세 기울기 값은 결과값에 큰 차이를 나타내지 않는다.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="지수-평활exponential-smoothing-모델.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
-<span id="cb111-2"><a href="지수-평활exponential-smoothing-모델.html#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.1</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.1&#39;</span>) <span class="sc">+</span></span>
-<span id="cb111-3"><a href="지수-평활exponential-smoothing-모델.html#cb111-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.2</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.2&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb111-4"><a href="지수-평활exponential-smoothing-모델.html#cb111-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.3</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.3&#39;</span>) <span class="sc">+</span></span>
-<span id="cb111-5"><a href="지수-평활exponential-smoothing-모델.html#cb111-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.4</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.4&#39;</span>) <span class="sc">+</span></span>
-<span id="cb111-6"><a href="지수-평활exponential-smoothing-모델.html#cb111-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.5</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.5&#39;</span>) <span class="sc">+</span></span>
-<span id="cb111-7"><a href="지수-평활exponential-smoothing-모델.html#cb111-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.6</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.6&#39;</span>) <span class="sc">+</span></span>
-<span id="cb111-8"><a href="지수-평활exponential-smoothing-모델.html#cb111-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.7</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.7&#39;</span>) <span class="sc">+</span></span>
-<span id="cb111-9"><a href="지수-평활exponential-smoothing-모델.html#cb111-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.8</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.8&#39;</span>) <span class="sc">+</span></span>
-<span id="cb111-10"><a href="지수-평활exponential-smoothing-모델.html#cb111-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.9</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.9&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="지수-평활exponential-smoothing-모델.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
+<span id="cb109-2"><a href="지수-평활exponential-smoothing-모델.html#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.1</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.1&#39;</span>) <span class="sc">+</span></span>
+<span id="cb109-3"><a href="지수-평활exponential-smoothing-모델.html#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.2</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.2&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb109-4"><a href="지수-평활exponential-smoothing-모델.html#cb109-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.3</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.3&#39;</span>) <span class="sc">+</span></span>
+<span id="cb109-5"><a href="지수-평활exponential-smoothing-모델.html#cb109-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.4</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.4&#39;</span>) <span class="sc">+</span></span>
+<span id="cb109-6"><a href="지수-평활exponential-smoothing-모델.html#cb109-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.5</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.5&#39;</span>) <span class="sc">+</span></span>
+<span id="cb109-7"><a href="지수-평활exponential-smoothing-모델.html#cb109-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.6</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.6&#39;</span>) <span class="sc">+</span></span>
+<span id="cb109-8"><a href="지수-평활exponential-smoothing-모델.html#cb109-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.7</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.7&#39;</span>) <span class="sc">+</span></span>
+<span id="cb109-9"><a href="지수-평활exponential-smoothing-모델.html#cb109-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.8</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.8&#39;</span>) <span class="sc">+</span></span>
+<span id="cb109-10"><a href="지수-평활exponential-smoothing-모델.html#cb109-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">holt</span>(employees.ts[,<span class="dv">2</span>], <span class="at">beta =</span> <span class="fl">0.9</span>)), <span class="at">series =</span> <span class="st">&#39;beta = 0.9&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/holt_beta-1.png" width="672" /></p>
 </div>
 <div id="statsholtwinters-함수-1" class="section level4" number="6.3.2.2">
 <h4><span class="header-section-number">6.3.2.2</span> stats::HoltWinters() 함수</h4>
 <p>앞서 설명한 바와 같이 R에서 기초 통계 패키지로 제공하는 stat 패키지에서 홀트 모델을 구축하기 위해서는 HoltWinters() 함수를 제공한다. stats 패키지의 HoltWinters() 함수 매개변수인 gamma(계절성) 매개변수를 FALSE로 설정함으로써 홀트 모델을 구축할 수 있다. 계산방식의 차이로 인해 forecast::holt() 함수와는 다소 차이가 난다.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="지수-평활exponential-smoothing-모델.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수에 대한 Holt modeling</span></span>
-<span id="cb112-2"><a href="지수-평활exponential-smoothing-모델.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">gamma =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="지수-평활exponential-smoothing-모델.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수에 대한 Holt modeling</span></span>
+<span id="cb110-2"><a href="지수-평활exponential-smoothing-모델.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">gamma =</span> F)</span></code></pre></div>
 <pre><code>## Holt-Winters exponential smoothing with trend and without seasonal component.
 ## 
 ## Call:
@@ -550,9 +570,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##      [,1]
 ## a 5995239
 ## b -122491</code></pre>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="지수-평활exponential-smoothing-모델.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">gamma =</span> F))</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="지수-평활exponential-smoothing-모델.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">gamma =</span> F))</span></code></pre></div>
 <p><img src="t_files/figure-html/holt_holtwinters-1.png" width="672" /></p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="지수-평활exponential-smoothing-모델.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">gamma =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="지수-평활exponential-smoothing-모델.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">gamma =</span> F)</span></code></pre></div>
 <pre><code>## Holt-Winters exponential smoothing with trend and without seasonal component.
 ## 
 ## Call:
@@ -567,13 +587,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##      [,1]
 ## a 5671013
 ## b -257528</code></pre>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="지수-평활exponential-smoothing-모델.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">gamma =</span> F))</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="지수-평활exponential-smoothing-모델.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">gamma =</span> F))</span></code></pre></div>
 <p><img src="t_files/figure-html/holt_holtwinters-2.png" width="672" /></p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="지수-평활exponential-smoothing-모델.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체  취업자수에 대한 Holt modeling</span></span>
-<span id="cb118-2"><a href="지수-평활exponential-smoothing-모델.html#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(employees.ts[,<span class="dv">2</span>], <span class="at">gamma =</span> F))</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="지수-평활exponential-smoothing-모델.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체  취업자수에 대한 Holt modeling</span></span>
+<span id="cb116-2"><a href="지수-평활exponential-smoothing-모델.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(employees.ts[,<span class="dv">2</span>], <span class="at">gamma =</span> F))</span></code></pre></div>
 <p><img src="t_files/figure-html/holt_holtwinters-3.png" width="672" /></p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="지수-평활exponential-smoothing-모델.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 신규확진자수(0-9세)에 대한 Holt modeling</span></span>
-<span id="cb119-2"><a href="지수-평활exponential-smoothing-모델.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>], <span class="at">gamma =</span> F))</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="지수-평활exponential-smoothing-모델.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 신규확진자수(0-9세)에 대한 Holt modeling</span></span>
+<span id="cb117-2"><a href="지수-평활exponential-smoothing-모델.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>], <span class="at">gamma =</span> F))</span></code></pre></div>
 <p><img src="t_files/figure-html/holt_holtwinters-4.png" width="672" /></p>
 </div>
 </div>
@@ -581,13 +601,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">6.3.3</span> 홀트-윈터(Holt-Winter) 모델</h3>
 <p>홀트-윈터(Holt-Winter) 모델은 단순 지수 평활 모델을 확장하여 추세와 계절성을 반영하는 모델이다. 홀트-윈터 모델은 ses 모델의 alpha, 홀트 모델의 beta에 계절 매개변수인 gamma까지 포함하기 때문에 삼중 지수 평활법이나 계절조정 지수 평활법이라고도 한다.</p>
 <p>홀트-윈터 모델도 앞선 홀트 모델과 같이 ses() 함수에 추세 기울기 값인 beta 값과 계절 변수인 gamma 값을 추가하여 사용할 수도 있고 forecast 패키지에서 제공하는 hw() 함수를 사용하여 모델을 생성할 수도 있다. 다만 alpha, beta 등의 매개변수를 지정하지 않으면 자동 계산되어 적절한 값이 사용된다.</p>
+<div id="forecasthw-함수" class="section level4" number="6.3.3.1">
+<h4><span class="header-section-number">6.3.3.1</span> forecast::hw() 함수</h4>
 <p>홀트-윈터 모델은 가산법(additive)와 승산법(multiplicative)의 두가지 방법이 있다.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="지수-평활exponential-smoothing-모델.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
-<span id="cb120-2"><a href="지수-평활exponential-smoothing-모델.html#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;hw 적합값&#39;</span>) <span class="sc">+</span></span>
-<span id="cb120-3"><a href="지수-평활exponential-smoothing-모델.html#cb120-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">2</span>], <span class="at">seasonal =</span> <span class="st">&#39;additive&#39;</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;additive&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb120-4"><a href="지수-평활exponential-smoothing-모델.html#cb120-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">2</span>], <span class="at">seasonal =</span> <span class="st">&#39;multiplicative&#39;</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;multiplicative&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="지수-평활exponential-smoothing-모델.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">+</span> </span>
+<span id="cb118-2"><a href="지수-평활exponential-smoothing-모델.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">2</span>])), <span class="at">series =</span> <span class="st">&#39;hw 적합값&#39;</span>) <span class="sc">+</span></span>
+<span id="cb118-3"><a href="지수-평활exponential-smoothing-모델.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">2</span>], <span class="at">seasonal =</span> <span class="st">&#39;additive&#39;</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;additive&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb118-4"><a href="지수-평활exponential-smoothing-모델.html#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">2</span>], <span class="at">seasonal =</span> <span class="st">&#39;multiplicative&#39;</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;multiplicative&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/hw-1.png" width="672" /></p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="지수-평활exponential-smoothing-모델.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="지수-평활exponential-smoothing-모델.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
 <pre><code>## 
 ## Forecast method: Holt-Winters&#39; additive method
 ## 
@@ -614,10 +636,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1395.828 1403.674 1439.422 
 ## 
 ## Error measures:
-##                     ME     RMSE      MAE        MPE     MAPE      MASE
-## Training set -14.96946 122.8152 78.83536 -0.0580682 0.301646 0.2487293
-##                    ACF1
-## Training set 0.07031624
+##                     ME     RMSE      MAE        MPE     MAPE      MASE       ACF1
+## Training set -14.96946 122.8152 78.83536 -0.0580682 0.301646 0.2487293 0.07031624
 ## 
 ## Forecasts:
 ##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
@@ -645,12 +665,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Oct 2022       27324.00 26388.51 28259.49 25893.29 28754.71
 ## Nov 2022       27334.31 26371.45 28297.17 25861.74 28806.88
 ## Dec 2022       26878.55 25888.49 27868.61 25364.38 28392.72</code></pre>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="지수-평활exponential-smoothing-모델.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">3</span>]) <span class="sc">+</span> </span>
-<span id="cb123-2"><a href="지수-평활exponential-smoothing-모델.html#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">3</span>])), <span class="at">series =</span> <span class="st">&#39;hw 적합값&#39;</span>) <span class="sc">+</span></span>
-<span id="cb123-3"><a href="지수-평활exponential-smoothing-모델.html#cb123-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">3</span>], <span class="at">seasonal =</span> <span class="st">&#39;additive&#39;</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;additive&#39;</span>) <span class="sc">+</span></span>
-<span id="cb123-4"><a href="지수-평활exponential-smoothing-모델.html#cb123-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">3</span>], <span class="at">seasonal =</span> <span class="st">&#39;multiplicative&#39;</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;multiplicative&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="지수-평활exponential-smoothing-모델.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[,<span class="dv">3</span>]) <span class="sc">+</span> </span>
+<span id="cb121-2"><a href="지수-평활exponential-smoothing-모델.html#cb121-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">3</span>])), <span class="at">series =</span> <span class="st">&#39;hw 적합값&#39;</span>) <span class="sc">+</span></span>
+<span id="cb121-3"><a href="지수-평활exponential-smoothing-모델.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">3</span>], <span class="at">seasonal =</span> <span class="st">&#39;additive&#39;</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;additive&#39;</span>) <span class="sc">+</span></span>
+<span id="cb121-4"><a href="지수-평활exponential-smoothing-모델.html#cb121-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">3</span>], <span class="at">seasonal =</span> <span class="st">&#39;multiplicative&#39;</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;multiplicative&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/hw-2.png" width="672" /></p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="지수-평활exponential-smoothing-모델.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">3</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="지수-평활exponential-smoothing-모델.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">hw</span>(employees.ts[,<span class="dv">3</span>]))</span></code></pre></div>
 <pre><code>## 
 ## Forecast method: Holt-Winters&#39; additive method
 ## 
@@ -677,10 +697,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1054.015 1061.862 1097.609 
 ## 
 ## Error measures:
-##                     ME     RMSE      MAE        MPE     MAPE      MASE
-## Training set -1.794203 20.70565 16.09606 -0.1054265 0.878707 0.3190346
-##                    ACF1
-## Training set 0.01039296
+##                     ME     RMSE      MAE        MPE     MAPE      MASE       ACF1
+## Training set -1.794203 20.70565 16.09606 -0.1054265 0.878707 0.3190346 0.01039296
 ## 
 ## Forecasts:
 ##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
@@ -708,19 +726,129 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Oct 2022       1815.761 1679.362 1952.160 1607.157 2024.366
 ## Nov 2022       1818.034 1678.562 1957.506 1604.731 2031.337
 ## Dec 2022       1811.932 1669.453 1954.411 1594.030 2029.834</code></pre>
-<p>가산법은 계절성의 진폭(분산)이 비교적 일정하게 나타날때 사용하는 방법이고 승산법은 계절성의 진폭이 추세에 비례하여 변동이 있을때 사용하는 방법이다.</p>
+<p>가산법은 계절성의 변화 비교적 일정하게 나타날때 사용하는 방법이고 승산법은 계절성의 진폭이 추세에 비례하여 변동이 있을때 사용하는 방법이다. 따라서 미래 예측치를 산출할 때도 가산법은 예측치가 크게 변동되지 않지만 승산법은 먼 미래일 수록 예측값이 커지게 된다.</p>
+<p>가산법과 승산법을 사용하는 방법은 hw() 함수에서 seasonal 매개변수를 통해 설정할 수 있다. seasonal 매개변수를 ’additive’로 설정하면 가산법, ’multiplicative’를 설정하면 승산법을 사용하여 모델이 구축된다.</p>
+<p>사실상 가산법과 승산법 중 어느 방법을 선택해야하는 지를 선택하는 방법은 시각적으로 확인하거나 다음 장에서 설명할 모델 성능 비교 방법을 통해 선택해야한다.</p>
+</div>
+<div id="statsholtwinters-함수-2" class="section level4" number="6.3.3.2">
+<h4><span class="header-section-number">6.3.3.2</span> stats::HoltWinters() 함수</h4>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="지수-평활exponential-smoothing-모델.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체  취업자수에 대한 Holt modeling</span></span>
+<span id="cb124-2"><a href="지수-평활exponential-smoothing-모델.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">HoltWinters</span>(employees.ts[,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## Holt-Winters exponential smoothing with trend and additive seasonal component.
+## 
+## Call:
+## HoltWinters(x = employees.ts[, 2])
+## 
+## Smoothing parameters:
+##  alpha: 0.8076352
+##  beta : 0.03404805
+##  gamma: 1
+## 
+## Coefficients:
+##             [,1]
+## a   26855.065147
+## b       5.905479
+## s1   -696.530450
+## s2   -655.242183
+## s3   -383.258290
+## s4    -42.097658
+## s5    302.244998
+## s6    336.581062
+## s7    320.213201
+## s8    185.326285
+## s9    180.483570
+## s10   233.705448
+## s11   246.451216
+## s12  -329.065147</code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="지수-평활exponential-smoothing-모델.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
+<p><img src="t_files/figure-html/hw_holtwinters-1.png" width="672" /></p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="지수-평활exponential-smoothing-모델.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">HoltWinters</span>(employees.ts[,<span class="dv">3</span>]))</span></code></pre></div>
+<p><img src="t_files/figure-html/hw_holtwinters-2.png" width="672" /></p>
+</div>
 </div>
 <div id="ets-모델" class="section level3" number="6.3.4">
 <h3><span class="header-section-number">6.3.4</span> ETS 모델</h3>
-<p><a href="https://ko.logpresso.com/documents/time-series"><img src="ETS.png" title="ETS 모델 유형" alt="출처 : ETS 모델 기반 시계열 예측, LOGPRESSO" /></a></p>
+<p>ETS 모델은 Error, Trend, Season의 앞글자만 따서 만들었다고도 하고 ExponenTial Smoothing의 약자라고도 한다. 앞서 설명한 지수 평활 모델을 잔차(실제값 - 적합값)로 보정한 모델이다. ETS 모델은 모델을 구성하는 방법에 따라 여러가지 모델로 구분될 수 있다. 각 모델은 실 데이터의 측정식(measurement equation)과 측정식에서 추출된 추세, 계절성 등을 통해 추정되는 미래 예측값에 대한 상태식(state equation)에 따라 결정되는데 이를 상태공간모델(status space model)이라고 한다.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<p>상태공간모델에 의한 ETS 모델은 Error에 의한 가법 보정(A), 승법보정(M), 추세에 따른 가법 방법(A), 감쇄 가법 방법(Ad), 추세 없음(N), 계절성에 따른 계절성 없음(N), 가법 계절성(A), 승법 계절성(M)으로 구분된다. 이 8가지 방법을 활용하여 최종 ETS 모델을 결정할 수 있는데 모든 조합이 모델이 되지는 않는다.</p>
+<p>forecast의 ets() 함수에는 상태공간모델을 지정할 수 있지만 ets() 함수에서 자동적으로 선정해준다. ets 모델을 autoplot에 적용시키면 각각의 성분별로 plot을 확인할 수 있다.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="지수-평활exponential-smoothing-모델.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ets</span>(students.total.ts[,<span class="dv">1</span>])  <span class="do">### ETS(A,Ad,N)로 선정 error는 A, trend는 Ad, season은 N</span></span></code></pre></div>
+<pre><code>## ETS(A,Ad,N) 
+## 
+## Call:
+##  ets(y = students.total.ts[, 1]) 
+## 
+##   Smoothing parameters:
+##     alpha = 0.8929 
+##     beta  = 0.8929 
+##     phi   = 0.9401 
+## 
+##   Initial states:
+##     l = 8930071.6714 
+##     b = -36934.5936 
+## 
+##   sigma:  74403.08
+## 
+##      AIC     AICc      BIC 
+## 567.8898 573.4898 574.4361</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="지수-평활exponential-smoothing-모델.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ets</span>(students.total.ts[,<span class="dv">1</span>]) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="t_files/figure-html/ets-1.png" width="672" /></p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="지수-평활exponential-smoothing-모델.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ets</span>(students.total.ts[,<span class="dv">1</span>]) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="t_files/figure-html/ets-2.png" width="672" /></p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="지수-평활exponential-smoothing-모델.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ets</span>(employees.ts[,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## ETS(M,Ad,A) 
+## 
+## Call:
+##  ets(y = employees.ts[, 2]) 
+## 
+##   Smoothing parameters:
+##     alpha = 0.9989 
+##     beta  = 1e-04 
+##     gamma = 2e-04 
+##     phi   = 0.9744 
+## 
+##   Initial states:
+##     l = 25055.6086 
+##     b = 53.1073 
+##     s = -222.3076 255.8486 261.7129 227.3178 163.5351 319.1916
+##            274.8844 226.215 -5.605 -294.4144 -588.041 -618.3374
+## 
+##   sigma:  0.0045
+## 
+##      AIC     AICc      BIC 
+## 1372.968 1381.851 1419.126</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="지수-평활exponential-smoothing-모델.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ets</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="t_files/figure-html/ets-3.png" width="672" /></p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="지수-평활exponential-smoothing-모델.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ets</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="t_files/figure-html/ets-4.png" width="672" /></p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="지수-평활exponential-smoothing-모델.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ets</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## ETS(A,N,N) 
+## 
+## Call:
+##  ets(y = wide.covid19.by.age.ts[, 2]) 
+## 
+##   Smoothing parameters:
+##     alpha = 0.3314 
+## 
+##   Initial states:
+##     l = 1.2458 
+## 
+##   sigma:  5.2609
+## 
+##      AIC     AICc      BIC 
+## 2731.370 2731.450 2742.501</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="지수-평활exponential-smoothing-모델.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ets</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="t_files/figure-html/ets-5.png" width="672" /></p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="지수-평활exponential-smoothing-모델.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ets</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>() </span></code></pre></div>
+<p><img src="t_files/figure-html/ets-6.png" width="672" /></p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="13">
-<li id="fn13"><p><a href="https://otexts.com/fppkr/expsmooth.html" class="uri">https://otexts.com/fppkr/expsmooth.html</a><a href="지수-평활exponential-smoothing-모델.html#fnref13" class="footnote-back">↩︎</a></p></li>
-<li id="fn14"><p><a href="https://otexts.com/fpp2/ses.html" class="uri">https://otexts.com/fpp2/ses.html</a><a href="지수-평활exponential-smoothing-모델.html#fnref14" class="footnote-back">↩︎</a></p></li>
-<li id="fn15"><p><a href="https://m.blog.naver.com/PostView.nhn?blogId=sigmagil&amp;logNo=221502514892&amp;proxyReferer=https:%2F%2Fwww.google.com%2F" class="uri">https://m.blog.naver.com/PostView.nhn?blogId=sigmagil&amp;logNo=221502514892&amp;proxyReferer=https:%2F%2Fwww.google.com%2F</a><a href="지수-평활exponential-smoothing-모델.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<ol start="10">
+<li id="fn10"><p><a href="https://otexts.com/fppkr/expsmooth.html" class="uri">https://otexts.com/fppkr/expsmooth.html</a><a href="지수-평활exponential-smoothing-모델.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p><a href="https://otexts.com/fpp2/ses.html" class="uri">https://otexts.com/fpp2/ses.html</a><a href="지수-평활exponential-smoothing-모델.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p><a href="https://m.blog.naver.com/PostView.nhn?blogId=sigmagil&amp;logNo=221502514892&amp;proxyReferer=https:%2F%2Fwww.google.com%2F" class="uri">https://m.blog.naver.com/PostView.nhn?blogId=sigmagil&amp;logNo=221502514892&amp;proxyReferer=https:%2F%2Fwww.google.com%2F</a><a href="지수-평활exponential-smoothing-모델.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p><a href="https://otexts.com/fppkr/ets.html" class="uri">https://otexts.com/fppkr/ets.html</a><a href="지수-평활exponential-smoothing-모델.html#fnref13" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

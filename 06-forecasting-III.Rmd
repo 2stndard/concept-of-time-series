@@ -1,3 +1,128 @@
-# 시계열 forecasting Part III - 성능 분석
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+library(xts)
+library(timetk)
+library(forecast)
 
-We have finished a nice book.
+library(dplyr)
+library(tsibble)
+students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
+students[, 3:18] <- apply(students[, 3:18], 2, function(y) as.numeric(gsub(",", "", y)))
+students.total.xts <- students %>% filter(지역규모 == '계') %>% select(-지역규모)
+students.total.xts <- as.xts(students.total.xts, order.by = as.Date(paste0(students.total.xts[,1], '-01-01'), format = '%Y-%m-%d'))
+library(timetk)
+students.total.ts <- students %>% 
+  filter(지역규모 == '계') %>% 
+  select(3:18) %>%
+  ts(start = c(1999), frequency = 1)
+students.tsibble <- as_tsibble(students, key = 지역규모, index = 연도)
+
+employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
+colnames(employees) <- c('time', 'total', 'employees.edu')
+employees$time <- as.Date(paste0(employees$time, '. 01'), format = '%Y. %m. %d')
+employees.ts <- ts(employees, start = c(2013, 01), frequency = 12)
+employees.xts <- xts(employees[,2:3], order.by = employees[,1])
+employees$yearmonth <- yearmonth(employees$time)
+employees.tsibble <- as_tsibble(employees, index = yearmonth)
+
+covid19 <- read.csv('./covid19.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
+colnames(covid19) <- c('category', 'status', 'date', 'value')
+covid19 <- covid19[, c(3, 1, 2, 4)]
+covid19$date <- as.Date(covid19$date, "%Y. %m. %d")
+covid19.by.age <- covid19 %>% 
+  filter(grepl('세', category)) %>% 
+  filter(category != '세종')
+covid19.by.age$value <- ifelse(is.na(covid19.by.age$value), 0, covid19.by.age$value)
+wide.covid19.by.age <- tidyr::spread(covid19.by.age, category, value)
+
+wide.covid19.by.age.ts = ts(wide.covid19.by.age[, 2:10], frequency = 365)
+wide.covid19.by.age.xts <- as.xts(wide.covid19.by.age[, 3:10], order.by = wide.covid19.by.age$date)
+wide.covid19.by.age.tsibble <- as_tsibble(wide.covid19.by.age, index = date)
+
+```
+
+# 시계열 forecasting Part III - 시계열 분석 Framework
+
+## fable
+
+## modeltime
+
+### linear_reg 함수(tidymodels, parsnip, modeltime 패키지)
+
+본 절에서 parship 패키지와 modeltime 패키지를 사용하여 선형 회귀 모델을 생성하는 방법을 소개한다. parsnip 패키지는 머신러닝 패키지인 'caret' 패키지를 개발한 Max Kuhn이 개발한 패키지이다. 이 패키지는 R, Spark, Stan 등의 엔진에서 사용하는 함수들이 함수마다 다른 인수를 사용하기 때문에 사용자들이 사용하기 힘들다는 점에 착안하여 인수 이름을 표준화하여 사용할 수 있는 인터페이스를 제공한다.[^forecasting-iii-1]
+
+[^forecasting-iii-1]: <https://cran.r-project.org/web/packages/parsnip/index.html>
+
+parsnip은 R의 여러 패키지에서 유사한 기능으로 제공하는 함수들을 사용하는 표준화된 접근 방법을 제공하는데 이 패키지를 사용하여 전체적인 머신러닝 모델을 생성하기 위해서는 몇가지 더 필요한 패키지를 사용해야한다. tidymodels(tidy 타입의 모델생성), skim(데이터 탐색), rsample(훈련용, 테스트용 데이터 분리), reciepes(데이터 전처리), yardstick(성능 분석)등의 패키지를 사용하는 방법이 많이 사용되고 있다. 그러나 시계열 모델에서는 tidymodels, modeltime 패키지를 사용할 수 있다.
+
+modeltime은 tidymodels 환경에서 시계열 데이터의 예측 프레임워크로 forecast 패키지에서 제공하는 대부분의 예측 방법을 제공하며 facebook에서 개발된 prophet 알고리즘까지 제공한다. [^forecasting-iii-2]
+
+[^forecasting-iii-2]: <https://cran.r-project.org/web/packages/modeltime/index.html>
+
+tidymodels, parsnip, modeltime 패키지를 사용하여 시계열 데이터 선형 회귀 모델은 다음의 순서와 같이 만들 수 있다.
+
+1.  트레이닝 셋과 테스트 셋을 나눈다. (권장되지만 필수는 아니다.)
+
+2.  linear_reg(), set_engine(), fit() 함수를 사용하여 선형 회귀모델을 생성한다. 먼저 linear_reg()함수를 통해 선형 회귀분석을 선언한다. 이 후 set_engine() 함수를 사용하여 선형 회귀 모델을 선정하는 계산방법을 지정한다. 아래의 예제에서는 'lm' 방법을 지정함으로써 최소제곱법을 사용하여 선형 회귀 모델을 선정하게 된다. 마지막으로 모델링을 위한 포뮬라와 데이터를 fit() 함수를 통해 전달함으로서 최종 모델이 생성된다.[^forecasting-iii-3]
+
+3.  생성된 모델을 modeltime_table() 함수에 적용하여 모델 테이블을 생성한다. 향후 설명하겠지만 모델 테이블에 여러 모델을 전달할 수 있는데 모델 테이블에 전달된 각각의 모델은 추후 성능비교 테이블이 제공되기 때문에 여러 모델의 성능을 비교하는데 편리하게 사용될 수 있다 .
+
+4.  modeltime_calibrate() 함수를 사용하여 테스트 데이터를 사용하여 모델을 교정한다. 앞서 테스트 셋을 나누지 않은 경우는 전체 데이터 셋을 사용할 수 있다.
+
+5.  modeltime_forecast() 함수를 사용하여 미래 데이터를 생성한다. 이후 plot_modeltime_forecast() 함수를 사용하여 plotting을 생성한다.
+
+[^forecasting-iii-3]: <https://www.tidymodels.org/start/models/>
+
+```{r linear_reg, message=FALSE, warning=FALSE}
+###  parsnip과 modeltime을 전체 취업자수에 적용한 linear modeling(tredn + seasonality)
+library(modeltime)
+library(parsnip)
+library(tidymodels)
+### 트레이닝 셋과 테스트 셋을 나눈다
+splits <- initial_time_split(employees, prop = 0.9)
+###  trend와 season을 반영하여 linear model을 생성
+model_fit_lm <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(total ~ as.numeric(time) + factor(lubridate::month(time, label = TRUE), ordered = FALSE),
+      data = training(splits))
+###  모델 테이블 생성
+model_tbl <- modeltime_table(model_fit_lm)
+###  테스팅 셋으로 모델 교정
+calibration_tbl <- model_tbl %>% modeltime_calibrate(new_data = testing(splits))
+###  3년 예측치 생성후 plotting
+calibration_tbl %>%
+  modeltime_forecast(
+    h = '3 years',
+    actual_data = employees, 
+    conf_interval = 0.95
+  ) %>%
+  plot_modeltime_forecast(
+    .interactive      = TRUE
+  )
+```
+
+```{r covid_linear_reg}
+###  parsnip과 modeltime을 일별 코로나 발생 데이터(0-9세)에 적용한 linear modeling(tredn + seasonality)
+covid19.by.age$value1 <- ifelse(is.na(covid19.by.age$value), 0, covid19.by.age$value)
+### 트레이닝 셋과 테스트 셋을 나눈다
+splits <- initial_time_split(covid19.by.age %>% filter(category == '0-9세'), prop = 0.9)
+###  trend와 season을 반영하여 linear model을 생성
+model_fit_lm <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(value ~ as.numeric(date),
+      data = training(splits))
+###  모델 테이블 생성
+model_tbl <- modeltime_table(model_fit_lm)
+###  테스팅 셋으로 모델 교정
+calibration_tbl <- model_tbl %>% modeltime_calibrate(new_data = testing(splits))
+###  3년 예측치 생성후 plotting
+calibration_tbl %>%
+  modeltime_forecast(
+#    .newdata = testing(splits),
+    h = '100 days',
+    actual_data = covid19.by.age %>% filter(category == '0-9세')
+    ) %>%
+  plot_modeltime_forecast(
+    .interactive      = TRUE
+  )
+```

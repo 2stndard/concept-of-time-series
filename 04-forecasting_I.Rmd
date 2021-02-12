@@ -319,7 +319,6 @@ summary(wo(employees.ts[,3]))
 ```
 
 ```{r seasonal_plot}
-seasonplot(employees.ts[,2])
 ggseasonplot(employees.ts[,2])
 ggsubseriesplot(employees.ts[,2])
 ```
