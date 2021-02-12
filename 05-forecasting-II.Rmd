@@ -545,6 +545,16 @@ autoplot(employees.ts[,3]) +
 summary(hw(employees.ts[,3]))
 ```
 
+가산법은 계절성의 변화 비교적 일정하게 나타날때 사용하는 방법이고 승산법은 계절성의 진폭이 추세에 비례하여 변동이 있을때 사용하는 방법이다. 따라서 미래 예측치를 산출할 때도 가산법은 예측치가 크게 변동되지 않지만 승산법은 먼 미래일 수록 예측값이 커지게 된다.
+
+가산법과 승산법을 사용하는 방법은 hw() 함수에서 seasonal 매개변수를 통해 설정할 수 있다. seasonal 매개변수를 'additive'로 설정하면 가산법, 'multiplicative'를 설정하면 승산법을 사용하여 모델이 구축된다.
+
+사실상 가산법과 승산법 중 어느 방법을 선택해야하는 지를 선택하는 방법은 시각적으로 확인하거나 다음 장에서 설명할 모델 성능 비교 방법을 통해 선택해야한다. 다만 hw() 함수에서 seasonal 매개변수를 설정하지 않으면
+
+### ETS 모델
+
+[![출처 : ETS 모델 기반 시계열 예측, LOGPRESSO](ETS.png "ETS 모델 유형")](https://ko.logpresso.com/documents/time-series)
+
 ## ARIMA 모델
 
 ## TBAT 모델

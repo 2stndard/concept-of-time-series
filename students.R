@@ -152,3 +152,29 @@ models_tbl %>%
 
 HoltWinters(students.total.ts[,1])
 Holt
+
+
+students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
+students[, 3:18] <- apply(students[, 3:18], 2, function(y) as.numeric(gsub(",", "", y)))
+
+as_tsibble(students, key = 지역규모, index = 연도)
+
+
+students.tsibble %>%
+  autoplot()
+
+
+data(ansett, packege = 'tsibble')
+library(tsibble)
+data(ansett)
+update.packages('tsibble')
+ansett %>% autoplot()
+
+melsyd_economy <- ansett %>%
+  filter(Airports == "MEL-SYD", Class == "Economy")
+
+autoplot(melsyd_economy, Passengers)
+
+data(a10)
+library(fpp3)
+library(feasts)

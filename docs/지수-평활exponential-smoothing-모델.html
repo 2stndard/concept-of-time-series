@@ -210,6 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
 <li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 모델</a></li>
 <li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
+<li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a></li>
 <li class="chapter" data-level="6.5" data-path="tbat-모델.html"><a href="tbat-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBAT 모델</a></li>
@@ -463,8 +464,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 571.4867 575.2367 576.9419 
 ## 
 ## Error measures:
-##                     ME     RMSE      MAE        MPE      MAPE     MASE        ACF1
-## Training set -5106.807 74275.76 46971.89 -0.0472354 0.5836661 0.365499 -0.00685211
+##                     ME     RMSE      MAE        MPE      MAPE     MASE
+## Training set -5106.807 74275.76 46971.89 -0.0472354 0.5836661 0.365499
+##                     ACF1
+## Training set -0.00685211
 ## 
 ## Forecasts:
 ##      Point Forecast   Lo 80   Hi 80   Lo 95   Hi 95
@@ -611,8 +614,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1395.828 1403.674 1439.422 
 ## 
 ## Error measures:
-##                     ME     RMSE      MAE        MPE     MAPE      MASE       ACF1
-## Training set -14.96946 122.8152 78.83536 -0.0580682 0.301646 0.2487293 0.07031624
+##                     ME     RMSE      MAE        MPE     MAPE      MASE
+## Training set -14.96946 122.8152 78.83536 -0.0580682 0.301646 0.2487293
+##                    ACF1
+## Training set 0.07031624
 ## 
 ## Forecasts:
 ##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
@@ -672,8 +677,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1054.015 1061.862 1097.609 
 ## 
 ## Error measures:
-##                     ME     RMSE      MAE        MPE     MAPE      MASE       ACF1
-## Training set -1.794203 20.70565 16.09606 -0.1054265 0.878707 0.3190346 0.01039296
+##                     ME     RMSE      MAE        MPE     MAPE      MASE
+## Training set -1.794203 20.70565 16.09606 -0.1054265 0.878707 0.3190346
+##                    ACF1
+## Training set 0.01039296
 ## 
 ## Forecasts:
 ##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
@@ -701,6 +708,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Oct 2022       1815.761 1679.362 1952.160 1607.157 2024.366
 ## Nov 2022       1818.034 1678.562 1957.506 1604.731 2031.337
 ## Dec 2022       1811.932 1669.453 1954.411 1594.030 2029.834</code></pre>
+<p>가산법은 계절성의 진폭(분산)이 비교적 일정하게 나타날때 사용하는 방법이고 승산법은 계절성의 진폭이 추세에 비례하여 변동이 있을때 사용하는 방법이다.</p>
+</div>
+<div id="ets-모델" class="section level3" number="6.3.4">
+<h3><span class="header-section-number">6.3.4</span> ETS 모델</h3>
+<p><a href="https://ko.logpresso.com/documents/time-series"><img src="ETS.png" title="ETS 모델 유형" alt="출처 : ETS 모델 기반 시계열 예측, LOGPRESSO" /></a></p>
 </div>
 </div>
 <div class="footnotes">

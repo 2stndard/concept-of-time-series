@@ -1,6 +1,11 @@
 employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 colnames(employees) <- c('time', 'total', 'employees.edu')
+employees$time <- as.Date(paste0(employees$time, '. 01'), format = '%Y. %m. %d')
 employees.ts <- ts(employees, start = c(2013, 01), frequency = 12)
+employees.xts <- xts(employees[,2:3], order.by = employees[,1])
+
+
+as.Date(paste0(employees$time, '. 01'), format = '%Y. %m. %d') 
 
 tslm(employees.ts[,2] ~ trend, data = employees.ts, lambda = 1) %>%
   forecast() %>%
@@ -157,3 +162,28 @@ autoplot(employees.ts[,2]) +
   
 
 fitted <- fitted(HoltWinters(employees.ts[,2]))[, 1]
+
+seasonplot(employees.ts[,2])
+ggseasonplot(employees.ts[,2])
+
+summary(hw(employees.ts[,2]))
+
+ggplot(data = employees, aes(x = as.factor(time), y = total)) +
+  geom_line(aes(group = 1)) + 
+  geom_point(shape = 'circle') +
+  labs(title = '월별 취업자수', x = '시간') +
+  scale_y_continuous(labels = scales::number_format(big.mark = ',')) +
+  scale_x_discrete(breaks = c('2013. 01', '2014. 01', '2015. 01', '2016. 01', '2017. 01', '2018. 01', '2019. 01', '2020. 01')) +
+  theme(axis.text.x=element_text(angle=90,hjust=1))
+
+
+plot.xts(employees.xts[,1], main = '연도별 학생수', sub = '전체 학생수의 연도별 변화', xlab = '연도',  ylab = '학생수')
+
+autoplot(employees.ts[,2], main = '월별 취업자수', xlab = '연도', ylab = '취업자수', series = '전체 취업자', lty = 1, lwd = 1)
+
+
+employees %>%
+  plot_time_series(.date_var = time, .value = total, .smooth = F, .title = '월별 취업자수', .x_lab = '시간', .y_lab = '확진자수')
+
+
+employees.tsibble <- as_tsibble(employees, index = time)

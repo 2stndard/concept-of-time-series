@@ -603,3 +603,11 @@ student.ts.lm %>% forecast(h = 22) %>%
 
 
 skim(students.total.ts)
+
+
+x <- data.frame(date = as.Date('2008-01-01') + 0:9, id = 1:10, x1 = rnorm(10), x2= rnorm(10))
+
+as_tsibble(x, key = id, index = date)
+
+
+seq('a', 10)

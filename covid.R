@@ -1,15 +1,20 @@
 covid19 <- read.csv('./covid19.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 colnames(covid19) <- c('category', 'status', 'date', 'value')
-covid19 <- covid19[, c(3, 1, 4)]
+covid19 <- covid19[, c(3, 1, 2, 4)]
 covid19$date <- as.Date(covid19$date, "%Y. %m. %d")
-
 covid19.by.age <- covid19 %>% 
   filter(grepl('세', category)) %>% 
   filter(category != '세종')
+covid19.by.age$value <- ifelse(is.na(covid19.by.age$value), 0, covid19.by.age$value)
+wide.covid19.by.age <- tidyr::spread(covid19.by.age, category, value)
 
-covid19.by.age %>% distinct(category)
-wide.covid19.by.age <- spread(covid19.by.age, category, value)
+wide.covid19.by.age.ts = ts(wide.covid19.by.age[, 2:10], frequency = 365)
+wide.covid19.by.age.xts <- as.xts(wide.covid19.by.age[, 3:10], order.by = wide.covid19.by.age$date)
 
+
+
+
+glimpse(wide.covid19.by.age)
 dayOfYear = as.numeric(format(wide.covid19.by.age[1,1], "%j"))
 wide.covid19.by.age.ts = ts(wide.covid19.by.age[, 2:10], start = c(2020, dayOfYear), frequency = 365)
 
@@ -133,3 +138,14 @@ plot(rate_ts, ylab = "Price", xaxt = "n")
 tsp = attributes(rate_ts)$tsp
 axis(1, at = seq(tsp[1], tsp[2], along = rate_ts), 
      labels = format(rate$Date, "%Y-%m-%d"))
+
+
+plot.xts(wide.covid19.by.age.xts[, 1], main = '일별 확진자수(0-9세)', xlab = '날짜',  ylab = '확진자수')
+
+autoplot(wide.covid19.by.age.ts[,2], main = '일별 확진자수(0-9세)', xlab = '날짜', ylab = '확진자수', series = '확진자', lty = 1, lwd = 1)
+
+wide.covid19.by.age %>%
+  plot_time_series(.date_var = date, .value = `0-9세`, .smooth = F, .title = '일별 확진자수(0-9세)', .x_lab = '시간', .y_lab = '확진자수')
+
+wide.covid19.by.age.tsibble <- as_tsibble(wide.covid19.by.age, index = date)
+class(wide.covid19.by.age.tsibble)

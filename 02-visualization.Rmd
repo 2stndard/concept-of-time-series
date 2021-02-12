@@ -1,20 +1,44 @@
-    ```{r message=FALSE, warning=FALSE, include=FALSE}
-    library(dplyr)
-    library(xts)
-    students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
-    students[, 3:18] <- apply(students[, 3:18], 2, function(y) as.numeric(gsub(",", "", y)))
-    students.total.xts <- students %>% filter(지역규모 == '계') %>% select(-지역규모)
-    students.total.xts <- as.xts(students.total.xts, order.by = as.Date(paste0(students.total.xts[,1], '-01-01'), format = '%Y-%m-%d'))
-    library(timetk)
-    students.total.ts <- students %>% 
-      filter(지역규모 == '계') %>% 
-      select(3:18) %>%
-      ts(start = c(1999), frequency = 1)
-    ```
+```{r message=FALSE, warning=FALSE, include=FALSE}
+
+library(dplyr)
+library(xts)
+library(tsibble)
+students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
+students[, 3:18] <- apply(students[, 3:18], 2, function(y) as.numeric(gsub(",", "", y)))
+students.total.xts <- students %>% filter(지역규모 == '계') %>% select(-지역규모)
+students.total.xts <- as.xts(students.total.xts, order.by = as.Date(paste0(students.total.xts[,1], '-01-01'), format = '%Y-%m-%d'))
+library(timetk)
+students.total.ts <- students %>% 
+  filter(지역규모 == '계') %>% 
+  select(3:18) %>%
+  ts(start = c(1999), frequency = 1)
+
+employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
+colnames(employees) <- c('time', 'total', 'employees.edu')
+employees$time <- as.Date(paste0(employees$time, '. 01'), format = '%Y. %m. %d')
+employees.ts <- ts(employees, start = c(2013, 01), frequency = 12)
+employees.xts <- xts(employees[,2:3], order.by = employees[,1])
+employees.tsibble <- as_tsibble(employees, index = time)
+
+covid19 <- read.csv('./covid19.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
+colnames(covid19) <- c('category', 'status', 'date', 'value')
+covid19 <- covid19[, c(3, 1, 2, 4)]
+covid19$date <- as.Date(covid19$date, "%Y. %m. %d")
+covid19.by.age <- covid19 %>% 
+  filter(grepl('세', category)) %>% 
+  filter(category != '세종')
+covid19.by.age$value <- ifelse(is.na(covid19.by.age$value), 0, covid19.by.age$value)
+wide.covid19.by.age <- tidyr::spread(covid19.by.age, category, value)
+
+wide.covid19.by.age.ts = ts(wide.covid19.by.age[, 2:10], frequency = 365)
+wide.covid19.by.age.xts <- as.xts(wide.covid19.by.age[, 3:10], order.by = wide.covid19.by.age$date)
+wide.covid19.by.age.tsibble <- as_tsibble(wide.covid19.by.age, index = date)
+
+```
 
 # 시계열 Visualization
 
-시계열 데이터는 일반적으로 가로축(X axis)에는 시간 인덱스가 위치하고 세로축(Y axis)에 값이 표현되는 라인 그래프가 일반적으로 많이 사용됨.이러한 그래프의 형태는 시간의 흐름에 따라 발생하는 추세(Trend), 계절성(Seasonality) 등의 시계열 특성을 표현하고 파악하는데 효율적임. 시계열 데이터 분석에는 시계열 데이터의 직접적인 라인 그래프 외에도 자기 상관 함수(ACF : AutoCorelation Function), 편자기상관함수(PACF : Partial AutoCorelation Function) 등의 다양한 그래프들이 존재하나 이 장에서는 시계열 데이터의 선 그래프를 작성하는 방법을 xts, ggplot2, forecast, timetk 등의 패키지 별로 설명하고자 함.
+시계열 데이터는 일반적으로 가로축(X axis)에는 시간 인덱스가 위치하고 세로축(Y axis)에 값이 표현되는 라인 그래프가 일반적으로 많이 사용된다.이러한 그래프의 형태는 시간의 흐름에 따라 발생하는 추세(Trend), 계절성(Seasonality) 등의 시계열 특성을 표현하고 파악하는데 효율적이다. 시계열 데이터 분석에는 시계열 데이터의 직접적인 라인 그래프 외에도 자기 상관 함수(ACF : AutoCorelation Function), 편자기상관함수(PACF : Partial AutoCorelation Function) 등의 다양한 그래프들이 존재하나 이 장에서는 시계열 데이터의 선 그래프를 작성하는 방법을 xts, ggplot2, forecast, timetk 등의 패키지 별로 설명하고자 한다.
 
 ## ggplot2
 
@@ -119,6 +143,26 @@ ggplot(data = students.ggplot, aes(x = 연도, y = 학생수계)) +
 
 ggplot외 타 패키지에서 제공하는 plot은 ggplot에서 제공하는 기능만큼 다양한 기능을 제공하지 않는다. 디자인이 중요한 plot을 작성하기 위해서는 ggplot의 다양한 기능을 사용하여 plot을 작성하는 것이 바람직하다. 이외에 ggplot에 관련한 자세한 사항은 다른 문서를 참조할 것을 권한다.
 
+```{r ggplot_employees}
+ggplot(data = employees, aes(x = as.factor(time), y = total)) +
+  geom_line(aes(group = 1)) + 
+  geom_point(shape = 'circle') +
+  labs(title = '월별 취업자수', x = '시간') +
+  scale_y_continuous(labels = scales::number_format(big.mark = ',')) +
+  scale_x_discrete(breaks = c('2013. 01', '2014. 01', '2015. 01', '2016. 01', '2017. 01', '2018. 01', '2019. 01', '2020. 01')) +
+  theme(axis.text.x=element_text(angle=90,hjust=1))
+```
+
+```{r ggplot_covid}
+ggplot(data = wide.covid19.by.age, aes(x = as.factor(date), y = `0-9세`)) +
+  geom_line(aes(group = 1)) + 
+  geom_point(shape = 'circle') +
+  labs(title = '일별 확진자수(0-9세)', x = '시간') +
+  scale_y_continuous(labels = scales::number_format(big.mark = ',')) +   
+  scale_x_discrete(breaks = c('2020-04-10', '2020-05-01', '2020-06-02', '2020-07-01', '2020-08-01', '2020-09-01', '2020-10-01', '2020-11-01', '2020-12-01', '2021-01-01', '2021-02-01')) +
+  theme(axis.text.x=element_text(angle=90,hjust=1))
+```
+
 ## XTS
 
 xts는 시계열 데이터를 다루는 데이터 클래스와 데이터 핸들링 함수, 데이터 ploting 함수 등을 제공한다. 따라서 xts 패키지에서 제공하는 함수는 xts class의 데이터 객체를 대상으로 작동한다.
@@ -158,6 +202,15 @@ plot.xts(students.total.xts)
         ```{r plot_xts_legend}
         addLegend("topright", legend.names=c('전체', '초등학교'), col=c('black', 'red'), lty=c(1,1), lwd=c(2,2), ncol=2, bg="white")
         ```
+
+```{r xts_employees}
+plot.xts(employees.xts[, 1], main = '월별 취업자수', xlab = '연도',  ylab = '취업자수')
+```
+
+```{r xts_covid19}
+plot.xts(wide.covid19.by.age.xts, main = '일별 확진자수', xlab = '날짜',  ylab = '확진자수')
+plot.xts(wide.covid19.by.age.xts[, 1], main = '일별 확진자수(0-9세)', xlab = '날짜',  ylab = '확진자수')
+```
 
 ## forecast
 
@@ -220,6 +273,14 @@ autoplot(students.total.ts)
           scale_y_continuous(labels=scales::number_format(big.mark = ','))
         ```
 
+```{r forecast_employees}
+autoplot(employees.ts[,2], main = '월별 취업자수', xlab = '연도', ylab = '취업자수', series = '전체 취업자', lty = 1, lwd = 1)
+```
+
+```{r forecast_covid19}
+autoplot(wide.covid19.by.age.ts[,2], main = '일별 확진자수(0-9세)', xlab = '날짜', ylab = '확진자수', series = '확진자', lty = 1, lwd = 1)
+```
+
 ## timetk
 
 timetk 패키지는 미래 예측, 머신러닝 예측을 위해 시계열 데이터의 시각화, 데이터 핸들링을 하기 위한 패키지이다. 이 패키지는 'dplyr', 'xts', 'forecast' 등의 패키지를 기반으로 설계되었고 xts패키지와 달리 tibble이나 data.frame을 기반으로 작동한다. [^visualization-3]
@@ -270,3 +331,13 @@ plot_time_series(.date_var = 연도, .value = 학생수계)
     -   그 외 추가적인 매개변수는 timetk의 plot_time_series() 함수 매뉴얼을 참조하면 더 추가적인 정보를 얻을 수 있다.[^visualization-4]
 
 [^visualization-4]: <https://business-science.github.io/timetk/reference/plot_time_series.html>
+
+```{r timetk_emplyees}
+employees %>%
+  plot_time_series(.date_var = time, .value = total, .smooth = F, .title = '월별 취업자수', .x_lab = '시간', .y_lab = '취업자수')
+```
+
+```{r timetk_covid19}
+wide.covid19.by.age %>%
+  plot_time_series(.date_var = date, .value = `0-9세`, .smooth = F, .title = '일별 확진자수(0-9세)', .x_lab = '시간', .y_lab = '확진자수')
+```
