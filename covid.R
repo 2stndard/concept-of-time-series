@@ -18,7 +18,7 @@ glimpse(wide.covid19.by.age)
 dayOfYear = as.numeric(format(wide.covid19.by.age[1,1], "%j"))
 wide.covid19.by.age.ts = ts(wide.covid19.by.age[, 2:10], start = c(2020, dayOfYear), frequency = 365)
 
-plot(wide.covid19.by.age.ts[,1], ylab = "Price", xaxt = "n")
+plot(wide.covid19.by.age.ts[,2], ylab = "Price", xaxt = "n")
 tsp = attributes(wide.covid19.by.age.ts)$tsp
 axis(1, at = seq(tsp[1], tsp[2], along = wide.covid19.by.age.ts), 
      labels = format(wide.covid19.by.age$date, "%Y-%m-%d"))
@@ -149,3 +149,17 @@ wide.covid19.by.age %>%
 
 wide.covid19.by.age.tsibble <- as_tsibble(wide.covid19.by.age, index = date)
 class(wide.covid19.by.age.tsibble)
+
+
+auto.arima(wide.covid19.by.age.ts[,2]) ### 교육서비스업 취업자수의 ARIMA모형은 ARIMA(0, 1, 0)으로 선정됨
+kpss.test(wide.covid19.by.age.ts[,2])  ### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 비정상성, 차분 필요
+ndiffs(wide.covid19.by.age.ts[,2], test = 'kpss')   ### 비정상성을 제거하기 위해 필요한 차분수가 1
+diff(wide.covid19.by.age.ts[,2]) %>% ggtsdisplay()  ### 1차 차분을 해본 결과 ACF, PACF 모두 절단(Cut off)이므로 ARMA(0,0)
+kpss.test(diff(wide.covid19.by.age.ts[,2]))  ### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 비정상성, 차분 필요
+kpss.test(diff(diff(wide.covid19.by.age.ts[,2])))
+diff(diff(wide.covid19.by.age.ts[,2])) %>% ggtsdisplay()  ### 1차 차분을 해본 결과 ACF, PACF 모두 절단(Cut off)이므로 ARMA(0,0)
+arima(wide.covid19.by.age.ts[,2], )
+
+wide.covid19.by.age.ts[,2] %>% tbats() %>% forecast(h = 100) %>% autoplot()
+
+wide.covid19.by.age.ts[,2] %>% nnetar() %>% forecast(h = 100, PI = T) %>% autoplot()

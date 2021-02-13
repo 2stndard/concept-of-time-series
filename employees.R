@@ -230,3 +230,48 @@ calibration_tbl %>%
   plot_modeltime_forecast(
     .interactive      = TRUE
   )
+
+employees.ts[, 2]
+
+summary(auto.arima(employees.ts[, 2]))  ### 학생수의 ARIMA모형은 ARIMA(1, 2, 0)으로 선정됨
+employees.ts[, 2] %>% ggtsdisplay()
+
+
+employees.ts.seasadj <- employees.ts[, 2] %>% stl(s.window='periodic') %>% seasadj()
+employees.ts.seasadj %>% ggtsdisplay()
+diff(employees.ts.seasadj) %>% ggtsdisplay()
+
+employees.ts[, 2] %>% diff(lag =12) %>% ggtsdisplay()
+employees.ts[, 2] %>% diff(lag =12) %>% kpss.test()  ###비정상성
+employees.ts[, 2] %>% diff(lag =12) %>% ndiffs()
+employees.ts[, 2] %>% diff(lag =12) %>% diff() %>% kpss.test()  ### 정상성
+employees.ts[, 2] %>% diff(lag =12) %>% diff() %>% ggtsdisplay()
+auto.arima(employees.ts.seasadj)  ### 학생수의 ARIMA모형은 ARIMA(1, 2, 0)으로 선정됨
+
+employees.ts.seasadj %>% ggtsdisplay()
+diff(employees.ts.seasadj) %>% ggtsdisplay()
+
+autoplot(forecast(arima(employees.ts.seasadj, order = c(1, 1, 0))))
+autoplot(forecast((arima(employees.ts.seasadj, order = c(0, 1, 2)))))
+
+par(mfrow = c(1, 2))
+Acf(employees.ts.seasadj)  ### ACF가 tail off이고
+Pacf(employees.ts.seasadj)  ### PACF가 1에서 cut off 이므로 ARMA(1,0)모델
+par(mfrow = c(1, 1))
+kpss.test(students.total.ts[,1])  ### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 정상성, 차분 필요
+ndiffs(students.total.ts[,1], test = 'kpss')   ### 비정상성을 제거하기 위해 필요한 차분수가 2이므로 최종 모델은 ARIMA(1, 2, 0)
+auto.arima(students.total.ts[,1]) %>% forecast() %>% autoplot()
+
+employees.ts[, 2] %>% tbats() %>% forecast() %>% autoplot()
+
+employees.ts[, 2] %>% nnetar() %>% forecast(PI = T) %>% autoplot()
+
+sim <- simulate(employees.ts[, 2] %>% nnetar(), nsim=30L)
+autoplot(sim)
+
+sim <- ts(matrix(0, nrow=30L, ncol=9L), 
+          start=end(employees.ts[, 2])+0:35, frequency = 12) 
+for(i in seq(9)) {
+  sim[,i] <- simulate(employees.ts[, 2] %>% nnetar(), nsim=30L)
+}
+autoplot(employees.ts[, 2]) + autolayer(sim)

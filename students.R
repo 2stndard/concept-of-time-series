@@ -192,3 +192,30 @@ students.tsibble %>%
 students.tsibble %>%
   filter(지역규모 == '계') %>%
   gg_arma()
+
+
+?Arima
+auto.arima(students %>% filter(지역규모 == '계') %>% select(학생수계))
+students %>% filter(지역규모 == '계') %>% select(3)
+
+
+auto.arima(students.total.ts[,1])
+par(mfrow = c(1, 2))
+Acf(students.total.ts[,1])
+Pacf(students.total.ts[,1])
+par(mfrow = c(1, 1))
+kpss.test(students.total.ts[,1])  ### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 정상성, 차분 필요
+ndiffs(students.total.ts[,1], test = 'kpss')   ### 비정상성을 제거하기 위해 필요한 차분수
+
+
+auto.arima(students.total.ts[,1]) %>% forecast() %>% autoplot()
+auto.arima(students.total.ts[,1]) %>% forecast() %>% ggtsdisplay()
+ggtsdisplay(students.total.ts[,1])
+
+students.total.ts[,1] %>% tbats() %>% forecast() %>% autoplot()
+
+
+nnetar(students.total.ts[,1]) %>% forecast() %>% autoplot()
+
+interval <- interval(as.Date('1980-01-01'), as.Date('2021-12-31'))
+
