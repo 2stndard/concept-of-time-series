@@ -65,7 +65,7 @@ today - years(1)   #오늘부터 1년전
 앞선 예에서 1980년 1월 1일부터 오늘까지는 14,976일로 계산되었다. 그러나 우리는 보통 몇년 몇월 몇일로 표현된다. lubridate에서는 이렇게 몇년 몇월 몇일로 변환하는 것을 interval()함수를 사용하여 계산한다. 하지만 바로 계산되는 것은 아니고 interval()함수에 의해 반환되는 값은 interval 클래스의 데이터값으로 시작점으로부터의 초를 기록한다. 이렇게 변환된 interval 객체를 올바르게 표현하기 위해서는 interval 객체를 period 나 duration 클래스 객체로 변환하여야 한다. interval 함수는 함수형태로 사용이 가능하고 %--% 연산자를 사용할 수도 있다.
 
 ```{r}
-interval <- interval(as.Date('1980-01-01'), as.Date('2021-12-31'))
+interval <- interval(ymd('1980-01-01'), ymd('2021-12-31'))
 as.period(interval)   # 년월일 형태로 기간 반환
 as.duration(interval)  # 경과 초 형태로 기간 반환
 interval <- '1980-01-01' %--% '2021-12-31'

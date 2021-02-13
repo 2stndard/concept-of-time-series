@@ -172,3 +172,7 @@ tbats-모델
 시계열-forecasting-part-iii---시계열-분석-framework
 fable
 modeltime-1
+자기회귀모델autoregressive-model
+이동평균-모델moving-average-model
+arima-모델-결정
+seasonal-arima-모델

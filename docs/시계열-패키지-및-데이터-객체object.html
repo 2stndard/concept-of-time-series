@@ -227,10 +227,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
 <li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a></li>
+<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.4.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
+<li class="chapter" data-level="6.4.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.4.2</b> 이동평균 모델(Moving Average Model)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.4.3</b> ARIMA 모델 결정</a></li>
+<li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
+</ul></li>
 <li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
 <li class="chapter" data-level="6.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.6</b> Neural Network 모델</a></li>
-<li class="chapter" data-level="6.7" data-path="bootstrapping과-begging-모델.html"><a href="bootstrapping과-begging-모델.html"><i class="fa fa-check"></i><b>6.7</b> Bootstrapping과 Begging 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
 <ul>
@@ -291,7 +296,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>zoo 데이터 객체 생성</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="시계열-패키지-및-데이터-객체object.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zoo</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) <span class="do">### 2008년 8월 1일 부터 5일치 데이터를 가지는 zoo object 생성</span></span></code></pre></div>
 <pre><code>## 2008-08-01 2008-08-02 2008-08-03 2008-08-04 2008-08-05 
-## -1.3644688 -0.4850855  0.8824801 -0.1427136 -0.9824703</code></pre></li>
+##  0.8873707 -1.4973993  0.7694575 -0.5962282 -0.6870372</code></pre></li>
 </ul>
 </div>
 <div id="xts" class="section level3" number="2.2.3">
@@ -306,18 +311,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>xts 데이터 객체 생성</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="시계열-패키지-및-데이터-객체object.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) <span class="do">### 2008년 8월 1일 부터 5일치 데이터를 가지는 xts object 생성</span></span></code></pre></div>
 <pre><code>##                  [,1]
-## 2008-08-01  0.4800219
-## 2008-08-02 -0.2518304
-## 2008-08-03  1.5562938
-## 2008-08-04  0.7955626
-## 2008-08-05 -0.2172639</code></pre>
+## 2008-08-01 -0.1233008
+## 2008-08-02 -1.1034409
+## 2008-08-03 -0.5332540
+## 2008-08-04 -0.8055416
+## 2008-08-05 -0.7596541</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="시계열-패키지-및-데이터-객체object.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) <span class="do">### 2008년 8월 1일 부터 5일치 데이터를 가지는 xts object 변환</span></span></code></pre></div>
 <pre><code>##                  [,1]
-## 2008-08-01 -0.4232330
-## 2008-08-02 -1.1724212
-## 2008-08-03  1.3339484
-## 2008-08-04 -0.1649317
-## 2008-08-05 -0.2906844</code></pre></li>
+## 2008-08-01 -0.9528453
+## 2008-08-02  0.5107166
+## 2008-08-03 -1.5843126
+## 2008-08-04 -0.3731863
+## 2008-08-05 -0.4789552</code></pre></li>
 <li><p>xts()와 as.xts()의 차이</p></li>
 </ul>
 <p>xts()는 xts 객체를 생성하는 함수이나 as.xts()는 timeSeries, ts, irts, fts, matrix, data.frame, zoo 객체를 xts객체로 변환하는 함수이다.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> 다음과 같은 차이가 발생한다.</p>
@@ -370,16 +375,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Key:       id [10]
 ##    date          id      x1 x2   
 ##    &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;
-##  1 2008-01-01     1  0.195  a    
-##  2 2008-01-02     2 -0.0743 a    
-##  3 2008-01-03     3 -1.99   a    
-##  4 2008-01-04     4  1.81   a    
-##  5 2008-01-05     5 -0.648  a    
-##  6 2008-01-06     6  1.42   a    
-##  7 2008-01-07     7  0.129  a    
-##  8 2008-01-08     8  1.31   a    
-##  9 2008-01-09     9 -0.509  a    
-## 10 2008-01-10    10 -0.543  a</code></pre>
+##  1 2008-01-01     1  2.10   a    
+##  2 2008-01-02     2 -1.49   a    
+##  3 2008-01-03     3  1.08   a    
+##  4 2008-01-04     4 -0.0529 a    
+##  5 2008-01-05     5 -0.119  a    
+##  6 2008-01-06     6  0.994  a    
+##  7 2008-01-07     7  1.60   a    
+##  8 2008-01-08     8  0.598  a    
+##  9 2008-01-09     9 -1.98   a    
+## 10 2008-01-10    10 -1.61   a</code></pre>
 </div>
 <div id="modeltime" class="section level3" number="2.2.5">
 <h3><span class="header-section-number">2.2.5</span> modeltime</h3>

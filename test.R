@@ -611,3 +611,16 @@ as_tsibble(x, key = id, index = date)
 
 
 seq('a', 10)
+set.seed(345)
+arima.sim(model = list(order = c(1, 0, 0), ar = 0.9), n = 200) %>% autoplot()
+diff(arima.sim(model = list(order = c(1, 0, 0), ar = 0.9), n = 200), 1) %>% autoplot()
+arima.sim(model = list(order = c(2, 0, 0), ar = c(1.5, -0.75)), n = 200) %>% autoplot()
+diff(arima.sim(model = list(order = c(2, 0, 0), ar = c(1.5, -0.75)), n = 200), 1) %>% autoplot()
+?arima.sim
+
+arima.sim(n = 63, list(ar = c(0.8897, -0.4858), ma = c(-0.2279, 0.2488)),
+          rand.gen = function(n, ...) sqrt(0.1796) * rt(n, df = 5)) %>% autoplot()
+
+?rand.gen
+
+0

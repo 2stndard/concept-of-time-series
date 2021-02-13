@@ -234,10 +234,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
 <li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a></li>
+<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.4.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
+<li class="chapter" data-level="6.4.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.4.2</b> 이동평균 모델(Moving Average Model)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.4.3</b> ARIMA 모델 결정</a></li>
+<li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
+</ul></li>
 <li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
 <li class="chapter" data-level="6.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.6</b> Neural Network 모델</a></li>
-<li class="chapter" data-level="6.7" data-path="bootstrapping과-begging-모델.html"><a href="bootstrapping과-begging-모델.html"><i class="fa fa-check"></i><b>6.7</b> Bootstrapping과 Begging 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
 <ul>
@@ -272,28 +277,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="정상성-테스트" class="section level2" number="5.7">
 <h2><span class="header-section-number">5.7</span> 정상성 테스트</h2>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="정상성-테스트.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span></code></pre></div>
-<pre><code>## Warning: package &#39;tseries&#39; was built under R version 4.0.3</code></pre>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="정상성-테스트.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span> (<span class="fu">ts</span>(employees[, <span class="dv">3</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>), <span class="at">lag =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;Ljung&quot;</span>) <span class="co">#p-value가 0.05보다 작으면 비정상성</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="정상성-테스트.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
+<span id="cb38-2"><a href="정상성-테스트.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span> (<span class="fu">ts</span>(employees[, <span class="dv">3</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>), <span class="at">lag =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;Ljung&quot;</span>) <span class="co">#p-value가 0.05보다 작으면 비정상성</span></span></code></pre></div>
 <pre><code>## 
 ##  Box-Ljung test
 ## 
 ## data:  ts(employees[, 3], start = c(2013, 1), frequency = 12)
 ## X-squared = 73.43, df = 1, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="정상성-테스트.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(<span class="fu">ts</span>(employees[, <span class="dv">3</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>)) <span class="co"># p-value 0.05보다 작으면 정상성</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="정상성-테스트.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(<span class="fu">ts</span>(employees[, <span class="dv">3</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>)) <span class="co"># p-value 0.05보다 작으면 정상성</span></span></code></pre></div>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
 ## 
 ## data:  ts(employees[, 3], start = c(2013, 1), frequency = 12)
 ## Dickey-Fuller = -1.6888, Lag order = 4, p-value = 0.7051
 ## alternative hypothesis: stationary</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="정상성-테스트.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(<span class="fu">ts</span>(employees[, <span class="dv">3</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="정상성-테스트.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(<span class="fu">ts</span>(employees[, <span class="dv">3</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>))</span></code></pre></div>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  ts(employees[, 3], start = c(2013, 1), frequency = 12)
 ## KPSS Level = 0.66909, Truncation lag parameter = 3, p-value = 0.01636</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="정상성-테스트.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p-value가 0.05보다 작으면 비정상성</span></span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="정상성-테스트.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p-value가 0.05보다 작으면 비정상성</span></span></code></pre></div>
 </div>
             </section>
 
