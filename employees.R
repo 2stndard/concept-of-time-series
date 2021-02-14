@@ -333,3 +333,15 @@ employees.tsibble%>%
   mutate(sum.qtrly = sum(total)) %>% 
   mutate(rate.qtrly = (total/sum.qtrly)*100) %>%
   head(15)  
+
+
+do.call(rbind, lapply(split(employees.xts, f = 'year'), sum))
+
+to.period(employees.xts, method = 'year')
+
+
+employees %>% 
+  group_by(year(time)) %>%
+  mutate(cumsum.total = cumsum(total), 
+         cumsum.edu = cumsum(employees.edu)) %>%
+  head(15)
