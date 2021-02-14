@@ -163,3 +163,13 @@ arima(wide.covid19.by.age.ts[,2], )
 wide.covid19.by.age.ts[,2] %>% tbats() %>% forecast(h = 100) %>% autoplot()
 
 wide.covid19.by.age.ts[,2] %>% nnetar() %>% forecast(h = 100, PI = T) %>% autoplot()
+
+
+
+wide.covid19.by.age %>% 
+  group_by(year(date), month(date)) %>%
+  mutate(sum.by.month = sum(`0-9세`)) %>%
+  ungroup() %>%
+  mutate(rate.by.month = round(`0-9세`/sum.by.month, 3) * 100) %>%
+  select(date, `0-9세`, sum.by.month, rate.by.month) %>%
+  head(30)

@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.2 시계열 데이터 응용 사례 | t.utf8</title>
+  <meta name="description" content="<center>
+교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R
+</center>" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.2 시계열 데이터 응용 사례 | t.utf8" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.2 시계열 데이터 응용 사례 | t.utf8" />
+  
+  
+  
+
+<meta name="author" content="이기준" />
+
+
+<meta name="date" content="2021-02-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="시계열-데이터-정보-다루기.html"/>
+<link rel="next" href="시계열-forecasting-part-i-기초컨셉.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="정의.html"><a href="정의.html"><i class="fa fa-check"></i><b>1.1</b> 정의</a></li>
+<li class="chapter" data-level="1.2" data-path="특성.html"><a href="특성.html"><i class="fa fa-check"></i><b>1.2</b> 특성</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="특성.html"><a href="특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
+<li class="chapter" data-level="1.2.2" data-path="특성.html"><a href="특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.3" data-path="특성.html"><a href="특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="특성.html"><a href="특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="특성.html"><a href="특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 타입 및 Import</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 데이터 클래스</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#date-class"><i class="fa fa-check"></i><b>2.1.1</b> Date class</a></li>
+<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-data-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt data class</a></li>
+<li class="chapter" data-level="2.1.3" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#yearmon-yearqtr-class"><i class="fa fa-check"></i><b>2.1.3</b> yearmon, yearqtr class</a></li>
+<li class="chapter" data-level="2.1.4" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#날짜-시간-포맷"><i class="fa fa-check"></i><b>2.1.4</b> 날짜, 시간 포맷</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html"><i class="fa fa-check"></i><b>2.2</b> 시계열 패키지 및 데이터 객체(Object)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#ts"><i class="fa fa-check"></i><b>2.2.1</b> ts</a></li>
+<li class="chapter" data-level="2.2.2" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#zoo"><i class="fa fa-check"></i><b>2.2.2</b> zoo</a></li>
+<li class="chapter" data-level="2.2.3" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#xts"><i class="fa fa-check"></i><b>2.2.3</b> xts</a></li>
+<li class="chapter" data-level="2.2.4" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#tsibble"><i class="fa fa-check"></i><b>2.2.4</b> tsibble</a></li>
+<li class="chapter" data-level="2.2.5" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#modeltime"><i class="fa fa-check"></i><b>2.2.5</b> modeltime</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html"><i class="fa fa-check"></i><b>2.3</b> 시계열 데이터 Import의 방법</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html#파일에서-시계열-데이터로-읽어들이는-방법"><i class="fa fa-check"></i><b>2.3.1</b> 파일에서 시계열 데이터로 읽어들이는 방법</a></li>
+<li class="chapter" data-level="2.3.2" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html#직접-시계열-데이터-타입으로-읽어들이는-방법"><i class="fa fa-check"></i><b>2.3.2</b> 직접 시계열 데이터 타입으로 읽어들이는 방법</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="실습-데이터-생성.html"><a href="실습-데이터-생성.html"><i class="fa fa-check"></i><b>2.4</b> 실습 데이터 생성</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="실습-데이터-생성.html"><a href="실습-데이터-생성.html#월별-데이터---경제활동-인구조사-산업별-취업자수"><i class="fa fa-check"></i><b>2.4.1</b> 월별 데이터 - 경제활동 인구조사 산업별 취업자수</a></li>
+<li class="chapter" data-level="2.4.2" data-path="실습-데이터-생성.html"><a href="실습-데이터-생성.html#일별-데이터---코로나-확진자-수"><i class="fa fa-check"></i><b>2.4.2</b> 일별 데이터 - 코로나 확진자 수</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="시계열-visualization.html"><a href="시계열-visualization.html"><i class="fa fa-check"></i><b>3</b> 시계열 Visualization</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-frame-ggplot2-패키지.html"><a href="data-frame-ggplot2-패키지.html"><i class="fa fa-check"></i><b>3.1</b> data.frame : ggplot2 패키지</a></li>
+<li class="chapter" data-level="3.2" data-path="xts-xts-패키지.html"><a href="xts-xts-패키지.html"><i class="fa fa-check"></i><b>3.2</b> xts : xts 패키지</a></li>
+<li class="chapter" data-level="3.3" data-path="ts-forecast-패키지.html"><a href="ts-forecast-패키지.html"><i class="fa fa-check"></i><b>3.3</b> ts : forecast 패키지</a></li>
+<li class="chapter" data-level="3.4" data-path="tsibble-feasts-패키지.html"><a href="tsibble-feasts-패키지.html"><i class="fa fa-check"></i><b>3.4</b> tsibble : feasts 패키지</a></li>
+<li class="chapter" data-level="3.5" data-path="data-frame-timetk-패키지.html"><a href="data-frame-timetk-패키지.html"><i class="fa fa-check"></i><b>3.5</b> data.frame : timetk 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html"><i class="fa fa-check"></i><b>4.1</b> 시계열 데이터 정보 다루기</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-정보-추출"><i class="fa fa-check"></i><b>4.1.1</b> 시계열 정보 추출</a></li>
+<li class="chapter" data-level="4.1.2" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-연산"><i class="fa fa-check"></i><b>4.1.2</b> 시계열 데이터 연산</a></li>
+<li class="chapter" data-level="4.1.3" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-반올림"><i class="fa fa-check"></i><b>4.1.3</b> 시계열 데이터 반올림</a></li>
+<li class="chapter" data-level="4.1.4" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-grouping"><i class="fa fa-check"></i><b>4.1.4</b> 시계열 데이터 Grouping</a></li>
+<li class="chapter" data-level="4.1.5" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-ohlc"><i class="fa fa-check"></i><b>4.1.5</b> 시계열 데이터 OHLC</a></li>
+<li class="chapter" data-level="4.1.6" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-rolling"><i class="fa fa-check"></i><b>4.1.6</b> 시계열 데이터 Rolling</a></li>
+<li class="chapter" data-level="4.1.7" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-filtering"><i class="fa fa-check"></i><b>4.1.7</b> 시계열 데이터 Filtering</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html"><i class="fa fa-check"></i><b>4.2</b> 시계열 데이터 응용 사례</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-합계"><i class="fa fa-check"></i><b>4.2.1</b> 월별, 분기별, 연별 합계</a></li>
+<li class="chapter" data-level="4.2.2" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-증감량"><i class="fa fa-check"></i><b>4.2.2</b> 월별, 분기별, 연별 증감량</a></li>
+<li class="chapter" data-level="4.2.3" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월-비중-백분율-연-비중-백분율"><i class="fa fa-check"></i><b>4.2.3</b> 월 비중 백분율, 연 비중 백분율</a></li>
+<li class="chapter" data-level="4.2.4" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-누적합계"><i class="fa fa-check"></i><b>4.2.4</b> 월별, 분기별, 연별 누적합계</a></li>
+<li class="chapter" data-level="4.2.5" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-최고-최저치"><i class="fa fa-check"></i><b>4.2.5</b> 월별, 분기별, 연별 최고, 최저치</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="정상성stationary-비정상성non-stationary.html"><a href="정상성stationary-비정상성non-stationary.html"><i class="fa fa-check"></i><b>5.1</b> 정상성(Stationary), 비정상성(Non-Stationary)</a></li>
+<li class="chapter" data-level="5.2" data-path="지연lag와-차분difference.html"><a href="지연lag와-차분difference.html"><i class="fa fa-check"></i><b>5.2</b> 지연(Lag)와 차분(Difference)</a></li>
+<li class="chapter" data-level="5.3" data-path="acf와-pacf.html"><a href="acf와-pacf.html"><i class="fa fa-check"></i><b>5.3</b> ACF와 PACF</a></li>
+<li class="chapter" data-level="5.4" data-path="적합값fitted-value-와-잔차residuals.html"><a href="적합값fitted-value-와-잔차residuals.html"><i class="fa fa-check"></i><b>5.4</b> 적합값(fitted value) 와 잔차(residuals)</a></li>
+<li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
+<li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
+<li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-ploting과-테스트.html"><a href="계절성-ploting과-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 ploting과 테스트</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="simple-모델.html"><a href="simple-모델.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="simple-모델.html"><a href="simple-모델.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
+<li class="chapter" data-level="6.1.2" data-path="simple-모델.html"><a href="simple-모델.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.3" data-path="simple-모델.html"><a href="simple-모델.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.4" data-path="simple-모델.html"><a href="simple-모델.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
+<li class="chapter" data-level="6.1.5" data-path="simple-모델.html"><a href="simple-모델.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>6.2.1</b> tslm 함수(forecast 패키지)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 모델</a></li>
+<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
+<li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.4.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
+<li class="chapter" data-level="6.4.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.4.2</b> 이동평균 모델(Moving Average Model)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.4.3</b> ARIMA 모델 결정</a></li>
+<li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
+<li class="chapter" data-level="6.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.6</b> Neural Network 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="fable.html"><a href="fable.html"><i class="fa fa-check"></i><b>7.1</b> fable</a></li>
+<li class="chapter" data-level="7.2" data-path="modeltime-1.html"><a href="modeltime-1.html"><i class="fa fa-check"></i><b>7.2</b> modeltime</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeltime-1.html"><a href="modeltime-1.html#linear_reg-함수tidymodels-parsnip-modeltime-패키지"><i class="fa fa-check"></i><b>7.2.1</b> linear_reg 함수(tidymodels, parsnip, modeltime 패키지)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><center>
+교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R
+</center></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="시계열-데이터-응용-사례" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> 시계열 데이터 응용 사례</h2>
+<p>본 절에서는 앞에서 설명한 시계열 데이터 핸들링 방법을 기초로 실제 리포팅 과정에서 주로 많이 사용되는 응용 사례에 대해 설명한다. 시계열 데이터가 저장되어 있는 객체의 형태별로 사용가능한 함수와 plotting 예제를 보인다.</p>
+<div id="월별-분기별-연별-합계" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> 월별, 분기별, 연별 합계</h3>
+<ul>
+<li>데이터프레임 : month(), quarter(), year() 함수</li>
+</ul>
+<p>데이터 프레임 객체는 dplyr의 group_by()함수와 파이프라인(%&gt;%)을 사용하여 데이터를 그룹핑 한 후 summarise() 함수를 사용하여 합계를 구할 수 있다.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="시계열-데이터-응용-사례.html#cb153-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb153-2"><a href="시계열-데이터-응용-사례.html#cb153-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(time)) <span class="sc">%&gt;%</span>  <span class="do">### 시간에서 연도를 추출하여 컬럼 생성</span></span>
+<span id="cb153-3"><a href="시계열-데이터-응용-사례.html#cb153-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span>   <span class="do">### 연도컬럼으로 group</span></span>
+<span id="cb153-4"><a href="시계열-데이터-응용-사례.html#cb153-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.year =</span> <span class="fu">sum</span>(total), </span>
+<span id="cb153-5"><a href="시계열-데이터-응용-사례.html#cb153-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">employees.edu.year =</span> <span class="fu">sum</span>(employees.edu))  <span class="do">### 연도별 합계 산출</span></span></code></pre></div>
+<pre><code>## # A tibble: 8 x 3
+##    year total.year employees.edu.year
+##   &lt;dbl&gt;      &lt;int&gt;              &lt;int&gt;
+## 1  2013     303592              21192
+## 2  2014     310766              21957
+## 3  2015     314133              22028
+## 4  2016     316910              22350
+## 5  2017     320698              22886
+## 6  2018     321866              22165
+## 7  2019     325474              22600
+## 8  2020     322852              21570</code></pre>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="시계열-데이터-응용-사례.html#cb155-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb155-2"><a href="시계열-데이터-응용-사례.html#cb155-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(time)) <span class="sc">%&gt;%</span></span>
+<span id="cb155-3"><a href="시계열-데이터-응용-사례.html#cb155-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb155-4"><a href="시계열-데이터-응용-사례.html#cb155-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.year =</span> <span class="fu">sum</span>(total), </span>
+<span id="cb155-5"><a href="시계열-데이터-응용-사례.html#cb155-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">employees.edu.year =</span> <span class="fu">sum</span>(employees.edu)) <span class="sc">%&gt;%</span></span>
+<span id="cb155-6"><a href="시계열-데이터-응용-사례.html#cb155-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, total.year)) <span class="sc">+</span> </span>
+<span id="cb155-7"><a href="시계열-데이터-응용-사례.html#cb155-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="t_files/figure-html/example1-1.png" width="672" /></p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="시계열-데이터-응용-사례.html#cb156-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb156-2"><a href="시계열-데이터-응용-사례.html#cb156-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(time), <span class="at">qrt =</span> <span class="fu">quarter</span>(time)) <span class="sc">%&gt;%</span></span>
+<span id="cb156-3"><a href="시계열-데이터-응용-사례.html#cb156-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, qrt) <span class="sc">%&gt;%</span></span>
+<span id="cb156-4"><a href="시계열-데이터-응용-사례.html#cb156-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.year =</span> <span class="fu">sum</span>(total), </span>
+<span id="cb156-5"><a href="시계열-데이터-응용-사례.html#cb156-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">employees.edu.year =</span> <span class="fu">sum</span>(employees.edu))</span></code></pre></div>
+<pre><code>## # A tibble: 32 x 4
+## # Groups:   year [8]
+##     year   qrt total.year employees.edu.year
+##    &lt;dbl&gt; &lt;int&gt;      &lt;int&gt;              &lt;int&gt;
+##  1  2013     1      73238               5107
+##  2  2013     2      76618               5305
+##  3  2013     3      76895               5418
+##  4  2013     4      76841               5362
+##  5  2014     1      75629               5348
+##  6  2014     2      78275               5504
+##  7  2014     3      78676               5550
+##  8  2014     4      78186               5555
+##  9  2015     1      76629               5466
+## 10  2015     2      79024               5464
+## # ... with 22 more rows</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="시계열-데이터-응용-사례.html#cb158-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb158-2"><a href="시계열-데이터-응용-사례.html#cb158-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(time), <span class="at">qrt =</span> <span class="fu">quarter</span>(time)) <span class="sc">%&gt;%</span></span>
+<span id="cb158-3"><a href="시계열-데이터-응용-사례.html#cb158-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, qrt) <span class="sc">%&gt;%</span></span>
+<span id="cb158-4"><a href="시계열-데이터-응용-사례.html#cb158-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.year =</span> <span class="fu">sum</span>(total), </span>
+<span id="cb158-5"><a href="시계열-데이터-응용-사례.html#cb158-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">employees.edu.year =</span> <span class="fu">sum</span>(employees.edu)) <span class="sc">%&gt;%</span> </span>
+<span id="cb158-6"><a href="시계열-데이터-응용-사례.html#cb158-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(<span class="fu">paste0</span>(year, <span class="st">&#39;,&#39;</span>, qrt)), <span class="at">y =</span> employees.edu.year)) <span class="sc">+</span> </span>
+<span id="cb158-7"><a href="시계열-데이터-응용-사례.html#cb158-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb158-8"><a href="시계열-데이터-응용-사례.html#cb158-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<p><img src="t_files/figure-html/example1-2.png" width="672" /></p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="시계열-데이터-응용-사례.html#cb159-1" aria-hidden="true" tabindex="-1"></a>wide.covid19.by.age <span class="sc">%&gt;%</span></span>
+<span id="cb159-2"><a href="시계열-데이터-응용-사례.html#cb159-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date), <span class="at">month =</span> <span class="fu">month</span>(date)) <span class="sc">%&gt;%</span></span>
+<span id="cb159-3"><a href="시계열-데이터-응용-사례.html#cb159-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month) <span class="sc">%&gt;%</span></span>
+<span id="cb159-4"><a href="시계열-데이터-응용-사례.html#cb159-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">0-9세.month</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 11 x 3
+## # Groups:   year [2]
+##     year month `0-9세.month`
+##    &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;
+##  1  2020     4            14
+##  2  2020     5            16
+##  3  2020     6            31
+##  4  2020     7            53
+##  5  2020     8           196
+##  6  2020     9           136
+##  7  2020    10           112
+##  8  2020    11           301
+##  9  2020    12          1016
+## 10  2021     1           893
+## 11  2021     2           188</code></pre>
+<ul>
+<li>데이터프레임, tsibble : collapse_by() 함수</li>
+</ul>
+<p>데이터프레임이나 tsibble 객체는 collapse_by() 함수를 사용할 수 있다. 앞서 설명한 바와 같이 collpase_by 함수를 사용하기 위해서는 tbl_time 객체로 변환이 필요하다.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="시계열-데이터-응용-사례.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(employees, <span class="at">index =</span> time) <span class="sc">%&gt;%</span></span>
+<span id="cb161-2"><a href="시계열-데이터-응용-사례.html#cb161-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;quarterly&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb161-3"><a href="시계열-데이터-응용-사례.html#cb161-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb161-4"><a href="시계열-데이터-응용-사례.html#cb161-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.quater =</span> <span class="fu">sum</span>(total))</span></code></pre></div>
+<pre><code>## # A time tibble: 32 x 2
+## # Index: time
+##    time       total.quater
+##    &lt;date&gt;            &lt;int&gt;
+##  1 2013-03-01        73238
+##  2 2013-06-01        76618
+##  3 2013-09-01        76895
+##  4 2013-12-01        76841
+##  5 2014-03-01        75629
+##  6 2014-06-01        78275
+##  7 2014-09-01        78676
+##  8 2014-12-01        78186
+##  9 2015-03-01        76629
+## 10 2015-06-01        79024
+## # ... with 22 more rows</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="시계열-데이터-응용-사례.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(employees, <span class="at">index =</span> time) <span class="sc">%&gt;%</span></span>
+<span id="cb163-2"><a href="시계열-데이터-응용-사례.html#cb163-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;quarterly&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb163-3"><a href="시계열-데이터-응용-사례.html#cb163-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb163-4"><a href="시계열-데이터-응용-사례.html#cb163-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.quater =</span> <span class="fu">sum</span>(total)) <span class="sc">%&gt;%</span> </span>
+<span id="cb163-5"><a href="시계열-데이터-응용-사례.html#cb163-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(time, total.quater)) <span class="sc">+</span> </span>
+<span id="cb163-6"><a href="시계열-데이터-응용-사례.html#cb163-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="t_files/figure-html/example2-1.png" width="672" /></p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="시계열-데이터-응용-사례.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(wide.covid19.by.age.tsibble, <span class="at">index =</span> date) <span class="sc">%&gt;%</span></span>
+<span id="cb164-2"><a href="시계열-데이터-응용-사례.html#cb164-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;monthly&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb164-3"><a href="시계열-데이터-응용-사례.html#cb164-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
+<span id="cb164-4"><a href="시계열-데이터-응용-사례.html#cb164-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(total<span class="fl">.1</span>대 <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb164-5"><a href="시계열-데이터-응용-사례.html#cb164-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, total<span class="fl">.1</span>대)) <span class="sc">+</span> </span>
+<span id="cb164-6"><a href="시계열-데이터-응용-사례.html#cb164-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="t_files/figure-html/example2-2.png" width="672" /></p>
+<ul>
+<li>tsibble : index_by() 함수</li>
+</ul>
+<p>tsibble 객체는 데이터프레임 객체와 동일하게 핸들링 할 수 있다. 하지만 tsibble 객체에서만 동작하는 함수인 index_by() 함수를 사용하면 쉽게 구할 수 있다. index_by 함수는 tsibble 객체 생성시 지정한 index 컬럼에서 grouping 하기 위한 새로운 컬럼을 생성하는데 이 컬럼에 grouping 주기를 함수로 명기한다. 여기서 주의해야할 사항은 grouping 함수 앞에 ~를 붙여야 한다는 것과 grouping 함수의 매개변수로 ‘.’을 사용해야 한다는 점이다.’’의 의미는 index 컬럼을 사용한다는 의미이다.</p>
+<p>grouping 주기는 다음과 같다.</p>
+<table>
+<thead>
+<tr class="header">
+<th>함수명</th>
+<th>주기</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>lubridate::year</td>
+<td>연도 주기</td>
+</tr>
+<tr class="even">
+<td>yearquarter</td>
+<td>분기 주기</td>
+</tr>
+<tr class="odd">
+<td>yearmonth</td>
+<td>월 주기</td>
+</tr>
+<tr class="even">
+<td>yearweek</td>
+<td>주 주기</td>
+</tr>
+<tr class="odd">
+<td>as.Date</td>
+<td>일 주기</td>
+</tr>
+<tr class="even">
+<td>celling_date, floor_date, round_date</td>
+<td>상세 주기</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="시계열-데이터-응용-사례.html#cb165-1" aria-hidden="true" tabindex="-1"></a>employees.tsibble<span class="sc">%&gt;%</span></span>
+<span id="cb165-2"><a href="시계열-데이터-응용-사례.html#cb165-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearqtr =</span> <span class="sc">~</span> <span class="fu">yearquarter</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb165-3"><a href="시계열-데이터-응용-사례.html#cb165-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum.qtrly =</span> <span class="fu">sum</span>(total)) <span class="sc">%&gt;%</span> </span>
+<span id="cb165-4"><a href="시계열-데이터-응용-사례.html#cb165-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tsibble: 10 x 2 [1Q]
+##    yearqtr sum.qtrly
+##      &lt;qtr&gt;     &lt;int&gt;
+##  1 2013 Q1     73238
+##  2 2013 Q2     76618
+##  3 2013 Q3     76895
+##  4 2013 Q4     76841
+##  5 2014 Q1     75629
+##  6 2014 Q2     78275
+##  7 2014 Q3     78676
+##  8 2014 Q4     78186
+##  9 2015 Q1     76629
+## 10 2015 Q2     79024</code></pre>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="시계열-데이터-응용-사례.html#cb167-1" aria-hidden="true" tabindex="-1"></a>wide.covid19.by.age.tsibble[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">%&gt;%</span></span>
+<span id="cb167-2"><a href="시계열-데이터-응용-사례.html#cb167-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearweek =</span> <span class="sc">~</span> <span class="fu">yearweek</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb167-3"><a href="시계열-데이터-응용-사례.html#cb167-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum.weekly =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb167-4"><a href="시계열-데이터-응용-사례.html#cb167-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tsibble: 10 x 2 [1W]
+##    yearweek sum.weekly
+##      &lt;week&gt;      &lt;dbl&gt;
+##  1 2020 W15          4
+##  2 2020 W16          8
+##  3 2020 W17          3
+##  4 2020 W18         -1
+##  5 2020 W19          1
+##  6 2020 W20          6
+##  7 2020 W21          1
+##  8 2020 W22          8
+##  9 2020 W23          7
+## 10 2020 W24          3</code></pre>
+<p>index_by를 사용할 때 장점은 grouping 기간을 자유자재로 설정할 수 있다는 점이다. 월, 분기, 년과 같이 달력상의 주기 외에 ‘매 4일마다,’ ’매 2달마다’와 같이 주기를 설정할 수 있다.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="시계열-데이터-응용-사례.html#cb169-1" aria-hidden="true" tabindex="-1"></a>wide.covid19.by.age.tsibble[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">%&gt;%</span></span>
+<span id="cb169-2"><a href="시계열-데이터-응용-사례.html#cb169-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">twoweek =</span> <span class="sc">~</span> lubridate<span class="sc">::</span><span class="fu">floor_date</span>(., <span class="st">&quot;2 month&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb169-3"><a href="시계열-데이터-응용-사례.html#cb169-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum.2week =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb169-4"><a href="시계열-데이터-응용-사례.html#cb169-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tsibble: 6 x 2 [1D]
+##   twoweek    sum.2week
+##   &lt;date&gt;         &lt;dbl&gt;
+## 1 2020-03-01        14
+## 2 2020-05-01        47
+## 3 2020-07-01       249
+## 4 2020-09-01       248
+## 5 2020-11-01      1317
+## 6 2021-01-01      1081</code></pre>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="시계열-데이터-응용-사례.html#cb171-1" aria-hidden="true" tabindex="-1"></a>wide.covid19.by.age.tsibble[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">%&gt;%</span></span>
+<span id="cb171-2"><a href="시계열-데이터-응용-사례.html#cb171-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">fourday =</span> <span class="sc">~</span> lubridate<span class="sc">::</span><span class="fu">floor_date</span>(., <span class="st">&quot;4 day&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb171-3"><a href="시계열-데이터-응용-사례.html#cb171-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum.4days =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb171-4"><a href="시계열-데이터-응용-사례.html#cb171-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tsibble: 10 x 2 [1D]
+##    fourday    sum.4days
+##    &lt;date&gt;         &lt;dbl&gt;
+##  1 2020-04-09         4
+##  2 2020-04-13         5
+##  3 2020-04-17         3
+##  4 2020-04-21         0
+##  5 2020-04-25         2
+##  6 2020-04-29         0
+##  7 2020-05-01         0
+##  8 2020-05-05         1
+##  9 2020-05-09         1
+## 10 2020-05-13         5</code></pre>
+<ul>
+<li>xts : apply 계열 함수</li>
+</ul>
+<p>xts 객체의 월별, 분기별, 연별 값을 구하기 위해서 제공하는 함수는 ’apply.’으로 시작하는 함수로 함수에 xts 객체와 적용하고자 하는 함수(sum, mean 등)을 전달하면 값을 산출할 수 있다. apply. 계열 함수는 다음의 5가지가 있다. 산출된 결과는 plot.xts 함수로 간단히 plotting 할 수 있다.</p>
+<table>
+<thead>
+<tr class="header">
+<th>함수명</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>apply.daily(xts객체, 함수명)</td>
+<td>일별로 함수를 적용한 결과값 반환</td>
+</tr>
+<tr class="even">
+<td>apply.weekly(xts객체, 함수명)</td>
+<td>주별로 함수를 적용한 결과값 반환</td>
+</tr>
+<tr class="odd">
+<td>apply.monthly(xts객체, 함수명)</td>
+<td>월별로 함수를 적용한 결과값 반환</td>
+</tr>
+<tr class="even">
+<td>apply.quarterly(xts객체, 함수명)</td>
+<td>분기별로 함수를 적용한 결과값 반환</td>
+</tr>
+<tr class="odd">
+<td>apply.yearly(xts객체, 함수명)</td>
+<td>년별로 함수를 적용한 결과값 반환</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="시계열-데이터-응용-사례.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb173-2"><a href="시계열-데이터-응용-사례.html#cb173-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.quarterly</span>(employees.xts, sum) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##             [,1]
+## 2013-03-01 78345
+## 2013-06-01 81923
+## 2013-09-01 82313
+## 2013-12-01 82203
+## 2014-03-01 80977
+## 2014-06-01 83779
+## 2014-09-01 84226
+## 2014-12-01 83741
+## 2015-03-01 82095
+## 2015-06-01 84488</code></pre>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="시계열-데이터-응용-사례.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.yearly</span>(employees.xts, sum) <span class="sc">%&gt;%</span> <span class="fu">plot.xts</span>()</span></code></pre></div>
+<p><img src="t_files/figure-html/example3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="시계열-데이터-응용-사례.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.monthly</span>(wide.covid19.by.age.xts[,<span class="dv">1</span>], sum) <span class="sc">%&gt;%</span> <span class="fu">plot.xts</span>()</span></code></pre></div>
+<p><img src="t_files/figure-html/example3-2.png" width="672" /></p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="시계열-데이터-응용-사례.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.quarterly</span>(wide.covid19.by.age.xts[,<span class="dv">1</span>], sum) <span class="sc">%&gt;%</span> <span class="fu">plot.xts</span>()</span></code></pre></div>
+<p><img src="t_files/figure-html/example3-3.png" width="672" /></p>
+<ul>
+<li>ts 객체</li>
+</ul>
+<p>ts 객체는 다음장부터 다뤄질 시계열 분석 패키지인 forecast 패키지에서 중요하게 사용되는 객체이다. 하지만 앞선 data.frame 이나 xts 처럼 핸들링이 용이하지 않다. 따라서 데이터 핸들링을 위해서는 data.frame 이나 xts 객체로 변환하여 사용하는 것이 정신 건강에 좋다.</p>
+</div>
+<div id="월별-분기별-연별-증감량" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> 월별, 분기별, 연별 증감량</h3>
+<ul>
+<li>데이터프레임 : lag() 함수</li>
+</ul>
+<p>월별, 분기별, 연별 증감량을 산출하기 위해서는 바로 직전 데이터와의 차감 데이터를 계산해야 한다. 시계열 분석에서는 바로 이전 데이터와의 차감데이터가 중요하게 활용되는데 자세한 내용은 다음장에서 다뤄진다. lag() 함수를 통해 데이터를 하나씩 Shift 시켜주고 mutate를 통해 증감과 증감률 컬럼을 넣어준다.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="시계열-데이터-응용-사례.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(연도, 학생수계), <span class="do">### 1.연도와 학생수 컬럼을 선택 </span></span>
+<span id="cb178-2"><a href="시계열-데이터-응용-사례.html#cb178-2" aria-hidden="true" tabindex="-1"></a>      students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">lag</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(학생수계) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(전년 <span class="ot">=</span> 학생수계)) <span class="sc">%&gt;%</span>  <span class="do">### 2. lag(1) 함수를 사용하여 시차1 데이터 생성(하나씩 아래로 shift) 하고 컬럼명을 lag로 변경</span></span>
+<span id="cb178-3"><a href="시계열-데이터-응용-사례.html#cb178-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감 <span class="ot">=</span> 학생수계 <span class="sc">-</span> 전년, 증감율 <span class="ot">=</span> <span class="fu">round</span>((학생수계<span class="sc">/</span>전년)<span class="sc">-</span><span class="dv">1</span>, <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>) <span class="do">### 3. 시차1 데이터와 원 데이터의 차이를 증감 컬럼으로, 원데이터를 시차1 데이터로 나눈 수치를 1에서 빼준 결과(비중을 증감으로 변환)에 100을 곱한다(백분률로 변환)</span></span></code></pre></div>
+<pre><code>##    연도 학생수계    전년    증감 증감율
+## 1  1999  8658358      NA      NA     NA
+## 2  2000  8535867 8658358 -122491   -1.4
+## 3  2001  8414423 8535867 -121444   -1.4
+## 4  2002  8361933 8414423  -52490   -0.6
+## 5  2003  8379775 8361933   17842    0.2
+## 6  2004  8371630 8379775   -8145   -0.1
+## 7  2005  8371421 8371630    -209    0.0
+## 8  2006  8354891 8371421  -16530   -0.2
+## 9  2007  8309932 8354891  -44959   -0.5
+## 10 2008  8187782 8309932 -122150   -1.5</code></pre>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="시계열-데이터-응용-사례.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(employees <span class="sc">%&gt;%</span> <span class="fu">select</span>(time, total),</span>
+<span id="cb180-2"><a href="시계열-데이터-응용-사례.html#cb180-2" aria-hidden="true" tabindex="-1"></a>      employees <span class="sc">%&gt;%</span> <span class="fu">select</span>(total) <span class="sc">%&gt;%</span> <span class="fu">lag</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(전월 <span class="ot">=</span> total)) <span class="sc">%&gt;%</span> </span>
+<span id="cb180-3"><a href="시계열-데이터-응용-사례.html#cb180-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감 <span class="ot">=</span> total <span class="sc">-</span> 전월, 증감율 <span class="ot">=</span> <span class="fu">round</span>((total<span class="sc">/</span>전월)<span class="sc">-</span><span class="dv">1</span>, <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##          time total  전월 증감 증감율
+## 1  2013-01-01 24287    NA   NA     NA
+## 2  2013-02-01 24215 24287  -72   -0.3
+## 3  2013-03-01 24736 24215  521    2.2
+## 4  2013-04-01 25322 24736  586    2.4
+## 5  2013-05-01 25610 25322  288    1.1
+## 6  2013-06-01 25686 25610   76    0.3
+## 7  2013-07-01 25681 25686   -5    0.0
+## 8  2013-08-01 25513 25681 -168   -0.7
+## 9  2013-09-01 25701 25513  188    0.7
+## 10 2013-10-01 25798 25701   97    0.4</code></pre>
+<ul>
+<li>tsibble : diffrence() 함수</li>
+</ul>
+<p>앞선 데이터 프레임에서는 lag() 함수를 사용하여 원 데이터의 time shift를 한 데이터 컬럼을 생성하고 두 컬럼의 차이를 구하였다. tsibble 객체는 이 과정을 바로 지원하는 difference() 함수를 제공한다. 따라서 데이터프레임보다는 몇단계 과정을 줄일수 있다.</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="시계열-데이터-응용-사례.html#cb182-1" aria-hidden="true" tabindex="-1"></a>students.tsibble<span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span>, <span class="dv">3</span>) <span class="ot">-&gt;</span> students.tsibble.계</span>
+<span id="cb182-2"><a href="시계열-데이터-응용-사례.html#cb182-2" aria-hidden="true" tabindex="-1"></a>students.tsibble.계 <span class="sc">%&gt;%</span></span>
+<span id="cb182-3"><a href="시계열-데이터-응용-사례.html#cb182-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감 <span class="ot">=</span> <span class="fu">difference</span>(students.tsibble.계<span class="sc">$</span>학생수계, <span class="at">lag =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb182-4"><a href="시계열-데이터-응용-사례.html#cb182-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감율 <span class="ot">=</span> <span class="fu">round</span>((증감<span class="sc">/</span>학생수계), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tsibble: 10 x 4 [1Y]
+##     연도 학생수계    증감 증감율
+##    &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1  1999  8658358      NA   NA  
+##  2  2000  8535867 -122491   -1.4
+##  3  2001  8414423 -121444   -1.4
+##  4  2002  8361933  -52490   -0.6
+##  5  2003  8379775   17842    0.2
+##  6  2004  8371630   -8145   -0.1
+##  7  2005  8371421    -209    0  
+##  8  2006  8354891  -16530   -0.2
+##  9  2007  8309932  -44959   -0.5
+## 10  2008  8187782 -122150   -1.5</code></pre>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="시계열-데이터-응용-사례.html#cb184-1" aria-hidden="true" tabindex="-1"></a>employees<span class="sc">%&gt;%</span></span>
+<span id="cb184-2"><a href="시계열-데이터-응용-사례.html#cb184-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감 <span class="ot">=</span> <span class="fu">difference</span>(employees.tsibble<span class="sc">$</span>total, <span class="at">lag =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb184-3"><a href="시계열-데이터-응용-사례.html#cb184-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감율 <span class="ot">=</span> <span class="fu">round</span>((증감<span class="sc">/</span>total), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##          time total 증감 증감율
+## 1  2013-01-01 24287   NA     NA
+## 2  2013-02-01 24215  -72   -0.3
+## 3  2013-03-01 24736  521    2.1
+## 4  2013-04-01 25322  586    2.3
+## 5  2013-05-01 25610  288    1.1
+## 6  2013-06-01 25686   76    0.3
+## 7  2013-07-01 25681   -5    0.0
+## 8  2013-08-01 25513 -168   -0.7
+## 9  2013-09-01 25701  188    0.7
+## 10 2013-10-01 25798   97    0.4</code></pre>
+<ul>
+<li>xts : diff() 함수</li>
+</ul>
+<p>xts 객체도 tsibble 객체와 같이 차분 함수인 diff() 함수를 제공한다. 이후 과정은 tsibble과 동일한 과정을 거친다.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="시계열-데이터-응용-사례.html#cb186-1" aria-hidden="true" tabindex="-1"></a>students.total.xts<span class="sc">$</span>증감 <span class="ot">&lt;-</span> <span class="fu">diff</span>(students.total.xts[,<span class="dv">2</span>]) </span>
+<span id="cb186-2"><a href="시계열-데이터-응용-사례.html#cb186-2" aria-hidden="true" tabindex="-1"></a>students.total.xts<span class="sc">$</span>증감율 <span class="ot">&lt;-</span> <span class="fu">round</span>((students.total.xts<span class="sc">$</span>증감<span class="sc">/</span>students.total.xts<span class="sc">$</span>학생수계), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb186-3"><a href="시계열-데이터-응용-사례.html#cb186-3" aria-hidden="true" tabindex="-1"></a>students.total.xts[, <span class="fu">c</span>(<span class="st">&#39;학생수계&#39;</span>, <span class="st">&#39;증감&#39;</span>, <span class="st">&#39;증감율&#39;</span>)] <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##            학생수계    증감 증감율
+## 1999-01-01  8658358      NA     NA
+## 2000-01-01  8535867 -122491   -1.4
+## 2001-01-01  8414423 -121444   -1.4
+## 2002-01-01  8361933  -52490   -0.6
+## 2003-01-01  8379775   17842    0.2
+## 2004-01-01  8371630   -8145   -0.1
+## 2005-01-01  8371421    -209    0.0
+## 2006-01-01  8354891  -16530   -0.2
+## 2007-01-01  8309932  -44959   -0.5
+## 2008-01-01  8187782 -122150   -1.5</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="시계열-데이터-응용-사례.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(students.total.xts[, <span class="st">&#39;증감율&#39;</span>], <span class="at">main =</span> <span class="st">&#39;학생수 증감률&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/xts_diff-1.png" width="672" /></p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="시계열-데이터-응용-사례.html#cb189-1" aria-hidden="true" tabindex="-1"></a>employees.xts<span class="sc">$</span>증감 <span class="ot">&lt;-</span> <span class="fu">diff</span>(employees.xts<span class="sc">$</span>total)</span>
+<span id="cb189-2"><a href="시계열-데이터-응용-사례.html#cb189-2" aria-hidden="true" tabindex="-1"></a>employees.xts<span class="sc">$</span>증감율 <span class="ot">&lt;-</span> <span class="fu">round</span>((employees.xts<span class="sc">$</span>증감<span class="sc">/</span>employees.xts<span class="sc">$</span>total), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb189-3"><a href="시계열-데이터-응용-사례.html#cb189-3" aria-hidden="true" tabindex="-1"></a>employees.xts[, <span class="fu">c</span>(<span class="st">&#39;total&#39;</span>, <span class="st">&#39;증감&#39;</span>, <span class="st">&#39;증감율&#39;</span>)] <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##            total 증감 증감율
+## 2013-01-01 24287   NA     NA
+## 2013-02-01 24215  -72   -0.3
+## 2013-03-01 24736  521    2.1
+## 2013-04-01 25322  586    2.3
+## 2013-05-01 25610  288    1.1
+## 2013-06-01 25686   76    0.3
+## 2013-07-01 25681   -5    0.0
+## 2013-08-01 25513 -168   -0.7
+## 2013-09-01 25701  188    0.7
+## 2013-10-01 25798   97    0.4</code></pre>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="시계열-데이터-응용-사례.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(employees.xts[, <span class="fu">c</span>(<span class="st">&#39;증감율&#39;</span>)], <span class="at">main =</span> <span class="st">&#39;전체 취업자 증감률&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/xts_diff-2.png" width="672" /></p>
+</div>
+<div id="월-비중-백분율-연-비중-백분율" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> 월 비중 백분율, 연 비중 백분율</h3>
+<p>전체 연간 매출의 월별 비중, 전체 월간 합계 중 일별, 주간별 비중과 같은 수치를 산출해야할 때가 있다. 전체 연간 매출의 월별 비중을 모두 합하면 100%가 되어야 한다. 이를 위해서는 각각의 row에 비중을 구하기 위한 총 합계치가 계산되어야 한다.</p>
+<p>예를 들어 매월 매출액이 기록된 시계열 데이터에서 년중 비중을 구하기 위해서는 매월 매출액의 옆 컬럼에 해당 년의 전체 매출액 합계가 있어야 비중을 구할 수 있다.</p>
+<ul>
+<li>data.frame : group_by(), mutate() 함수</li>
+</ul>
+<p>데이터 프레임에서 총합계를 구하기 위해서는 먼저 구하고자 하는 총 합계의 주기로 grouping 하여 전체 합계를 구해야하는데 이때 주의해야할 점이 summarise() 함수를 통해 합계를 구하지 않고 mutate() 함수를 통해 합계를 구해야 한다. summarise 함수를 통해 합계를 구하면 전체 데이터 구조가 grouping 된 구조로 바뀌게 되지만 mutate() 함수를 통해 합계를 구하면 grouping 된 주기별로 합계값을 구한 컬럼이 추가되게 되어 비중을 구하기 쉽다.</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="시계열-데이터-응용-사례.html#cb192-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb192-2"><a href="시계열-데이터-응용-사례.html#cb192-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">year</span>(time)) <span class="sc">%&gt;%</span></span>
+<span id="cb192-3"><a href="시계열-데이터-응용-사례.html#cb192-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sum.by.year =</span> <span class="fu">sum</span>(total)) <span class="sc">%&gt;%</span></span>
+<span id="cb192-4"><a href="시계열-데이터-응용-사례.html#cb192-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb192-5"><a href="시계열-데이터-응용-사례.html#cb192-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rate.by.year =</span> <span class="fu">round</span>(total<span class="sc">/</span>sum.by.year, <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb192-6"><a href="시계열-데이터-응용-사례.html#cb192-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 15 x 6
+##    time       total employees.edu `year(time)` sum.by.year rate.by.year
+##    &lt;date&gt;     &lt;int&gt;         &lt;int&gt;        &lt;dbl&gt;       &lt;int&gt;        &lt;dbl&gt;
+##  1 2013-01-01 24287          1710         2013      303592          8  
+##  2 2013-02-01 24215          1681         2013      303592          8  
+##  3 2013-03-01 24736          1716         2013      303592          8.1
+##  4 2013-04-01 25322          1745         2013      303592          8.3
+##  5 2013-05-01 25610          1774         2013      303592          8.4
+##  6 2013-06-01 25686          1786         2013      303592          8.5
+##  7 2013-07-01 25681          1813         2013      303592          8.5
+##  8 2013-08-01 25513          1811         2013      303592          8.4
+##  9 2013-09-01 25701          1794         2013      303592          8.5
+## 10 2013-10-01 25798          1790         2013      303592          8.5
+## 11 2013-11-01 25795          1793         2013      303592          8.5
+## 12 2013-12-01 25248          1779         2013      303592          8.3
+## 13 2014-01-01 25050          1748         2014      310766          8.1
+## 14 2014-02-01 25116          1786         2014      310766          8.1
+## 15 2014-03-01 25463          1814         2014      310766          8.2</code></pre>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="시계열-데이터-응용-사례.html#cb194-1" aria-hidden="true" tabindex="-1"></a>wide.covid19.by.age <span class="sc">%&gt;%</span> </span>
+<span id="cb194-2"><a href="시계열-데이터-응용-사례.html#cb194-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">year</span>(date), <span class="fu">month</span>(date)) <span class="sc">%&gt;%</span></span>
+<span id="cb194-3"><a href="시계열-데이터-응용-사례.html#cb194-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sum.by.month =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb194-4"><a href="시계열-데이터-응용-사례.html#cb194-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb194-5"><a href="시계열-데이터-응용-사례.html#cb194-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rate.by.month =</span> <span class="fu">round</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span><span class="sc">/</span>sum.by.month, <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb194-6"><a href="시계열-데이터-응용-사례.html#cb194-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>, sum.by.month, rate.by.month)</span></code></pre></div>
+<pre><code>## # A tibble: 302 x 4
+##    date       `0-9세` sum.by.month rate.by.month
+##    &lt;date&gt;       &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;
+##  1 2020-04-09       2           14          14.3
+##  2 2020-04-10       1           14           7.1
+##  3 2020-04-11       1           14           7.1
+##  4 2020-04-12       0           14           0  
+##  5 2020-04-13       2           14          14.3
+##  6 2020-04-14       0           14           0  
+##  7 2020-04-15       0           14           0  
+##  8 2020-04-16       3           14          21.4
+##  9 2020-04-17       1           14           7.1
+## 10 2020-04-18       2           14          14.3
+## # ... with 292 more rows</code></pre>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="시계열-데이터-응용-사례.html#cb196-1" aria-hidden="true" tabindex="-1"></a>wide.covid19.by.age <span class="sc">%&gt;%</span> </span>
+<span id="cb196-2"><a href="시계열-데이터-응용-사례.html#cb196-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">year</span>(date), <span class="fu">month</span>(date), <span class="fu">week</span>(date)) <span class="sc">%&gt;%</span></span>
+<span id="cb196-3"><a href="시계열-데이터-응용-사례.html#cb196-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sum.by.week =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb196-4"><a href="시계열-데이터-응용-사례.html#cb196-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb196-5"><a href="시계열-데이터-응용-사례.html#cb196-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rate.by.week =</span> <span class="fu">round</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span><span class="sc">/</span>sum.by.week, <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb196-6"><a href="시계열-데이터-응용-사례.html#cb196-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>, sum.by.week, rate.by.week)</span></code></pre></div>
+<pre><code>## # A tibble: 302 x 4
+##    date       `0-9세` sum.by.week rate.by.week
+##    &lt;date&gt;       &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+##  1 2020-04-09       2           6         33.3
+##  2 2020-04-10       1           6         16.7
+##  3 2020-04-11       1           6         16.7
+##  4 2020-04-12       0           6          0  
+##  5 2020-04-13       2           6         33.3
+##  6 2020-04-14       0           6          0  
+##  7 2020-04-15       0           6          0  
+##  8 2020-04-16       3           6         50  
+##  9 2020-04-17       1           6         16.7
+## 10 2020-04-18       2           6         33.3
+## # ... with 292 more rows</code></pre>
+<ul>
+<li>데이터 프레임 : collapse_by() 함수 사용</li>
+</ul>
+<p>collapse_by() 함수도 앞에서 설명한 group_by(), mutate() 함수 사용방법과 동일한 방법으로 사용할 수 있다.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="시계열-데이터-응용-사례.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(employees, <span class="at">index =</span> time) <span class="sc">%&gt;%</span></span>
+<span id="cb198-2"><a href="시계열-데이터-응용-사례.html#cb198-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;quarterly&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb198-3"><a href="시계열-데이터-응용-사례.html#cb198-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb198-4"><a href="시계열-데이터-응용-사례.html#cb198-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total.quater =</span> <span class="fu">sum</span>(total)) <span class="sc">%&gt;%</span></span>
+<span id="cb198-5"><a href="시계열-데이터-응용-사례.html#cb198-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb198-6"><a href="시계열-데이터-응용-사례.html#cb198-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rate.by.quater =</span> <span class="fu">round</span>(total<span class="sc">/</span>total.quater, <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) </span></code></pre></div>
+<pre><code>## # A time tibble: 96 x 5
+## # Index: time
+##    time       total employees.edu total.quater rate.by.quater
+##    &lt;date&gt;     &lt;int&gt;         &lt;int&gt;        &lt;int&gt;          &lt;dbl&gt;
+##  1 2013-03-01 24287          1710        73238           33.2
+##  2 2013-03-01 24215          1681        73238           33.1
+##  3 2013-03-01 24736          1716        73238           33.8
+##  4 2013-06-01 25322          1745        76618           33  
+##  5 2013-06-01 25610          1774        76618           33.4
+##  6 2013-06-01 25686          1786        76618           33.5
+##  7 2013-09-01 25681          1813        76895           33.4
+##  8 2013-09-01 25513          1811        76895           33.2
+##  9 2013-09-01 25701          1794        76895           33.4
+## 10 2013-12-01 25798          1790        76841           33.6
+## # ... with 86 more rows</code></pre>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="시계열-데이터-응용-사례.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(employees, <span class="at">index =</span> time) <span class="sc">%&gt;%</span></span>
+<span id="cb200-2"><a href="시계열-데이터-응용-사례.html#cb200-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;quarterly&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb200-3"><a href="시계열-데이터-응용-사례.html#cb200-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb200-4"><a href="시계열-데이터-응용-사례.html#cb200-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.quater =</span> <span class="fu">sum</span>(total)) <span class="sc">%&gt;%</span> </span>
+<span id="cb200-5"><a href="시계열-데이터-응용-사례.html#cb200-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(time, total.quater)) <span class="sc">+</span> </span>
+<span id="cb200-6"><a href="시계열-데이터-응용-사례.html#cb200-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="t_files/figure-html/tbl_time_rate-1.png" width="672" /></p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="시계열-데이터-응용-사례.html#cb202-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(wide.covid19.by.age.tsibble, <span class="at">index =</span> date) <span class="sc">%&gt;%</span></span>
+<span id="cb202-2"><a href="시계열-데이터-응용-사례.html#cb202-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;monthly&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb202-3"><a href="시계열-데이터-응용-사례.html#cb202-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
+<span id="cb202-4"><a href="시계열-데이터-응용-사례.html#cb202-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(total<span class="fl">.1</span>대 <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb202-5"><a href="시계열-데이터-응용-사례.html#cb202-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, total<span class="fl">.1</span>대)) <span class="sc">+</span> </span>
+<span id="cb202-6"><a href="시계열-데이터-응용-사례.html#cb202-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<p><img src="t_files/figure-html/tbl_time_rate-2.png" width="672" /></p>
+<ul>
+<li>tsibble : index_by(), mutate() 함수</li>
+</ul>
+<p>앞선 월별 분기별 합산에서 사용했던 inde_by() 함수를 이용하면 데이터를 주기별로 grouping 할 수 있다. 이때 데이터프레임과 같이 summarise() 함수가 아닌 mutate() 함수를 사용하여 전체 row에 grouping된 합계 컬럼을 생성한 후 비율을 구할 수 있다.</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="시계열-데이터-응용-사례.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="do">###  취업자수의 분기별 비율</span></span>
+<span id="cb204-2"><a href="시계열-데이터-응용-사례.html#cb204-2" aria-hidden="true" tabindex="-1"></a>employees.tsibble<span class="sc">%&gt;%</span></span>
+<span id="cb204-3"><a href="시계열-데이터-응용-사례.html#cb204-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearqtr =</span> <span class="sc">~</span> <span class="fu">yearquarter</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb204-4"><a href="시계열-데이터-응용-사례.html#cb204-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sum.qtrly =</span> <span class="fu">sum</span>(total)) <span class="sc">%&gt;%</span> </span>
+<span id="cb204-5"><a href="시계열-데이터-응용-사례.html#cb204-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rate.qtrly =</span> total<span class="sc">/</span>sum.qtrly) <span class="sc">%&gt;%</span></span>
+<span id="cb204-6"><a href="시계열-데이터-응용-사례.html#cb204-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)  </span></code></pre></div>
+<pre><code>## # A tsibble: 15 x 6 [1D]
+## # Groups:    @ yearqtr [5]
+##    time       total employees.edu yearqtr sum.qtrly rate.qtrly
+##    &lt;date&gt;     &lt;int&gt;         &lt;int&gt;   &lt;qtr&gt;     &lt;int&gt;      &lt;dbl&gt;
+##  1 2013-01-01 24287          1710 2013 Q1     73238      0.332
+##  2 2013-02-01 24215          1681 2013 Q1     73238      0.331
+##  3 2013-03-01 24736          1716 2013 Q1     73238      0.338
+##  4 2013-04-01 25322          1745 2013 Q2     76618      0.330
+##  5 2013-05-01 25610          1774 2013 Q2     76618      0.334
+##  6 2013-06-01 25686          1786 2013 Q2     76618      0.335
+##  7 2013-07-01 25681          1813 2013 Q3     76895      0.334
+##  8 2013-08-01 25513          1811 2013 Q3     76895      0.332
+##  9 2013-09-01 25701          1794 2013 Q3     76895      0.334
+## 10 2013-10-01 25798          1790 2013 Q4     76841      0.336
+## 11 2013-11-01 25795          1793 2013 Q4     76841      0.336
+## 12 2013-12-01 25248          1779 2013 Q4     76841      0.329
+## 13 2014-01-01 25050          1748 2014 Q1     75629      0.331
+## 14 2014-02-01 25116          1786 2014 Q1     75629      0.332
+## 15 2014-03-01 25463          1814 2014 Q1     75629      0.337</code></pre>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="시계열-데이터-응용-사례.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 취업자수의 월별 비율</span></span>
+<span id="cb206-2"><a href="시계열-데이터-응용-사례.html#cb206-2" aria-hidden="true" tabindex="-1"></a>employees.tsibble<span class="sc">%&gt;%</span></span>
+<span id="cb206-3"><a href="시계열-데이터-응용-사례.html#cb206-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearqtr =</span> <span class="sc">~</span> <span class="fu">year</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb206-4"><a href="시계열-데이터-응용-사례.html#cb206-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sum.qtrly =</span> <span class="fu">sum</span>(total)) <span class="sc">%&gt;%</span> </span>
+<span id="cb206-5"><a href="시계열-데이터-응용-사례.html#cb206-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rate.qtrly =</span> (total<span class="sc">/</span>sum.qtrly)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb206-6"><a href="시계열-데이터-응용-사례.html#cb206-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)  </span></code></pre></div>
+<pre><code>## # A tsibble: 15 x 6 [1D]
+## # Groups:    @ yearqtr [2]
+##    time       total employees.edu yearqtr sum.qtrly rate.qtrly
+##    &lt;date&gt;     &lt;int&gt;         &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;      &lt;dbl&gt;
+##  1 2013-01-01 24287          1710    2013    303592       8.00
+##  2 2013-02-01 24215          1681    2013    303592       7.98
+##  3 2013-03-01 24736          1716    2013    303592       8.15
+##  4 2013-04-01 25322          1745    2013    303592       8.34
+##  5 2013-05-01 25610          1774    2013    303592       8.44
+##  6 2013-06-01 25686          1786    2013    303592       8.46
+##  7 2013-07-01 25681          1813    2013    303592       8.46
+##  8 2013-08-01 25513          1811    2013    303592       8.40
+##  9 2013-09-01 25701          1794    2013    303592       8.47
+## 10 2013-10-01 25798          1790    2013    303592       8.50
+## 11 2013-11-01 25795          1793    2013    303592       8.50
+## 12 2013-12-01 25248          1779    2013    303592       8.32
+## 13 2014-01-01 25050          1748    2014    310766       8.06
+## 14 2014-02-01 25116          1786    2014    310766       8.08
+## 15 2014-03-01 25463          1814    2014    310766       8.19</code></pre>
+</div>
+<div id="월별-분기별-연별-누적합계" class="section level3" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> 월별, 분기별, 연별 누적합계</h3>
+<p>시계열 데이터는 시간동안의 데이터 흐름을 나타내지만 경우에 따라서 계속된 합계값을 나타내야 할 경우가 있다. 예를 들어 주간별 매출액의 연도별 누적 매출액, 웹사이트의 누적 사용자와 같은 경우이다. 누적값은 앞서 설명한 grouping과 함께 쓰면 더 좋은 결과를 낼 수 있다.</p>
+<ul>
+<li>data.frame : cumsum(), group_by(), collapse_by() 함수</li>
+</ul>
+<p>data.frame 객체로 저장된 시계열 데이터에 대한 누적값을 구하기 위해서는 dplyr 패키지의 누적값을 산출 함수인 cumsum() 함수를 사용한다. 데이터를 grouping 하지 않고 전체 데이터에 대한 누적값은 mutate() 함수를 사용하여 cumsum() 함수 결과 컬럼을 생성함으로써 구할 수 있다.</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="시계열-데이터-응용-사례.html#cb208-1" aria-hidden="true" tabindex="-1"></a>students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb208-2"><a href="시계열-데이터-응용-사례.html#cb208-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum =</span> <span class="fu">cumsum</span>(학생수계)) <span class="sc">%&gt;%</span></span>
+<span id="cb208-3"><a href="시계열-데이터-응용-사례.html#cb208-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(연도, 학생수계, cumsum)</span></code></pre></div>
+<pre><code>##    연도 학생수계    cumsum
+## 1  1999  8658358   8658358
+## 2  2000  8535867  17194225
+## 3  2001  8414423  25608648
+## 4  2002  8361933  33970581
+## 5  2003  8379775  42350356
+## 6  2004  8371630  50721986
+## 7  2005  8371421  59093407
+## 8  2006  8354891  67448298
+## 9  2007  8309932  75758230
+## 10 2008  8187782  83946012
+## 11 2009  8016924  91962936
+## 12 2010  7807663  99770599
+## 13 2011  7586266 107356865
+## 14 2012  7370308 114727173
+## 15 2013  7173904 121901077
+## 16 2014  6973154 128874231
+## 17 2015  6806411 135680642
+## 18 2016  6621547 142302189
+## 19 2017  6454281 148756470
+## 20 2018  6295366 155051836
+## 21 2019  6122198 161174034
+## 22 2020  5995239 167169273</code></pre>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="시계열-데이터-응용-사례.html#cb210-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb210-2"><a href="시계열-데이터-응용-사례.html#cb210-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum =</span> <span class="fu">cumsum</span>(total)) <span class="sc">%&gt;%</span></span>
+<span id="cb210-3"><a href="시계열-데이터-응용-사례.html#cb210-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, cumsum) <span class="sc">%&gt;%</span></span>
+<span id="cb210-4"><a href="시계열-데이터-응용-사례.html#cb210-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
+<pre><code>##          time total cumsum
+## 1  2013-01-01 24287  24287
+## 2  2013-02-01 24215  48502
+## 3  2013-03-01 24736  73238
+## 4  2013-04-01 25322  98560
+## 5  2013-05-01 25610 124170
+## 6  2013-06-01 25686 149856
+## 7  2013-07-01 25681 175537
+## 8  2013-08-01 25513 201050
+## 9  2013-09-01 25701 226751
+## 10 2013-10-01 25798 252549
+## 11 2013-11-01 25795 278344
+## 12 2013-12-01 25248 303592
+## 13 2014-01-01 25050 328642
+## 14 2014-02-01 25116 353758
+## 15 2014-03-01 25463 379221</code></pre>
+<p>전체 데이터에 대한 누적 합계가 아닌 연별, 월별, 주별 등의 주기별 누적합계를 구하려면 앞서 설명한 group_by(), collapse_by()와 함께 사용하면 원하는 기간동안의 누적 합계를 구할 수 있다.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="시계열-데이터-응용-사례.html#cb212-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb212-2"><a href="시계열-데이터-응용-사례.html#cb212-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">year</span>(time)) <span class="sc">%&gt;%</span></span>
+<span id="cb212-3"><a href="시계열-데이터-응용-사례.html#cb212-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum.total =</span> <span class="fu">cumsum</span>(total), </span>
+<span id="cb212-4"><a href="시계열-데이터-응용-사례.html#cb212-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">cumsum.edu =</span> <span class="fu">cumsum</span>(employees.edu))</span></code></pre></div>
+<pre><code>## # A tibble: 96 x 6
+## # Groups:   year(time) [8]
+##    time       total employees.edu `year(time)` cumsum.total cumsum.edu
+##    &lt;date&gt;     &lt;int&gt;         &lt;int&gt;        &lt;dbl&gt;        &lt;int&gt;      &lt;int&gt;
+##  1 2013-01-01 24287          1710         2013        24287       1710
+##  2 2013-02-01 24215          1681         2013        48502       3391
+##  3 2013-03-01 24736          1716         2013        73238       5107
+##  4 2013-04-01 25322          1745         2013        98560       6852
+##  5 2013-05-01 25610          1774         2013       124170       8626
+##  6 2013-06-01 25686          1786         2013       149856      10412
+##  7 2013-07-01 25681          1813         2013       175537      12225
+##  8 2013-08-01 25513          1811         2013       201050      14036
+##  9 2013-09-01 25701          1794         2013       226751      15830
+## 10 2013-10-01 25798          1790         2013       252549      17620
+## # ... with 86 more rows</code></pre>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="시계열-데이터-응용-사례.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(wide.covid19.by.age, <span class="at">index =</span> date) <span class="sc">%&gt;%</span></span>
+<span id="cb214-2"><a href="시계열-데이터-응용-사례.html#cb214-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;monthly&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb214-3"><a href="시계열-데이터-응용-사례.html#cb214-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span> </span>
+<span id="cb214-4"><a href="시계열-데이터-응용-사례.html#cb214-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(누적<span class="fl">.1</span>대 <span class="ot">=</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb214-5"><a href="시계열-데이터-응용-사례.html#cb214-5" aria-hidden="true" tabindex="-1"></a>            누적<span class="fl">.10</span>대 <span class="ot">=</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">10-19세</span><span class="st">`</span>),</span>
+<span id="cb214-6"><a href="시계열-데이터-응용-사례.html#cb214-6" aria-hidden="true" tabindex="-1"></a>            누적<span class="fl">.20</span>대 <span class="ot">=</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">20-29세</span><span class="st">`</span>),</span>
+<span id="cb214-7"><a href="시계열-데이터-응용-사례.html#cb214-7" aria-hidden="true" tabindex="-1"></a>            누적<span class="fl">.30</span>대 <span class="ot">=</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">30-39세</span><span class="st">`</span>),</span>
+<span id="cb214-8"><a href="시계열-데이터-응용-사례.html#cb214-8" aria-hidden="true" tabindex="-1"></a>            누적<span class="fl">.40</span>대 <span class="ot">=</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">40-49세</span><span class="st">`</span>),</span>
+<span id="cb214-9"><a href="시계열-데이터-응용-사례.html#cb214-9" aria-hidden="true" tabindex="-1"></a>            누적<span class="fl">.50</span>대 <span class="ot">=</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">50-59세</span><span class="st">`</span>),</span>
+<span id="cb214-10"><a href="시계열-데이터-응용-사례.html#cb214-10" aria-hidden="true" tabindex="-1"></a>            누적<span class="fl">.60</span>대 <span class="ot">=</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">60-69세</span><span class="st">`</span>),</span>
+<span id="cb214-11"><a href="시계열-데이터-응용-사례.html#cb214-11" aria-hidden="true" tabindex="-1"></a>            누적<span class="fl">.70</span>대 <span class="ot">=</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">70-79세</span><span class="st">`</span>),</span>
+<span id="cb214-12"><a href="시계열-데이터-응용-사례.html#cb214-12" aria-hidden="true" tabindex="-1"></a>            누적<span class="fl">.80</span>대 <span class="ot">=</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">80세 이상</span><span class="st">`</span>))</span></code></pre></div>
+<pre><code>## # A time tibble: 302 x 10
+## # Index:  date
+## # Groups: date [11]
+##    date       누적.1대 누적.10대 누적.20대 누적.30대 누적.40대 누적.50대 누적.60대
+##    &lt;date&gt;        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 2020-04-30        2         4        12         7         7         2         2
+##  2 2020-04-30        3         5        19        11         9         5         8
+##  3 2020-04-30        4        10        24        13        12        11        15
+##  4 2020-04-30        4        13        37        18        13        15        18
+##  5 2020-04-30        6        14        47        20        14        17        23
+##  6 2020-04-30        6        17        54        24        18        20        26
+##  7 2020-04-30        6        21        63        29        21        22        27
+##  8 2020-04-30        9        24        68        30        23        25        29
+##  9 2020-04-30       10        28        77        33        24        27        30
+## 10 2020-04-30       12        28        86        34        25        29        31
+## # ... with 292 more rows, and 2 more variables: 누적.70대 &lt;dbl&gt;, 누적.80대 &lt;dbl&gt;</code></pre>
+<ul>
+<li>tsibble : index_by() 함수</li>
+</ul>
+<p>tsibble 객체에 대한 누적합계는 grouping 하여 합계를 산출하는 방법의 sum 함수를 cumsum 함수로 바꾸어주고 summarise()를 mutate() 로 바꾸어 준다. mutate()를 쓰는 이유는 누적합계는 모든 관측값에 필요한 컬럼이기 때문이다.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="시계열-데이터-응용-사례.html#cb216-1" aria-hidden="true" tabindex="-1"></a>employees.tsibble<span class="sc">%&gt;%</span></span>
+<span id="cb216-2"><a href="시계열-데이터-응용-사례.html#cb216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearqtr =</span> <span class="sc">~</span> <span class="fu">yearquarter</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb216-3"><a href="시계열-데이터-응용-사례.html#cb216-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum.qtrly =</span> <span class="fu">cumsum</span>(total)) <span class="sc">%&gt;%</span> </span>
+<span id="cb216-4"><a href="시계열-데이터-응용-사례.html#cb216-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(yearqtr, cumsum.qtrly) <span class="sc">%&gt;%</span></span>
+<span id="cb216-5"><a href="시계열-데이터-응용-사례.html#cb216-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tsibble: 10 x 3 [1D]
+## # Groups:    @ yearqtr [4]
+##    yearqtr cumsum.qtrly time      
+##      &lt;qtr&gt;        &lt;int&gt; &lt;date&gt;    
+##  1 2013 Q1        24287 2013-01-01
+##  2 2013 Q1        48502 2013-02-01
+##  3 2013 Q1        73238 2013-03-01
+##  4 2013 Q2        25322 2013-04-01
+##  5 2013 Q2        50932 2013-05-01
+##  6 2013 Q2        76618 2013-06-01
+##  7 2013 Q3        25681 2013-07-01
+##  8 2013 Q3        51194 2013-08-01
+##  9 2013 Q3        76895 2013-09-01
+## 10 2013 Q4        25798 2013-10-01</code></pre>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="시계열-데이터-응용-사례.html#cb218-1" aria-hidden="true" tabindex="-1"></a>wide.covid19.by.age.tsibble[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">%&gt;%</span></span>
+<span id="cb218-2"><a href="시계열-데이터-응용-사례.html#cb218-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearweek =</span> <span class="sc">~</span> <span class="fu">yearweek</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb218-3"><a href="시계열-데이터-응용-사례.html#cb218-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum.weekly =</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb218-4"><a href="시계열-데이터-응용-사례.html#cb218-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tsibble: 10 x 4 [1D]
+## # Groups:    @ yearweek [2]
+##    date       `0-9세` yearweek cumsum.weekly
+##    &lt;date&gt;       &lt;dbl&gt;   &lt;week&gt;         &lt;dbl&gt;
+##  1 2020-04-09       2 2020 W15             2
+##  2 2020-04-10       1 2020 W15             3
+##  3 2020-04-11       1 2020 W15             4
+##  4 2020-04-12       0 2020 W15             4
+##  5 2020-04-13       2 2020 W16             2
+##  6 2020-04-14       0 2020 W16             2
+##  7 2020-04-15       0 2020 W16             2
+##  8 2020-04-16       3 2020 W16             5
+##  9 2020-04-17       1 2020 W16             6
+## 10 2020-04-18       2 2020 W16             8</code></pre>
+<ul>
+<li>xts</li>
+</ul>
+<p>xts 패키지에서는 누적값을 산출하는 함수를 제공하지 않는다. 그렇기 때문에 누적값을 구하기 위해서는 몇가지 단계를 거쳐야 한다. 먼저 split() 함수를 사용하여 누적값을 적용할 시간단위로 데이터를 분리해준다. 분리한 결과는 list의 형태로 반환되는데 이 결과를 lapply()함수를 이용하여 cumsum() 함수를 각각의 list에 적용시켜 준다. 이 결과는 list의 형태이기 때문에 do.call() 함수를 이용하여 하나의 xts 형태로 다시 묶어 주면 원하는 값을 얻을 수 있다. 이 과정에서 list를 다루는 함수인 lapply()와 do.call() 함수가 사용되었다. 이 두 함수 모두 매개변수로 받은 함수를 각각의 list 요소에 적용하는데 차이점은 lapply의 경우 각각의 list의 모든 행에 대해 매개변수 함수를 적용하는데 반해 do.call은 list의 요소에 대해 함수를 적용한다는 점에서 차이가 있다. 아래의 예에서 lapply()로 전달된 cumsum() 함수는 split()로 분리된 12개의 요소의 각 행(총 1,424개)에 적용되고 do.call로 전달된 rbind() 함수는 split로 분리된 12개의 요소에 적용되기 때문에 단순히 12번 호출된다.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="시계열-데이터-응용-사례.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="fu">split</span>(employees.xts, <span class="at">f =</span> <span class="st">&#39;year&#39;</span>), cumsum)) <span class="sc">%&gt;%</span></span>
+<span id="cb220-2"><a href="시계열-데이터-응용-사례.html#cb220-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
+<pre><code>##             total employees.edu 증감 증감율
+## 2013-01-01  24287          1710   NA     NA
+## 2013-02-01  48502          3391   NA     NA
+## 2013-03-01  73238          5107   NA     NA
+## 2013-04-01  98560          6852   NA     NA
+## 2013-05-01 124170          8626   NA     NA
+## 2013-06-01 149856         10412   NA     NA
+## 2013-07-01 175537         12225   NA     NA
+## 2013-08-01 201050         14036   NA     NA
+## 2013-09-01 226751         15830   NA     NA
+## 2013-10-01 252549         17620   NA     NA
+## 2013-11-01 278344         19413   NA     NA
+## 2013-12-01 303592         21192   NA     NA
+## 2014-01-01  25050          1748 -198   -0.8
+## 2014-02-01  50166          3534 -132   -0.5
+## 2014-03-01  75629          5348  215    0.9</code></pre>
+</div>
+<div id="월별-분기별-연별-최고-최저치" class="section level3" number="4.2.5">
+<h3><span class="header-section-number">4.2.5</span> 월별, 분기별, 연별 최고, 최저치</h3>
+
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="시계열-데이터-정보-다루기.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="시계열-forecasting-part-i-기초컨셉.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["t.pdf", "t.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

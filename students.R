@@ -219,3 +219,39 @@ nnetar(students.total.ts[,1]) %>% forecast() %>% autoplot()
 
 interval <- interval(as.Date('1980-01-01'), as.Date('2021-12-31'))
 
+students %>% 
+  filter(지역규모 == '계') %>% 
+  select(학생수계) %>% apply(2, diff)
+?diff
+
+lag <- students %>% filter(지역규모 == '계') %>% lag(1) %>% select(학생수계) %>% rename(lag = 학생수계)
+
+cbind(students %>% filter(지역규모 == '계') %>% select(연도, 학생수계),  ### 연도와 학생수 컬럼을 선택
+      students %>% filter(지역규모 == '계') %>% lag(1) %>% select(학생수계) %>% rename(전월 = 학생수계)) %>% ### lag(1) 함수를 사용하여 시차1 데이터 생성(하나씩 아래로 shift) 하고 컬럼명을 lag로 변경 
+  mutate(증감 = 학생수계 - lag, 증감율 = round((학생수계/lag)-1, 3) * 100)  ### 시차1 데이터와 원 데이터의 차이를 증감 컬럼으로, 원데이터를 시차1 데이터로 나눈 수치를 1에서 빼준 결과(비중을 증감으로 변환)에 100을 곱한다(백분률로 변환)
+
+
+index(pedestrian)
+monthly_ped <- pedestrian %>%
+  group_by_key() %>%
+  index_by(Year_Month = ~ yearmonth(.)) %>%
+  summarise(
+    Max_Count = max(Count),
+    Min_Count = min(Count)
+  )
+
+
+wide.covid19.by.age.tsibble[, c(1,3)]%>%
+  index_by(yearmon = ~ yearmonth(.)) %>%
+  summarise(sum.monthly = sum(`0-9세`))
+
+students.tsibble%>% filter(지역규모 == '계') %>% select(1, 3) -> students.tsibble.계
+students.tsibble.계 %>%
+  mutate(증감 = difference(students.tsibble.계$학생수계, lag = 1)) %>%
+  mutate(증감율 = round((증감/학생수계), 3) * 100) %>% head(10)
+
+students.total.xts$증감 <- diff(students.total.xts[,2]) 
+students.total.xts$증감율 <- round((students.total.xts$증감/students.total.xts$학생수계), 3) * 100
+students.total.xts[, c('학생수계', '증감', '증감율')]
+
+

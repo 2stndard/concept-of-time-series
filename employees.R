@@ -275,3 +275,61 @@ for(i in seq(9)) {
   sim[,i] <- simulate(employees.ts[, 2] %>% nnetar(), nsim=30L)
 }
 autoplot(employees.ts[, 2]) + autolayer(sim)
+
+
+employees %>% 
+  mutate(year = year(time)) %>%
+  group_by(year) %>%
+  mutate(total.year = sum(total), 
+            employees.edu = sum(employees.edu)) %>%
+  ungroup()
+
+
+employees %>% 
+  mutate(year = year(time)) %>%
+  group_by(year) %>%
+  summarise(total.year = sum(total), 
+         employees.edu = sum(employees.edu))
+
+
+do.call(rbind, lapply(split(employees.xts, f = 'year'), cumsum)) %>%
+  head(10)
+
+
+cbind(employees %>% select(time, total),
+      employees %>% select(total) %>% lag(1) %>% rename(전월 = total)) %>% 
+  mutate(증감 = total - 전월, 증감율 = round((total/전월)-1, 4) * 100)
+
+
+employees$전월 <- difference(employees.tsibble$total, lag = 1)
+employees <- employees[, -4]
+t <- students.tsibble[students.tsibble$지역규모 == '계', ]
+employees%>%
+  mutate(증감 = difference(t)) %>%
+  mutate(증감율 = round((증감/total), 3) * 100) %>% select(1, 2, 4, 5) %>% head(10)
+  
+  
+employees.xts$증감 <- diff(employees.xts$total)
+employees.xts$증감율 <- round((employees.xts$증감/employees.xts$total), 3) * 100
+employees.xts[, c('total', '증감', '증감율')]
+  
+
+
+employees %>% 
+  group_by(year(time)) %>%
+  mutate(sum.by.year = sum(total)) %>%
+  ungroup() %>%
+  mutate(rate.by.year = round(total/sum.by.year, 3) * 100) %>%
+  head(15)
+
+employees.tsibble%>%
+  index_by(yearqtr = ~ yearquarter(.)) %>%
+  mutate(sum.qtrly = sum(total)) %>% 
+  mutate(rate.qtrly = (total/sum.qtrly)*100) %>%
+head(15)  
+
+employees.tsibble%>%
+  index_by(yearqtr = ~ year(.)) %>%
+  mutate(sum.qtrly = sum(total)) %>% 
+  mutate(rate.qtrly = (total/sum.qtrly)*100) %>%
+  head(15)  
