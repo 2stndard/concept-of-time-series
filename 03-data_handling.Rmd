@@ -103,12 +103,11 @@ today - years(1)   #오늘부터 1년전
 앞선 예에서 1980년 1월 1일부터 오늘까지는 14,976일로 계산되었다. 그러나 우리는 보통 몇년 몇월 몇일로 표현된다. lubridate에서는 이렇게 몇년 몇월 몇일로 변환하는 것을 interval()함수를 사용하여 계산한다. 하지만 바로 계산되는 것은 아니고 interval()함수에 의해 반환되는 값은 interval 클래스의 데이터값으로 시작점으로부터의 초를 기록한다. 이렇게 변환된 interval 객체를 올바르게 표현하기 위해서는 interval 객체를 period 나 duration 클래스 객체로 변환하여야 한다. interval 함수는 함수형태로 사용이 가능하고 %--% 연산자를 사용할 수도 있다.
 
 ```{r}
-library(lubridate)
-interval <- interval(as.Date('1980-01-01'), as.Date('2021-12-31'))
-as.period(interval)   # 년월일 형태로 기간 반환
-as.duration(interval)  # 경과 초 형태로 기간 반환
+int <- lubridate::interval(as.Date('1980-01-01'), as.Date('2021-12-31'))
+lubridate::as.period(int)   # 년월일 형태로 기간 반환
+lubridate::as.duration(int)  # 경과 초 형태로 기간 반환
 interval <- '1980-01-01' %--% '2021-12-31'
-as.period(interval)   # 년월일 형태로 기간 반환
+lubridate::as.period(int)   # 년월일 형태로 기간 반환
 ```
 
 위의 예제와 같이 internal은 시간 범위(time spans)를 표현하는데 lubridate는 period와 duration의 두가지 시간 범위(time spans) 클래스를 제공한다. lubridate에서 제공하는 period 함수는 복수형태(years(), months() 등)로 표현된 함수를 사용하고 duration 함수는 함수의 접두어를 'd'를 사용하여 표현한다. 두가지 형태의 internal을 제공하는 이유는 시간의 타임라인은 숫자의 라인과 동일하지 않기 때문이다. duration은 항상 수학적으로 동일한 결과를 제공한다. 하지만 period는 우리가 흔히 생각하는 시간 범위의 결과를 제공한다. 예를 들어 duration의 1년 후는 시작일로부터 365일 후가 되는 날짜를 리턴하지만 period의 1년 후는 연도가 1이 더해진 날짜를 리턴한다. 두가지의 결과가 동일할 것이라고 생각되지만 윤년이 낀 경우는 duration의 결과는 period의 결과와 달라진다. 또 duration 함수에 정수 시퀀스를 넣어주면 해당 연산에 의한 vector값이 얻어진다. [^data_handling-1]
@@ -163,7 +162,7 @@ days_in_month(as.Date('2012-2', format = '%Y-%d'))  # 말일을 구하는 코드
 xts 클래스 데이터 객체에서는 위의 예제를 적용할 수 없다. 다만 xts 패키지에서는 floor_date와 ceiling_date와 유사한 기능을 수행하는 함수, first(), last()를 제공한다. first()는 함수에서 지정된 단위의 첫번째 날짜를 리턴하고 last()는 지정된 단위의 마지막 날짜를 리턴한다. endpoints 함수는 기본값으로 매월 마지막 날짜를 반환하지만 매개변수를 설정함으로써 매주 마지막날, 매월 마지막날, 매년 마지막날 등을 반환할 수 있다
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-detach(package:dplyr)
+#detach(package:dplyr)
 ```
 
 ```{r}
@@ -302,7 +301,7 @@ to.period(wide.covid19.by.age.xts, method = 'months', OLHC = TRUE)
 lubridate 패키지를 사용하여 data.frame 클래스 객체에 대한 rolling은 좀 복잡하다. 하지만 zoo 패키지에서 제공하는 roll\* 함수를 사용하면 비교적 쉽게 rolling을 수행할 수있어 이 방법을 소개하고자 한다. 사실 이 방법에서는 lubridate 패키지 함수는 사용되지 않는데 mutate 함수를 이용하여 새로운 컬럼을 생성하는데 각 컬럼을 생성하는 함수로 zoo 패키지의 roll\* 함수를 사용한다. roll\* 함수는 rollapply()와 rollmean()의 두가지를 제공하는데 rollapply는 apply함수를 rolling용으로 수정한 버젼이고 rollapply 함수에 mean을 적용하는 경우가 많기 때문에 추가적으로 이동평균을 구하는 함수를 제공한다.
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-detach(package:xts)
+#detach(package:xts)
 ```
 
 ```{r}
@@ -732,11 +731,13 @@ do.call(rbind, lapply(split(employees.xts, f = 'year'), cumsum)) %>%
 
 ### 동월별, 동분기별, 동년별 Plot
 
-앞선 plot에서처럼 시계열 데이터는 대부분 선 plot으로 그려지는 경우가 많다. 하지만 동년, 동월, 동분기의 데이터를 전체적으로 확인해야 할 떄가 있다. 이 경우는 우선 데이터를 적절히 grouping 해야한다. 앞의 예제에서는 월로 grouping 하기를 원하면 더 큰 시간인 년과 같이 grouping을 함으로써 시간적 흐름을 놓치지 않도록 유지하였다. 하지만 매 1월 판매량 등과 같이 시간적 흐름보다는 시간적 특성만을 원할 경우는 grouping할 때 원하는 해당 정보에 대해서만 grouping 함으로써 원하는 정보를 얻을 수 있다.
+앞선 plot에서처럼 시계열 데이터는 대부분 선 plot으로 그려지는 경우가 많다. 하지만 동년, 동월, 동분기의 데이터를 전체적으로 확인해야 할 떄가 있다. 이 plot은 다른 응용 분야보다 plot을 그릴 수 있는 시계열 객체가 제한된다. data.frame이 가장 구현하기가 쉽고 계절성을 위주로 그리면 시계열 패키지에서 제공하는 함수를 사용할 수도 있다.
 
 이 절에서는 주로 box plot을 활용하여 정보를 표현하도록 하겠다.
 
 -   date.frame : group_by() 함수
+
+data.frame을 사용하여 동월, 동분기별, 동년별 plot은 우선 데이터를 적절히 grouping 해야한다. 앞의 예제에서는 월로 grouping 하기를 원하면 더 큰 시간인 년과 같이 grouping을 함으로써 시간적 흐름을 놓치지 않도록 유지하였다. 하지만 매 1월 판매량 등과 같이 시간적 흐름보다는 시간적 특성만을 원할 경우는 grouping할 때 원하는 해당 정보에 대해서만 grouping 함으로써 원하는 정보를 얻을 수 있다.
 
 ```{r dataframe_same}
 employees %>%
@@ -769,6 +770,18 @@ wide.covid19.by.age %>%
   ggplot(aes(as.factor(wday), `50-59세`)) + 
   geom_boxplot() + 
   geom_jitter(alpha = 0.2)
+```
 
+-   date.frame : plot_seasonal_diagnostics() 함수
 
+data.frame 객체에서 계절성을 ploting 하기 위해 앞의 예제에서는 계절주기로 grouping 한 컬럼을 활용하였다. 하지만 계절성을 알고 있는 경우는 쉽게 구할수 있지만 계절성을 모르는 경우는 여러 plot을 확인해야 한다.
+
+이런 경우 사용할 수 있는 함수가 timetk 패키지의 plot_seasonal_diagnostics() 함수이다. 이 함수는 주어진 시계열 데이터에 가능한 모든 동월, 동분기, 동요일 등의 plot을 동시에 생성해준다. plot_ly와 ggplot2를 기본으로 작성된 plot이기 때문에 가장 큰 장점이 반응형(interactive) plot이 생성된다.
+
+```{r timetk_same, warning=FALSE, message=FALSE}
+employees %>%
+  timetk::plot_seasonal_diagnostics(.date_var = time, .value = total, .title = '전체 취업자의 주기별 Plot')
+
+wide.covid19.by.age %>% 
+  timetk::plot_seasonal_diagnostics(.date_var = date, .value = `0-9세`, .title = '코로나 확진자(0-9세)의 주기별 Plot')
 ```

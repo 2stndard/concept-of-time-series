@@ -4,13 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.2 시계열 패키지 및 데이터 객체(Object) | t.utf8</title>
-  <meta name="description" content="<center>
-교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R
-</center>" />
+  <title>2.2 시계열 패키지 및 데이터 객체(Object) | Untitled</title>
+  <meta name="description" content="2.2 시계열 패키지 및 데이터 객체(Object) | Untitled" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.2 시계열 패키지 및 데이터 객체(Object) | t.utf8" />
+  <meta property="og:title" content="2.2 시계열 패키지 및 데이터 객체(Object) | Untitled" />
   <meta property="og:type" content="book" />
   
   
@@ -18,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.2 시계열 패키지 및 데이터 객체(Object) | t.utf8" />
+  <meta name="twitter:title" content="2.2 시계열 패키지 및 데이터 객체(Object) | Untitled" />
   
   
   
@@ -26,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-14" />
+<meta name="date" content="2021-02-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,7 +199,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.2" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-증감량"><i class="fa fa-check"></i><b>4.2.2</b> 월별, 분기별, 연별 증감량</a></li>
 <li class="chapter" data-level="4.2.3" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월-비중-백분율-연-비중-백분율"><i class="fa fa-check"></i><b>4.2.3</b> 월 비중 백분율, 연 비중 백분율</a></li>
 <li class="chapter" data-level="4.2.4" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-누적합계"><i class="fa fa-check"></i><b>4.2.4</b> 월별, 분기별, 연별 누적합계</a></li>
-<li class="chapter" data-level="4.2.5" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-최고-최저치"><i class="fa fa-check"></i><b>4.2.5</b> 월별, 분기별, 연별 최고, 최저치</a></li>
+<li class="chapter" data-level="4.2.5" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#동월별-동분기별-동년별-plot"><i class="fa fa-check"></i><b>4.2.5</b> 동월별, 동분기별, 동년별 Plot</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
@@ -249,13 +247,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="fable.html"><a href="fable.html"><i class="fa fa-check"></i><b>7.1</b> fable</a></li>
-<li class="chapter" data-level="7.2" data-path="modeltime-1.html"><a href="modeltime-1.html"><i class="fa fa-check"></i><b>7.2</b> modeltime</a>
+<li class="chapter" data-level="7.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html"><i class="fa fa-check"></i><b>7.1</b> 성능분석 지수</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="modeltime-1.html"><a href="modeltime-1.html#linear_reg-함수tidymodels-parsnip-modeltime-패키지"><i class="fa fa-check"></i><b>7.2.1</b> linear_reg 함수(tidymodels, parsnip, modeltime 패키지)</a></li>
+<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.1</b> RMSE(Root Means Squaread Error)</a></li>
+<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mae"><i class="fa fa-check"></i><b>7.1.2</b> MAE</a></li>
+<li class="chapter" data-level="7.1.3" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mpe"><i class="fa fa-check"></i><b>7.1.3</b> MPE</a></li>
+<li class="chapter" data-level="7.1.4" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mape"><i class="fa fa-check"></i><b>7.1.4</b> MAPE</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="fable.html"><a href="fable.html"><i class="fa fa-check"></i><b>7.2</b> fable</a></li>
+<li class="chapter" data-level="7.3" data-path="modeltime-1.html"><a href="modeltime-1.html"><i class="fa fa-check"></i><b>7.3</b> modeltime</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="modeltime-1.html"><a href="modeltime-1.html#linear_reg-함수tidymodels-parsnip-modeltime-패키지"><i class="fa fa-check"></i><b>7.3.1</b> linear_reg 함수(tidymodels, parsnip, modeltime 패키지)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a>
+<ul>
+<li class="chapter" data-level="7.4" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>7.4</b> R Markdown</a></li>
+<li class="chapter" data-level="7.5" data-path="including-plots.html"><a href="including-plots.html"><i class="fa fa-check"></i><b>7.5</b> Including Plots</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -268,9 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><center>
-교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R
-</center></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Untitled</a>
           </h1>
         </div>
 
@@ -286,7 +293,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.2.1</span> ts</h3>
 <p>ts 객체(Object)는 R에서 가장 기본적으로 활용되는 시계열 데이터 타입임. ts 객체는 ‘stats’ 패키지를 로드해야 사용할 수 있지만 R이 실행될 때 기본적으로 로드되는 패키지이기 때문에 특별한 패키지를 로드하지 않고 바로 활용할 수 있다. 또한 stats 패키지에 포함된 다양한 시계열 데이터 처리 함수를 사용할 수 있어 많이 사용된다.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <ul>
-<li><p>ts 데이터 객체 생성 <span class="citation">(<a href="references.html#ref-RDocumentation" role="doc-biblioref">R Core Team, n.d.</a>)</span></p>
+<li><p>ts 데이터 객체 생성 <span class="citation">(<a href="including-plots.html#ref-RDocumentation" role="doc-biblioref">R Core Team, n.d.</a>)</span></p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="시계열-패키지-및-데이터-객체object.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))  <span class="do">### 1959년 2분기부터 1년을 4주기로 데이터를 생성하는 ts object</span></span></code></pre></div>
 <pre><code>##      Qtr1 Qtr2 Qtr3 Qtr4
 ## 1959         1    2    3
@@ -305,8 +312,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb49-4"><a href="시계열-패키지-및-데이터-객체object.html#cb49-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
 <li><p>zoo 데이터 객체 생성</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="시계열-패키지-및-데이터-객체object.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zoo</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) <span class="do">### 2008년 8월 1일 부터 5일치 데이터를 가지는 zoo object 생성</span></span></code></pre></div>
-<pre><code>##  2008-08-01  2008-08-02  2008-08-03  2008-08-04  2008-08-05 
-## -0.11820526  0.31634024  1.74547349 -0.06668649 -0.03637331</code></pre></li>
+<pre><code>## 2008-08-01 2008-08-02 2008-08-03 2008-08-04 2008-08-05 
+## -0.9127286  0.2034761 -0.5376325  1.0777003 -0.9186153</code></pre></li>
 </ul>
 </div>
 <div id="xts" class="section level3" number="2.2.3">
@@ -320,19 +327,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb52-4"><a href="시계열-패키지-및-데이터-객체object.html#cb52-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
 <li><p>xts 데이터 객체 생성</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="시계열-패키지-및-데이터-객체object.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) <span class="do">### 2008년 8월 1일 부터 5일치 데이터를 가지는 xts object 생성</span></span></code></pre></div>
-<pre><code>##                   [,1]
-## 2008-08-01  0.17337939
-## 2008-08-02 -1.03572156
-## 2008-08-03 -0.54672332
-## 2008-08-04  0.07499312
-## 2008-08-05 -1.41616586</code></pre>
+<pre><code>##                  [,1]
+## 2008-08-01 -0.2068392
+## 2008-08-02  0.3928218
+## 2008-08-03  0.5926586
+## 2008-08-04  1.4207664
+## 2008-08-05 -0.2705712</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="시계열-패키지-및-데이터-객체object.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) <span class="do">### 2008년 8월 1일 부터 5일치 데이터를 가지는 xts object 변환</span></span></code></pre></div>
 <pre><code>##                  [,1]
-## 2008-08-01 -0.5347946
-## 2008-08-02 -0.1424323
-## 2008-08-03  0.9359674
-## 2008-08-04  0.3878762
-## 2008-08-05 -1.0899444</code></pre></li>
+## 2008-08-01 -1.5569086
+## 2008-08-02  1.4168544
+## 2008-08-03 -0.6109148
+## 2008-08-04  0.2067267
+## 2008-08-05 -0.1546701</code></pre></li>
 <li><p>xts()와 as.xts()의 차이</p></li>
 </ul>
 <p>xts()는 xts 객체를 생성하는 함수이나 as.xts()는 timeSeries, ts, irts, fts, matrix, data.frame, zoo 객체를 xts객체로 변환하는 함수이다.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> 다음과 같은 차이가 발생한다.</p>
@@ -385,16 +392,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Key:       id [10]
 ##    date          id      x1 x2   
 ##    &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;
-##  1 2008-01-01     1  0.343  a    
-##  2 2008-01-02     2 -1.83   a    
-##  3 2008-01-03     3  1.47   a    
-##  4 2008-01-04     4  0.280  a    
-##  5 2008-01-05     5  0.372  a    
-##  6 2008-01-06     6 -0.0639 a    
-##  7 2008-01-07     7 -0.0357 a    
-##  8 2008-01-08     8 -0.0345 a    
-##  9 2008-01-09     9  1.15   a    
-## 10 2008-01-10    10  0.719  a</code></pre>
+##  1 2008-01-01     1  0.133  a    
+##  2 2008-01-02     2  1.28   a    
+##  3 2008-01-03     3  0.376  a    
+##  4 2008-01-04     4 -0.249  a    
+##  5 2008-01-05     5  0.899  a    
+##  6 2008-01-06     6 -0.150  a    
+##  7 2008-01-07     7  0.0120 a    
+##  8 2008-01-08     8 -0.676  a    
+##  9 2008-01-09     9 -0.0466 a    
+## 10 2008-01-10    10  0.456  a</code></pre>
 </div>
 <div id="modeltime" class="section level3" number="2.2.5">
 <h3><span class="header-section-number">2.2.5</span> modeltime</h3>
@@ -406,7 +413,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb68-2"><a href="시계열-패키지-및-데이터-객체object.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;modeltime&#39;</span>)</span>
 <span id="cb68-3"><a href="시계열-패키지-및-데이터-객체object.html#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(modeltime)</span>
 <span id="cb68-4"><a href="시계열-패키지-및-데이터-객체object.html#cb68-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## Warning: package &#39;modeltime&#39; was built under R version 4.0.3</code></pre>
 </div>
 </div>
 <div class="footnotes">

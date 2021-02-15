@@ -192,3 +192,8 @@ seasonal-arima-모델
 r-markdown
 including-plots
 동월별-동분기별-동년별-plot
+성능분석-지수
+rmseroot-means-squaread-error
+mae
+mpe
+mape
