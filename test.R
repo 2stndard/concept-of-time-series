@@ -623,4 +623,13 @@ arima.sim(n = 63, list(ar = c(0.8897, -0.4858), ma = c(-0.2279, 0.2488)),
 
 ?rand.gen
 
-0
+employees %>% 
+  mutate(year = year(time)) %>%
+  group_by(year) %>%
+  summarise(total.year = sum(total), 
+            employees.edu.year = sum(employees.edu)) %>%
+  ggplot(aes(year, total.year)) + 
+  geom_line() + 
+  geom_point() + 
+  geom_text(aes(label = scales::comma(total.year)), vjust = 1) +
+  labs(title = '연도별 전체 취업자수 합계 추이', x = '연도', y = '취업자수')

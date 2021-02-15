@@ -2,8 +2,11 @@
 library(dplyr)
 library(xts)
 library(tsibble)
+library(tibbletime)
+library(ggplot2)
 students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 students[, 3:18] <- apply(students[, 3:18], 2, function(y) as.numeric(gsub(",", "", y)))
+students.total <- students %>% filter(지역규모 == '계')
 students.total.xts <- students %>% filter(지역규모 == '계') %>% select(-지역규모)
 students.total.xts <- as.xts(students.total.xts, order.by = as.Date(paste0(students.total.xts[,1], '-01-01'), format = '%Y-%m-%d'))
 library(timetk)
@@ -405,8 +408,13 @@ employees %>%
   group_by(year) %>%
   summarise(total.year = sum(total), 
             employees.edu.year = sum(employees.edu)) %>%
-  ggplot(aes(year, total.year)) + 
-  geom_line()
+  ggplot(aes(as.factor(year), total.year)) + ### x축에 연도를 as.factor로 변환하지 않으면 연도가 모두 표기되지 않음(정수와 factor의 차이임)
+  geom_line(aes(group = 1)) + 
+  geom_point() + 
+  geom_text(aes(label = scales::comma(total.year)), vjust = 1) + 
+      ### 데이터 포인트마다 취업자수를 표기하는데 scales::comma() 함수로 1000단위 콤마를 찍고 포인트와 겹치기 때문에 vsjut로 위치조정
+  labs(title = '연도별 전체 취업자수 합계 추이', x = '연도', y = '취업자수')
+      ### plot, x, y 축제목 설정
 
 employees %>% 
   mutate(year = year(time), qrt = quarter(time)) %>%
@@ -421,6 +429,9 @@ employees %>%
             employees.edu.year = sum(employees.edu)) %>% 
   ggplot(aes(x = as.factor(paste0(year, ',', qrt)), y = employees.edu.year)) + 
   geom_line(aes(group = 1)) + 
+  geom_point() +
+  ggrepel::geom_text_repel(aes(label = scales::number(employees.edu.year, big.mark = ',', accuracy = 1)), vjust = 1, size = 3) +  ### ggrepel::geom_text_repel() 함수로 숫자들이 겹치지 않게 plotting
+  labs(title = '분기별 교육서비스업 취업자수 합계 추이', x = '연도', y = '취업자수') +
   theme(axis.text.x=element_text(angle=90,hjust=1))
 
 wide.covid19.by.age %>%
@@ -444,14 +455,21 @@ as_tbl_time(employees, index = time) %>%
   group_by(time) %>%
   summarise(total.quater = sum(total)) %>% 
   ggplot(aes(time, total.quater)) + 
-  geom_line() + geom_point()
+  geom_line() + 
+  geom_point() +
+  ggrepel::geom_text_repel(aes(label = scales::comma(total.quater)), vjust = 1, size = 3) +  ### ggrepel::geom_text_repel() 함수로 숫자들이 겹치지 않게 plotting
+  labs(title = '분기별 전체 취업자수 합계 추이', x = '연도', y = '취업자수')
 
 as_tbl_time(wide.covid19.by.age.tsibble, index = date) %>%
   collapse_by('monthly') %>%
   group_by(date) %>%
   summarise(total.1대 = sum(`0-9세`)) %>% 
-  ggplot(aes(date, total.1대)) + 
-  geom_line() + geom_point()
+  ggplot(aes(as.factor(date), total.1대)) + 
+  geom_line(aes(group = 1)) + 
+  geom_point() + 
+  geom_text(aes(label = scales::comma(total.1대, accuracy = 1)), vjust = 1, size = 3) +  ### ggrepel::geom_text_repel() 함수로 숫자들이 겹치지 않게 plotting
+  labs(title = '월별 0-9세 코로나 확진자수 합계 추이', x = '월', y = '확진자수') +
+  theme(axis.text.x=element_text(angle=90,hjust=1))
 ```
 
 -   tsibble : index_by() 함수
@@ -512,8 +530,8 @@ library(xts)
 apply.quarterly(employees.xts, sum) %>% head(10)
 apply.yearly(employees.xts, sum) %>% plot.xts()
 
-apply.monthly(wide.covid19.by.age.xts[,1], sum) %>% plot.xts()
-apply.quarterly(wide.covid19.by.age.xts[,1], sum) %>% plot.xts()
+apply.monthly(wide.covid19.by.age.xts[,1], sum) %>% plot.xts(main = '월별 0-9세 코로나 확진자수')
+apply.quarterly(wide.covid19.by.age.xts[,1], sum) %>% plot.xts(main = '분기별 0-9세 코로나 확진자수')
 ```
 
 -   ts 객체
@@ -531,9 +549,26 @@ cbind(students %>% filter(지역규모 == '계') %>% select(연도, 학생수계
       students %>% filter(지역규모 == '계') %>% lag(1) %>% select(학생수계) %>% rename(전년 = 학생수계)) %>%  ### 2. lag(1) 함수를 사용하여 시차1 데이터 생성(하나씩 아래로 shift) 하고 컬럼명을 lag로 변경
   mutate(증감 = 학생수계 - 전년, 증감율 = round((학생수계/전년)-1, 3) * 100) %>% head(10) ### 3. 시차1 데이터와 원 데이터의 차이를 증감 컬럼으로, 원데이터를 시차1 데이터로 나눈 수치를 1에서 빼준 결과(비중을 증감으로 변환)에 100을 곱한다(백분률로 변환)
 
+cbind(students %>% filter(지역규모 == '계') %>% select(연도, 학생수계),
+      students %>% filter(지역규모 == '계') %>% lag(1) %>% select(학생수계) %>% rename(전년 = 학생수계)) %>%
+  mutate(증감 = 학생수계 - 전년, 증감율 = round((학생수계/전년)-1, 3) * 100) %>% 
+  ggplot(aes(as.factor(연도), 증감)) + 
+  geom_line(aes(group = 1)) + 
+  geom_point() +
+  ggrepel::geom_text_repel(aes(label = scales::comma(증감)), vjust = 1, size = 3) +  ### ggrepel::geom_text_repel() 함수로 숫자들이 겹치지 않게 plotting
+  labs(title = '전년대비 전체 학생수 증감 추이', x = '연도', y = '학생수 증감량') +
+  theme(axis.text.x=element_text(angle=90,hjust=1))
+
+
 cbind(employees %>% select(time, total),
       employees %>% select(total) %>% lag(1) %>% rename(전월 = total)) %>% 
-  mutate(증감 = total - 전월, 증감율 = round((total/전월)-1, 3) * 100) %>% head(10)
+  mutate(증감 = total - 전월, 증감율 = round((total/전월)-1, 3) * 100) %>% 
+  ggplot(aes(time, 증감율)) + 
+  geom_line(aes(group = 1)) + 
+  geom_point() + 
+  labs(title = '전월대비 전체 취업자수 증감율 추이', x = '시간', y = '취업자수 증감율') +
+  scale_x_date(date_breaks = '6 month') +
+  theme(axis.text.x=element_text(angle=90,hjust=1))
 ```
 
 -   tsibble : diffrence() 함수
@@ -559,12 +594,12 @@ xts 객체도 tsibble 객체와 같이 차분 함수인 diff() 함수를 제공�
 students.total.xts$증감 <- diff(students.total.xts[,2]) 
 students.total.xts$증감율 <- round((students.total.xts$증감/students.total.xts$학생수계), 3) * 100
 students.total.xts[, c('학생수계', '증감', '증감율')] %>% head(10)
-plot.xts(students.total.xts[, '증감율'], main = '학생수 증감률')
+plot.xts(students.total.xts[, '증감율'], main = '전년대비 학생수 증감률')
 
 employees.xts$증감 <- diff(employees.xts$total)
 employees.xts$증감율 <- round((employees.xts$증감/employees.xts$total), 3) * 100
 employees.xts[, c('total', '증감', '증감율')] %>% head(10)
-plot.xts(employees.xts[, c('증감율')], main = '전체 취업자 증감률')
+plot.xts(employees.xts[, c('증감율')], main = '전월대비 전체 취업자 증감률')
 ```
 
 ### 월 비중 백분율, 연 비중 백분율
@@ -598,33 +633,6 @@ wide.covid19.by.age %>%
   ungroup() %>%
   mutate(rate.by.week = round(`0-9세`/sum.by.week, 3) * 100) %>%
   select(date, `0-9세`, sum.by.week, rate.by.week)
-```
-
--   데이터 프레임 : collapse_by() 함수 사용
-
-collapse_by() 함수도 앞에서 설명한 group_by(), mutate() 함수 사용방법과 동일한 방법으로 사용할 수 있다.
-
-```{r tbl_time_rate}
-as_tbl_time(employees, index = time) %>%
-  collapse_by('quarterly') %>%
-  group_by(time) %>%
-  mutate(total.quater = sum(total)) %>%
-  ungroup() %>%
-  mutate(rate.by.quater = round(total/total.quater, 3) * 100) 
-
-as_tbl_time(employees, index = time) %>%
-  collapse_by('quarterly') %>%
-  group_by(time) %>%
-  summarise(total.quater = sum(total)) %>% 
-  ggplot(aes(time, total.quater)) + 
-  geom_line() + geom_point()
-
-as_tbl_time(wide.covid19.by.age.tsibble, index = date) %>%
-  collapse_by('monthly') %>%
-  group_by(date) %>%
-  summarise(total.1대 = sum(`0-9세`)) %>% 
-  ggplot(aes(date, total.1대)) + 
-  geom_line() + geom_point()
 ```
 
 -   tsibble : index_by(), mutate() 함수
@@ -664,6 +672,14 @@ employees %>%
   mutate(cumsum = cumsum(total)) %>%
   select(time, total, cumsum) %>%
   head(15)
+
+wide.covid19.by.age %>%
+  mutate(cumsum = cumsum(`0-9세`)) %>%
+  select(date, `0-9세`, cumsum) %>%
+  ggplot(aes(date, cumsum)) +
+  geom_line(aes(group = 1)) +
+  scale_x_date(date_breaks = "1 month", date_labels = "%y.%m")  +
+  theme(axis.text.x=element_text(angle=90,hjust=1))
 ```
 
 전체 데이터에 대한 누적 합계가 아닌 연별, 월별, 주별 등의 주기별 누적합계를 구하려면 앞서 설명한 group_by(), collapse_by()와 함께 사용하면 원하는 기간동안의 누적 합계를 구할 수 있다.
@@ -714,4 +730,45 @@ do.call(rbind, lapply(split(employees.xts, f = 'year'), cumsum)) %>%
   head(15)
 ```
 
-### 월별, 분기별, 연별 최고, 최저치
+### 동월별, 동분기별, 동년별 Plot
+
+앞선 plot에서처럼 시계열 데이터는 대부분 선 plot으로 그려지는 경우가 많다. 하지만 동년, 동월, 동분기의 데이터를 전체적으로 확인해야 할 떄가 있다. 이 경우는 우선 데이터를 적절히 grouping 해야한다. 앞의 예제에서는 월로 grouping 하기를 원하면 더 큰 시간인 년과 같이 grouping을 함으로써 시간적 흐름을 놓치지 않도록 유지하였다. 하지만 매 1월 판매량 등과 같이 시간적 흐름보다는 시간적 특성만을 원할 경우는 grouping할 때 원하는 해당 정보에 대해서만 grouping 함으로써 원하는 정보를 얻을 수 있다.
+
+이 절에서는 주로 box plot을 활용하여 정보를 표현하도록 하겠다.
+
+-   date.frame : group_by() 함수
+
+```{r dataframe_same}
+employees %>%
+  mutate(year = lubridate::year(employees$time)) %>%
+  ggplot(aes(as.factor(year), total)) + 
+  geom_boxplot() + 
+  geom_jitter(alpha = 0.2)
+
+employees %>%
+  mutate(month = lubridate::month(employees$time)) %>%
+  ggplot(aes(as.factor(month), total)) + 
+  geom_boxplot() + 
+  geom_jitter(alpha = 0.2)
+
+employees %>%
+  mutate(quarter = lubridate::quarter(employees$time)) %>%
+  ggplot(aes(as.factor(quarter), total)) + 
+  geom_boxplot() + 
+  geom_jitter(alpha = 0.2)
+
+
+wide.covid19.by.age %>%
+  mutate(month = lubridate::month(wide.covid19.by.age$date)) %>%
+  ggplot(aes(as.factor(month), `0-9세`)) + 
+  geom_boxplot() + 
+  geom_jitter(alpha = 0.2)
+
+wide.covid19.by.age %>%
+  mutate(wday = lubridate::wday(wide.covid19.by.age$date, label = TRUE)) %>%
+  ggplot(aes(as.factor(wday), `50-59세`)) + 
+  geom_boxplot() + 
+  geom_jitter(alpha = 0.2)
+
+
+```
