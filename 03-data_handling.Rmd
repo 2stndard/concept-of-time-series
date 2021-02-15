@@ -162,7 +162,7 @@ days_in_month(as.Date('2012-2', format = '%Y-%d'))  # 말일을 구하는 코드
 xts 클래스 데이터 객체에서는 위의 예제를 적용할 수 없다. 다만 xts 패키지에서는 floor_date와 ceiling_date와 유사한 기능을 수행하는 함수, first(), last()를 제공한다. first()는 함수에서 지정된 단위의 첫번째 날짜를 리턴하고 last()는 지정된 단위의 마지막 날짜를 리턴한다. endpoints 함수는 기본값으로 매월 마지막 날짜를 반환하지만 매개변수를 설정함으로써 매주 마지막날, 매월 마지막날, 매년 마지막날 등을 반환할 수 있다
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-#detach(package:dplyr)
+detach(package:dplyr)
 ```
 
 ```{r}

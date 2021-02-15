@@ -243,7 +243,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
-<li class="chapter" data-level="6.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.6</b> Neural Network 모델</a></li>
+<li class="chapter" data-level="6.6" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.6</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.7" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.7</b> Neural Network 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
 <ul>
@@ -313,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>zoo 데이터 객체 생성</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="시계열-패키지-및-데이터-객체object.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zoo</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) <span class="do">### 2008년 8월 1일 부터 5일치 데이터를 가지는 zoo object 생성</span></span></code></pre></div>
 <pre><code>## 2008-08-01 2008-08-02 2008-08-03 2008-08-04 2008-08-05 
-## -0.9127286  0.2034761 -0.5376325  1.0777003 -0.9186153</code></pre></li>
+## -0.4571356 -0.9574160 -1.3863718 -0.4242735 -0.6467535</code></pre></li>
 </ul>
 </div>
 <div id="xts" class="section level3" number="2.2.3">
@@ -328,18 +329,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>xts 데이터 객체 생성</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="시계열-패키지-및-데이터-객체object.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) <span class="do">### 2008년 8월 1일 부터 5일치 데이터를 가지는 xts object 생성</span></span></code></pre></div>
 <pre><code>##                  [,1]
-## 2008-08-01 -0.2068392
-## 2008-08-02  0.3928218
-## 2008-08-03  0.5926586
-## 2008-08-04  1.4207664
-## 2008-08-05 -0.2705712</code></pre>
+## 2008-08-01 -0.6007098
+## 2008-08-02  2.3982161
+## 2008-08-03 -0.2370102
+## 2008-08-04  0.4176212
+## 2008-08-05 -0.9547500</code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="시계열-패키지-및-데이터-객체object.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) <span class="do">### 2008년 8월 1일 부터 5일치 데이터를 가지는 xts object 변환</span></span></code></pre></div>
 <pre><code>##                  [,1]
-## 2008-08-01 -1.5569086
-## 2008-08-02  1.4168544
-## 2008-08-03 -0.6109148
-## 2008-08-04  0.2067267
-## 2008-08-05 -0.1546701</code></pre></li>
+## 2008-08-01  0.6679938
+## 2008-08-02  0.5531129
+## 2008-08-03 -0.3942142
+## 2008-08-04 -0.4329062
+## 2008-08-05  1.2653537</code></pre></li>
 <li><p>xts()와 as.xts()의 차이</p></li>
 </ul>
 <p>xts()는 xts 객체를 생성하는 함수이나 as.xts()는 timeSeries, ts, irts, fts, matrix, data.frame, zoo 객체를 xts객체로 변환하는 함수이다.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> 다음과 같은 차이가 발생한다.</p>
@@ -385,23 +386,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>tsibble 객체 생성</li>
 </ul>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="시계열-패키지-및-데이터-객체object.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb66-2"><a href="시계열-패키지-및-데이터-객체object.html#cb66-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(<span class="st">&#39;2008-01-01&#39;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">x1 =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="at">x2=</span> <span class="fu">rep</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">10</span>))  <span class="do">### tsibble로 변환할 data.frame 생성</span></span>
-<span id="cb66-3"><a href="시계열-패키지-및-데이터-객체object.html#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tsibble</span>(x, <span class="at">key =</span> id, <span class="at">index =</span> date)  <span class="do">### data.frame을 tsibble로 변환</span></span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="시계열-패키지-및-데이터-객체object.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:xts&#39;:
+## 
+##     first, last</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="시계열-패키지-및-데이터-객체object.html#cb71-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(<span class="st">&#39;2008-01-01&#39;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">x1 =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="at">x2=</span> <span class="fu">rep</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">10</span>))  <span class="do">### tsibble로 변환할 data.frame 생성</span></span>
+<span id="cb71-2"><a href="시계열-패키지-및-데이터-객체object.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tsibble</span>(x, <span class="at">key =</span> id, <span class="at">index =</span> date)  <span class="do">### data.frame을 tsibble로 변환</span></span></code></pre></div>
 <pre><code>## # A tsibble: 10 x 4 [1D]
 ## # Key:       id [10]
 ##    date          id      x1 x2   
 ##    &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;
-##  1 2008-01-01     1  0.133  a    
-##  2 2008-01-02     2  1.28   a    
-##  3 2008-01-03     3  0.376  a    
-##  4 2008-01-04     4 -0.249  a    
-##  5 2008-01-05     5  0.899  a    
-##  6 2008-01-06     6 -0.150  a    
-##  7 2008-01-07     7  0.0120 a    
-##  8 2008-01-08     8 -0.676  a    
-##  9 2008-01-09     9 -0.0466 a    
-## 10 2008-01-10    10  0.456  a</code></pre>
+##  1 2008-01-01     1 -1.14   a    
+##  2 2008-01-02     2 -1.65   a    
+##  3 2008-01-03     3 -1.60   a    
+##  4 2008-01-04     4  0.504  a    
+##  5 2008-01-05     5  1.33   a    
+##  6 2008-01-06     6 -0.827  a    
+##  7 2008-01-07     7  0.527  a    
+##  8 2008-01-08     8  1.02   a    
+##  9 2008-01-09     9  0.0248 a    
+## 10 2008-01-10    10  0.645  a</code></pre>
 </div>
 <div id="modeltime" class="section level3" number="2.2.5">
 <h3><span class="header-section-number">2.2.5</span> modeltime</h3>
@@ -409,10 +421,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>modeltime 패키지 설치</li>
 </ul>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="시계열-패키지-및-데이터-객체object.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(modeltime)) {</span>
-<span id="cb68-2"><a href="시계열-패키지-및-데이터-객체object.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;modeltime&#39;</span>)</span>
-<span id="cb68-3"><a href="시계열-패키지-및-데이터-객체object.html#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(modeltime)</span>
-<span id="cb68-4"><a href="시계열-패키지-및-데이터-객체object.html#cb68-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="시계열-패키지-및-데이터-객체object.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(modeltime)) {</span>
+<span id="cb73-2"><a href="시계열-패키지-및-데이터-객체object.html#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;modeltime&#39;</span>)</span>
+<span id="cb73-3"><a href="시계열-패키지-및-데이터-객체object.html#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(modeltime)</span>
+<span id="cb73-4"><a href="시계열-패키지-및-데이터-객체object.html#cb73-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Warning: package &#39;modeltime&#39; was built under R version 4.0.3</code></pre>
 </div>
 </div>
 <div class="footnotes">
