@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="arima-모델.html"/>
-<link rel="next" href="neural-network-모델.html"/>
+<link rel="next" href="prophet-모델.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -243,7 +243,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
-<li class="chapter" data-level="6.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.6</b> Neural Network 모델</a></li>
+<li class="chapter" data-level="6.6" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.6</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.7" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.7</b> Neural Network 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
 <ul>
@@ -290,7 +291,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>앞선 ETS 모델과 ARIMA 모델은 계절성을 처리할 수 있는 방법을 제공하지만 문제는 다중 계절성을 지는 경우이다. 예를 들어 시간별 데이터는 하루내에서도 계절성을 가질 수 있고 주간적으로도 계절성을 가질 수 있으며 월간적으로, 연간적으로도 계절성을 가질 수 있다. ETS 모델과 ARIMA 모델은 연간(frequency = 1), 분기간(frequency = 4), 월간(frequency = 12) 까지의 계절성을 지원하고 주간(frequency = 52) 이상의 계절성을 지원하지 못한다.</p>
 <p>또한 계절성이 동적으로 변동되는 경우는 ETS, ARIMA 모델이 지원하지 못한다. 따라서 이렇게 긴 주기의 계절성을 찾아내는 모델이나 변동성을 지니는 계절성 데이터에 대한 모델을 구축해야 할 때 사용하는 모델이 tBats모델이다. tBats 모델은 Box-Cox 변환<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>, ARMA 에러, 추세와 계절성 컴포넌트를 사용한 지수평활 상태공간 모델이다.<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a></p>
 <p>코로나 확진자 데이터의 경우 2020년 9월 경 한차례 증가가 있었다가 2020년 12월 또 한차례 증가가 발생했다. 이것을 이중 계절성으로 파악한다면 ETS나 ARIMA모형으로는 모델링이 불가하다. 하지만 tBats 모델은 다음과 같이 모델이 가능하다.</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="tbats-모델.html#cb214-1" aria-hidden="true" tabindex="-1"></a>wide.covid19.by.age.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">tbats</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()   <span class="do">### 코로나 확진자 데이터에 대한 tBats 모델</span></span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="tbats-모델.html#cb216-1" aria-hidden="true" tabindex="-1"></a>wide.covid19.by.age.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">tbats</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()   <span class="do">### 코로나 확진자 데이터에 대한 tBats 모델</span></span></code></pre></div>
 <p><img src="t_files/figure-html/TBATS-1.png" width="672" /></p>
 </div>
 <div class="footnotes">
@@ -306,7 +307,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="arima-모델.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="neural-network-모델.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="prophet-모델.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6.6 Neural Network 모델 | Untitled</title>
-  <meta name="description" content="6.6 Neural Network 모델 | Untitled" />
+  <title>6.7 Neural Network 모델 | Untitled</title>
+  <meta name="description" content="6.7 Neural Network 모델 | Untitled" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6.6 Neural Network 모델 | Untitled" />
+  <meta property="og:title" content="6.7 Neural Network 모델 | Untitled" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6.6 Neural Network 모델 | Untitled" />
+  <meta name="twitter:title" content="6.7 Neural Network 모델 | Untitled" />
   
   
   
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="tbats-모델.html"/>
+<link rel="prev" href="prophet-모델.html"/>
 <link rel="next" href="시계열-forecasting-part-iii-시계열-분석-framework.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -243,7 +243,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
-<li class="chapter" data-level="6.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.6</b> Neural Network 모델</a></li>
+<li class="chapter" data-level="6.6" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.6</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.7" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.7</b> Neural Network 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
 <ul>
@@ -285,19 +286,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="neural-network-모델" class="section level2" number="6.6">
-<h2><span class="header-section-number">6.6</span> Neural Network 모델</h2>
+<div id="neural-network-모델" class="section level2" number="6.7">
+<h2><span class="header-section-number">6.7</span> Neural Network 모델</h2>
 <p>시계열 데이터에 대한 신경망 모델은 forecast 패키지에서 제공하는 nnetar() 함수를 사용하여 구축할 수 있다. nnetar()로 구축되는 모델은 싱글 히든 레이어을 사용한 신경망 모델이다. 일반적으로 딥러닝은 히든 레이어를 3개 이상 구축한 경우를 말하기 때문에 딥러닝이라고까지는 언급할 수 없으나 시계열 데이터를 신경망 이론에 적합하여 만들수 있는 모델이라는데 의미가 있다.</p>
 <p>nnetar() 함수에 구축된 모델은 계절성이 없는 경우는 NNAR(p, k)이며 계절성이 없는 경우는 NNAR(p, P, k)[m]으로 표현된다. p값은 히든 레이어에서 예측값을 산출하기 위해 사용하는 과거 데이터의 갯수이고 k값은 히든 레이어에 존재하는 신경세포의 갯수이다. P는 계절성에 대한 lag 값이다. nnetar() 함수는 p와 P 값을 자동으로 산정하고 k 값은 (p + P +1)/2 값으로 설정한다.<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a></p>
 <p>NNAR모델의 단점중에 하나는 예측구간의 계산이 원활하지 못하다는 점이다. forecast() 함수에서 ‘PI = TRUE’ 매개변수를 설정하면 예측구간이 계산되지만 계산량이 많아 시간이 걸린다.</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="neural-network-모델.html#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 학생수에 대한 NNAR 모델은 NNAR(1, 1)모델</span></span>
-<span id="cb215-2"><a href="neural-network-모델.html#cb215-2" aria-hidden="true" tabindex="-1"></a>students.total.ts[,<span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">nnetar</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="neural-network-모델.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 학생수에 대한 NNAR 모델은 NNAR(1, 1)모델</span></span>
+<span id="cb217-2"><a href="neural-network-모델.html#cb217-2" aria-hidden="true" tabindex="-1"></a>students.total.ts[,<span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">nnetar</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/nnetar-1.png" width="672" /></p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="neural-network-모델.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 취업자수에 대한 모델은 NNAR(1, 1, 2)[12] 모델</span></span>
-<span id="cb216-2"><a href="neural-network-모델.html#cb216-2" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">nnetar</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="neural-network-모델.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 취업자수에 대한 모델은 NNAR(1, 1, 2)[12] 모델</span></span>
+<span id="cb218-2"><a href="neural-network-모델.html#cb218-2" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">nnetar</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/nnetar-2.png" width="672" /></p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="neural-network-모델.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 확진자수에 대한 모델은 NNAR(22, 12) 모델(예측값을 위해 22개의 과거 데이터를 활용했고 히든레이어에 12개의 신경세포를 생성 )</span></span>
-<span id="cb217-2"><a href="neural-network-모델.html#cb217-2" aria-hidden="true" tabindex="-1"></a>wide.covid19.by.age.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">nnetar</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">100</span>, <span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="neural-network-모델.html#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 확진자수에 대한 모델은 NNAR(22, 12) 모델(예측값을 위해 22개의 과거 데이터를 활용했고 히든레이어에 12개의 신경세포를 생성 )</span></span>
+<span id="cb219-2"><a href="neural-network-모델.html#cb219-2" aria-hidden="true" tabindex="-1"></a>wide.covid19.by.age.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">nnetar</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">100</span>, <span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
 <pre><code>## Warning in nnetar(.): Series too short for seasonal lags</code></pre>
 <p><img src="t_files/figure-html/nnetar-3.png" width="672" /></p>
 
@@ -314,7 +315,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="tbats-모델.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prophet-모델.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="시계열-forecasting-part-iii-시계열-분석-framework.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

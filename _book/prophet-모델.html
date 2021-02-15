@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 시계열 forecasting Part II - 시계열 예측 모델 | Untitled</title>
-  <meta name="description" content="Chapter 6 시계열 forecasting Part II - 시계열 예측 모델 | Untitled" />
+  <title>6.6 prophet 모델 | Untitled</title>
+  <meta name="description" content="6.6 prophet 모델 | Untitled" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 시계열 forecasting Part II - 시계열 예측 모델 | Untitled" />
+  <meta property="og:title" content="6.6 prophet 모델 | Untitled" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 시계열 forecasting Part II - 시계열 예측 모델 | Untitled" />
+  <meta name="twitter:title" content="6.6 prophet 모델 | Untitled" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="계절성-ploting과-테스트.html"/>
-<link rel="next" href="simple-모델.html"/>
+<link rel="prev" href="tbats-모델.html"/>
+<link rel="next" href="neural-network-모델.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -286,26 +286,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="시계열-forecasting-part-ii---시계열-예측-모델" class="section level1" number="6">
-<h1><span class="header-section-number">Chapter 6</span> 시계열 forecasting Part II - 시계열 예측 모델</h1>
-<p><strong>A future like the past:</strong></p>
-<p>시계열 예측의 가장 기본적인 가정은 과거의 패턴은 미래에도 계속된다는 가정이다. 이 가정은 단기 미래에서는 데이터가 발생되는 환경이 현재와 유사하기 때문에 불확실성이 작지만 장기 미래로 갈수록 데이터가 발생되는 환경이 달라질 가능성이 높아지면서 예측 데이터에 대한 불확실성이 높아질 수 밖에 없다.</p>
-<p>이러한 이유때문에 시계열 예측은 외부 충격이나 원인모를 이유에 의한 갑작스런 데이터 흐름 변화를 예측해낼 수 없다는 한계를 지닌다. 그런 지점을 전환점(Turning Point)라고 한다. 이 전환점은 시계열 분석에 있어 중요한 부분이지만 전환점을 예측하기 위해서는 전통적인 시계열 분석 기법보다는 다른 기법을 활용해야 할 수 있다.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<p>본 장에서는 시계열 예측을 위한 모델을 설명하기 위해 forecast 패키지에서 제공하는 함수들을 이용한다. 여러가지 시계열 모델을 구축하고 성능평가를 통해 가장 효율적인 모델을 선정해야한다. 과거에는 많은 패키지에서 제공하는 다양한 함수를 사용하여 여러가지 모델을 각각 생성하고 성능평가를 위한 데이터를 생성하여 최선의 성능을 내는 모델을 채택하였다. 그러나 최근에는 여러가지 모델을 하나의 프레임워크에서 수행하여 가장 좋은 모델을 선정하는 방법이 사용된다. 따라서 이 장에서는 모델을 이해하고 다음 장에서 시계열 평가, 시각화를 위한 프레임워크를 소개하고자 한다.</p>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="2">
-<li id="fn2"><p><a href="https://hbr.org/1971/07/how-to-choose-the-right-forecasting-technique" class="uri">https://hbr.org/1971/07/how-to-choose-the-right-forecasting-technique</a><a href="시계열-forecasting-part-ii-시계열-예측-모델.html#fnref2" class="footnote-back">↩︎</a></p></li>
-</ol>
+<div id="prophet-모델" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> prophet 모델</h2>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="계절성-ploting과-테스트.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="simple-모델.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="tbats-모델.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="neural-network-모델.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
