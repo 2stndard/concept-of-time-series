@@ -243,7 +243,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
-<li class="chapter" data-level="6.6" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.6</b> Neural Network 모델</a></li>
+<li class="chapter" data-level="6.6" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.6</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.7" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.7</b> Neural Network 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
 <ul>
@@ -295,35 +296,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>그러나 AR모델은 독립변수고 종속변수가 모두 하나의 변수를 사용한다는 점에서 일반 회귀모델과 다르다. 과거의 자기자신의 데이터와 현재 데이터간의 상관관계를 분석하여 회귀모델을 세우는 것이 AR 모델이다.</p>
 <p>AR(p) 모델은 자기 상관관계가 lag p까지 영향을 미치는 모델이다. AR(1)은 자신의 데이터에 lag 1을 취한 데이터간의 회귀분석 모델이고 AR(2)는 자신의 데이터에 lag 1과 lag 2 데이터 간의 다중 회귀분석 모델이다. 따라서 AR(1) 모델은 회귀계수가 하나이고 AR(2) 모델은 회귀계수가 2개이므로 AR(p) 모델은 회귀계수가 p개 존재하게 된다.</p>
 <p>다음의 예는 자기회귀모델을 생성하고 ploting하는 예를 보이고 있다. arima.sim() 함수는 ARIMA 모형에 따른 랜덤 데이터를 생성하는 함수이다.</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="arima-모델.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
-<span id="cb140-2"><a href="arima-모델.html#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>) </span>
-<span id="cb140-3"><a href="arima-모델.html#cb140-3" aria-hidden="true" tabindex="-1"></a>arima100 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">ar =</span> <span class="fl">0.9</span>), <span class="at">n =</span> <span class="dv">200</span>)   <span class="do">### ARIMA(1,0,0)에 AR(1)의 회귀계수가 0.9인 데이터 200개 생성</span></span>
-<span id="cb140-4"><a href="arima-모델.html#cb140-4" aria-hidden="true" tabindex="-1"></a>arima100 <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;AR(1) model&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="arima-모델.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span></code></pre></div>
+<pre><code>## Warning: package &#39;tseries&#39; was built under R version 4.0.3</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="arima-모델.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>) </span>
+<span id="cb142-2"><a href="arima-모델.html#cb142-2" aria-hidden="true" tabindex="-1"></a>arima100 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">ar =</span> <span class="fl">0.9</span>), <span class="at">n =</span> <span class="dv">200</span>)   <span class="do">### ARIMA(1,0,0)에 AR(1)의 회귀계수가 0.9인 데이터 200개 생성</span></span>
+<span id="cb142-3"><a href="arima-모델.html#cb142-3" aria-hidden="true" tabindex="-1"></a>arima100 <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;AR(1) model&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/ARmodel-1.png" width="672" /></p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="arima-모델.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(arima100)   <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 크므로 정상성, 차분 불필요</span></span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="arima-모델.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(arima100)   <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 크므로 정상성, 차분 불필요</span></span></code></pre></div>
 <pre><code>## Warning in kpss.test(arima100): p-value greater than printed p-value</code></pre>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  arima100
 ## KPSS Level = 0.26838, Truncation lag parameter = 4, p-value = 0.1</code></pre>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="arima-모델.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(arima100, <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>) <span class="do">### 비정상 제거를 위한 차분수 - 0이 나오므로 차분 불필요</span></span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="arima-모델.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(arima100, <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>) <span class="do">### 비정상 제거를 위한 차분수 - 0이 나오므로 차분 불필요</span></span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="arima-모델.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
-<span id="cb146-2"><a href="arima-모델.html#cb146-2" aria-hidden="true" tabindex="-1"></a>arima110 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">ar =</span> <span class="fl">0.9</span>), <span class="at">n =</span> <span class="dv">200</span>) </span>
-<span id="cb146-3"><a href="arima-모델.html#cb146-3" aria-hidden="true" tabindex="-1"></a>arima110 <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;AR(1), 차분 1 model&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="arima-모델.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb148-2"><a href="arima-모델.html#cb148-2" aria-hidden="true" tabindex="-1"></a>arima110 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">ar =</span> <span class="fl">0.9</span>), <span class="at">n =</span> <span class="dv">200</span>) </span>
+<span id="cb148-3"><a href="arima-모델.html#cb148-3" aria-hidden="true" tabindex="-1"></a>arima110 <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;AR(1), 차분 1 model&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/ARmodel-2.png" width="672" /></p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="arima-모델.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(arima110)  <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 정상성, 차분 필요</span></span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="arima-모델.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(arima110)  <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 정상성, 차분 필요</span></span></code></pre></div>
 <pre><code>## Warning in kpss.test(arima110): p-value smaller than printed p-value</code></pre>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  arima110
 ## KPSS Level = 3.2912, Truncation lag parameter = 4, p-value = 0.01</code></pre>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="arima-모델.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(arima110, <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>)   <span class="do">### 비정상성을 제거하기 위해 필요한 차분수</span></span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="arima-모델.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(arima110, <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>)   <span class="do">### 비정상성을 제거하기 위해 필요한 차분수</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>ARIMA(1, 0, 0)의 ACF, PACF plot은 다음과 같이 나타난다. acf plot을 보면 자기 상관성이 전반적으로 높고 천천히 감소하는 형태(Tail off)를 보인다. 그리고 pacf plot은 lag 1에서 매우 높지만 2에서부터는 끊어진다.(cut off) ARIMA(1, 1, 0)도 유사한 형태를 나타낸다.</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="arima-모델.html#cb152-1" aria-hidden="true" tabindex="-1"></a>arima100 <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="arima-모델.html#cb154-1" aria-hidden="true" tabindex="-1"></a>arima100 <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/ARmodel_ACF-1.png" width="672" /></p>
 </div>
 <div id="이동평균-모델moving-average-model" class="section level3" number="6.4.2">
@@ -332,36 +334,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>보통 우리는 평균을 데이터의 전체합을 데이터의 갯수로 나누어 산출한다. 데이터의 전체적 흐름을 평균이라는 하나의 레벨로 표현하게 되는데 흔히 시계열 데이터에서도 마찬가지로 산출한다. 그러나 이 경우 오래된 데이터 일수록 최근 추세나 경향이 미치는 영향보다는 과거 추세가 강하게 들어가게 되므로 현재 데이터 추세나 경향에 둔감해지는 경향이 있다. 따라서 이동 평균은 최근의 데이터들에 대한 평균치를 산출함으로써 과거보다는 현재에 흐름에 맞는 평균을 산출할 수 있다는 장점이 있다. 이 이동 평균을 연속적으로 ploting 하면 데이터의 추세과 경향을 파악할 수 있다.</p>
 <p>이동 평균 모델은 MA(q)로 표현하는데 q는 이동평균을 산출하는 차수를 의미한다. q가 1인 경우는 기준 시점값과 바로 이전값의 평균, 2인경우는 기준 시점값과 이전, 차이전 값과의 평균을 의미한다. 기준 시점값은 시계열 적으로 과거값으로 하나씩 이동할 수 있고 시계열 초기값까지 이동하면 이동평균 산출은 끝난다.</p>
 <p>이동 평균 모델에서 하나 주의해야 할점은 이동 평균 모델의 계수를 적용하는 독립 변수가 오차항이라는 점이다. 앞선 자기회귀모델에서는 자기회귀계수를 자기자신의 lag 차수값에 적용하였지만 이동 평균 모델은 이동평균 계수를 오차항에 적용시킨다. (이해가 어렵지만 원리를 알고싶다면 참고문헌<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>을 참조하라)</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="arima-모델.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>) </span>
-<span id="cb153-2"><a href="arima-모델.html#cb153-2" aria-hidden="true" tabindex="-1"></a>arima001 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">ma =</span> <span class="fl">0.9</span>), <span class="at">n =</span> <span class="dv">200</span>)   <span class="do">### ARIMA(1,0,0)에 AR(1)의 회귀계수가 0.9인 데이터 200개 생성</span></span>
-<span id="cb153-3"><a href="arima-모델.html#cb153-3" aria-hidden="true" tabindex="-1"></a>arima001 <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;MA(1) model&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="arima-모델.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>) </span>
+<span id="cb155-2"><a href="arima-모델.html#cb155-2" aria-hidden="true" tabindex="-1"></a>arima001 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">ma =</span> <span class="fl">0.9</span>), <span class="at">n =</span> <span class="dv">200</span>)   <span class="do">### ARIMA(1,0,0)에 AR(1)의 회귀계수가 0.9인 데이터 200개 생성</span></span>
+<span id="cb155-3"><a href="arima-모델.html#cb155-3" aria-hidden="true" tabindex="-1"></a>arima001 <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;MA(1) model&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/MAmodel-1.png" width="672" /></p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="arima-모델.html#cb154-1" aria-hidden="true" tabindex="-1"></a>arima001 <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="arima-모델.html#cb156-1" aria-hidden="true" tabindex="-1"></a>arima001 <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/MAmodel-2.png" width="672" /></p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="arima-모델.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(arima001)   <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 크므로 정상성, 차분 불필요</span></span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="arima-모델.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(arima001)   <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 크므로 정상성, 차분 불필요</span></span></code></pre></div>
 <pre><code>## Warning in kpss.test(arima001): p-value greater than printed p-value</code></pre>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  arima001
 ## KPSS Level = 0.090581, Truncation lag parameter = 4, p-value = 0.1</code></pre>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="arima-모델.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(arima001, <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>) <span class="do">### 비정상 제거를 위한 차분수 - 0이 나오므로 차분 불필요</span></span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="arima-모델.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(arima001, <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>) <span class="do">### 비정상 제거를 위한 차분수 - 0이 나오므로 차분 불필요</span></span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="arima-모델.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
-<span id="cb160-2"><a href="arima-모델.html#cb160-2" aria-hidden="true" tabindex="-1"></a>arima011 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">ma =</span> <span class="fl">0.9</span>), <span class="at">n =</span> <span class="dv">200</span>) </span>
-<span id="cb160-3"><a href="arima-모델.html#cb160-3" aria-hidden="true" tabindex="-1"></a>arima011 <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;MA(1), 차분 1 model&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="arima-모델.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb162-2"><a href="arima-모델.html#cb162-2" aria-hidden="true" tabindex="-1"></a>arima011 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">ma =</span> <span class="fl">0.9</span>), <span class="at">n =</span> <span class="dv">200</span>) </span>
+<span id="cb162-3"><a href="arima-모델.html#cb162-3" aria-hidden="true" tabindex="-1"></a>arima011 <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;MA(1), 차분 1 model&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/MAmodel-3.png" width="672" /></p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="arima-모델.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(arima011)  <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 정상성, 차분 필요</span></span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="arima-모델.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(arima011)  <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 정상성, 차분 필요</span></span></code></pre></div>
 <pre><code>## Warning in kpss.test(arima011): p-value smaller than printed p-value</code></pre>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  arima011
 ## KPSS Level = 3.5785, Truncation lag parameter = 4, p-value = 0.01</code></pre>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="arima-모델.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(arima011, <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>)   <span class="do">### 비정상성을 제거하기 위해 필요한 차분수</span></span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="arima-모델.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(arima011, <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>)   <span class="do">### 비정상성을 제거하기 위해 필요한 차분수</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>ARIMA(0, 0, 1)의 ACF, PACF plot은 다음과 같이 나타난다. AR(1)모델의 acf는 점차 감소(tail off)하였고 pacf는 1에서 절단(cut off)되었지만 MA(1)모델에서는 acf plot이 1에서 절단(cut off)되고 pacf plot은 +와 -를 반복하지만 전반적으로 감소(tail off)하고 있다.</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="arima-모델.html#cb166-1" aria-hidden="true" tabindex="-1"></a>arima001 <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="arima-모델.html#cb168-1" aria-hidden="true" tabindex="-1"></a>arima001 <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/MAmodel_ACF-1.png" width="672" /></p>
 </div>
 <div id="arima-모델-결정" class="section level3" number="6.4.3">
@@ -371,16 +373,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>앞의 예제에서 AR(1)과 MA(1)의 ACF와 PACF plot을 보았는데 두 경우가 비슷하지만 다른 특성이 있다. AR(1) 모델의 경우는 ACF plot이 점차 감소(tail off)하고 PACF plot의 절단(cut off) 차수가 1이었다. 반면 MA(1)의 경우는 ACF plot의 절단(cut off) 차수가 1이었고 PACF plot이 점차 감소(tail off)하였다.</p>
 <p>위의 예제에서 보듯이 AR모델은 ACF plot이 점차 감소하며 PACF plot의 절단 차수가 p값을 의미한다. 반면 MA 모델은 PACF plot이 점차 감소하며 ACF plot의 절단차수가 q값을 의미한다. 이 과정에서 비정상성 시계열을 정상성 시계열로 만들기 위해 차분을 적용하는데 차분의 적용차수가 d값을 의미한다. 만약 AR과 MA가 동시에 나타나는 모델의 경우는 다음의 예에서 보듯이 ACF와 PACF가 모두 점차 감소하는 형태를 보인다.</p>
 <p>반면 아래의 예제와 같이 p와 q가 모두 0보다 큰 경우는 ACF와 PACF plot으로 모델을 결정하는 것이 적절하지 않을 수 있다.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> 이 경우에는 먼저 차분을 통해 정상성 시계열로 만든 후 ACF와 PACF를 다시 확인해봐야 하고 이 경우에도 적절한 차수를 찾기 어렵다면 여러가지 경우수를 설정하고 AIC, BIC, RMSE 등의 성능 분석 수치를 통해 가장 좋은 모델을 선정해야 한다. 이와 관련된 내용은 다음 장에서 다루겠다.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="arima-모델.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>) </span>
-<span id="cb167-2"><a href="arima-모델.html#cb167-2" aria-hidden="true" tabindex="-1"></a>arima101 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">ar =</span> <span class="fl">0.9</span>, <span class="at">ma =</span> <span class="fl">0.9</span>), <span class="at">n =</span> <span class="dv">200</span>)   <span class="do">### ARIMA(1,0,0)에 AR(1)의 회귀계수가 0.9인 데이터 200개 생성</span></span>
-<span id="cb167-3"><a href="arima-모델.html#cb167-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb167-4"><a href="arima-모델.html#cb167-4" aria-hidden="true" tabindex="-1"></a>arima101 <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;AR(1), MA(1) model&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="arima-모델.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>) </span>
+<span id="cb169-2"><a href="arima-모델.html#cb169-2" aria-hidden="true" tabindex="-1"></a>arima101 <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">ar =</span> <span class="fl">0.9</span>, <span class="at">ma =</span> <span class="fl">0.9</span>), <span class="at">n =</span> <span class="dv">200</span>)   <span class="do">### ARIMA(1,0,0)에 AR(1)의 회귀계수가 0.9인 데이터 200개 생성</span></span>
+<span id="cb169-3"><a href="arima-모델.html#cb169-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-4"><a href="arima-모델.html#cb169-4" aria-hidden="true" tabindex="-1"></a>arima101 <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;AR(1), MA(1) model&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/ARMAmodel-1.png" width="672" /></p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="arima-모델.html#cb168-1" aria-hidden="true" tabindex="-1"></a>arima101 <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="arima-모델.html#cb170-1" aria-hidden="true" tabindex="-1"></a>arima101 <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/ARMAmodel-2.png" width="672" /></p>
 <p>ARIMA 모델을 학생수 시계열 데이터, 취업자수 시계열 데이터, 코로나 확진자 시계열 데이터에 적용해보면 다음과 같다. 앞서 설명한 바와 같이 forecast 패키지에서는 ARIMA모델을 자동으로 결정해주는 함수인 auto.arima()를 제공한다.</p>
 <p>학생수 데이터를 ARIMA 모델에 적용하면 ACF와 PACF로 비교적 확실하게 확인이 가능한 모델을 선정할 수 있다.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="arima-모델.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(students.total.ts[,<span class="dv">1</span>])  <span class="do">### 학생수의 ARIMA모형은 ARIMA(1, 2, 0)으로 선정됨</span></span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="arima-모델.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(students.total.ts[,<span class="dv">1</span>])  <span class="do">### 학생수의 ARIMA모형은 ARIMA(1, 2, 0)으로 선정됨</span></span></code></pre></div>
 <pre><code>## Series: students.total.ts[, 1] 
 ## ARIMA(1,2,0) 
 ## 
@@ -391,40 +393,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## sigma^2 estimated as 1.174e+09:  log likelihood=-236.71
 ## AIC=477.42   AICc=478.12   BIC=479.41</code></pre>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="arima-모델.html#cb171-1" aria-hidden="true" tabindex="-1"></a>students.total.ts[,<span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()  <span class="do">### ACF가 tail off이고 PACF가 1에서 cut off 이므로 ARMA(1,0)모델</span></span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="arima-모델.html#cb173-1" aria-hidden="true" tabindex="-1"></a>students.total.ts[,<span class="dv">1</span>] <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()  <span class="do">### ACF가 tail off이고 PACF가 1에서 cut off 이므로 ARMA(1,0)모델</span></span></code></pre></div>
 <p><img src="t_files/figure-html/ARIMA_students-1.png" width="672" /></p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="arima-모델.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(students.total.ts[,<span class="dv">1</span>])  <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 정상성, 차분 필요</span></span></code></pre></div>
-<pre><code>## Warning in kpss.test(students.total.ts[, 1]): p-value smaller than printed p-value</code></pre>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="arima-모델.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(students.total.ts[,<span class="dv">1</span>])  <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 정상성, 차분 필요</span></span></code></pre></div>
+<pre><code>## Warning in kpss.test(students.total.ts[, 1]): p-value smaller than printed p-
+## value</code></pre>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  students.total.ts[, 1]
 ## KPSS Level = 0.7939, Truncation lag parameter = 2, p-value = 0.01</code></pre>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="arima-모델.html#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>)   <span class="do">### 비정상성을 제거하기 위해 필요한 차분수가 2이므로 최종 모델은 ARIMA(1, 2, 0)</span></span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="arima-모델.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(students.total.ts[,<span class="dv">1</span>], <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>)   <span class="do">### 비정상성을 제거하기 위해 필요한 차분수가 2이므로 최종 모델은 ARIMA(1, 2, 0)</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="arima-모델.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(students.total.ts[,<span class="dv">1</span>]) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="arima-모델.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(students.total.ts[,<span class="dv">1</span>]) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/ARIMA_students-2.png" width="672" /></p>
 <p>전체 취업자 수는 계절성을 지니기 때문에 다음의 절에서 설명한다. 교육서비스업 취업자는 다음과 같이 ARIMA 모델이 결정된다.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="arima-모델.html#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(employees.ts[, <span class="dv">3</span>]) <span class="do">### 교육서비스업 취업자수의 ARIMA모형은 ARIMA(0, 1, 0)으로 선정됨</span></span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="arima-모델.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(employees.ts[, <span class="dv">3</span>]) <span class="do">### 교육서비스업 취업자수의 ARIMA모형은 ARIMA(0, 1, 0)으로 선정됨</span></span></code></pre></div>
 <pre><code>## Series: employees.ts[, 3] 
 ## ARIMA(0,1,0) 
 ## 
 ## sigma^2 estimated as 508.9:  log likelihood=-430.83
 ## AIC=863.65   AICc=863.7   BIC=866.21</code></pre>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="arima-모델.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(employees.ts[, <span class="dv">3</span>])  <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 비정상성, 차분 필요</span></span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="arima-모델.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(employees.ts[, <span class="dv">3</span>])  <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 비정상성, 차분 필요</span></span></code></pre></div>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  employees.ts[, 3]
 ## KPSS Level = 0.66909, Truncation lag parameter = 3, p-value = 0.01636</code></pre>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="arima-모델.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(employees.ts[, <span class="dv">3</span>], <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>)   <span class="do">### 비정상성을 제거하기 위해 필요한 차분수가 1</span></span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="arima-모델.html#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(employees.ts[, <span class="dv">3</span>], <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>)   <span class="do">### 비정상성을 제거하기 위해 필요한 차분수가 1</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="arima-모델.html#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(employees.ts[, <span class="dv">3</span>]) <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()  <span class="do">### 1차 차분을 해본 결과 ACF, PACF 모두 절단(Cut off)이므로 ARMA(0,0)</span></span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="arima-모델.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(employees.ts[, <span class="dv">3</span>]) <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()  <span class="do">### 1차 차분을 해본 결과 ACF, PACF 모두 절단(Cut off)이므로 ARMA(0,0)</span></span></code></pre></div>
 <p><img src="t_files/figure-html/ARIMA_employees-1.png" width="672" /></p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="arima-모델.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(employees.ts[, <span class="dv">3</span>]) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()  <span class="do">### ARIMA(0,1,0)은 랜덤 워크 모델</span></span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="arima-모델.html#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(employees.ts[, <span class="dv">3</span>]) <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()  <span class="do">### ARIMA(0,1,0)은 랜덤 워크 모델</span></span></code></pre></div>
 <p><img src="t_files/figure-html/ARIMA_employees-2.png" width="672" /></p>
 <p>코로나 확진자 데이터의 자동 ARIMA 모형은 (2, 1, 1)로 나타난다. kpss.test와 ndiffs를 통해 차분이 1인 경우 정상성이 되는 것을 확인할 수 있으나 p, q값이 모두 0보다 큰 수이기 때문에 ACF와 PACF plot으로 차수를 결정하는 것이 적절하지 않다.</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="arima-모델.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]) <span class="do">### 교육서비스업 취업자수의 ARIMA모형은 ARIMA(0, 1, 0)으로 선정됨</span></span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="arima-모델.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auto.arima</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]) <span class="do">### 교육서비스업 취업자수의 ARIMA모형은 ARIMA(0, 1, 0)으로 선정됨</span></span></code></pre></div>
 <pre><code>## Series: wide.covid19.by.age.ts[, 2] 
 ## ARIMA(2,1,1) 
 ## 
@@ -435,25 +438,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## sigma^2 estimated as 26.74:  log likelihood=-920.47
 ## AIC=1848.93   AICc=1849.07   BIC=1863.76</code></pre>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="arima-모델.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>])  <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 비정상성, 차분 필요</span></span></code></pre></div>
-<pre><code>## Warning in kpss.test(wide.covid19.by.age.ts[, 2]): p-value smaller than printed p-
-## value</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="arima-모델.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>])  <span class="do">### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 비정상성, 차분 필요</span></span></code></pre></div>
+<pre><code>## Warning in kpss.test(wide.covid19.by.age.ts[, 2]): p-value smaller than printed
+## p-value</code></pre>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  wide.covid19.by.age.ts[, 2]
 ## KPSS Level = 3.2656, Truncation lag parameter = 5, p-value = 0.01</code></pre>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="arima-모델.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>], <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>)   <span class="do">### 비정상성을 제거하기 위해 필요한 차분수가 1</span></span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="arima-모델.html#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ndiffs</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>], <span class="at">test =</span> <span class="st">&#39;kpss&#39;</span>)   <span class="do">### 비정상성을 제거하기 위해 필요한 차분수가 1</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="arima-모델.html#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]) <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()  <span class="do">### 1차 차분을 해본 결과 ACF, PACF 모두 절단(Cut off)이므로 ARMA(0,0)</span></span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="arima-모델.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(wide.covid19.by.age.ts[,<span class="dv">2</span>]) <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()  <span class="do">### 1차 차분을 해본 결과 ACF, PACF 모두 절단(Cut off)이므로 ARMA(0,0)</span></span></code></pre></div>
 <p><img src="t_files/figure-html/ARIMA_covid-1.png" width="672" /></p>
 </div>
 <div id="seasonal-arima-모델" class="section level3" number="6.4.4">
 <h3><span class="header-section-number">6.4.4</span> Seasonal ARIMA 모델</h3>
 <p>위에서 살펴본 모델은 비계절성 ARIMA 모델이었다. 계절성을 지니는 데이터는 비계절성 ARIMA 모델로는 적절히 모델링이 어렵기 때문에 계절성 ARIMA 모델에 적합시켜야 한다. 계절성 ARIMA는 비계절성 ARIMA의 p, d, q 차수 외에 계절성 차수인 P, D, Q와 관측주기 m을 추가적으로 결정해야 하고 ARIMA(p, d, q)(P, D, Q)m으로 표기한다.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="arima-모델.html#cb194-1" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>() <span class="do">### 전체 취업자수는 ACF plot을 볼때 12주기마다 계절성이 있음.</span></span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="arima-모델.html#cb196-1" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>() <span class="do">### 전체 취업자수는 ACF plot을 볼때 12주기마다 계절성이 있음.</span></span></code></pre></div>
 <p><img src="t_files/figure-html/ARIMA_seasonal-1.png" width="672" /></p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="arima-모델.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">auto.arima</span>(employees.ts[, <span class="dv">2</span>]))  <span class="do">### 학생수의 ARIMA모형은 ARIMA(0, 1, 0)(0, 1, 1)[12]으로 선정됨</span></span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="arima-모델.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">auto.arima</span>(employees.ts[, <span class="dv">2</span>]))  <span class="do">### 학생수의 ARIMA모형은 ARIMA(0, 1, 0)(0, 1, 1)[12]으로 선정됨</span></span></code></pre></div>
 <pre><code>## Series: employees.ts[, 2] 
 ## ARIMA(0,1,0)(0,1,1)[12] 
 ## 
@@ -466,36 +469,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## AIC=1040.27   AICc=1040.42   BIC=1045.11
 ## 
 ## Training set error measures:
-##                     ME     RMSE      MAE         MPE      MAPE      MASE        ACF1
-## Training set -17.24831 114.3934 73.75538 -0.06622242 0.2787589 0.2327018 -0.01264952</code></pre>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="arima-모델.html#cb197-1" aria-hidden="true" tabindex="-1"></a>employees.ts.seasadj <span class="ot">&lt;-</span> employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">stl</span>(<span class="at">s.window=</span><span class="st">&#39;periodic&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">seasadj</span>()  <span class="do">### 계절성을 제외</span></span>
-<span id="cb197-2"><a href="arima-모델.html#cb197-2" aria-hidden="true" tabindex="-1"></a>employees.ts.seasadj <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>() <span class="do">### 계절성을 제외한 데이터는 비정상성 있음</span></span></code></pre></div>
+##                     ME     RMSE      MAE         MPE      MAPE      MASE
+## Training set -17.24831 114.3934 73.75538 -0.06622242 0.2787589 0.2327018
+##                     ACF1
+## Training set -0.01264952</code></pre>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="arima-모델.html#cb199-1" aria-hidden="true" tabindex="-1"></a>employees.ts.seasadj <span class="ot">&lt;-</span> employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">stl</span>(<span class="at">s.window=</span><span class="st">&#39;periodic&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">seasadj</span>()  <span class="do">### 계절성을 제외</span></span>
+<span id="cb199-2"><a href="arima-모델.html#cb199-2" aria-hidden="true" tabindex="-1"></a>employees.ts.seasadj <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>() <span class="do">### 계절성을 제외한 데이터는 비정상성 있음</span></span></code></pre></div>
 <p><img src="t_files/figure-html/ARIMA_seasonal-2.png" width="672" /></p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="arima-모델.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(employees.ts.seasadj) <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>() <span class="do">### 계절성 제외 데이터를 1차분한 결과는 ARMA(0,0)</span></span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="arima-모델.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(employees.ts.seasadj) <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>() <span class="do">### 계절성 제외 데이터를 1차분한 결과는 ARMA(0,0)</span></span></code></pre></div>
 <p><img src="t_files/figure-html/ARIMA_seasonal-3.png" width="672" /></p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="arima-모델.html#cb199-1" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag =</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()  <span class="do">### 계절성이 있기 때문에 계절성(12)로 차분 데이터를 구해 계절성을 점검</span></span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="arima-모델.html#cb201-1" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag =</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()  <span class="do">### 계절성이 있기 때문에 계절성(12)로 차분 데이터를 구해 계절성을 점검</span></span></code></pre></div>
 <p><img src="t_files/figure-html/ARIMA_seasonal-4.png" width="672" /></p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="arima-모델.html#cb200-1" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag =</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">kpss.test</span>()  <span class="do">###계절성 차분 데이터가 비정상성</span></span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="arima-모델.html#cb202-1" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag =</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">kpss.test</span>()  <span class="do">###계절성 차분 데이터가 비정상성</span></span></code></pre></div>
 <pre><code>## Warning in kpss.test(.): p-value smaller than printed p-value</code></pre>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  .
 ## KPSS Level = 1.0661, Truncation lag parameter = 3, p-value = 0.01</code></pre>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="arima-모델.html#cb203-1" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag =</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">ndiffs</span>() <span class="do">### 계절성 차분 데이터의 차분 수를 구함</span></span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="arima-모델.html#cb205-1" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag =</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">ndiffs</span>() <span class="do">### 계절성 차분 데이터의 차분 수를 구함</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="arima-모델.html#cb205-1" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag =</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">kpss.test</span>()  <span class="do">### 계절성 차분 데이터의 1차 차분 데이터는 정상성</span></span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="arima-모델.html#cb207-1" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag =</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">kpss.test</span>()  <span class="do">### 계절성 차분 데이터의 1차 차분 데이터는 정상성</span></span></code></pre></div>
 <pre><code>## Warning in kpss.test(.): p-value greater than printed p-value</code></pre>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  .
 ## KPSS Level = 0.11032, Truncation lag parameter = 3, p-value = 0.1</code></pre>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="arima-모델.html#cb208-1" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag =</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()  <span class="do">### 계절성 차분 데이터의 ACF와 PACF를 확인하면 ARMA(0,0)</span></span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="arima-모델.html#cb210-1" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">diff</span>(<span class="at">lag =</span><span class="dv">12</span>) <span class="sc">%&gt;%</span> <span class="fu">diff</span>() <span class="sc">%&gt;%</span> <span class="fu">ggtsdisplay</span>()  <span class="do">### 계절성 차분 데이터의 ACF와 PACF를 확인하면 ARMA(0,0)</span></span></code></pre></div>
 <p><img src="t_files/figure-html/ARIMA_seasonal-5.png" width="672" /></p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="arima-모델.html#cb209-1" aria-hidden="true" tabindex="-1"></a>arima010010 <span class="ot">&lt;-</span> <span class="fu">arima</span>(employees.ts[, <span class="dv">2</span>], <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="at">seasonal =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>))</span>
-<span id="cb209-2"><a href="arima-모델.html#cb209-2" aria-hidden="true" tabindex="-1"></a>arima010011 <span class="ot">&lt;-</span> <span class="fu">arima</span>(employees.ts[, <span class="dv">2</span>], <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="at">seasonal =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb209-3"><a href="arima-모델.html#cb209-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(arima010010)  <span class="do">### 육안으로 구한 ARIMA(0,1,0)(0,1,0)[12]모델의 성능 치수 </span></span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="arima-모델.html#cb211-1" aria-hidden="true" tabindex="-1"></a>arima010010 <span class="ot">&lt;-</span> <span class="fu">arima</span>(employees.ts[, <span class="dv">2</span>], <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="at">seasonal =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>))</span>
+<span id="cb211-2"><a href="arima-모델.html#cb211-2" aria-hidden="true" tabindex="-1"></a>arima010011 <span class="ot">&lt;-</span> <span class="fu">arima</span>(employees.ts[, <span class="dv">2</span>], <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="at">seasonal =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb211-3"><a href="arima-모델.html#cb211-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(arima010010)  <span class="do">### 육안으로 구한 ARIMA(0,1,0)(0,1,0)[12]모델의 성능 치수 </span></span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## arima(x = employees.ts[, 2], order = c(0, 1, 0), seasonal = c(0, 1, 0))
@@ -504,9 +509,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## sigma^2 estimated as 16703:  log likelihood = -521.29,  aic = 1044.58
 ## 
 ## Training set error measures:
-##                     ME     RMSE      MAE         MPE      MAPE      MASE        ACF1
-## Training set -15.05233 120.5067 78.00443 -0.05780757 0.2945335 0.4009317 -0.01939813</code></pre>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="arima-모델.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(arima010011)  <span class="do">### 육안으로 구한 ARIMA(0,1,0)(0,1,0)[12]모델의 성능 치수 </span></span></code></pre></div>
+##                     ME     RMSE      MAE         MPE      MAPE      MASE
+## Training set -15.05233 120.5067 78.00443 -0.05780757 0.2945335 0.4009317
+##                     ACF1
+## Training set -0.01939813</code></pre>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="arima-모델.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(arima010011)  <span class="do">### 육안으로 구한 ARIMA(0,1,0)(0,1,0)[12]모델의 성능 치수 </span></span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## arima(x = employees.ts[, 2], order = c(0, 1, 0), seasonal = c(0, 1, 1))
@@ -519,14 +526,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## sigma^2 estimated as 15042:  log likelihood = -518.14,  aic = 1040.27
 ## 
 ## Training set error measures:
-##                     ME     RMSE      MAE         MPE      MAPE      MASE        ACF1
-## Training set -17.24831 114.3934 73.75538 -0.06622242 0.2787589 0.3790922 -0.01264952</code></pre>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="arima-모델.html#cb213-1" aria-hidden="true" tabindex="-1"></a>forecast010010 <span class="ot">&lt;-</span> arima010010 <span class="sc">%&gt;%</span> <span class="fu">forecast</span>()</span>
-<span id="cb213-2"><a href="arima-모델.html#cb213-2" aria-hidden="true" tabindex="-1"></a>forecast010011 <span class="ot">&lt;-</span> arima010011 <span class="sc">%&gt;%</span> <span class="fu">forecast</span>()</span>
-<span id="cb213-3"><a href="arima-모델.html#cb213-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb213-4"><a href="arima-모델.html#cb213-4" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[, <span class="dv">2</span>]) <span class="sc">+</span> </span>
-<span id="cb213-5"><a href="arima-모델.html#cb213-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(forecast010011, <span class="at">PI =</span> F, <span class="at">series =</span> <span class="st">&#39;010011&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb213-6"><a href="arima-모델.html#cb213-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(forecast010010, <span class="at">PI =</span> F, <span class="at">series =</span> <span class="st">&#39;010010&#39;</span>)</span></code></pre></div>
+##                     ME     RMSE      MAE         MPE      MAPE      MASE
+## Training set -17.24831 114.3934 73.75538 -0.06622242 0.2787589 0.3790922
+##                     ACF1
+## Training set -0.01264952</code></pre>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="arima-모델.html#cb215-1" aria-hidden="true" tabindex="-1"></a>forecast010010 <span class="ot">&lt;-</span> arima010010 <span class="sc">%&gt;%</span> <span class="fu">forecast</span>()</span>
+<span id="cb215-2"><a href="arima-모델.html#cb215-2" aria-hidden="true" tabindex="-1"></a>forecast010011 <span class="ot">&lt;-</span> arima010011 <span class="sc">%&gt;%</span> <span class="fu">forecast</span>()</span>
+<span id="cb215-3"><a href="arima-모델.html#cb215-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb215-4"><a href="arima-모델.html#cb215-4" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(employees.ts[, <span class="dv">2</span>]) <span class="sc">+</span> </span>
+<span id="cb215-5"><a href="arima-모델.html#cb215-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(forecast010011, <span class="at">PI =</span> F, <span class="at">series =</span> <span class="st">&#39;010011&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb215-6"><a href="arima-모델.html#cb215-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(forecast010010, <span class="at">PI =</span> F, <span class="at">series =</span> <span class="st">&#39;010010&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/ARIMA_seasonal-6.png" width="672" /></p>
 <p>위의 예제에서 육안으로 확인한 ARIMA(0,1,0)(0,1,0)[12]모델의 RMSE값은 120.50과 auto.arima()함수를 통한 ARIMA(0,1,0)(0,1,1)[12]모델의 RMSE값은 114.39이다. 일반적으로 RMSE값이 작은 모델이 성능이 좋은 모델이므로 ARIMA(0,1,0)(0,1,1)모델이 보다 우수한 것으로 볼 수 있다.</p>
 <p>이와 같이 육안으로 확인한 ARIMA모델은 불완전하다. 따라서 육안으로 확인하거나 auto.arima 모델의 p, q값의 주위 모델을 반드시 확인하여 성능 수치가 더 우수한 모델을 찾는 과정을 거쳐야 한다.</p>

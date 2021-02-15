@@ -197,3 +197,4 @@ rmseroot-means-squaread-error
 mae
 mpe
 mape
+prophet-모델
