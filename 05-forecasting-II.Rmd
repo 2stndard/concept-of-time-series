@@ -690,6 +690,8 @@ autoplot(employees.ts[, 2]) +
 wide.covid19.by.age.ts[,2] %>% tbats() %>% forecast() %>% autoplot()   ### 코로나 확진자 데이터에 대한 tBats 모델
 ```
 
+## prophet 모델
+
 ## Neural Network 모델
 
 시계열 데이터에 대한 신경망 모델은 forecast 패키지에서 제공하는 nnetar() 함수를 사용하여 구축할 수 있다. nnetar()로 구축되는 모델은 싱글 히든 레이어을 사용한 신경망 모델이다. 일반적으로 딥러닝은 히든 레이어를 3개 이상 구축한 경우를 말하기 때문에 딥러닝이라고까지는 언급할 수 없으나 시계열 데이터를 신경망 이론에 적합하여 만들수 있는 모델이라는데 의미가 있다.

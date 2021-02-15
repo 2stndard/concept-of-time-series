@@ -7,4 +7,3 @@ rmarkdown::render_site('C:/R/git/concept-of-time-series/06-forecasting-III.Rmd',
 rmarkdown::render_site('C:/R/git/concept-of-time-series/07-references.Rmd',  encoding = 'UTF-8');
 rmarkdown::render_site('C:/R/git/concept-of-time-series/index.Rmd', encoding = 'UTF-8');
 
-pandoc index.Rmd -f markdown -t docx -s -o index.docx
