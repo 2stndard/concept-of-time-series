@@ -91,7 +91,7 @@ MPE는 오차항(Error)의 백분률(Precentage)의 평균(Mean)을 의미한다
 ((students.total.ts[,1] - fitted(arima)) / students.total.ts[,1] * 100) %>% mean()
 ```
 
-###  MAPE
+### MAPE
 
 MAPE는 오차항(Error)의 백분률(Precentage)의 절대값의 평균(Mean)을 의미한다. 앞의 MPE값과 유사하게 산출되는 값이지만 이 값은 MAE값과 더 관계가 있다. MAE 값은 오차항의 절대값 평균이지만 MAPE는 오차항 백분률의 절대값 평균이기 때문이다. 예를 들자면 두개의 오차항이 모두 1이라하더라도 실제값이 10일때 오차항 1과 실제값이 100일때 오차항 1은 다르기 때문이다. MAE를 구할때는 실제값에 관련없이 1이라는 값은 동일하게 계산되지만 MAPE에서는 동일한 1값이라도 실제값에 따라 다르게 계산된다.
 
