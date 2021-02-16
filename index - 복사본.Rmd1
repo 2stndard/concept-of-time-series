@@ -1,11 +1,10 @@
 ---
-title: <center>교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R</center>
+title: '교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R'
 author: 이기준^[국가교육통계연구본부장, standard@kedi.re.kr]
 institution: 한국교육개발원
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output: word_document:
-    reference_docx: my-styles.docx
+output: bookdown::gitbook
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
