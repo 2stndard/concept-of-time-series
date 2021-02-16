@@ -173,3 +173,17 @@ wide.covid19.by.age %>%
   mutate(rate.by.month = round(`0-9세`/sum.by.month, 3) * 100) %>%
   select(date, `0-9세`, sum.by.month, rate.by.month) %>%
   head(30)
+
+
+
+
+covid.prophet <- data.frame(ds = wide.covid19.by.age$date, y = wide.covid19.by.age$`0-9세`)
+model.prophet.covid <- prophet(covid.prophet, yearly.seasonality=TRUE, daily.seasonality=TRUE, weekly.seasonality=TRUE)
+future.covid <- make_future_dataframe(model.prophet.covid, periods = 100, freq = 'day')
+tail(future.covid, 10)
+forecast.covid <- predict(model.prophet.covid, future.covid)
+plot(model.prophet.covid, forecast.covid) +
+  labs(title = '일별 코로나 확진자수 추세(0-9세, prophet model)', x = '연월', y = '확진자수') + 
+  scale_y_continuous(labels = scales::number_format(big.mark = ','))
+prophet_plot_components(model.prophet.covid, forecast.covid)
+?prophet

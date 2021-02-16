@@ -303,62 +303,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb75-5"><a href="시계열-데이터-import의-방법.html#cb75-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the first few lines of mydata</span></span>
 <span id="cb75-6"><a href="시계열-데이터-import의-방법.html#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(student.from.excel)  <span class="co"># 데이터 확인</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 x 18
-##   연도  지역규모 학생수계 유치원 초등학교 중학교 고등학교계 일반계고 전문계고 일반고
-##   &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-## 1 1999  특별/광역시~  4097895 227758  1807584 9.15e5    1121998   742693   379305      0
-## 2 1999  시        3110148 204246  1437516 6.73e5     783207   503531   279676      0
-## 3 1999  읍지역     685091  43160   303702 1.39e5     197522    94479   103043      0
-## 4 1999  면지역     639421  48456   319006 1.44e5     126273    50558    75715      0
-## 5 1999  특수지역   125803  10546    67729 2.54e4      22140     8128    14012      0
-## 6 1999  계        8658358 534166  3935537 1.90e6    2251140  1399389   851751      0
-## # ... with 8 more variables: 특목고 &lt;dbl&gt;, 특성화고 &lt;dbl&gt;, 자율고 &lt;dbl&gt;,
-## #   특수학교 &lt;dbl&gt;, 공민학교 &lt;dbl&gt;, 고등공민 &lt;dbl&gt;, 고등기술학교 &lt;dbl&gt;,
-## #   각종학교 &lt;dbl&gt;</code></pre></li>
+##   연도  지역규모 학생수계 유치원 초등학교 중학교 고등학교계 일반계고 전문계고
+##   &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 1999  특별/광역시~  4097895 227758  1807584 9.15e5    1121998   742693   379305
+## 2 1999  시        3110148 204246  1437516 6.73e5     783207   503531   279676
+## 3 1999  읍지역     685091  43160   303702 1.39e5     197522    94479   103043
+## 4 1999  면지역     639421  48456   319006 1.44e5     126273    50558    75715
+## 5 1999  특수지역   125803  10546    67729 2.54e4      22140     8128    14012
+## 6 1999  계        8658358 534166  3935537 1.90e6    2251140  1399389   851751
+## # ... with 9 more variables: 일반고 &lt;dbl&gt;, 특목고 &lt;dbl&gt;, 특성화고 &lt;dbl&gt;,
+## #   자율고 &lt;dbl&gt;, 특수학교 &lt;dbl&gt;, 공민학교 &lt;dbl&gt;, 고등공민 &lt;dbl&gt;,
+## #   고등기술학교 &lt;dbl&gt;, 각종학교 &lt;dbl&gt;</code></pre></li>
 <li><p>read.csv 함수를 통해 csv파일을 바로 읽음. 이 경우 문제점은 천단위 콤마(Big mark)가 존재하면 숫자로 인식하지 못하고 문자로 인식한다는 점이다. 이를 위해 csv 파일에서 콤마를 제거하거나 문자로 읽어들인 후 콤마를 제거하거나 해야 한다.</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="시계열-데이터-import의-방법.html#cb77-1" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;./students.csv&#39;</span>, <span class="at">skip =</span> <span class="dv">16</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na =</span> <span class="st">&#39;-&#39;</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb77-2"><a href="시계열-데이터-import의-방법.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(student.from.excel)  <span class="co"># 데이터 확인</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 x 18
-##   연도  지역규모 학생수계 유치원 초등학교 중학교 고등학교계 일반계고 전문계고 일반고
-##   &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-## 1 1999  특별/광역시~  4097895 227758  1807584 9.15e5    1121998   742693   379305      0
-## 2 1999  시        3110148 204246  1437516 6.73e5     783207   503531   279676      0
-## 3 1999  읍지역     685091  43160   303702 1.39e5     197522    94479   103043      0
-## 4 1999  면지역     639421  48456   319006 1.44e5     126273    50558    75715      0
-## 5 1999  특수지역   125803  10546    67729 2.54e4      22140     8128    14012      0
-## 6 1999  계        8658358 534166  3935537 1.90e6    2251140  1399389   851751      0
-## # ... with 8 more variables: 특목고 &lt;dbl&gt;, 특성화고 &lt;dbl&gt;, 자율고 &lt;dbl&gt;,
-## #   특수학교 &lt;dbl&gt;, 공민학교 &lt;dbl&gt;, 고등공민 &lt;dbl&gt;, 고등기술학교 &lt;dbl&gt;,
-## #   각종학교 &lt;dbl&gt;</code></pre>
+##   연도  지역규모 학생수계 유치원 초등학교 중학교 고등학교계 일반계고 전문계고
+##   &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 1999  특별/광역시~  4097895 227758  1807584 9.15e5    1121998   742693   379305
+## 2 1999  시        3110148 204246  1437516 6.73e5     783207   503531   279676
+## 3 1999  읍지역     685091  43160   303702 1.39e5     197522    94479   103043
+## 4 1999  면지역     639421  48456   319006 1.44e5     126273    50558    75715
+## 5 1999  특수지역   125803  10546    67729 2.54e4      22140     8128    14012
+## 6 1999  계        8658358 534166  3935537 1.90e6    2251140  1399389   851751
+## # ... with 9 more variables: 일반고 &lt;dbl&gt;, 특목고 &lt;dbl&gt;, 특성화고 &lt;dbl&gt;,
+## #   자율고 &lt;dbl&gt;, 특수학교 &lt;dbl&gt;, 공민학교 &lt;dbl&gt;, 고등공민 &lt;dbl&gt;,
+## #   고등기술학교 &lt;dbl&gt;, 각종학교 &lt;dbl&gt;</code></pre>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="시계열-데이터-import의-방법.html#cb79-1" aria-hidden="true" tabindex="-1"></a>students[, <span class="dv">3</span><span class="sc">:</span><span class="dv">18</span>] <span class="ot">&lt;-</span> <span class="fu">apply</span>(students[, <span class="dv">3</span><span class="sc">:</span><span class="dv">18</span>], <span class="dv">2</span>, <span class="cf">function</span>(y) <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">&quot;,&quot;</span>, <span class="st">&quot;&quot;</span>, y))) <span class="co"># 콤마 제거</span></span>
 <span id="cb79-2"><a href="시계열-데이터-import의-방법.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(students)</span></code></pre></div>
-<pre><code>##   연도    지역규모 학생수계 유치원 초등학교  중학교 고등학교계 일반계고 전문계고
-## 1 1999 특별/광역시  4097895 227758  1807584  915139    1121998   742693   379305
-## 2 1999          시  3110148 204246  1437516  673197     783207   503531   279676
-## 3 1999      읍지역   685091  43160   303702  139420     197522    94479   103043
-## 4 1999      면지역   639421  48456   319006  143812     126273    50558    75715
-## 5 1999    특수지역   125803  10546    67729   25388      22140     8128    14012
-## 6 1999          계  8658358 534166  3935537 1896956    2251140  1399389   851751
-##   일반고 특목고 특성화고 자율고 특수학교 공민학교 고등공민 고등기술학교 각종학교
-## 1     NA     NA       NA     NA    12217      150      342         6934     5773
-## 2     NA     NA       NA     NA     8375        0      169         1382     2056
-## 3     NA     NA       NA     NA     1287        0        0            0        0
-## 4     NA     NA       NA     NA     1611        0        0           83      180
-## 5     NA     NA       NA     NA        0        0        0            0        0
-## 6     NA     NA       NA     NA    23490      150      511         8399     8009</code></pre>
+<pre><code>##   연도    지역규모 학생수계 유치원 초등학교  중학교 고등학교계 일반계고
+## 1 1999 특별/광역시  4097895 227758  1807584  915139    1121998   742693
+## 2 1999          시  3110148 204246  1437516  673197     783207   503531
+## 3 1999      읍지역   685091  43160   303702  139420     197522    94479
+## 4 1999      면지역   639421  48456   319006  143812     126273    50558
+## 5 1999    특수지역   125803  10546    67729   25388      22140     8128
+## 6 1999          계  8658358 534166  3935537 1896956    2251140  1399389
+##   전문계고 일반고 특목고 특성화고 자율고 특수학교 공민학교 고등공민
+## 1   379305     NA     NA       NA     NA    12217      150      342
+## 2   279676     NA     NA       NA     NA     8375        0      169
+## 3   103043     NA     NA       NA     NA     1287        0        0
+## 4    75715     NA     NA       NA     NA     1611        0        0
+## 5    14012     NA     NA       NA     NA        0        0        0
+## 6   851751     NA     NA       NA     NA    23490      150      511
+##   고등기술학교 각종학교
+## 1         6934     5773
+## 2         1382     2056
+## 3            0        0
+## 4           83      180
+## 5            0        0
+## 6         8399     8009</code></pre>
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="시계열-데이터-import의-방법.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(students)</span></code></pre></div>
-<pre><code>## [1] &quot;data.frame&quot;</code></pre></li>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="시계열-데이터-import의-방법.html#cb83-1" aria-hidden="true" tabindex="-1"></a>students.total <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>)</span></code></pre></div></li>
 <li><p>읽어 들인 후에는 시계열 데이터로 변환하는 과정을 거쳐야 함. 여기서는 csv 파일에서 읽어들인 데이터를 변환한다.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="시계열-데이터-import의-방법.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb83-2"><a href="시계열-데이터-import의-방법.html#cb83-2" aria-hidden="true" tabindex="-1"></a>students.total.ts <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">ts</span>(<span class="at">start =</span> <span class="dv">1999</span>, <span class="at">frequency =</span> <span class="dv">1</span>)  <span class="co"># ts 객체로 변환</span></span>
-<span id="cb83-3"><a href="시계열-데이터-import의-방법.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(students.total.ts)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="시계열-데이터-import의-방법.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb84-2"><a href="시계열-데이터-import의-방법.html#cb84-2" aria-hidden="true" tabindex="-1"></a>students.total.ts <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">ts</span>(<span class="at">start =</span> <span class="dv">1999</span>, <span class="at">frequency =</span> <span class="dv">1</span>)  <span class="co"># ts 객체로 변환</span></span>
+<span id="cb84-3"><a href="시계열-데이터-import의-방법.html#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(students.total.ts)</span></code></pre></div>
 <pre><code>## [1] &quot;mts&quot;    &quot;ts&quot;     &quot;matrix&quot;</code></pre>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="시계열-데이터-import의-방법.html#cb85-1" aria-hidden="true" tabindex="-1"></a>students.total.xts <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>)</span>
-<span id="cb85-2"><a href="시계열-데이터-import의-방법.html#cb85-2" aria-hidden="true" tabindex="-1"></a>students.total.xts <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(students.total.xts, <span class="at">order.by =</span> <span class="fu">as.Date</span>(<span class="fu">paste0</span>(students.total.xts[,<span class="dv">1</span>], <span class="st">&#39;-01-01&#39;</span>), <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>))  <span class="co"># xts 객체로 변환</span></span>
-<span id="cb85-3"><a href="시계열-데이터-import의-방법.html#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(students.total.xts)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="시계열-데이터-import의-방법.html#cb86-1" aria-hidden="true" tabindex="-1"></a>students.total.xts <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>)</span>
+<span id="cb86-2"><a href="시계열-데이터-import의-방법.html#cb86-2" aria-hidden="true" tabindex="-1"></a>students.total.xts <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(students.total.xts, <span class="at">order.by =</span> <span class="fu">as.Date</span>(<span class="fu">paste0</span>(students.total.xts[,<span class="dv">1</span>], <span class="st">&#39;-01-01&#39;</span>), <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>))  <span class="co"># xts 객체로 변환</span></span>
+<span id="cb86-3"><a href="시계열-데이터-import의-방법.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(students.total.xts)</span></code></pre></div>
 <pre><code>## [1] &quot;xts&quot; &quot;zoo&quot;</code></pre>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="시계열-데이터-import의-방법.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(students.total.xts)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="시계열-데이터-import의-방법.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(students.total.xts)</span></code></pre></div>
 <pre><code>## An &#39;xts&#39; object on 1999-01-01/2020-01-01 containing:
-##   Data: chr [1:22, 1:18] &quot;1999&quot; &quot;2000&quot; &quot;2001&quot; &quot;2002&quot; &quot;2003&quot; &quot;2004&quot; &quot;2005&quot; &quot;2006&quot; &quot;2007&quot; ...
+##   Data: chr [1:22, 1:18] &quot;1999&quot; &quot;2000&quot; &quot;2001&quot; &quot;2002&quot; &quot;2003&quot; &quot;2004&quot; &quot;2005&quot; &quot;2006&quot; ...
 ##  - attr(*, &quot;dimnames&quot;)=List of 2
 ##   ..$ : NULL
 ##   ..$ : chr [1:18] &quot;연도&quot; &quot;지역규모&quot; &quot;학생수계&quot; &quot;유치원&quot; ...
@@ -366,9 +374,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   xts Attributes:  
 ##  NULL</code></pre></li>
 <li><p>이 과정에서 주의해야할 점은 xts 객체로 변환되는 경우 Numeric 값이 모두 Character값으로 변환된다는 점이다. xts 객체는 기본적으로 matrix를 기반으로 하기 때문에 데이터 프레임을 모두 변환하는 경우 Character 컬럼이 있으면 모두 Character로 변환된다. 따라서 Character 컬럼을 제외해 전체 컬럼을 모두 Numeric으로 맞추면 정상적으로 데이터가 변환된다.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="시계열-데이터-import의-방법.html#cb89-1" aria-hidden="true" tabindex="-1"></a>students.total.xts <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>지역규모)</span>
-<span id="cb89-2"><a href="시계열-데이터-import의-방법.html#cb89-2" aria-hidden="true" tabindex="-1"></a>students.total.xts <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(students.total.xts, <span class="at">order.by =</span> <span class="fu">as.Date</span>(<span class="fu">paste0</span>(students.total.xts[,<span class="dv">1</span>], <span class="st">&#39;-01-01&#39;</span>), <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>))</span>
-<span id="cb89-3"><a href="시계열-데이터-import의-방법.html#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(students.total.xts)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="시계열-데이터-import의-방법.html#cb90-1" aria-hidden="true" tabindex="-1"></a>students.total.xts <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>지역규모)</span>
+<span id="cb90-2"><a href="시계열-데이터-import의-방법.html#cb90-2" aria-hidden="true" tabindex="-1"></a>students.total.xts <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(students.total.xts, <span class="at">order.by =</span> <span class="fu">as.Date</span>(<span class="fu">paste0</span>(students.total.xts[,<span class="dv">1</span>], <span class="st">&#39;-01-01&#39;</span>), <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>))</span>
+<span id="cb90-3"><a href="시계열-데이터-import의-방법.html#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(students.total.xts)</span></code></pre></div>
 <pre><code>## An &#39;xts&#39; object on 1999-01-01/2020-01-01 containing:
 ##   Data: num [1:22, 1:17] 1999 2000 2001 2002 2003 ...
 ##  - attr(*, &quot;dimnames&quot;)=List of 2
@@ -378,65 +386,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   xts Attributes:  
 ##  NULL</code></pre></li>
 <li><p>tsibble 데이터로는 다음과 같이 변환한다.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="시계열-데이터-import의-방법.html#cb91-1" aria-hidden="true" tabindex="-1"></a>students.tsibble <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(students, <span class="at">key =</span> 지역규모, <span class="at">index =</span> 연도)</span></code></pre></div></li>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="시계열-데이터-import의-방법.html#cb92-1" aria-hidden="true" tabindex="-1"></a>students.tsibble <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(students, <span class="at">key =</span> 지역규모, <span class="at">index =</span> 연도)</span></code></pre></div></li>
 </ol>
 </div>
 <div id="직접-시계열-데이터-타입으로-읽어들이는-방법" class="section level3" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> 직접 시계열 데이터 타입으로 읽어들이는 방법</h3>
 <p>xts 패키지와 modeltime 패키지는 외부 데이터를 직접 읽어 올 수 있는 방법 제공하지 않는다. xts의 경우는 read.ts(tseries 패키지 필요)나 read.zoo 함수를 이용해 읽어들인 시계열 객체를 as.xts 함수를 이용하여 xts 객체로 변환하고 modeltime은 tidymodel 객체를 변환하여 사용하는 것이 일반적이다.</p>
 <p>ts 객체를 읽어올때 주의할 점은 ts 객체는 파일에 기록된 시간 인덱스를 직접 시간인덱스로 사용할 수 없고 read.ts 함수 호출시 시계열 시작점과 간격을 지정함으로써 일정한 간격의 시계열 데이터를 생성해야 한다는 점이다. 시작점부터 일정한 간격으로 모든 데이터가 기록된 경우는 문제가 없지만 일부 데이터가 결측되는 경우 정확히 읽어들일 수 없다.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="시계열-데이터-import의-방법.html#cb92-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(tseries)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="시계열-데이터-import의-방법.html#cb93-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(tseries)</span></code></pre></div>
 <pre><code>## Warning: package &#39;tseries&#39; was built under R version 4.0.3</code></pre>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="시계열-데이터-import의-방법.html#cb94-1" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2010-01-01&#39;</span>), <span class="at">length.out =</span> <span class="dv">30</span>, <span class="at">by =</span> <span class="st">&#39;months&#39;</span>), <span class="at">value1 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="at">value2 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
-<span id="cb94-2"><a href="시계열-데이터-import의-방법.html#cb94-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(df[,<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
-<span id="cb94-3"><a href="시계열-데이터-import의-방법.html#cb94-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read.ts</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
-<pre><code>##               value1      value2
-## Jan 2010  0.53388863  0.62114454
-## Feb 2010  0.66672275  0.56011888
-## Mar 2010 -0.73677031 -0.32041103
-## Apr 2010 -0.03897897  1.55479022
-## May 2010 -0.12700143  0.08346271
-## Jun 2010 -1.55894976  0.05757307
-## Jul 2010  0.51252230  0.19685107
-## Aug 2010 -0.33234356  0.50583419
-## Sep 2010 -0.01146522 -0.49715960
-## Oct 2010 -1.13575403 -1.39016313
-## Nov 2010 -0.66478291  0.14024421
-## Dec 2010 -0.23632433  0.49169925
-## Jan 2011  1.27292721  0.29456223
-## Feb 2011  0.27314802 -1.18687530
-## Mar 2011  1.07958777 -0.11558467
-## Apr 2011 -0.74019700 -2.99529123
-## May 2011  1.63753816  1.19888370
-## Jun 2011 -0.11036525  0.81548306
-## Jul 2011 -1.61084484  0.05444757
-## Aug 2011  1.66437058 -1.60125677
-## Sep 2011  0.96631262  1.02498051
-## Oct 2011  0.26671786  1.62756819
-## Nov 2011  0.87863765  0.76365568
-## Dec 2011  1.42034041  0.20735911
-## Jan 2012  0.41133350  0.63885005
-## Feb 2012 -2.10047453 -1.86013684
-## Mar 2012  1.24299986  1.18755552
-## Apr 2012 -0.80548309 -2.28384148
-## May 2012  0.72157129 -1.03038199
-## Jun 2012 -1.41291762 -1.32140949</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="시계열-데이터-import의-방법.html#cb95-1" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2010-01-01&#39;</span>), <span class="at">length.out =</span> <span class="dv">30</span>, <span class="at">by =</span> <span class="st">&#39;months&#39;</span>), <span class="at">value1 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="at">value2 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
+<span id="cb95-2"><a href="시계열-데이터-import의-방법.html#cb95-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(df[,<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
+<span id="cb95-3"><a href="시계열-데이터-import의-방법.html#cb95-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read.ts</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
+<pre><code>##              value1      value2
+## Jan 2010  0.1763976 -2.04515411
+## Feb 2010 -1.0494455 -0.28114571
+## Mar 2010  1.8671059  0.68713673
+## Apr 2010  1.7127592 -0.95660011
+## May 2010 -2.3985787  0.72123583
+## Jun 2010  0.6890567 -1.42547177
+## Jul 2010  0.8860403  1.68306904
+## Aug 2010  0.2883166  0.73390189
+## Sep 2010 -0.1481604 -0.17458351
+## Oct 2010 -0.2463867  0.60641517
+## Nov 2010 -0.3112660  0.15656550
+## Dec 2010  1.3312410  1.38754035
+## Jan 2011 -1.6570402 -0.66993130
+## Feb 2011 -1.1310852 -1.25782337
+## Mar 2011  1.0532077  0.95803750
+## Apr 2011  0.7443097  0.30159849
+## May 2011  0.2628694 -0.90714723
+## Jun 2011 -1.0305560  0.22691752
+## Jul 2011  1.0310564  1.70995044
+## Aug 2011  0.8123223 -1.85022436
+## Sep 2011 -0.4663398 -0.41357281
+## Oct 2011  3.3808325 -0.72366892
+## Nov 2011  0.3981462 -0.01596726
+## Dec 2011  0.8361547 -0.94666594
+## Jan 2012 -0.5486887  1.20432101
+## Feb 2012  0.6452994  0.30682334
+## Mar 2012 -0.7691092  0.38725117
+## Apr 2012 -3.0649185 -0.06294231
+## May 2012  1.5270441  0.39204382
+## Jun 2012  0.0990098  0.34243618</code></pre>
 <p>읽어들일 파일에 시간이 기재되어 있는 경우는 zoo 패키지의 read.zoo 함수를 이용하여 zoo 객체로 읽어들인 후 이 객체를 xts 객체로 변환하여 활용하는 방법을 활용할 수 있다. read.ts에 비해 read.zoo는 지정된 주기의 비일정한 시계열 데이터 타입을 불러 들일 수 있다는 장점이 있다. 예를 들어 매일 기록되는 데이터의 경우 read.ts는 중간에 빠지는 날이 없이 지정된 기간동안 매일 기록된 데이터를 가져오지만 read.zoo는 기본적으로 매일 기록된 데이터를 가져온다하더라도 중간중간 빠진 날을 인정하고 가져올 수 있는 방법이다.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="시계열-데이터-import의-방법.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
-<span id="cb96-2"><a href="시계열-데이터-import의-방법.html#cb96-2" aria-hidden="true" tabindex="-1"></a>zoo.class <span class="ot">&lt;-</span> <span class="fu">read.zoo</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">index.column =</span> <span class="dv">1</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb96-3"><a href="시계열-데이터-import의-방법.html#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(zoo.class)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="시계열-데이터-import의-방법.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
+<span id="cb97-2"><a href="시계열-데이터-import의-방법.html#cb97-2" aria-hidden="true" tabindex="-1"></a>zoo.class <span class="ot">&lt;-</span> <span class="fu">read.zoo</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">index.column =</span> <span class="dv">1</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb97-3"><a href="시계열-데이터-import의-방법.html#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(zoo.class)</span></code></pre></div>
 <pre><code>## [1] &quot;zoo&quot;</code></pre>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="시계열-데이터-import의-방법.html#cb98-1" aria-hidden="true" tabindex="-1"></a>xts.class <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(zoo.class)</span>
-<span id="cb98-2"><a href="시계열-데이터-import의-방법.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(xts.class)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="시계열-데이터-import의-방법.html#cb99-1" aria-hidden="true" tabindex="-1"></a>xts.class <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(zoo.class)</span>
+<span id="cb99-2"><a href="시계열-데이터-import의-방법.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(xts.class)</span></code></pre></div>
 <pre><code>## [1] &quot;xts&quot; &quot;zoo&quot;</code></pre>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="시계열-데이터-import의-방법.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(xts.class)</span></code></pre></div>
-<pre><code>##                 value1      value2
-## 2010-01-01  0.53388863  0.62114454
-## 2010-02-01  0.66672275  0.56011888
-## 2010-03-01 -0.73677031 -0.32041103
-## 2010-04-01 -0.03897897  1.55479022
-## 2010-05-01 -0.12700143  0.08346271
-## 2010-06-01 -1.55894976  0.05757307</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="시계열-데이터-import의-방법.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(xts.class)</span></code></pre></div>
+<pre><code>##                value1     value2
+## 2010-01-01  0.1763976 -2.0451541
+## 2010-02-01 -1.0494455 -0.2811457
+## 2010-03-01  1.8671059  0.6871367
+## 2010-04-01  1.7127592 -0.9566001
+## 2010-05-01 -2.3985787  0.7212358
+## 2010-06-01  0.6890567 -1.4254718</code></pre>
 </div>
 </div>
 <div class="footnotes">

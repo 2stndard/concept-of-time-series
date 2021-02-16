@@ -288,6 +288,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="prophet-모델" class="section level2" number="6.6">
 <h2><span class="header-section-number">6.6</span> prophet 모델</h2>
+<p>Prophet 모델은 페이스북에서 자사 데이터를 기반으로 개발한 시계열 모델로 prophet 패키지를 통해 R과 Python에서 사용할 수 있다. 이 모델은 연도별, 주별, 일별 계절성 및 휴일 효과에 적합한 비선형 추세에 알맞은 가법 모델을 통해 시계열 데이터를 예측한다. (무슨 말인지 몰라도 상관없다) 페이스북에서는 prophet 모델이 ‘빠르고 정확하다,’ ‘완전 자동화되어 있다,’ ‘예측을 조절할수 있다,’ ’R과 Python에서 사용할 수 있다’고 홍보하고 있다.<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> 하지만 예측 방법론을 페이스북에서 공개하지 않는다. 이 부분은 시계열 분석 방법론을 연구하는 연구자들에게는 단점이지만 시계열 분석을 실무에서 사용하는 사람들은 오히려 장점이 될 수 있다.(머리아프게 공부하지 않고 그냥 쓰면 되니까)</p>
+<p>prophet 모델은 시계열 데이터를 추세(t), 계절성(s), 휴일(h), 오차의 특성(feature)로 분리한다. 추세(t)는 반복이 되지 않는 추세, 계절성(s)은 계절성과 같은 반복적인 변화, 휴일(h)은 공휴일과 같이 달력상에서의 불규칙한 특성(feature)을 말한다. 여기에 오차가 더해지는데 이 오차는 특정 모델로 적용이 어려운 정규분포를 따르는 오차라고 가정한다.<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> prophet 모델은 ARIMA 모델 같이 시계열 데이터의 구조를 통해 관계를 분석하는 모델과 달리 데이터 구조가 어떻던 데이터에 적합한 커브를 그리는데 목표를 두고 있다. 이렇게 함으로써 여러 주기를 가지는 계절성에 쉽게 사용할 수 있고, ARIMA 모델과 같이 일정한 데이터 주기를 맞추기 위해 데이터를 채워넣는 작업을 피할수 있고, 매우 빠르게 다양한 모델 스펙을 경험할 수 있고, 에 적합시킬 수 있으며, 회귀에 경험이 많은 분석가들의 개념에 쉽게 이해될 수 있는 형태의 매개변수들을 사용한다는 장점이 있다고 한다.</p>
+<p>prophet 모델을 적용하기 위해서는 prophet() 함수를 사용한다. prophet() 함수는 data.frame 객체를 사용하는데 data.frame에는 컬럼 이름이 ’ds’와 ’y’으로 설정된 두개의 데이터 필드가 필요하다. ds 컬럼은 date 데이터 타입이어야 하며 y 컬럼은 수치 컬럼이어야 한다.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="prophet-모델.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(prophet)</span>
+<span id="cb217-2"><a href="prophet-모델.html#cb217-2" aria-hidden="true" tabindex="-1"></a>students.prophet <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ds =</span> <span class="fu">as.Date</span>(<span class="fu">paste0</span>(students.total<span class="sc">$</span>연도, <span class="st">&#39;-01-01&#39;</span>)), <span class="at">y =</span> students.total<span class="sc">$</span>학생수계) </span>
+<span id="cb217-3"><a href="prophet-모델.html#cb217-3" aria-hidden="true" tabindex="-1"></a>model.prophet.students <span class="ot">&lt;-</span> <span class="fu">prophet</span>(students.prophet)</span>
+<span id="cb217-4"><a href="prophet-모델.html#cb217-4" aria-hidden="true" tabindex="-1"></a>future.students <span class="ot">&lt;-</span> <span class="fu">make_future_dataframe</span>(model.prophet.students, <span class="at">periods =</span> <span class="dv">10</span>, <span class="at">freq =</span> <span class="st">&#39;year&#39;</span>)</span>
+<span id="cb217-5"><a href="prophet-모델.html#cb217-5" aria-hidden="true" tabindex="-1"></a>forecast.students <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.prophet.students, future.students)</span>
+<span id="cb217-6"><a href="prophet-모델.html#cb217-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model.prophet.students, forecast.students) <span class="sc">+</span> </span>
+<span id="cb217-7"><a href="prophet-모델.html#cb217-7" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">number</span>(y, <span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>, <span class="at">accuracy =</span> <span class="dv">1</span>)), <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb217-8"><a href="prophet-모델.html#cb217-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;prophet model&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">y =</span> <span class="st">&#39;학생수&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb217-9"><a href="prophet-모델.html#cb217-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>(<span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>))</span></code></pre></div>
+<p><img src="t_files/figure-html/prophet-1.png" width="672" /></p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="prophet-모델.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prophet_plot_components</span>(model.prophet.students, forecast.students)</span></code></pre></div>
+<p><img src="t_files/figure-html/prophet-2.png" width="672" /></p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="prophet-모델.html#cb219-1" aria-hidden="true" tabindex="-1"></a>employees.prophet <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ds =</span> employees[,<span class="dv">1</span>], <span class="at">y =</span> employees[,<span class="dv">2</span>])</span>
+<span id="cb219-2"><a href="prophet-모델.html#cb219-2" aria-hidden="true" tabindex="-1"></a>model.prophet.employees <span class="ot">&lt;-</span> <span class="fu">prophet</span>(employees.prophet)</span>
+<span id="cb219-3"><a href="prophet-모델.html#cb219-3" aria-hidden="true" tabindex="-1"></a>future.employees <span class="ot">&lt;-</span> <span class="fu">make_future_dataframe</span>(model.prophet.employees, <span class="at">periods =</span> <span class="dv">10</span>, <span class="at">freq =</span> <span class="st">&#39;month&#39;</span>)</span>
+<span id="cb219-4"><a href="prophet-모델.html#cb219-4" aria-hidden="true" tabindex="-1"></a>forecast.employees <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.prophet.employees, future.employees)</span>
+<span id="cb219-5"><a href="prophet-모델.html#cb219-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model.prophet.employees, forecast.employees) <span class="sc">+</span></span>
+<span id="cb219-6"><a href="prophet-모델.html#cb219-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;월별 전체 취업자수 추세(prophet model)&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연월&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb219-7"><a href="prophet-모델.html#cb219-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>(<span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>))</span></code></pre></div>
+<p><img src="t_files/figure-html/prophet-3.png" width="672" /></p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="prophet-모델.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prophet_plot_components</span>(model.prophet.employees, forecast.employees)</span></code></pre></div>
+<p><img src="t_files/figure-html/prophet-4.png" width="672" /></p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="prophet-모델.html#cb221-1" aria-hidden="true" tabindex="-1"></a>covid.prophet <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">ds =</span> wide.covid19.by.age<span class="sc">$</span>date, <span class="at">y =</span> wide.covid19.by.age<span class="sc">$</span><span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)</span>
+<span id="cb221-2"><a href="prophet-모델.html#cb221-2" aria-hidden="true" tabindex="-1"></a>model.prophet.covid <span class="ot">&lt;-</span> <span class="fu">prophet</span>(covid.prophet, <span class="at">yearly.seasonality=</span><span class="cn">TRUE</span>, <span class="at">daily.seasonality=</span><span class="cn">TRUE</span>, <span class="at">weekly.seasonality=</span><span class="cn">TRUE</span>)</span>
+<span id="cb221-3"><a href="prophet-모델.html#cb221-3" aria-hidden="true" tabindex="-1"></a>future.covid <span class="ot">&lt;-</span> <span class="fu">make_future_dataframe</span>(model.prophet.covid, <span class="at">periods =</span> <span class="dv">100</span>, <span class="at">freq =</span> <span class="st">&#39;day&#39;</span>)</span>
+<span id="cb221-4"><a href="prophet-모델.html#cb221-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(future.covid, <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##             ds
+## 393 2021-05-11
+## 394 2021-05-12
+## 395 2021-05-13
+## 396 2021-05-14
+## 397 2021-05-15
+## 398 2021-05-16
+## 399 2021-05-17
+## 400 2021-05-18
+## 401 2021-05-19
+## 402 2021-05-20</code></pre>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="prophet-모델.html#cb223-1" aria-hidden="true" tabindex="-1"></a>forecast.covid <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.prophet.covid, future.covid)</span>
+<span id="cb223-2"><a href="prophet-모델.html#cb223-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model.prophet.covid, forecast.covid) <span class="sc">+</span></span>
+<span id="cb223-3"><a href="prophet-모델.html#cb223-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;일별 코로나 확진자수 추세(0-9세, prophet model)&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연월&#39;</span>, <span class="at">y =</span> <span class="st">&#39;확진자수&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb223-4"><a href="prophet-모델.html#cb223-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>(<span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>))</span></code></pre></div>
+<p><img src="t_files/figure-html/prophet-5.png" width="672" /></p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="prophet-모델.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prophet_plot_components</span>(model.prophet.covid, forecast.covid)</span></code></pre></div>
+<p><img src="t_files/figure-html/prophet-6.png" width="672" /></p>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="19">
+<li id="fn19"><p><a href="https://facebook.github.io/prophet/" class="uri">https://facebook.github.io/prophet/</a><a href="prophet-모델.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn20"><p><a href="https://peerj.com/preprints/3190.pdf" class="uri">https://peerj.com/preprints/3190.pdf</a><a href="prophet-모델.html#fnref20" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

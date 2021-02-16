@@ -345,3 +345,13 @@ employees %>%
   mutate(cumsum.total = cumsum(total), 
          cumsum.edu = cumsum(employees.edu)) %>%
   head(15)
+
+
+employees.prophet <- data.frame(ds = employees[,1], y = employees[,2])
+model.prophet.employees <- prophet(employees.prophet, weekly.seasonality=TRUE, daily.seasonality=TRUE)
+future.employees <- make_future_dataframe(model.prophet.employees, periods = 10, freq = 'month')
+forecast.employees <- predict(model.prophet.employees, future.employees)
+plot(model.prophet.employees, forecast.employees) +
+  labs(title = '월별 전체 취업자수 추세(prophet model)', x = '연월', y = '취업자수') + 
+  scale_y_continuous(labels = scales::number_format(big.mark = ','))
+prophet_plot_components(model.prophet.employees, forecast.employees)

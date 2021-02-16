@@ -228,6 +228,7 @@ if(!require(modeltime)) {
     students[, 3:18] <- apply(students[, 3:18], 2, function(y) as.numeric(gsub(",", "", y))) # 콤마 제거
     head(students)
     class(students)
+    students.total <- students %>% filter(지역규모 == '계')
     ```
 
 3.  읽어 들인 후에는 시계열 데이터로 변환하는 과정을 거쳐야 함. 여기서는 csv 파일에서 읽어들인 데이터를 변환한다.

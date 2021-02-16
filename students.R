@@ -254,4 +254,12 @@ students.total.xts$증감 <- diff(students.total.xts[,2])
 students.total.xts$증감율 <- round((students.total.xts$증감/students.total.xts$학생수계), 3) * 100
 students.total.xts[, c('학생수계', '증감', '증감율')]
 
-
+students.prophet <- data.frame(ds = as.Date(paste0(students.total$연도, '-01-01')), y = students.total$학생수계) 
+model.prophet.students <- prophet(students.prophet)
+future.students <- make_future_dataframe(model.prophet.students, periods = 10, freq = 'year')
+forecast.students <- predict(model.prophet.students, future.students)
+plot(model.prophet.students, forecast.students) + 
+  ggrepel::geom_text_repel(aes(label = scales::number(y, big.mark = ',', accuracy = 1)), vjust = 1, size = 3) +
+  labs(title = 'prophet model', x = '연도', y = '학생수') + 
+  scale_y_continuous(labels = scales::number_format(big.mark = ','))
+prophet_plot_components(model.prophet.students, forecast.students)
