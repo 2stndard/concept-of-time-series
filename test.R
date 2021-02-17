@@ -633,3 +633,33 @@ employees %>%
   geom_point() + 
   geom_text(aes(label = scales::comma(total.year)), vjust = 1) +
   labs(title = '연도별 전체 취업자수 합계 추이', x = '연도', y = '취업자수')
+
+install.packages('tsibbledata')
+library(fable)
+library(tsibble)
+library(tsibbledata)
+library(lubridate)
+library(dplyr)
+aus_retail %>%
+  filter(
+    State %in% c("New South Wales", "Victoria"),
+    Industry == "Department stores"
+  )
+
+
+employees.tsibble %>%
+  model(
+    ets = ETS(total), 
+    arima = ARIMA(total), 
+    snaive = SNAIVE(total), 
+    tslm = TSLM(total), 
+    rw = RW(total), 
+    nnetar = NNETAR(total)
+  ) %>% 
+  forecast(h = '2 years') -> fc
+  
+accuracy(fc, employees.tsibble)
+
+
+autoplot(level = NULL, data = employees.tsibble)
+
