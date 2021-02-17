@@ -355,3 +355,36 @@ plot(model.prophet.employees, forecast.employees) +
   labs(title = '월별 전체 취업자수 추세(prophet model)', x = '연월', y = '취업자수') + 
   scale_y_continuous(labels = scales::number_format(big.mark = ','))
 prophet_plot_components(model.prophet.employees, forecast.employees)
+
+
+
+employees.tsibble %>% model(ets = ETS(total)) %>% forecast(h = '2 year') %>% autoplot()
+model
+
+
+library(fpp2)
+library(tsibble)
+library(fable)
+data("auscafe")
+cafe <- as_tsibble(auscafe)
+
+autoplot(cafe)
+cafe %>% ETS(value) %>% summary
+
+
+update.packages('fable')
+
+
+employees.tsibble <- as_tsibble(employees, index = yearmonth(time))
+employees$yearmonth <- yearmonth(employees$time)
+employees.tsibble <- as_tsibble(employees, index = yearmonth)
+employees.tsibble %>% model(ets = ETS(total)) %>% glance
+employees.tsibble %>% model(ets = ETS(total)) %>% tidy
+employees.tsibble %>% model(ets = ETS(total)) %>% generate(bootstrap = TRUE) %>% autoplot
+employees.tsibble %>% model(ets = ETS(total)) %>% forecast %>% autoplot
+employees.tsibble %>% model(ets = ETS(total)) %>% components()
+
+employees.tsibble %>% model(ets_A = ETS(log(total) ~ season("M")), 
+                            ets_M = ETS(log(total) ~ season("M")), 
+                            ets = ETS(total)
+                            ) %>% forecast %>% autoplot(level = NULL, data = employees.tsibble)

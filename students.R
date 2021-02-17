@@ -19,6 +19,9 @@ tb2 <- ts(pmax(0, t - t_break2), start = 1999)
 
 tslm(students.total.ts[,3] ~ t + tb1 + tb2) %>% forecast(h = 22)
 
+
+
+
 summary(wo(students.total.ts[,3]))
 
 ((0.99 * 2747215) + (0.01 *2711381))
@@ -263,3 +266,130 @@ plot(model.prophet.students, forecast.students) +
   labs(title = 'prophet model', x = '연도', y = '학생수') + 
   scale_y_continuous(labels = scales::number_format(big.mark = ','))
 prophet_plot_components(model.prophet.students, forecast.students)
+
+
+
+students.total$연도 <- yearmonth(paste0(students.total$연도, '-01-01'))
+students.tsibble <- as_tsibble(students.total, index = 연도)
+students.tsibble %>% model(ets = ETS(학생수계))
+students.tsibble %>% model(ets = ETS(학생수계)) %>% glance
+students.tsibble %>% model(ets = ETS(학생수계)) %>% tidy
+students.tsibble %>% model(ets = ETS(학생수계)) %>% forecast(h = 5) %>% 
+  autoplot(level = NULL, students.tsibble)
+students.tsibble %>% model(ets = ETS(학생수계)) %>% components()
+students.tsibble %>% model(ets = ETS(학생수계)) %>% fitted()
+students.tsibble %>% model(ets = ETS(학생수계)) %>% residuals()
+
+
+students.tsibble %>% model(ets_N = ETS(학생수계 ~ trend("N")), 
+                           ets_Ad = ETS(학생수계 ~ trend("Ad")), 
+                           ets_A = ETS(학생수계 ~ trend('A'))
+) %>% forecast %>% autoplot(level = NULL)
+
+students.tsibble %>% model(ets_N = ETS(학생수계 ~ trend("N")), 
+                           ets_Ad = ETS(학생수계 ~ trend("Ad")), 
+                           ets_A = ETS(학생수계 ~ trend('A')), 
+                           ets_eA = ETS(학생수계 ~ error('A')),
+                           ets_eM = ETS(학생수계 ~ error('M')),
+                           ets_NeA = ETS(학생수계 ~ trend("N")+error('A')), 
+                           ets_AdeA = ETS(학생수계 ~ trend("Ad")+error('A')), 
+                           ets_AeA = ETS(학생수계 ~ trend('A')+error('A')), 
+                           ets_NeM = ETS(학생수계 ~ trend("N")+error('M')), 
+                           ets_AdeM = ETS(학생수계 ~ trend("Ad")+error('M')), 
+                           ets_AeM = ETS(학생수계 ~ trend('A')+error('M')) 
+) %>% select(ets_N) %>% report
+
+
+students.tsibble %>% model(ets = ETS(학생수계), 
+                           arima = ARIMA(학생수계), 
+                           naive = NAIVE(학생수계), 
+                           tslm = TSLM(학생수계),
+                           rw = RW(학생수계),
+                           mean = MEAN(학생수계), 
+                           nnetar = NNETAR(학생수계) 
+) %>% accuracy
+
+students.tsibble %>% model(ets = ETS(학생수계), 
+                           arima = ARIMA(학생수계), 
+                           naive = NAIVE(학생수계), 
+                           tslm = TSLM(학생수계),
+                           rw = RW(학생수계),
+                           mean = MEAN(학생수계), 
+                           nnetar = NNETAR(학생수계) 
+) %>% select(arima) %>% forecast(h = 10)  %>% autoplot(level = NULL, students.tsibble)
+
+
+students.tsibble %>% model(ets = ETS(학생수계), 
+                           arima = ARIMA(학생수계), 
+                           naive = NAIVE(학생수계), 
+                           tslm = TSLM(학생수계),
+                           rw = RW(학생수계),
+                           mean = MEAN(학생수계), 
+                           nnetar = NNETAR(학생수계) 
+) %>% select(arima, nnetar) %>% forecast(h = 10) %>% autoplot()
+
+
+students.tsibble.training %>% model(ets = ETS(학생수계), 
+                           arima = ARIMA(학생수계), 
+                           naive = NAIVE(학생수계), 
+                           tslm = TSLM(학생수계),
+                           rw = RW(학생수계),
+                           mean = MEAN(학생수계) 
+) %>% forecast(h = 3) %>% accuracy(students.tsibble.testing)
+
+students.tsibble %>% model(ets = ETS(학생수계), 
+                           arima = ARIMA(학생수계), 
+                           naive = NAIVE(학생수계), 
+                           tslm = TSLM(학생수계),
+                           rw = RW(학생수계)
+) %>% select(arima, ets) %>% forecast(h = 10) %>% autoplot(students.tsibble, level = NULL)
+
+students.tsibble.training <- students.tsibble %>% filter(year(연도) < 2018)
+students.tsibble.testing <- students.tsibble %>% filter(year(연도) >= 2018)
+
+students.tsibble.training <- students.tsibble %>%
+  slice(1:(n()-1)) %>%
+  stretch_tsibble(.init = 5, .step = 1)
+
+library(fable.prophet)
+
+
+model.students.tsibble <- students.tsibble.training %>% 
+   model(#ets = ETS(학생수계), 
+  #       arima = ARIMA(학생수계), 
+  #       naive = NAIVE(학생수계), 
+  #       tslm = TSLM(학생수계),
+  #       rw = RW(학생수계),
+  #       mean = MEAN(학생수계),
+        prophet = prophet(학생수계)
+        )
+model.students.tsibble <- students.tsibble %>% 
+  model(#ets = ETS(학생수계), 
+    #       arima = ARIMA(학생수계), 
+    #       naive = NAIVE(학생수계), 
+    #       tslm = TSLM(학생수계),
+    #       rw = RW(학생수계),
+    #       mean = MEAN(학생수계),
+    prophet = prophet(학생수계)
+  )
+forecast.students.tsibble <- model.students.tsibble %>% forecast()
+forecast.students.tsibble %>% autoplot(students.tsibble)
+model.students.tsibble %>% accuracy() %>% arrange(RMSE) -> accuracy.students.tsibble
+
+best.model.students.tsibble <- model.students.tsibble %>% select('prophet') %>% filter(.id == 2)
+best.model.students.tsibble %>% forecast() %>% autoplot(level= NULL)
+
+forecast.students.tsibble %>%
+  group_by(.id) %>%
+  mutate(h = row_number()) %>%
+  ungroup()
+
+model.students.tsibble %>% select(arima, ets)
+
+students.tsibble %>% model(ets = ETS(학생수계), 
+                                    arima = ARIMA(학생수계), 
+                                    naive = NAIVE(학생수계), 
+                                    tslm = TSLM(학생수계),
+                                    rw = RW(학생수계),
+                                    mean = MEAN(학생수계)
+)                           

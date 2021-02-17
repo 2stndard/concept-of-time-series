@@ -62,9 +62,9 @@ RMSE는 성능평가에 대표적으로 쓰이는 지수이다. 오차항(Error)
 ets <- ets(students.total.ts[,1])
 arima <- auto.arima(students.total.ts[,1])
 (students.total.ts[,1] - fitted(ets))^2 %>% mean() %>% sqrt()
-accuracy(ets)
+forecast::accuracy(ets)
 (students.total.ts[,1] - fitted(arima))^2 %>% mean() %>% sqrt()
-accuracy(arima)
+forecast::accuracy(arima)
 ```
 
 ### MAE
@@ -105,6 +105,39 @@ MAPE는 오차항(Error)의 백분률(Precentage)의 절대값의 평균(Mean)�
 ```
 
 ## fable
+
+-   **fable** is designed for `tsibble` objects, **forecast** is designed for `ts` objects.
+
+-   **fable** handles many time series at a time, **forecast** handles one time series at a time.
+
+-   **fable** can fit multiple models at once, **forecast** fits one model at a time.
+
+-   **forecast** produces point forecasts and prediction intervals. **fable** produces point forecasts and distribution forecasts. In **fable**, you can get prediction intervals from the forecast object using `hilo()` and in plots using `autoplot()`.
+
+-   **fable** handles ensemble forecasting easily whereas **forecast** has no facilities for ensembles.
+
+-   **fable** has a more consistent interface with every model specified as a formula.
+
+-   Automated modelling in **fable** is obtained by simply not specifying the right hand side of the formula. This was shown in the `ARIMA()` and `ETS()` functions here.
+
+```{r fable}
+library(fable)
+model.fable.employees <- employees.tsibble %>%
+  model(
+    ets = ETS(total), 
+    arima = ARIMA(total), 
+    snaive = SNAIVE(total), 
+    tslm = TSLM(total), 
+    rw = RW(total)
+  )
+employees.tsibble %>% model(ETS(total)) %>% report()
+
+forecast.fable.employees <- model.fable.employees %>% fable::forecast(h = '2 years')
+
+forecast.fable.employees %>% autoplot(level = NULL, data = employees.tsibble)
+
+accuracy(model.fable.employees)
+```
 
 ## modeltime
 

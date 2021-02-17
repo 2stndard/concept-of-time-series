@@ -7,7 +7,9 @@ students.total.ts <- students %>%
   filter(지역규모 == '계') %>% 
   select(3:18) %>%
   ts(start = c(1999), frequency = 1)
-students.tsibble <- as_tsibble(students, key = 지역규모, index = 연도)
+students.total <- students %>% filter(지역규모 == '계')
+students.total$연도 <- yearmonth(paste0(students.total$연도, '-01-01'))
+students.tsibble <- as_tsibble(students.total, index = 연도)
 
 employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 colnames(employees) <- c('time', 'total', 'employees.edu')

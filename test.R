@@ -646,6 +646,7 @@ aus_retail %>%
     Industry == "Department stores"
   )
 
+employees.tsibble
 
 employees.tsibble %>%
   model(
