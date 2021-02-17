@@ -653,12 +653,12 @@ employees.tsibble %>%
     arima = ARIMA(total), 
     snaive = SNAIVE(total), 
     tslm = TSLM(total), 
-    rw = RW(total), 
-    nnetar = NNETAR(total)
-  ) %>% 
-  forecast(h = '2 years') -> fc
+    rw = RW(total)
+  )  -> fit
   
-accuracy(fc, employees.tsibble)
+fit %>% forecast(h = '2 years') -> fc
+  
+accuracy(fit)
 
 
 autoplot(level = NULL, data = employees.tsibble)
