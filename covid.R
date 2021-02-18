@@ -190,8 +190,12 @@ prophet_plot_components(model.prophet.covid, forecast.covid)
 
 
 fill.covid19.by.age.tsibble <- fill_gaps(wide.covid19.by.age.tsibble, `0-9세` = 0)
+split <- floor(nrow(fill.covid19.by.age.tsibble) * 0.9)
+n <- nrow(fill.covid19.by.age.tsibble)
+fill.covid19.by.age.tsibble.tr <- fill.covid19.by.age.tsibble[1:split, ]
+fill.covid19.by.age.tsibble.test <- fill.covid19.by.age.tsibble[(split+1):n, ]
 
-model.covid19.by.age.tsibble <- fill.covid19.by.age.tsibble %>% model(ets = ETS(`0-9세`), 
+model.covid19.by.age.tsibble <- fill.covid19.by.age.tsibble.tr %>% model(ets = ETS(`0-9세`), 
                                                      arima = ARIMA(`0-9세`), 
                                                      naive = NAIVE(`0-9세`), 
                                                      tslm = TSLM(`0-9세`),
@@ -201,17 +205,17 @@ model.covid19.by.age.tsibble <- fill.covid19.by.age.tsibble %>% model(ets = ETS(
                                                      prophet = prophet(`0-9세`)
 )
 
-forecast.covid19.by.age.tsibble <- model.covid19.by.age.tsibble %>% forecast(h = 12)
+forecast.covid19.by.age.tsibble <- model.covid19.by.age.tsibble %>% forecast(h = 120)
 
 forecast.covid19.by.age.tsibble %>% autoplot(fill.covid19.by.age.tsibble, level = NULL)
 
-model.covid19.by.age.tsibble %>% accuracy %>% arrange(RMSE)
+forecast.covid19.by.age.tsibble %>% accuracy(fill.covid19.by.age.tsibble.test) %>% arrange(RMSE)
 
-best.model.covid19.by.age.tsibble <- model.covid19.by.age.tsibble %>% select(nnetar, prophet)
+best.model.covid19.by.age.tsibble <- model.covid19.by.age.tsibble %>% select(prophet)
 
-model.covid19.by.age.tsibble %>% 
-  forecast(h = 12) %>% 
-  autoplot(fill.covid19.by.age.tsibble, level = NULL, lwd = 1) + 
+best.model.covid19.by.age.tsibble %>% 
+  forecast(h = 120) %>% 
+  autoplot(fill.covid19.by.age.tsibble, lwd = 1, alpha = 0.6) + 
   autolayer(fitted(best.model.covid19.by.age.tsibble), lwd = 1) + 
   geom_point(aes(x = date, y = `0-9세`)) + 
   labs(title = '코로나 확진자수 예측', x = '년월일', y = '확진자수')

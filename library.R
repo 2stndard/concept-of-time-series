@@ -19,6 +19,6 @@ if(!require(skimr)) {
 library(tsibble)
 library(feasts)
 library(numbers)
-#library(fable.prophet)
+library(fable.prophet)
 library(fable)
 

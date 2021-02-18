@@ -3,7 +3,7 @@ library(tidyverse)
 library(xts)
 library(timetk)
 library(forecast)
-
+library(lubridate)
 library(dplyr)
 library(tsibble)
 students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
@@ -122,17 +122,26 @@ MAPE는 오차항(Error)의 백분률(Precentage)의 절대값의 평균(Mean)�
 
 ### 미래 학생수 예측
 
+```{r fable_students}
+split <- floor(nrow(students.tsibble) * 0.8)
+n <- nrow(students.tsibble)
+students.tsibble.tr <- students.tsibble[1:split, ]
+students.tsibble.test <- students.tsibble[(split+1):n, ]
+```
+
 ```{r fable_students1}
 library(fable)
-model.fable.studetns <- students.tsibble %>% model(ets = ETS(학생수계), 
-                                                   arima = ARIMA(학생수계), 
-                                                   naive = NAIVE(학생수계), 
-                                                   tslm = TSLM(학생수계),
-                                                   rw = RW(학생수계),
-                                                   mean = MEAN(학생수계),
-                                                   nnetar = NNETAR(학생수계),
-                                                   prophet = prophet(학생수계)
-                                                   )
+library(fable.prophet)
+model.fable.studetns <- students.tsibble.tr %>% 
+  model(ets = ETS(학생수계),
+        arima = ARIMA(학생수계), 
+        naive = NAIVE(학생수계), 
+        tslm = TSLM(학생수계),
+        rw = RW(학생수계),
+        mean = MEAN(학생수계),
+        nnetar = NNETAR(학생수계),
+        prophet = prophet(학생수계)
+        )
 ```
 
 ```{r fable_students2}
@@ -144,33 +153,51 @@ forecast.fable.students %>% autoplot(students.tsibble, level = NULL)
 ```
 
 ```{r fable_students4}
-model.fable.studetns %>% accuracy %>% arrange(RMSE)
+forecast.fable.students %>% accuracy(students.tsibble.test) %>%
+  arrange(RMSE)
 ```
 
 ```{r fable_students5}
-best.model.fable.students <- model.fable.studetns %>% select(prophet, arima)
+best.model.fable.students <- model.fable.studetns %>% 
+  select(ets, prophet)
 ```
 
 ```{r fable_students6}
-best.model.fable.students %>% forecast(h = 10) %>% autoplot(students.tsibble, level = NULL) + autolayer(fitted(best.model.fable.students)) + geom_point(aes(x = 연도, y = 학생수계))
+best.model.fable.students %>% forecast(h = 10) %>% 
+  autoplot(students.tsibble, alpha = 0.6) + 
+  autolayer(fitted(best.model.fable.students)) + 
+  geom_point(aes(x = 연도, y = 학생수계))
 ```
 
 ### 미래 취업자수 예측
 
+```{r fable_employees}
+employees$yearmonth <- yearmonth(employees$time)
+employees.tsibble <- as_tsibble(employees, index = yearmonth)
+```
+
+```{r fable_employees0}
+split <- floor(nrow(employees.tsibble) * 0.9)
+n <- nrow(employees.tsibble)
+employees.tsibble.tr <- employees.tsibble[1:split, ]
+employees.tsibble.test <- employees.tsibble[(split+1):n, ]
+```
+
 ```{r fable_employees1}
-model.fable.employees <- employees.tsibble %>% model(ets = ETS(total), 
-                                                    arima = ARIMA(total), 
-                                                    naive = NAIVE(total), 
-                                                    tslm = TSLM(total),
-                                                    rw = RW(total),
-                                                    mean = MEAN(total),
-                                                    nnetar = NNETAR(total),
-                                                    prophet = prophet(total)
-                                                    )
+model.fable.employees <- employees.tsibble.tr %>% 
+  model(ets = ETS(total),
+        arima = ARIMA(total),
+        naive = NAIVE(total),
+        tslm = TSLM(total),
+        rw = RW(total),
+        mean = MEAN(total),
+        nnetar = NNETAR(total),
+        prophet = prophet(total)
+        )
 ```
 
 ```{r fable_employees2}
-forecast.fable.employees <- model.fable.employees %>% forecast(h = 12)
+forecast.fable.employees <- model.fable.employees %>% forecast(h = 24)
 ```
 
 ```{r fable_employees3}
@@ -178,11 +205,12 @@ forecast.fable.employees %>% autoplot(employees.tsibble, level = NULL)
 ```
 
 ```{r fable_employees4}
-model.fable.employees %>% accuracy %>% arrange(RMSE)
+forecast.fable.employees %>% accuracy(employees.tsibble.test) %>% arrange(RMSE)
 ```
 
 ```{r fable_employees5}
-best.model.fable.employees <- model.fable.employees %>% select(ets, prophet)
+best.model.fable.employees <- model.fable.employees %>% 
+  select(naive, rw)
 ```
 
 ```{r fable_employees6}
@@ -197,10 +225,70 @@ best.model.fable.employees %>%
 ### 미래 코로나 확진자수 예측
 
 ```{r fable_covid1}
+fill.covid19.by.age.tsibble <- fill_gaps(wide.covid19.by.age.tsibble, `0-9세` = 0)
+```
 
+```{r fable_covid2}
+split <- floor(nrow(fill.covid19.by.age.tsibble) * 0.9)
+n <- nrow(fill.covid19.by.age.tsibble)
+fill.covid19.by.age.tsibble.tr <- fill.covid19.by.age.tsibble[1:split, ]
+fill.covid19.by.age.tsibble.test <- fill.covid19.by.age.tsibble[(split+1):n, ]
+```
+
+```{r fable_covid3}
+model.covid19.by.age.tsibble <- fill.covid19.by.age.tsibble.tr %>%
+  model(ets = ETS(`0-9세`), 
+        arima = ARIMA(`0-9세`),
+        naive = NAIVE(`0-9세`),
+        tslm = TSLM(`0-9세`),
+        rw = RW(`0-9세`),
+        mean = MEAN(`0-9세`),
+        nnetar = NNETAR(`0-9세`),
+        prophet = prophet(`0-9세`)
+)
+```
+
+```{r fable_covid4}
+forecast.covid19.by.age.tsibble <- model.covid19.by.age.tsibble %>%
+  forecast(h = 120)
+```
+
+```{r fable_covid5}
+forecast.covid19.by.age.tsibble %>% autoplot(fill.covid19.by.age.tsibble, level = NULL)
+```
+
+```{r fable_covid6}
+forecast.covid19.by.age.tsibble %>% accuracy(fill.covid19.by.age.tsibble.test) %>% arrange(RMSE)
+```
+
+```{r fable_covid7}
+best.model.covid19.by.age.tsibble <- model.covid19.by.age.tsibble %>% select(prophet)
+```
+
+```{r fable_covid8}
+best.model.covid19.by.age.tsibble %>% 
+  forecast(h = 120) %>% 
+  autoplot(fill.covid19.by.age.tsibble, lwd = 1, alpha = 0.6) + 
+  autolayer(fitted(best.model.covid19.by.age.tsibble), lwd = 1) + 
+  geom_point(aes(x = date, y = `0-9세`)) + 
+  labs(title = '코로나 확진자수 예측', x = '년월일', y = '확진자수')
 ```
 
 ## modeltime
+
+Just follow the `modeltime` workflow, which is detailed in 6 convenient steps:
+
+1.  Collect data and split into training and test sets
+
+2.  Create & Fit Multiple Models
+
+3.  Add fitted models to a **Model Table**
+
+4.  **Calibrate** the models to a testing set.
+
+5.  Perform Testing Set *Forecast* & *Accuracy* Evaluation
+
+6.  **Refit** the models to Full Dataset & *Forecast* Forward
 
 ### linear_reg 함수(tidymodels, parsnip, modeltime 패키지)
 
@@ -228,56 +316,302 @@ tidymodels, parsnip, modeltime 패키지를 사용하여 시계열 데이터 선
 
 [^forecasting-iii-4]: <https://www.tidymodels.org/start/models/>
 
-```{r linear_reg, message=FALSE, warning=FALSE}
-###  parsnip과 modeltime을 전체 취업자수에 적용한 linear modeling(tredn + seasonality)
+### 미래 학생수 예측
+
+```{r}
 library(modeltime)
 library(parsnip)
 library(tidymodels)
 ### 트레이닝 셋과 테스트 셋을 나눈다
-splits <- initial_time_split(employees, prop = 0.9)
-###  trend와 season을 반영하여 linear model을 생성
-model_fit_lm <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(total ~ as.numeric(time) + factor(lubridate::month(time, label = TRUE), ordered = FALSE),
-      data = training(splits))
-###  모델 테이블 생성
-model_tbl <- modeltime_table(model_fit_lm)
-###  테스팅 셋으로 모델 교정
-calibration_tbl <- model_tbl %>% modeltime_calibrate(new_data = testing(splits))
-###  3년 예측치 생성후 plotting
-calibration_tbl %>%
-  modeltime_forecast(
-    h = '3 years',
-    actual_data = employees, 
-    conf_interval = 0.95
-  ) %>%
-  plot_modeltime_forecast(
-    .interactive      = TRUE
-  )
+students.total$연도 <- as.Date(paste0(students.total$연도, '-01-01'))
+splits.students <- initial_time_split(students.total, prop = 0.8)
 ```
 
-```{r covid_linear_reg}
-###  parsnip과 modeltime을 일별 코로나 발생 데이터(0-9세)에 적용한 linear modeling(tredn + seasonality)
-covid19.by.age$value1 <- ifelse(is.na(covid19.by.age$value), 0, covid19.by.age$value)
-### 트레이닝 셋과 테스트 셋을 나눈다
-splits <- initial_time_split(covid19.by.age %>% filter(category == '0-9세'), prop = 0.9)
-###  trend와 season을 반영하여 linear model을 생성
+```{r}
+model_fit_arima <- arima_reg() %>%
+    set_engine(engine = "auto_arima") %>%
+    fit(학생수계 ~ 연도, data = training(splits.students))
+```
+
+```{r}
+model_fit_ets <- exp_smoothing() %>%
+    set_engine(engine = "ets") %>%
+    fit(학생수계 ~ 연도, data = training(splits.students))
+```
+
+```{r}
+model_fit_prophet <- prophet_reg() %>%
+    set_engine(engine = "prophet") %>%
+    fit(학생수계 ~ 연도, data = training(splits.students))
+```
+
+```{r}
 model_fit_lm <- linear_reg() %>%
-  set_engine("lm") %>%
-  fit(value ~ as.numeric(date),
-      data = training(splits))
-###  모델 테이블 생성
-model_tbl <- modeltime_table(model_fit_lm)
-###  테스팅 셋으로 모델 교정
-calibration_tbl <- model_tbl %>% modeltime_calibrate(new_data = testing(splits))
-###  3년 예측치 생성후 plotting
+    set_engine("lm") %>%
+    fit(학생수계 ~ as.numeric(연도),
+        data = training(splits.students))
+```
+
+```{r}
+model_fit_nnetar <- nnetar_reg() %>%
+    set_engine("nnetar") %>%
+    fit(학생수계 ~ 연도, data = training(splits.students))
+```
+
+```{r}
+model_fit_tbats <- seasonal_reg() %>%
+    set_engine("tbats") %>%
+    fit(학생수계 ~ 연도, data = training(splits.students))
+```
+
+```{r}
+(models_tbl <- modeltime_table(
+    model_fit_arima,
+    model_fit_ets,
+    model_fit_prophet,
+    model_fit_lm, 
+    model_fit_nnetar, 
+    model_fit_tbats))
+```
+
+```{r}
+(calibration_tbl <- models_tbl %>%
+    modeltime_calibrate(new_data = testing(splits.students)))
+```
+
+```{r}
 calibration_tbl %>%
-  modeltime_forecast(
-#    .newdata = testing(splits),
-    h = '100 days',
-    actual_data = covid19.by.age %>% filter(category == '0-9세')
+    modeltime_forecast(
+        new_data    = testing(splits.students),
+        actual_data = students.total
     ) %>%
-  plot_modeltime_forecast(
-    .interactive      = TRUE
-  )
+    plot_modeltime_forecast(
+      .interactive      = FALSE
+    )
+```
+
+```{r}
+calibration_tbl %>%
+    modeltime_accuracy()
+```
+
+```{r}
+model_fit_ets <- exp_smoothing() %>%
+    set_engine(engine = "ets") %>%
+    fit(학생수계 ~ 연도, data = students.total)
+
+model_fit_tbats <- seasonal_reg() %>%
+    set_engine("tbats") %>%
+    fit(학생수계 ~ 연도, data = students.total)
+
+(models_tbl <- modeltime_table(
+    model_fit_ets,
+    model_fit_tbats))
+
+models_tbl %>%
+    modeltime_forecast(
+        h    = '10 years',
+        actual_data = students.total
+    ) %>%
+    plot_modeltime_forecast(
+      .interactive      = FALSE
+    )
+```
+
+### 미래 취업자수 예측
+
+```{r}
+### 트레이닝 셋과 테스트 셋을 나눈다
+splits.employees <- initial_time_split(employees, prop = 0.9)
+```
+
+```{r}
+model_fit_arima <- arima_reg() %>%
+    set_engine(engine = "auto_arima") %>%
+    fit(total ~ time, data = training(splits.employees))
+```
+
+```{r}
+model_fit_ets <- exp_smoothing() %>%
+    set_engine(engine = "ets") %>%
+    fit(total ~ time, data = training(splits.employees))
+```
+
+```{r}
+model_fit_prophet <- prophet_reg() %>%
+    set_engine(engine = "prophet") %>%
+    fit(total ~ time, data = training(splits.employees))
+```
+
+```{r}
+model_fit_lm <- linear_reg() %>%
+    set_engine("lm") %>%
+    fit(total ~ as.numeric(time) + factor(month(time, label = TRUE), ordered = FALSE),
+        data = training(splits.employees))
+```
+
+```{r}
+model_fit_nnetar <- nnetar_reg() %>%
+    set_engine("nnetar") %>%
+    fit(total ~ time, data = training(splits.employees))
+```
+
+```{r}
+model_fit_tbats <- seasonal_reg() %>%
+    set_engine("tbats") %>%
+    fit(total ~ time, data = training(splits.employees))
+```
+
+```{r}
+(models_tbl <- modeltime_table(
+    model_fit_arima,
+    model_fit_ets,
+    model_fit_prophet,
+    model_fit_lm, 
+    model_fit_nnetar, 
+    model_fit_tbats))
+```
+
+```{r}
+(calibration_tbl <- models_tbl %>%
+    modeltime_calibrate(new_data = testing(splits.employees)))
+```
+
+```{r}
+calibration_tbl %>%
+    modeltime_forecast(
+        new_data    = testing(splits.employees),
+        actual_data = employees
+    ) %>%
+    plot_modeltime_forecast(
+      .interactive      = FALSE
+    )
+```
+
+```{r}
+calibration_tbl %>%
+    modeltime_accuracy()
+```
+
+```{r}
+model_fit_lm <- linear_reg() %>%
+    set_engine("lm") %>%
+    fit(total ~ as.numeric(time) + factor(month(time, label = TRUE), ordered = FALSE),
+        data = employees)
+
+model_fit_nnetar <- nnetar_reg() %>%
+    set_engine("nnetar") %>%
+    fit(total ~ time, data = employees)
+
+(models_tbl <- modeltime_table(
+    model_fit_lm,
+    model_fit_nnetar))
+
+models_tbl %>%
+    modeltime_forecast(
+        h    = '3 years',
+        actual_data = employees
+    ) %>%
+    plot_modeltime_forecast(
+      .interactive      = FALSE
+    )
+```
+
+### 미래 코로나 확진자수 예측
+
+```{r}
+### 트레이닝 셋과 테스트 셋을 나눈다
+splits.covid19 <- initial_time_split(wide.covid19.by.age, prop = 0.9)
+```
+
+```{r}
+model_fit_arima <- arima_reg() %>%
+    set_engine(engine = "auto_arima") %>%
+    fit(`0-9세` ~ date, data = training(splits.covid19))
+```
+
+```{r}
+model_fit_ets <- exp_smoothing() %>%
+    set_engine(engine = "ets") %>%
+    fit(`0-9세` ~ date, data = training(splits.covid19))
+```
+
+```{r}
+model_fit_prophet <- prophet_reg() %>%
+    set_engine(engine = "prophet") %>%
+    fit(`0-9세` ~ date, data = training(splits.covid19))
+```
+
+```{r}
+model_fit_lm <- linear_reg() %>%
+    set_engine("lm") %>%
+    fit(`0-9세` ~ as.numeric(date),
+        data = training(splits.covid19))
+```
+
+```{r}
+model_fit_nnetar <- nnetar_reg() %>%
+    set_engine("nnetar") %>%
+    fit(`0-9세` ~ date, data = training(splits.covid19))
+```
+
+```{r}
+model_fit_tbats <- seasonal_reg() %>%
+    set_engine("tbats") %>%
+    fit(`0-9세` ~ date, data = training(splits.covid19))
+```
+
+```{r}
+(models_tbl <- modeltime_table(
+    model_fit_arima,
+    model_fit_ets,
+    model_fit_prophet,
+    model_fit_lm, 
+    model_fit_nnetar, 
+    model_fit_tbats))
+```
+
+```{r}
+(calibration_tbl <- models_tbl %>%
+    modeltime_calibrate(new_data = testing(splits.covid19)))
+```
+
+```{r}
+calibration_tbl %>%
+    modeltime_forecast(
+        new_data    = testing(splits.covid19),
+        actual_data = wide.covid19.by.age
+    ) %>%
+    plot_modeltime_forecast(
+      .interactive      = FALSE
+    )
+```
+
+```{r error = FALSE}
+calibration_tbl %>%
+    modeltime_accuracy()
+```
+
+```{r}
+model_fit_lm <- linear_reg() %>%
+    set_engine("lm") %>%
+    fit(`0-9세` ~ as.numeric(date),
+        data = wide.covid19.by.age)
+
+model_fit_ets <- exp_smoothing() %>%
+    set_engine(engine = "ets") %>%
+    fit(`0-9세` ~ date, data = wide.covid19.by.age)
+
+(models_tbl <- modeltime_table(
+    model_fit_lm,
+    model_fit_ets))
+
+models_tbl %>%
+    modeltime_forecast(
+        h    = '3 months',
+        actual_data = wide.covid19.by.age
+    ) %>%
+    plot_modeltime_forecast(
+      .interactive      = FALSE
+    )
 ```

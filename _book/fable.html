@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-16" />
+<meta name="date" content="2021-02-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,13 +51,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -262,10 +255,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1.3" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mpe"><i class="fa fa-check"></i><b>7.1.3</b> MPE</a></li>
 <li class="chapter" data-level="7.1.4" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mape"><i class="fa fa-check"></i><b>7.1.4</b> MAPE</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="fable.html"><a href="fable.html"><i class="fa fa-check"></i><b>7.2</b> fable</a></li>
+<li class="chapter" data-level="7.2" data-path="fable.html"><a href="fable.html"><i class="fa fa-check"></i><b>7.2</b> fable</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="fable.html"><a href="fable.html#미래-학생수-예측"><i class="fa fa-check"></i><b>7.2.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.2.2" data-path="fable.html"><a href="fable.html#미래-취업자수-예측"><i class="fa fa-check"></i><b>7.2.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.2.3" data-path="fable.html"><a href="fable.html#미래-코로나-확진자수-예측"><i class="fa fa-check"></i><b>7.2.3</b> 미래 코로나 확진자수 예측</a></li>
+</ul></li>
 <li class="chapter" data-level="7.3" data-path="modeltime-1.html"><a href="modeltime-1.html"><i class="fa fa-check"></i><b>7.3</b> modeltime</a>
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="modeltime-1.html"><a href="modeltime-1.html#linear_reg-함수tidymodels-parsnip-modeltime-패키지"><i class="fa fa-check"></i><b>7.3.1</b> linear_reg 함수(tidymodels, parsnip, modeltime 패키지)</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modeltime-1.html"><a href="modeltime-1.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modeltime-1.html"><a href="modeltime-1.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.3.4" data-path="modeltime-1.html"><a href="modeltime-1.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.4</b> 미래 코로나 확진자수 예측</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a>
@@ -295,6 +296,199 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="fable" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> fable</h2>
+<ul>
+<li><p><strong>fable</strong> is designed for <code>tsibble</code> objects, <strong>forecast</strong> is designed for <code>ts</code> objects.</p></li>
+<li><p><strong>fable</strong> handles many time series at a time, <strong>forecast</strong> handles one time series at a time.</p></li>
+<li><p><strong>fable</strong> can fit multiple models at once, <strong>forecast</strong> fits one model at a time.</p></li>
+<li><p><strong>forecast</strong> produces point forecasts and prediction intervals. <strong>fable</strong> produces point forecasts and distribution forecasts. In <strong>fable</strong>, you can get prediction intervals from the forecast object using <code>hilo()</code> and in plots using <code>autoplot()</code>.</p></li>
+<li><p><strong>fable</strong> handles ensemble forecasting easily whereas <strong>forecast</strong> has no facilities for ensembles.</p></li>
+<li><p><strong>fable</strong> has a more consistent interface with every model specified as a formula.</p></li>
+<li><p>Automated modelling in <strong>fable</strong> is obtained by simply not specifying the right hand side of the formula. This was shown in the <code>ARIMA()</code> and <code>ETS()</code> functions here.</p></li>
+</ul>
+<div id="미래-학생수-예측" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> 미래 학생수 예측</h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="fable.html#cb21-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(students.tsibble) <span class="sc">*</span> <span class="fl">0.8</span>)</span>
+<span id="cb21-2"><a href="fable.html#cb21-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(students.tsibble)</span>
+<span id="cb21-3"><a href="fable.html#cb21-3" aria-hidden="true" tabindex="-1"></a>students.tsibble.tr <span class="ot">&lt;-</span> students.tsibble[<span class="dv">1</span><span class="sc">:</span>split, ]</span>
+<span id="cb21-4"><a href="fable.html#cb21-4" aria-hidden="true" tabindex="-1"></a>students.tsibble.test <span class="ot">&lt;-</span> students.tsibble[(split<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n, ]</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="fable.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fable)</span></code></pre></div>
+<pre><code>## Warning: package &#39;fable&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Loading required package: fabletools</code></pre>
+<pre><code>## Warning: package &#39;fabletools&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;fabletools&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:forecast&#39;:
+## 
+##     accuracy, forecast</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="fable.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fable.prophet)</span></code></pre></div>
+<pre><code>## Warning: package &#39;fable.prophet&#39; was built under R version 4.0.3</code></pre>
+<pre><code>## Loading required package: Rcpp</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="fable.html#cb31-1" aria-hidden="true" tabindex="-1"></a>model.fable.studetns <span class="ot">&lt;-</span> students.tsibble.tr <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="fable.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(학생수계),</span>
+<span id="cb31-3"><a href="fable.html#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">arima =</span> <span class="fu">ARIMA</span>(학생수계), </span>
+<span id="cb31-4"><a href="fable.html#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">naive =</span> <span class="fu">NAIVE</span>(학생수계), </span>
+<span id="cb31-5"><a href="fable.html#cb31-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">tslm =</span> <span class="fu">TSLM</span>(학생수계),</span>
+<span id="cb31-6"><a href="fable.html#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">rw =</span> <span class="fu">RW</span>(학생수계),</span>
+<span id="cb31-7"><a href="fable.html#cb31-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> <span class="fu">MEAN</span>(학생수계),</span>
+<span id="cb31-8"><a href="fable.html#cb31-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">nnetar =</span> <span class="fu">NNETAR</span>(학생수계),</span>
+<span id="cb31-9"><a href="fable.html#cb31-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">prophet =</span> <span class="fu">prophet</span>(학생수계)</span>
+<span id="cb31-10"><a href="fable.html#cb31-10" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div>
+<pre><code>## Warning: 5 errors (1 unique) encountered for prophet
+## [5] &#39;origin&#39; must be supplied</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="fable.html#cb33-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.students <span class="ot">&lt;-</span> model.fable.studetns <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="fable.html#cb34-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.students <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(students.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 50 row(s) containing missing values (geom_path).</code></pre>
+<p><img src="t_files/figure-html/fable_students3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="fable.html#cb36-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.students <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>(students.tsibble.test) <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="fable.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
+<pre><code>## Warning: The future dataset is incomplete, incomplete out-of-sample data will be treated as missing. 
+## 10 observations are missing between 2021 and 2030</code></pre>
+<pre><code>## # A tibble: 40 x 11
+##    .model 지역규모 .type       ME     RMSE      MAE     MPE    MAPE  MASE RMSSE
+##    &lt;chr&gt;  &lt;fct&gt;    &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 ets    특별/광역시~ Test   -3.19e3   12018.   11184.  -0.111   0.451   NaN   NaN
+##  2 arima  특별/광역시~ Test   -5.84e4   63489.   58439.  -2.37    2.37    NaN   NaN
+##  3 nnetar 특별/광역시~ Test   -2.33e5  261541.  233453.  -9.53    9.53    NaN   NaN
+##  4 naive  특별/광역시~ Test   -2.94e5  320533.  293517. -11.9    11.9     NaN   NaN
+##  5 rw     특별/광역시~ Test   -2.94e5  320533.  293517. -11.9    11.9     NaN   NaN
+##  6 tslm   특별/광역시~ Test   -1.02e6 1030881. 1022804. -41.0    41.0     NaN   NaN
+##  7 mean   특별/광역시~ Test   -1.02e6 1030881. 1022804. -41.0    41.0     NaN   NaN
+##  8 arima  계       Test  NaN          NaN      NaN  NaN     NaN       NaN   NaN
+##  9 arima  면지역   Test  NaN          NaN      NaN  NaN     NaN       NaN   NaN
+## 10 arima  시       Test  NaN          NaN      NaN  NaN     NaN       NaN   NaN
+## # ... with 30 more rows, and 1 more variable: ACF1 &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="fable.html#cb39-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.students <span class="ot">&lt;-</span> model.fable.studetns <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="fable.html#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ets, prophet)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="fable.html#cb40-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.students <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="fable.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(students.tsibble, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
+<span id="cb40-3"><a href="fable.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(best.model.fable.students)) <span class="sc">+</span> </span>
+<span id="cb40-4"><a href="fable.html#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> 연도, <span class="at">y =</span> 학생수계))</span></code></pre></div>
+<pre><code>## Plot variable not specified, automatically selected `.vars = .fitted`</code></pre>
+<pre><code>## Warning in max(ids, na.rm = TRUE): max에 전달되는 인자들 중 누락이 있어 -Inf를
+## 반환합니다
+
+## Warning in max(ids, na.rm = TRUE): max에 전달되는 인자들 중 누락이 있어 -Inf를
+## 반환합니다
+
+## Warning in max(ids, na.rm = TRUE): max에 전달되는 인자들 중 누락이 있어 -Inf를
+## 반환합니다
+
+## Warning in max(ids, na.rm = TRUE): max에 전달되는 인자들 중 누락이 있어 -Inf를
+## 반환합니다
+
+## Warning in max(ids, na.rm = TRUE): max에 전달되는 인자들 중 누락이 있어 -Inf를
+## 반환합니다
+
+## Warning in max(ids, na.rm = TRUE): max에 전달되는 인자들 중 누락이 있어 -Inf를
+## 반환합니다
+
+## Warning in max(ids, na.rm = TRUE): max에 전달되는 인자들 중 누락이 있어 -Inf를
+## 반환합니다
+
+## Warning in max(ids, na.rm = TRUE): max에 전달되는 인자들 중 누락이 있어 -Inf를
+## 반환합니다
+
+## Warning in max(ids, na.rm = TRUE): max에 전달되는 인자들 중 누락이 있어 -Inf를
+## 반환합니다
+
+## Warning in max(ids, na.rm = TRUE): max에 전달되는 인자들 중 누락이 있어 -Inf를
+## 반환합니다</code></pre>
+<pre><code>## Warning: Removed 50 row(s) containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 105 row(s) containing missing values (geom_path).</code></pre>
+<p><img src="t_files/figure-html/fable_students6-1.png" width="672" /></p>
+</div>
+<div id="미래-취업자수-예측" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> 미래 취업자수 예측</h3>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="fable.html#cb45-1" aria-hidden="true" tabindex="-1"></a>employees<span class="sc">$</span>yearmonth <span class="ot">&lt;-</span> <span class="fu">yearmonth</span>(employees<span class="sc">$</span>time)</span>
+<span id="cb45-2"><a href="fable.html#cb45-2" aria-hidden="true" tabindex="-1"></a>employees.tsibble <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(employees, <span class="at">index =</span> yearmonth)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="fable.html#cb46-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(employees.tsibble) <span class="sc">*</span> <span class="fl">0.9</span>)</span>
+<span id="cb46-2"><a href="fable.html#cb46-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(employees.tsibble)</span>
+<span id="cb46-3"><a href="fable.html#cb46-3" aria-hidden="true" tabindex="-1"></a>employees.tsibble.tr <span class="ot">&lt;-</span> employees.tsibble[<span class="dv">1</span><span class="sc">:</span>split, ]</span>
+<span id="cb46-4"><a href="fable.html#cb46-4" aria-hidden="true" tabindex="-1"></a>employees.tsibble.test <span class="ot">&lt;-</span> employees.tsibble[(split<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n, ]</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="fable.html#cb47-1" aria-hidden="true" tabindex="-1"></a>model.fable.employees <span class="ot">&lt;-</span> employees.tsibble.tr <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a href="fable.html#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(total),</span>
+<span id="cb47-3"><a href="fable.html#cb47-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">arima =</span> <span class="fu">ARIMA</span>(total),</span>
+<span id="cb47-4"><a href="fable.html#cb47-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">naive =</span> <span class="fu">NAIVE</span>(total),</span>
+<span id="cb47-5"><a href="fable.html#cb47-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">tslm =</span> <span class="fu">TSLM</span>(total),</span>
+<span id="cb47-6"><a href="fable.html#cb47-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">rw =</span> <span class="fu">RW</span>(total),</span>
+<span id="cb47-7"><a href="fable.html#cb47-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> <span class="fu">MEAN</span>(total),</span>
+<span id="cb47-8"><a href="fable.html#cb47-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">nnetar =</span> <span class="fu">NNETAR</span>(total),</span>
+<span id="cb47-9"><a href="fable.html#cb47-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">prophet =</span> <span class="fu">prophet</span>(total)</span>
+<span id="cb47-10"><a href="fable.html#cb47-10" aria-hidden="true" tabindex="-1"></a>        )</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="fable.html#cb48-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="ot">&lt;-</span> model.fable.employees <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">24</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="fable.html#cb49-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(employees.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/fable_employees3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="fable.html#cb50-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>(employees.tsibble.test) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
+<pre><code>## Warning: The future dataset is incomplete, incomplete out-of-sample data will be treated as missing. 
+## 14 observations are missing between 2021 1 and 2022 2</code></pre>
+<pre><code>## # A tibble: 8 x 10
+##   .model  .type     ME  RMSE   MAE    MPE  MAPE  MASE RMSSE    ACF1
+##   &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1 naive   Test    83.4  259.  247.  0.301 0.917   NaN   NaN  0.203 
+## 2 rw      Test    83.4  259.  247.  0.301 0.917   NaN   NaN  0.203 
+## 3 mean    Test   560.   611.  560.  2.07  2.07    NaN   NaN  0.203 
+## 4 tslm    Test   560.   611.  560.  2.07  2.07    NaN   NaN  0.203 
+## 5 ets     Test  -730.   740.  730. -2.71  2.71    NaN   NaN -0.0628
+## 6 prophet Test  -827.   839.  827. -3.07  3.07    NaN   NaN -0.397 
+## 7 arima   Test  -833.   840.  833. -3.10  3.10    NaN   NaN -0.289 
+## 8 nnetar  Test  -833.   920.  833. -3.10  3.10    NaN   NaN  0.485</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="fable.html#cb53-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.employees <span class="ot">&lt;-</span> model.fable.employees <span class="sc">%&gt;%</span> </span>
+<span id="cb53-2"><a href="fable.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(naive, rw)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="fable.html#cb54-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.employees <span class="sc">%&gt;%</span> </span>
+<span id="cb54-2"><a href="fable.html#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb54-3"><a href="fable.html#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(employees.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>, <span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb54-4"><a href="fable.html#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(best.model.fable.employees), <span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb54-5"><a href="fable.html#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> yearmonth, <span class="at">y =</span> total)) <span class="sc">+</span> </span>
+<span id="cb54-6"><a href="fable.html#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;전체 취업자수 예측&#39;</span>, <span class="at">x =</span> <span class="st">&#39;년월&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
+<pre><code>## Plot variable not specified, automatically selected `.vars = .fitted`</code></pre>
+<pre><code>## Warning: Removed 2 row(s) containing missing values (geom_path).</code></pre>
+<p><img src="t_files/figure-html/fable_employees6-1.png" width="672" /></p>
+</div>
+<div id="미래-코로나-확진자수-예측" class="section level3" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> 미래 코로나 확진자수 예측</h3>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="fable.html#cb57-1" aria-hidden="true" tabindex="-1"></a>fill.covid19.by.age.tsibble <span class="ot">&lt;-</span> <span class="fu">fill_gaps</span>(wide.covid19.by.age.tsibble, <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="fable.html#cb58-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(fill.covid19.by.age.tsibble) <span class="sc">*</span> <span class="fl">0.9</span>)</span>
+<span id="cb58-2"><a href="fable.html#cb58-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(fill.covid19.by.age.tsibble)</span>
+<span id="cb58-3"><a href="fable.html#cb58-3" aria-hidden="true" tabindex="-1"></a>fill.covid19.by.age.tsibble.tr <span class="ot">&lt;-</span> fill.covid19.by.age.tsibble[<span class="dv">1</span><span class="sc">:</span>split, ]</span>
+<span id="cb58-4"><a href="fable.html#cb58-4" aria-hidden="true" tabindex="-1"></a>fill.covid19.by.age.tsibble.test <span class="ot">&lt;-</span> fill.covid19.by.age.tsibble[(split<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n, ]</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="fable.html#cb59-1" aria-hidden="true" tabindex="-1"></a>model.covid19.by.age.tsibble <span class="ot">&lt;-</span> fill.covid19.by.age.tsibble.tr <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="fable.html#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
+<span id="cb59-3"><a href="fable.html#cb59-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">arima =</span> <span class="fu">ARIMA</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb59-4"><a href="fable.html#cb59-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">naive =</span> <span class="fu">NAIVE</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb59-5"><a href="fable.html#cb59-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">tslm =</span> <span class="fu">TSLM</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb59-6"><a href="fable.html#cb59-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">rw =</span> <span class="fu">RW</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb59-7"><a href="fable.html#cb59-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> <span class="fu">MEAN</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb59-8"><a href="fable.html#cb59-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">nnetar =</span> <span class="fu">NNETAR</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb59-9"><a href="fable.html#cb59-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">prophet =</span> <span class="fu">prophet</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)</span>
+<span id="cb59-10"><a href="fable.html#cb59-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="fable.html#cb60-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.by.age.tsibble <span class="ot">&lt;-</span> model.covid19.by.age.tsibble <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="fable.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">120</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="fable.html#cb61-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.by.age.tsibble <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(fill.covid19.by.age.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/fable_covid5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="fable.html#cb62-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.by.age.tsibble <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>(fill.covid19.by.age.tsibble.test) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
+<pre><code>## Warning: The future dataset is incomplete, incomplete out-of-sample data will be treated as missing. 
+## 89 observations are missing between 2021-02-10 and 2021-05-09</code></pre>
+<pre><code>## # A tibble: 8 x 10
+##   .model  .type     ME  RMSE   MAE    MPE  MAPE  MASE RMSSE  ACF1
+##   &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 prophet Test   -6.32  10.5  8.89  -38.9  46.6   NaN   NaN 0.371
+## 2 naive   Test   -8.39  11.4 10     -51.7  55.8   NaN   NaN 0.234
+## 3 rw      Test   -8.39  11.4 10     -51.7  55.8   NaN   NaN 0.234
+## 4 ets     Test  -12.4   14.6 13.1   -70.9  72.4   NaN   NaN 0.234
+## 5 mean    Test   15.6   17.4 15.6    61.8  61.8   NaN   NaN 0.234
+## 6 tslm    Test   15.6   17.4 15.6    61.8  61.8   NaN   NaN 0.234
+## 7 arima   Test  -16.8   18.7 16.9   -92.1  92.5   NaN   NaN 0.281
+## 8 nnetar  Test  -23.9   25.7 23.9  -126.  126.    NaN   NaN 0.391</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="fable.html#cb65-1" aria-hidden="true" tabindex="-1"></a>best.model.covid19.by.age.tsibble <span class="ot">&lt;-</span> model.covid19.by.age.tsibble <span class="sc">%&gt;%</span> <span class="fu">select</span>(prophet)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="fable.html#cb66-1" aria-hidden="true" tabindex="-1"></a>best.model.covid19.by.age.tsibble <span class="sc">%&gt;%</span> </span>
+<span id="cb66-2"><a href="fable.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">120</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-3"><a href="fable.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(fill.covid19.by.age.tsibble, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
+<span id="cb66-4"><a href="fable.html#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(best.model.covid19.by.age.tsibble), <span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb66-5"><a href="fable.html#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb66-6"><a href="fable.html#cb66-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;코로나 확진자수 예측&#39;</span>, <span class="at">x =</span> <span class="st">&#39;년월일&#39;</span>, <span class="at">y =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
+<pre><code>## Plot variable not specified, automatically selected `.vars = .fitted`</code></pre>
+<p><img src="t_files/figure-html/fable_covid8-1.png" width="672" /></p>
+</div>
 </div>
             </section>
 
