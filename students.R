@@ -300,14 +300,22 @@ students.tsibble %>% model(ets_N = ETS(학생수계 ~ trend("N")),
 ) %>% select(ets_N) %>% report
 
 
-students.tsibble %>% model(ets = ETS(학생수계), 
-                           arima = ARIMA(학생수계), 
-                           naive = NAIVE(학생수계), 
-                           tslm = TSLM(학생수계),
-                           rw = RW(학생수계),
-                           mean = MEAN(학생수계), 
-                           nnetar = NNETAR(학생수계) 
-) %>% accuracy
+model.fable.studetns <- students.tsibble %>% model(ets = ETS(학생수계), 
+                                                   arima = ARIMA(학생수계), 
+                                                   naive = NAIVE(학생수계), 
+                                                   tslm = TSLM(학생수계),
+                                                   rw = RW(학생수계),
+                                                   mean = MEAN(학생수계),
+                                                   nnetar = NNETAR(학생수계),
+                                                   prophet = prophet(학생수계)
+                                                   )
+
+forecast.fable.students <- model.fable.studetns %>% forecast(h = 10)
+forecast.fable.students %>% autoplot(students.tsibble, level = NULL)
+model.fable.studetns %>% accuracy %>% arrange(RMSE)
+best.model.fable.students <- model.fable.studetns %>% select(prophet)
+best.model.fable.students %>% forecast(h = 10) %>% autoplot(students.tsibble) + autolayer(fitted(best.model.fable.students), color = 'red')
+
 
 students.tsibble %>% model(ets = ETS(학생수계), 
                            arima = ARIMA(학생수계), 
@@ -347,37 +355,40 @@ students.tsibble %>% model(ets = ETS(학생수계),
 students.tsibble.training <- students.tsibble %>% filter(year(연도) < 2018)
 students.tsibble.testing <- students.tsibble %>% filter(year(연도) >= 2018)
 
+students.tsibble.training %>% filter(year(연도) == '1999')
+
+
 students.tsibble.training <- students.tsibble %>%
   slice(1:(n()-1)) %>%
-  stretch_tsibble(.init = 5, .step = 1)
+  stretch_tsibble(.init = 10, .step = 1)
 
+install.packages('fable.prophet')
 library(fable.prophet)
 
 
 model.students.tsibble <- students.tsibble.training %>% 
-   model(#ets = ETS(학생수계), 
-  #       arima = ARIMA(학생수계), 
-  #       naive = NAIVE(학생수계), 
-  #       tslm = TSLM(학생수계),
-  #       rw = RW(학생수계),
-  #       mean = MEAN(학생수계),
-        prophet = prophet(학생수계)
+   model(ets = ETS(학생수계), 
+         arima = ARIMA(학생수계), 
+         naive = NAIVE(학생수계), 
+         tslm = TSLM(학생수계),
+         rw = RW(학생수계),
+         mean = MEAN(학생수계)
+         #prophet = prophet(학생수계)
         )
 model.students.tsibble <- students.tsibble %>% 
-  model(#ets = ETS(학생수계), 
-    #       arima = ARIMA(학생수계), 
-    #       naive = NAIVE(학생수계), 
-    #       tslm = TSLM(학생수계),
-    #       rw = RW(학생수계),
-    #       mean = MEAN(학생수계),
-    prophet = prophet(학생수계)
+  model(arima = ARIMA(학생수계 ~ pdq(2, 1, 0) )
   )
-forecast.students.tsibble <- model.students.tsibble %>% forecast()
-forecast.students.tsibble %>% autoplot(students.tsibble)
+
+forecast.students.tsibble <- model.students.tsibble %>% forecast(h = 10)
+forecast.students.tsibble %>% autoplot(students.tsibble) + autolayer(fitted(model.students.tsibble), color = 'red')
 model.students.tsibble %>% accuracy() %>% arrange(RMSE) -> accuracy.students.tsibble
 
-best.model.students.tsibble <- model.students.tsibble %>% select('prophet') %>% filter(.id == 2)
-best.model.students.tsibble %>% forecast() %>% autoplot(level= NULL)
+best.model.students.tsibble <- model.students.tsibble %>% select('arima') %>% filter(.id = '12')
+best.model.students.tsibble %>% coef
+best.model.students.tsibble %>% forecast()->fc
+fc %>% autoplot(data = students.tsibble)
+
+?ARIMA
 
 forecast.students.tsibble %>%
   group_by(.id) %>%

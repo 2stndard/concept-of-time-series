@@ -120,23 +120,84 @@ MAPE는 오차항(Error)의 백분률(Precentage)의 절대값의 평균(Mean)�
 
 -   Automated modelling in **fable** is obtained by simply not specifying the right hand side of the formula. This was shown in the `ARIMA()` and `ETS()` functions here.
 
-```{r fable}
+### 미래 학생수 예측
+
+```{r fable_students1}
 library(fable)
-model.fable.employees <- employees.tsibble %>%
-  model(
-    ets = ETS(total), 
-    arima = ARIMA(total), 
-    snaive = SNAIVE(total), 
-    tslm = TSLM(total), 
-    rw = RW(total)
-  )
-employees.tsibble %>% model(ETS(total)) %>% report()
+model.fable.studetns <- students.tsibble %>% model(ets = ETS(학생수계), 
+                                                   arima = ARIMA(학생수계), 
+                                                   naive = NAIVE(학생수계), 
+                                                   tslm = TSLM(학생수계),
+                                                   rw = RW(학생수계),
+                                                   mean = MEAN(학생수계),
+                                                   nnetar = NNETAR(학생수계),
+                                                   prophet = prophet(학생수계)
+                                                   )
+```
 
-forecast.fable.employees <- model.fable.employees %>% fable::forecast(h = '2 years')
+```{r fable_students2}
+forecast.fable.students <- model.fable.studetns %>% forecast(h = 10)
+```
 
-forecast.fable.employees %>% autoplot(level = NULL, data = employees.tsibble)
+```{r fable_students3}
+forecast.fable.students %>% autoplot(students.tsibble, level = NULL)
+```
 
-accuracy(model.fable.employees)
+```{r fable_students4}
+model.fable.studetns %>% accuracy %>% arrange(RMSE)
+```
+
+```{r fable_students5}
+best.model.fable.students <- model.fable.studetns %>% select(prophet, arima)
+```
+
+```{r fable_students6}
+best.model.fable.students %>% forecast(h = 10) %>% autoplot(students.tsibble, level = NULL) + autolayer(fitted(best.model.fable.students)) + geom_point(aes(x = 연도, y = 학생수계))
+```
+
+### 미래 취업자수 예측
+
+```{r fable_employees1}
+model.fable.employees <- employees.tsibble %>% model(ets = ETS(total), 
+                                                    arima = ARIMA(total), 
+                                                    naive = NAIVE(total), 
+                                                    tslm = TSLM(total),
+                                                    rw = RW(total),
+                                                    mean = MEAN(total),
+                                                    nnetar = NNETAR(total),
+                                                    prophet = prophet(total)
+                                                    )
+```
+
+```{r fable_employees2}
+forecast.fable.employees <- model.fable.employees %>% forecast(h = 12)
+```
+
+```{r fable_employees3}
+forecast.fable.employees %>% autoplot(employees.tsibble, level = NULL)
+```
+
+```{r fable_employees4}
+model.fable.employees %>% accuracy %>% arrange(RMSE)
+```
+
+```{r fable_employees5}
+best.model.fable.employees <- model.fable.employees %>% select(ets, prophet)
+```
+
+```{r fable_employees6}
+best.model.fable.employees %>% 
+  forecast(h = 12) %>% 
+  autoplot(employees.tsibble, level = NULL, lwd = 1) + 
+  autolayer(fitted(best.model.fable.employees), lwd = 1) + 
+  geom_point(aes(x = yearmonth, y = total)) + 
+  labs(title = '전체 취업자수 예측', x = '년월', y = '취업자수')
+```
+
+### 미래 코로나 확진자수 예측
+
+```{r fable_covid1}
+
 ```
 
 ## modeltime

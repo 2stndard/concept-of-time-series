@@ -388,3 +388,29 @@ employees.tsibble %>% model(ets_A = ETS(log(total) ~ season("M")),
                             ets_M = ETS(log(total) ~ season("M")), 
                             ets = ETS(total)
                             ) %>% forecast %>% autoplot(level = NULL, data = employees.tsibble)
+
+
+model.fable.employees <- employees.tsibble %>% model(ets = ETS(total), 
+                                                    arima = ARIMA(total), 
+                                                    naive = NAIVE(total), 
+                                                    tslm = TSLM(total),
+                                                    rw = RW(total),
+                                                    mean = MEAN(total),
+                                                    nnetar = NNETAR(total),
+                                                    prophet = prophet(total)
+                                                    )
+
+forecast.fable.employees <- model.fable.employees %>% forecast(h = 12)
+
+forecast.fable.employees %>% autoplot(employees.tsibble, level = NULL)
+
+model.fable.employees %>% accuracy %>% arrange(RMSE)
+
+best.model.fable.employees <- model.fable.employees %>% select(ets, prophet)
+
+best.model.fable.employees %>% 
+  forecast(h = 12) %>% 
+  autoplot(employees.tsibble, level = NULL, lwd = 1) + 
+  autolayer(fitted(best.model.fable.employees), lwd = 1) + 
+  geom_point(aes(x = yearmonth, y = total)) + 
+  labs(title = '전체 취업자수 예측', x = '년월', y = '취업자수')
