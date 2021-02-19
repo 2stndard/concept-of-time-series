@@ -285,7 +285,7 @@ autoplot(wide.covid19.by.age.ts[,2], main = '일별 확진자수(0-9세)', xlab 
 
 ## tsibble : feasts 패키지
 
-tsibble 객체는 forecast 패키지에서 제공하는 autoplot() 함수를 통해 ploting 할 수 있다. 다만 tsibble 객체를 ploting 하기 위해서는 feasts 패키지를 설치 후 loading 시켜야 한다.
+forecast 패키지에서 제공하는 autoplot() 함수를 통해 ploting 할 수 있다. 다만 tsibble 객체를 ploting 하기 위해서는 feasts 패키지를 설치 후 loading 시켜야 한다.
 
 ```{r tsibble_students, warning=FALSE, message=FALSE}
 library(feasts)

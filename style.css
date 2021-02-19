@@ -60,3 +60,19 @@ h4.author { /* Header 4 - and the author and data headers use this too  */
   color: DarkRed;
   text-align: right;
 }
+.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+.boxBorder {
+ border: 2px solid #990066;
+ border-radius: 5px;
+ font-style: italic;
+ padding: 10px;
+ outline: #990066 solid 5px;
+ outline-offset: 5px;
+ }

@@ -1,3 +1,28 @@
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(dplyr)
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(more, x[lines], more)
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+```
+
 # 시계열 데이터 타입 및 Import
 
 시계열 데이터는 시간을 인덱스로 사용해야하기 때문에 반드시 시간형 데이터 클래스가 존재해야한다. R에서는 시간을 인덱스로 허용하는 데이터 클래스를 몇가지 제공하고 있는데 그 클래스에 따라 데이터 핸들링 함수, ploting 함수, 모델 생성 함수 등의 사용법이 다르기 때문에 주의깊게 설정해야 한다. 또한 각각의 데이터 클래스들이 장단점을 가지기 때문에 데이터 간의 변환을 통해 사용해야할 경우도 있다. 이 장에서는 R에서 제공하는 시계열 객체, 패키지에서 제공하는 시계열 클래스를 소개하고 각각의 특징을 설명한다.
@@ -159,11 +184,23 @@ head(as.xts(ts))  # 시계열 형태로 보임
 
 ### tsibble
 
-tsibble 객체는 tibble 객체를 확장하여 tidy 데이터 원칙을 준용하여 시계열 데이터를 다룰수 있도록 한 임시 객체이다. 따라서 tibble 객체는 데이터 중심(Data-Oriented)이며 모델 중심(Model-Oriented) 객체이다. tsibble 객체는 과거부터 현재까지의 순서가 기록된 index를 지니고, tibble에서 사용하는 key는 시간의 흐름을 포함해서 각 관찰치는 index와 key를 통해 고유하게 식별되며, 시간간격은 일정한 간격을 두고 측정되어야 한다. [^data_import-7]
+R에서는 `tidyverse` 작업방법을 준용하면서 쉽게 작업할 수 있는 시계열 데이터 객체, 분석 방법 등을 종합적으로 제공하는 방법을 제공한다. 이 방법 중 하나가 `tidyverts` 패밀리 패키지들을 사용하는 것이다.
 
-[^data_import-7]: <https://github.com/tidyverts/tsibble>
+`tidyverts`는 `tidyverse`처럼 단독으로 제공되는 패키지는 아니지만 시계열 데이터를 저장할 수 있는 객체 패키지인 `tsibble`, 시계열 예측을 위한 `fable`, 시계열 특성 추출과 통계를 위한 `feast`, 최근에 페이스 북에서 개발된 prophet 모델을 사용하기 위한 `fable.prophet` 패키지 등이 포함한다.[^data_import-7]
 
--   tsibble 패키지 설치
+[^data_import-7]: <https://tidyverts.org/>
+
+`tsibble` 객체는 `tsibble` 패키지를 통해 제공되는 시계열 데이터 객체로써 tidy 데이터 원칙[^data_import-8]을 준용하여 시계열 데이터를 다룰수 있도록 한 `tibble` 객체의 시계열용 객체이다.
+
+[^data_import-8]: <https://tidyr.tidyverse.org/articles/tidy-data.html>
+
+`tsibble` 객체는 `tibble`에서 각 관찰치(objervation)을 고유한 식별할 수 있는 key에 추가적으로 시간의 순서가 지정되는 index를 필요로 한다. 즉 tibble 객체에서는 key로 특정 관찰치를 식별할 수 있지만 `tsibble`에서는 같은 key를 가진 시간(index)가 다른 관찰치가 존재하고 key와 index를 사용하여 고유한(unique) 관찰치를 식별하게 된다.[^data_import-9]
+
+[^data_import-9]: <https://github.com/tidyverts/tsibble>
+
+-   `tsibble` 패키지 설치
+
+`tsibble` 객체를 사용하기 위해서는 우선 `tsibble` 패키지를 설치하고 로딩해야한다. 다음과 같이 설치는 `install.package` 함수를 사용하고 로딩은 `library` 함수를 사용한다.
 
 ```{r message=FALSE, paged.print=TRUE}
 if(!require(tsibble)) {
@@ -174,17 +211,30 @@ if(!require(tsibble)) {
 
 -   tsibble 객체 생성
 
+tsibble 패키지를 로딩한 후에 tsibble 객체를 생성할 수 있다. tsibble 객체를 생성하는 방법은 tsibble 함수를 사용해서 직접 tsibble 객체를 생성할 수도 있고 data.frame으로 생성된 객체를 as.tsibble 함수를 사용해 tsibble 객체로 변환하는 방법이 있다. 이 중 data.frame을 tsibble 객체로 변환하는 방법은 다음과 같다.
+
 ```{r}
 library(dplyr)
-x <- data.frame(date = as.Date('2008-01-01') + 0:9, id = 1:10, x1 = rnorm(10), x2= rep('a', 10))  ### tsibble로 변환할 data.frame 생성
-as_tsibble(x, key = id, index = date)  ### data.frame을 tsibble로 변환
+x <- data.frame(date = as.Date('2008-01-01') + 0:9, id = 1:10, x1 = rnorm(10), x2= rep('a', 10))  ### code 1
+as_tsibble(x, key = id, index = date)  ### code 2
+as_tsibble(x, index = date)  ### code 3
 ```
+
+::: {.comment}
+코드설명
+
+code 1 : tsibble로 변환할 data.frame x를생성한다. date 컬럼은 '2008년 1월 1일'(as.Data('2008-01-01'))부터 10일후 까지( + 0:9)이고 id 컬럼은 1부터 10까지(1:10), x1은 정규분포 랜덤값 10개(rnorm(10)), x2는 'a'(rep('a', 10))로 채운다
+
+code 2 : as.tsibble 함수로 x를 tsibble로 변환하는데 key값은 id(key = id), index 값은 date(index = date)로 설정한다.
+
+code 3 : as.tsibble 함수로 x를 tsibble로 변환하는데 key값은 생략하고, index 값은 date(index = date)로 설정한다.
+:::
 
 ### modeltime
 
-'tidymodel'과 같이 사용이 가능한 시계열 예측 프레임워크이다. modeltime 패키지에서 제공하는 시계열 모델은 ARIMA, Exponential Smoothing 외에도 'forecast' 패키지와 'prophet' 패키지에서 제공하는 추가적인 시계열 모델을 제공함.[^data_import-8] 이 패키지는 'tidymodel'과 같이 사용하는 기본 사상으로 특별한 시계열 데이터 타입을 제공하지 않고 tibble 데이터 타입을 사용할 수 있다는 장점이 있음.
+'tidymodel'과 같이 사용이 가능한 시계열 예측 프레임워크이다. modeltime 패키지에서 제공하는 시계열 모델은 ARIMA, Exponential Smoothing 외에도 'forecast' 패키지와 'prophet' 패키지에서 제공하는 추가적인 시계열 모델을 제공함.[^data_import-10] 이 패키지는 'tidymodel'과 같이 사용하는 기본 사상으로 특별한 시계열 데이터 타입을 제공하지 않고 tibble 데이터 타입을 사용할 수 있다는 장점이 있음.
 
-[^data_import-8]: <https://cran.r-project.org/web/packages/modeltime/index.html>
+[^data_import-10]: <https://cran.r-project.org/web/packages/modeltime/index.html>
 
 -   modeltime 패키지 설치
 
@@ -205,9 +255,9 @@ if(!require(modeltime)) {
 
 데이터를 파일에서 읽어들여 data.frame에 저장 후 저장된 data.frame을 시계열 데이터 타입으로 변환한다.
 
-다음 예제에서 사용하는 자료는 연도별 학교급별 학생수 자료로 한국교육개발원 교육통계 서비스 홈페이지[^data_import-9]에서 다운로드하였으며 연도별 시계열 데이터 샘플로 사용한다.
+다음 예제에서 사용하는 자료는 연도별 학교급별 학생수 자료로 한국교육개발원 교육통계 서비스 홈페이지[^data_import-11]에서 다운로드하였으며 연도별 시계열 데이터 샘플로 사용한다.
 
-[^data_import-9]: <https://kess.kedi.re.kr/userfile/6711778>
+[^data_import-11]: <https://kess.kedi.re.kr/userfile/6711778>
 
 1.  read_excel 함수를 통해 excel 파일을 바로 읽어들일 수 있다. 아래의 예제를 실행시 warning이 발생하는 이유는 read_excel 함수는 데이터를 로드할 때 데이터의 형태에 따라 적절한 데이터 타입을 매칭하는데 read_excel 함수에서 추천된 데이터 타입과 지정된 데이터 타입이 다를 경우 발생되는 warning이다.
 
@@ -287,9 +337,9 @@ head(xts.class)
 
 ### 월별 데이터 - 경제활동 인구조사 산업별 취업자수
 
-경제활동 인구조사 취업자수는 통계청 KOSIS 홈페이지에서 다운로드[^data_import-10]받을 수 있는데 '국내통계 \> 노동 \> 경제활동인구조사 \> 취업자 \> 산업별 취업자'에서 시점을 2013.1월부터 2020.12월까지, 산업구분을 전체 계와 교육서비스업으로 설정 후 행렬전환 기능을 사용하여 행에 기간, 열에 산업을 설정한 후 다운로드 받았는데 필자의 github에서 [다운](https://github.com/2stndard/concept-of-time-series/blob/master/%EC%82%B0%EC%97%85%EB%B3%84_%EC%B7%A8%EC%97%85%EC%9E%90_20210206234505.csv')받을 수 있다.(csv 파일을 다운로드받는 방법은 다음의 사이트를 참조하길 바란다. <https://technical-support.tistory.com/54>)
+경제활동 인구조사 취업자수는 통계청 KOSIS 홈페이지에서 다운로드[^data_import-12]받을 수 있는데 '국내통계 \> 노동 \> 경제활동인구조사 \> 취업자 \> 산업별 취업자'에서 시점을 2013.1월부터 2020.12월까지, 산업구분을 전체 계와 교육서비스업으로 설정 후 행렬전환 기능을 사용하여 행에 기간, 열에 산업을 설정한 후 다운로드 받았는데 필자의 github에서 [다운](https://github.com/2stndard/concept-of-time-series/blob/master/%EC%82%B0%EC%97%85%EB%B3%84_%EC%B7%A8%EC%97%85%EC%9E%90_20210206234505.csv')받을 수 있다.(csv 파일을 다운로드받는 방법은 다음의 사이트를 참조하길 바란다. <https://technical-support.tistory.com/54>)
 
-[^data_import-10]: <https://kosis.kr/statisticsList/statisticsListIndex.do?parentId=D.1&menuId=M_01_01&vwcd=MT_ZTITLE&parmTabId=M_01_01&entrType=btn#content-group>
+[^data_import-12]: <https://kosis.kr/statisticsList/statisticsListIndex.do?parentId=D.1&menuId=M_01_01&vwcd=MT_ZTITLE&parmTabId=M_01_01&entrType=btn#content-group>
 
 ```{r}
 employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
@@ -302,9 +352,9 @@ employees.tsibble <- as_tsibble(employees, index = time)
 
 ### 일별 데이터 - 코로나 확진자 수
 
-일별 코로나 확진자수는 통계청 KOSIS 홈페이지에서 다운로드[^data_import-11]받았고 필자의 github에서 다운로드 받을수 있다. 전체 데이터 중 연령별 데이터만 필터하였고 spread() 함수를 사용하여 긴(long) 형태의 데이터 프레임을 넓은(wide) 형태의 데이터프레임으로 변환하였다.
+일별 코로나 확진자수는 통계청 KOSIS 홈페이지에서 다운로드[^data_import-13]받았고 필자의 github에서 다운로드 받을수 있다. 전체 데이터 중 연령별 데이터만 필터하였고 spread() 함수를 사용하여 긴(long) 형태의 데이터 프레임을 넓은(wide) 형태의 데이터프레임으로 변환하였다.
 
-[^data_import-11]: <https://kosis.kr/covid/covid_index.do>
+[^data_import-13]: <https://kosis.kr/covid/covid_index.do>
 
 ```{r}
 covid19 <- read.csv('./covid19.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)

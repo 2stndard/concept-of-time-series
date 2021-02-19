@@ -104,7 +104,15 @@ MAPE는 오차항(Error)의 백분률(Precentage)의 절대값의 평균(Mean)�
 ((students.total.ts[,1] - fitted(arima)) / students.total.ts[,1] * 100) %>% abs() %>% mean()
 ```
 
-## fable
+## fable framework
+
+`fable` 프레임워크는 패키지로 제공되는데 시계열 데이터 분석을 위한 프레임워크로 동으로 평균모델, 랜덤워크 모델 등 심플 모델부터 지수 평활 모델, 자기 회귀 모델과 같이 전통적으로 오랫동안 사용되어 온 모델, 신경망 모델, prophet 모델 등 최근에 개발된 모델까지 생성하여 비교해서 최적의 모델을 선택할 수 있는 종합적인 방법을 제공한다.
+
+`fable` 프레임워크는 지수 평활 모델, 자기 회귀 모델 등을 사용하기 위해 선택해야하는 모델 계수들을 자동적으로 선택해주고 일변량과 다변량을 모두 지원하기 때문에 초보자들이 사용하기 쉽다. 이 프레임워크는 `fabletools`패키지를 기반으로 작동하고 `tidyverse`와 일치하는 워크 플로에서 모델을 평가, 시각화 및 결합하는 도구를 제공한다.
+
+![tidyverse 워크플로우](tidyverse_workflow.png "tidyverse 워크플로우")
+
+`fable` 프레임워크에서 사용하는
 
 -   **fable** is designed for `tsibble` objects, **forecast** is designed for `ts` objects.
 
@@ -276,15 +284,23 @@ best.model.covid19.by.age.tsibble %>%
 
 ## modeltime
 
-Just follow the `modeltime` workflow, which is detailed in 6 convenient steps:
+> Just follow the `modeltime` workflow, which is detailed in 6 convenient steps:
 
-1.  Collect data and split into training and test sets
+1.  <div>
+
+    | Collect data and split into training and test sets
+
+    </div>
 
 2.  Create & Fit Multiple Models
 
-3.  Add fitted models to a **Model Table**
+3.  Add fitted **models** to a **Model Table**
 
-4.  **Calibrate** the models to a testing set.
+4.  <div>
+
+    **Calibrate** the models to a testing set.
+
+    </div>
 
 5.  Perform Testing Set *Forecast* & *Accuracy* Evaluation
 
