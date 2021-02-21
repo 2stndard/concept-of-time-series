@@ -665,3 +665,28 @@ accuracy(fit)
 autoplot(level = NULL, data = employees.tsibble)
 
 install.packages('tidyverts')
+
+data(goog200, package = 'datasets')
+library(fpp2)
+goog200
+
+autoplot(goog) + 
+  labs(title = '구글의 주가변동', subtitle = '2013.02.25부터 2017.02.13일까지', y = '종가', x = '일수') +
+  scale_y_continuous(labels = scales::dollar) + 
+  ggthemes::theme_fivethirtyeight()
+
+fig_auto <- read.csv('clipboard', header = F, sep = '\t')
+ggplot(fig_auto, aes(V1, V2)) + geom_point() +
+  labs(x = '학생수', y = '1년전학생수') + 
+  scale_y_continuous(labels = scales::comma_format()) + 
+  scale_x_continuous(labels = scales::comma_format())
+
+ggplot(students, aes(x = 연도, y = 학생수계)) + 
+  geom_line(aes(group = 1)) + geom_point() +
+  labs(x = '연도', y = '총학생수') + 
+  scale_y_continuous(labels = scales::comma_format()) + 
+  geom_smooth(method = 'lm') + 
+  ggthemes::theme_economist()
+
+?as.Date
+?read.csv                     

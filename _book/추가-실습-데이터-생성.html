@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.4 추가 실습 데이터 생성 | Untitled</title>
+  <meta name="description" content="2.4 추가 실습 데이터 생성 | Untitled" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.4 추가 실습 데이터 생성 | Untitled" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.4 추가 실습 데이터 생성 | Untitled" />
+  
+  
+  
+
+<meta name="author" content="이기준" />
+
+
+<meta name="date" content="2021-02-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="시계열-데이터-import.html"/>
+<link rel="next" href="시계열-visualization.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="시계열-데이터란.html"><a href="시계열-데이터란.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?</a></li>
+<li class="chapter" data-level="1.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html"><i class="fa fa-check"></i><b>1.2</b> 시계열 데이터의 특성</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
+<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.3" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 타입 및 Import</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 데이터 클래스</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#date-클래스"><i class="fa fa-check"></i><b>2.1.1</b> date 클래스</a></li>
+<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-data-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt data class</a></li>
+<li class="chapter" data-level="2.1.3" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#yearmon-yearqtr-class"><i class="fa fa-check"></i><b>2.1.3</b> yearmon, yearqtr class</a></li>
+<li class="chapter" data-level="2.1.4" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#날짜-시간-포맷"><i class="fa fa-check"></i><b>2.1.4</b> 날짜, 시간 포맷</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html"><i class="fa fa-check"></i><b>2.2</b> 시계열 데이터 객체(Object)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html#ts-r-basestats"><i class="fa fa-check"></i><b>2.2.1</b> ts : R base(stats)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html#xts"><i class="fa fa-check"></i><b>2.2.2</b> xts</a></li>
+<li class="chapter" data-level="2.2.3" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html#tsibble"><i class="fa fa-check"></i><b>2.2.3</b> tsibble</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html"><i class="fa fa-check"></i><b>2.3</b> 시계열 데이터 Import</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#엑셀-파일"><i class="fa fa-check"></i><b>2.3.1</b> 엑셀 파일</a></li>
+<li class="chapter" data-level="2.3.2" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#csv-파일"><i class="fa fa-check"></i><b>2.3.2</b> CSV 파일</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="추가-실습-데이터-생성.html"><a href="추가-실습-데이터-생성.html"><i class="fa fa-check"></i><b>2.4</b> 추가 실습 데이터 생성</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="추가-실습-데이터-생성.html"><a href="추가-실습-데이터-생성.html#일별-데이터---코로나-확진자-수"><i class="fa fa-check"></i><b>2.4.1</b> 일별 데이터 - 코로나 확진자 수</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="시계열-visualization.html"><a href="시계열-visualization.html"><i class="fa fa-check"></i><b>3</b> 시계열 Visualization</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-frame-ggplot2-패키지.html"><a href="data-frame-ggplot2-패키지.html"><i class="fa fa-check"></i><b>3.1</b> data.frame : ggplot2 패키지</a></li>
+<li class="chapter" data-level="3.2" data-path="xts-xts-패키지.html"><a href="xts-xts-패키지.html"><i class="fa fa-check"></i><b>3.2</b> xts : xts 패키지</a></li>
+<li class="chapter" data-level="3.3" data-path="ts-forecast-패키지.html"><a href="ts-forecast-패키지.html"><i class="fa fa-check"></i><b>3.3</b> ts : forecast 패키지</a></li>
+<li class="chapter" data-level="3.4" data-path="tsibble-feasts-패키지.html"><a href="tsibble-feasts-패키지.html"><i class="fa fa-check"></i><b>3.4</b> tsibble : feasts 패키지</a></li>
+<li class="chapter" data-level="3.5" data-path="data-frame-timetk-패키지.html"><a href="data-frame-timetk-패키지.html"><i class="fa fa-check"></i><b>3.5</b> data.frame : timetk 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html"><i class="fa fa-check"></i><b>4.1</b> 시계열 데이터 정보 다루기</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-정보-추출"><i class="fa fa-check"></i><b>4.1.1</b> 시계열 정보 추출</a></li>
+<li class="chapter" data-level="4.1.2" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-연산"><i class="fa fa-check"></i><b>4.1.2</b> 시계열 데이터 연산</a></li>
+<li class="chapter" data-level="4.1.3" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-반올림"><i class="fa fa-check"></i><b>4.1.3</b> 시계열 데이터 반올림</a></li>
+<li class="chapter" data-level="4.1.4" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-grouping"><i class="fa fa-check"></i><b>4.1.4</b> 시계열 데이터 Grouping</a></li>
+<li class="chapter" data-level="4.1.5" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-ohlc"><i class="fa fa-check"></i><b>4.1.5</b> 시계열 데이터 OHLC</a></li>
+<li class="chapter" data-level="4.1.6" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-rolling"><i class="fa fa-check"></i><b>4.1.6</b> 시계열 데이터 Rolling</a></li>
+<li class="chapter" data-level="4.1.7" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-filtering"><i class="fa fa-check"></i><b>4.1.7</b> 시계열 데이터 Filtering</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html"><i class="fa fa-check"></i><b>4.2</b> 시계열 데이터 응용 사례</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-합계"><i class="fa fa-check"></i><b>4.2.1</b> 월별, 분기별, 연별 합계</a></li>
+<li class="chapter" data-level="4.2.2" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-증감량"><i class="fa fa-check"></i><b>4.2.2</b> 월별, 분기별, 연별 증감량</a></li>
+<li class="chapter" data-level="4.2.3" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월-비중-백분율-연-비중-백분율"><i class="fa fa-check"></i><b>4.2.3</b> 월 비중 백분율, 연 비중 백분율</a></li>
+<li class="chapter" data-level="4.2.4" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-누적합계"><i class="fa fa-check"></i><b>4.2.4</b> 월별, 분기별, 연별 누적합계</a></li>
+<li class="chapter" data-level="4.2.5" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#동월별-동분기별-동년별-plot"><i class="fa fa-check"></i><b>4.2.5</b> 동월별, 동분기별, 동년별 Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="정상성stationary-비정상성non-stationary.html"><a href="정상성stationary-비정상성non-stationary.html"><i class="fa fa-check"></i><b>5.1</b> 정상성(Stationary), 비정상성(Non-Stationary)</a></li>
+<li class="chapter" data-level="5.2" data-path="지연lag와-차분difference.html"><a href="지연lag와-차분difference.html"><i class="fa fa-check"></i><b>5.2</b> 지연(Lag)와 차분(Difference)</a></li>
+<li class="chapter" data-level="5.3" data-path="acf와-pacf.html"><a href="acf와-pacf.html"><i class="fa fa-check"></i><b>5.3</b> ACF와 PACF</a></li>
+<li class="chapter" data-level="5.4" data-path="적합값fitted-value-와-잔차residuals.html"><a href="적합값fitted-value-와-잔차residuals.html"><i class="fa fa-check"></i><b>5.4</b> 적합값(fitted value) 와 잔차(residuals)</a></li>
+<li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
+<li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
+<li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-ploting과-테스트.html"><a href="계절성-ploting과-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 ploting과 테스트</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="simple-모델.html"><a href="simple-모델.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="simple-모델.html"><a href="simple-모델.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
+<li class="chapter" data-level="6.1.2" data-path="simple-모델.html"><a href="simple-모델.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.3" data-path="simple-모델.html"><a href="simple-모델.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.4" data-path="simple-모델.html"><a href="simple-모델.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
+<li class="chapter" data-level="6.1.5" data-path="simple-모델.html"><a href="simple-모델.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>6.2.1</b> tslm 함수(forecast 패키지)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 모델</a></li>
+<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
+<li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.4.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
+<li class="chapter" data-level="6.4.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.4.2</b> 이동평균 모델(Moving Average Model)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.4.3</b> ARIMA 모델 결정</a></li>
+<li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
+<li class="chapter" data-level="6.6" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.6</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.7" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.7</b> Neural Network 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html"><i class="fa fa-check"></i><b>7.1</b> 성능분석 지수</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.1</b> RMSE(Root Means Squaread Error)</a></li>
+<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mae"><i class="fa fa-check"></i><b>7.1.2</b> MAE</a></li>
+<li class="chapter" data-level="7.1.3" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mpe"><i class="fa fa-check"></i><b>7.1.3</b> MPE</a></li>
+<li class="chapter" data-level="7.1.4" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mape"><i class="fa fa-check"></i><b>7.1.4</b> MAPE</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="fable-framework.html"><a href="fable-framework.html"><i class="fa fa-check"></i><b>7.2</b> fable framework</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="fable-framework.html"><a href="fable-framework.html#미래-학생수-예측"><i class="fa fa-check"></i><b>7.2.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.2.2" data-path="fable-framework.html"><a href="fable-framework.html#미래-취업자수-예측"><i class="fa fa-check"></i><b>7.2.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.2.3" data-path="fable-framework.html"><a href="fable-framework.html#미래-코로나-확진자수-예측"><i class="fa fa-check"></i><b>7.2.3</b> 미래 코로나 확진자수 예측</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="modeltime.html"><a href="modeltime.html"><i class="fa fa-check"></i><b>7.3</b> modeltime</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="modeltime.html"><a href="modeltime.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modeltime.html"><a href="modeltime.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modeltime.html"><a href="modeltime.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a>
+<ul>
+<li class="chapter" data-level="7.4" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>7.4</b> R Markdown</a></li>
+<li class="chapter" data-level="7.5" data-path="including-plots.html"><a href="including-plots.html"><i class="fa fa-check"></i><b>7.5</b> Including Plots</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Untitled</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="추가-실습-데이터-생성" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> 추가 실습 데이터 생성</h2>
+<p>앞서 생성한 두개의 데이터셋(students, employees)에 더하여 하나의 추가 데이터셋을 더 생성할 것이다. 일별 데이터로써 코로나 확진자수 데이터셋을 생성할 것이다. 코로나 데이터 셋은 통계청 KOSIS 홈페이지의 코로나 현황 홈페이지에서 다운로드 받았다. 앞서 생성한 연별 데이터(students), 월별 데이터(employees)에 추가적으로 일별 데이터를 생성한다.</p>
+<div id="일별-데이터---코로나-확진자-수" class="section level3" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> 일별 데이터 - 코로나 확진자 수</h3>
+<p>일별 코로나 확진자수는 통계청 KOSIS 홈페이지에서 다운로드<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>받았고 필자의 github에서 다운로드 받을수 있다. 이 데이터 셋을 사용하기 위해서는 <code>spread()</code>를 사용하여 긴(long) 형태의 데이터 프레임을 넓은(wide) 형태의 데이터프레임이 필요하다.</p>
+<p>먼저 <code>read.csv()</code>를 이용하여 파일의 데이터를 읽어들인다.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="추가-실습-데이터-생성.html#cb67-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;./covid19.csv&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na =</span> <span class="st">&#39;-&#39;</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb67-2"><a href="추가-실습-데이터-생성.html#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(covid19) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;category&#39;</span>, <span class="st">&#39;status&#39;</span>, <span class="st">&#39;date&#39;</span>, <span class="st">&#39;value&#39;</span>)</span>
+<span id="cb67-3"><a href="추가-실습-데이터-생성.html#cb67-3" aria-hidden="true" tabindex="-1"></a>covid19 <span class="ot">&lt;-</span> covid19[, <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)]</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드 설명</p>
+<ul>
+<li><code>read.csv()</code>를 사용하여 csv 파일의 데이터를 읽어오는데 csv 파일의 첫줄은 헤더줄로 설정(<code>header = TRUE</code>), ’-’로 기록된 데이터는 NA로 설정(<code>na = '-'</code>), 빈칸은 제거(<code>strip.white = TRUE</code>), 문자열은 factor로 설정(<code>stringsAsFactors = TRUE</code>)</li>
+<li>컬럼명을 ‘category,’ ‘status,’ ‘date,’ ’value’로 설정</li>
+<li>데이터프레임을 보기쉽게 하기 위해 컬럼의 순서를 바꿈</li>
+</ul></li>
+</ul>
+</div>
+<p>날짜 컬럼을 만들기 위해 date 컬럼의 데이터를 date 클래스로 바꾼다.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="추가-실습-데이터-생성.html#cb68-1" aria-hidden="true" tabindex="-1"></a>covid19<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(covid19<span class="sc">$</span>date, <span class="st">&quot;%Y. %m. %d&quot;</span>)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드 설명</p>
+<ul>
+<li>읽어들인 데이터의 date 컬럼의 데이터 클래스를 바꾸기 위해 <code>as.Date()</code>를 사용하는데 문자열 형태가 <code>date</code> 클래스의 기본형태가 아니기 때문에 R이 년월일을 제대로 읽을 수 있도록 <code>format</code> 매개변수를 사용하여 문자열 형태에서 날짜 정보를 추출하기 위한 정보(‘%Y. %m. %d’)를 전달</li>
+</ul></li>
+</ul>
+</div>
+<p>읽어들인 데이터 중에 연령대별 데이터만 사용하기 위해 category 컬럼에서 ’세’를 포함한 행만 선택하는데 지역구분중에 ’세종’이 있기 때문에 ’세종’만 추가적으로 제외한다.그 다음 데이터에 NA로 기록된 결측치를 처리한다. 결측치를 처리하는 방법으로 여러가지가 있지만 여기서는 일단 0을 넣어주는 방법으로 결측치를 처리하였다.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="추가-실습-데이터-생성.html#cb69-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="ot">&lt;-</span> covid19 <span class="sc">%&gt;%</span> </span>
+<span id="cb69-2"><a href="추가-실습-데이터-생성.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">&#39;세&#39;</span>, category)) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-3"><a href="추가-실습-데이터-생성.html#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">!=</span> <span class="st">&#39;세종&#39;</span>)</span>
+<span id="cb69-4"><a href="추가-실습-데이터-생성.html#cb69-4" aria-hidden="true" tabindex="-1"></a>covid19<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(covid19<span class="sc">$</span>value), <span class="dv">0</span>, covid19<span class="sc">$</span>value)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드 설명</p>
+<ul>
+<li><p><code>grepl()</code>은 문자열에서 특정 문자가 존재하면 TRUE를 반환하는 함수임. category에서 ’세’문자가 존재하는 행을 골라내고, 다시 그 결과중에 ’세종’이 아닌 행만 골라내서 covid19에 저장함</p>
+<ul>
+<li><code>is.na()</code>로 covid1$value이 NA인지 검사하고 만약(<code>ifelse</code>) NA라면 0을 넣고 아니면 원래값(covid19$value)을 넣어줌. :</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<p>이제 사용해야할 데이터의 처리가 완료되었다. 시계열 데이터 처리에는 긴(long) 형태의 데이터보다는 넓은(wide) 형태의 데이터가 좋기 때문에 <code>spread()</code>를 사용하여 긴 형태를 좁은 형태로 바꾸었다.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="추가-실습-데이터-생성.html#cb70-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">spread</span>(covid19, category, value)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드 설명</p>
+<ul>
+<li>covid19 데이터프레임의 category의 변수들을 컬럼화하고 해당 컬럼에 넣을 데이터는 value로 채워넣음</li>
+</ul></li>
+</ul>
+</div>
+<p>데이터 정리가 다 끝났으므로 <code>ts</code>, <code>xts</code>, <code>tsibble</code> 객체로 변환한다.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="추가-실습-데이터-생성.html#cb71-1" aria-hidden="true" tabindex="-1"></a>covid19.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(covid19[, <span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">frequency =</span> <span class="dv">365</span>)</span>
+<span id="cb71-2"><a href="추가-실습-데이터-생성.html#cb71-2" aria-hidden="true" tabindex="-1"></a>covid19.xts <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(covid19[, <span class="dv">3</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">order.by =</span> covid19<span class="sc">$</span>date)</span>
+<span id="cb71-3"><a href="추가-실습-데이터-생성.html#cb71-3" aria-hidden="true" tabindex="-1"></a>covid19.tsibble <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(covid19, <span class="at">index =</span> date)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드 설명</p>
+<ul>
+<li><code>ts()</code>를 사용하여 covid19를 <code>ts</code>로 변환하는데 covid19의 두번째부터 10번째컬럼(<code>covid19[, 2:10]</code>)까지를 사용하고 일별 데이터이기 때문에 시계열 주기를 365로 설정(<code>frequency = 365</code>)</li>
+<li><code>xts()</code>를 사용하여 covid19를 <code>xts</code>로 변환하는데 covid19의 세번째부터 10번째컬럼(<code>covid19[, 3:10]</code>)까지를 사용하고 시간인덱스를 covid19$date로 설정(<code>order.by = covid19\$date</code>)</li>
+<li><code>as_tsibble()</code>을 사용하여 covid19를 <code>tsibble</code>로 변환하는데 시간인덱스를 date로 설정(<code>index = date</code>)</li>
+</ul></li>
+</ul>
+</div>
+
+</div>
+</div>
+<!-- </div> -->
+<div class="footnotes">
+<hr />
+<ol start="11">
+<li id="fn11"><p><a href="https://kosis.kr/covid/covid_index.do" class="uri">https://kosis.kr/covid/covid_index.do</a><a href="추가-실습-데이터-생성.html#fnref11" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="시계열-데이터-import.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="시계열-visualization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["t.pdf", "t.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

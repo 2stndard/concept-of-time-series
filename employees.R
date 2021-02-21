@@ -414,3 +414,14 @@ best.model.fable.employees %>%
   autolayer(fitted(best.model.fable.employees), lwd = 1) + 
   geom_point(aes(x = yearmonth, y = total)) + 
   labs(title = '전체 취업자수 예측', x = '년월', y = '취업자수')
+
+
+employees %>%
+  ggplot(aes(x = time, y = total)) + 
+  geom_line(aes(group = 1)) +
+  labs(x = '연도', y = '신규 취업자수') + 
+  scale_y_continuous(labels = scales::comma_format()) +
+  scale_x_date(breaks = '1 year') + 
+  ggthemes::theme_economist()
+
+?scale_x_date

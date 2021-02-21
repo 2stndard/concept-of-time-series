@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1.2 시계열 데이터의 특성 | Untitled</title>
+  <meta name="description" content="1.2 시계열 데이터의 특성 | Untitled" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1.2 시계열 데이터의 특성 | Untitled" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1.2 시계열 데이터의 특성 | Untitled" />
+  
+  
+  
+
+<meta name="author" content="이기준" />
+
+
+<meta name="date" content="2021-02-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="시계열-데이터란.html"/>
+<link rel="next" href="시계열-데이터-타입-및-import.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="시계열-데이터란.html"><a href="시계열-데이터란.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?</a></li>
+<li class="chapter" data-level="1.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html"><i class="fa fa-check"></i><b>1.2</b> 시계열 데이터의 특성</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
+<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.3" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 타입 및 Import</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 데이터 클래스</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#date-클래스"><i class="fa fa-check"></i><b>2.1.1</b> date 클래스</a></li>
+<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-data-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt data class</a></li>
+<li class="chapter" data-level="2.1.3" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#yearmon-yearqtr-class"><i class="fa fa-check"></i><b>2.1.3</b> yearmon, yearqtr class</a></li>
+<li class="chapter" data-level="2.1.4" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#날짜-시간-포맷"><i class="fa fa-check"></i><b>2.1.4</b> 날짜, 시간 포맷</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html"><i class="fa fa-check"></i><b>2.2</b> 시계열 패키지 및 데이터 객체(Object)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#ts"><i class="fa fa-check"></i><b>2.2.1</b> ts</a></li>
+<li class="chapter" data-level="2.2.2" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#zoo"><i class="fa fa-check"></i><b>2.2.2</b> zoo</a></li>
+<li class="chapter" data-level="2.2.3" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#xts"><i class="fa fa-check"></i><b>2.2.3</b> xts</a></li>
+<li class="chapter" data-level="2.2.4" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#tsibble"><i class="fa fa-check"></i><b>2.2.4</b> tsibble</a></li>
+<li class="chapter" data-level="2.2.5" data-path="시계열-패키지-및-데이터-객체object.html"><a href="시계열-패키지-및-데이터-객체object.html#modeltime"><i class="fa fa-check"></i><b>2.2.5</b> modeltime</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html"><i class="fa fa-check"></i><b>2.3</b> 시계열 데이터 Import의 방법</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html#파일에서-시계열-데이터로-읽어들이는-방법"><i class="fa fa-check"></i><b>2.3.1</b> 파일에서 시계열 데이터로 읽어들이는 방법</a></li>
+<li class="chapter" data-level="2.3.2" data-path="시계열-데이터-import의-방법.html"><a href="시계열-데이터-import의-방법.html#직접-시계열-데이터-타입으로-읽어들이는-방법"><i class="fa fa-check"></i><b>2.3.2</b> 직접 시계열 데이터 타입으로 읽어들이는 방법</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="실습-데이터-생성.html"><a href="실습-데이터-생성.html"><i class="fa fa-check"></i><b>2.4</b> 실습 데이터 생성</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="실습-데이터-생성.html"><a href="실습-데이터-생성.html#월별-데이터---경제활동-인구조사-산업별-취업자수"><i class="fa fa-check"></i><b>2.4.1</b> 월별 데이터 - 경제활동 인구조사 산업별 취업자수</a></li>
+<li class="chapter" data-level="2.4.2" data-path="실습-데이터-생성.html"><a href="실습-데이터-생성.html#일별-데이터---코로나-확진자-수"><i class="fa fa-check"></i><b>2.4.2</b> 일별 데이터 - 코로나 확진자 수</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="시계열-visualization.html"><a href="시계열-visualization.html"><i class="fa fa-check"></i><b>3</b> 시계열 Visualization</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-frame-ggplot2-패키지.html"><a href="data-frame-ggplot2-패키지.html"><i class="fa fa-check"></i><b>3.1</b> data.frame : ggplot2 패키지</a></li>
+<li class="chapter" data-level="3.2" data-path="xts-xts-패키지.html"><a href="xts-xts-패키지.html"><i class="fa fa-check"></i><b>3.2</b> xts : xts 패키지</a></li>
+<li class="chapter" data-level="3.3" data-path="ts-forecast-패키지.html"><a href="ts-forecast-패키지.html"><i class="fa fa-check"></i><b>3.3</b> ts : forecast 패키지</a></li>
+<li class="chapter" data-level="3.4" data-path="tsibble-feasts-패키지.html"><a href="tsibble-feasts-패키지.html"><i class="fa fa-check"></i><b>3.4</b> tsibble : feasts 패키지</a></li>
+<li class="chapter" data-level="3.5" data-path="data-frame-timetk-패키지.html"><a href="data-frame-timetk-패키지.html"><i class="fa fa-check"></i><b>3.5</b> data.frame : timetk 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html"><i class="fa fa-check"></i><b>4.1</b> 시계열 데이터 정보 다루기</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-정보-추출"><i class="fa fa-check"></i><b>4.1.1</b> 시계열 정보 추출</a></li>
+<li class="chapter" data-level="4.1.2" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-연산"><i class="fa fa-check"></i><b>4.1.2</b> 시계열 데이터 연산</a></li>
+<li class="chapter" data-level="4.1.3" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-반올림"><i class="fa fa-check"></i><b>4.1.3</b> 시계열 데이터 반올림</a></li>
+<li class="chapter" data-level="4.1.4" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-grouping"><i class="fa fa-check"></i><b>4.1.4</b> 시계열 데이터 Grouping</a></li>
+<li class="chapter" data-level="4.1.5" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-ohlc"><i class="fa fa-check"></i><b>4.1.5</b> 시계열 데이터 OHLC</a></li>
+<li class="chapter" data-level="4.1.6" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-rolling"><i class="fa fa-check"></i><b>4.1.6</b> 시계열 데이터 Rolling</a></li>
+<li class="chapter" data-level="4.1.7" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-filtering"><i class="fa fa-check"></i><b>4.1.7</b> 시계열 데이터 Filtering</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html"><i class="fa fa-check"></i><b>4.2</b> 시계열 데이터 응용 사례</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-합계"><i class="fa fa-check"></i><b>4.2.1</b> 월별, 분기별, 연별 합계</a></li>
+<li class="chapter" data-level="4.2.2" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-증감량"><i class="fa fa-check"></i><b>4.2.2</b> 월별, 분기별, 연별 증감량</a></li>
+<li class="chapter" data-level="4.2.3" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월-비중-백분율-연-비중-백분율"><i class="fa fa-check"></i><b>4.2.3</b> 월 비중 백분율, 연 비중 백분율</a></li>
+<li class="chapter" data-level="4.2.4" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-누적합계"><i class="fa fa-check"></i><b>4.2.4</b> 월별, 분기별, 연별 누적합계</a></li>
+<li class="chapter" data-level="4.2.5" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#동월별-동분기별-동년별-plot"><i class="fa fa-check"></i><b>4.2.5</b> 동월별, 동분기별, 동년별 Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="정상성stationary-비정상성non-stationary.html"><a href="정상성stationary-비정상성non-stationary.html"><i class="fa fa-check"></i><b>5.1</b> 정상성(Stationary), 비정상성(Non-Stationary)</a></li>
+<li class="chapter" data-level="5.2" data-path="지연lag와-차분difference.html"><a href="지연lag와-차분difference.html"><i class="fa fa-check"></i><b>5.2</b> 지연(Lag)와 차분(Difference)</a></li>
+<li class="chapter" data-level="5.3" data-path="acf와-pacf.html"><a href="acf와-pacf.html"><i class="fa fa-check"></i><b>5.3</b> ACF와 PACF</a></li>
+<li class="chapter" data-level="5.4" data-path="적합값fitted-value-와-잔차residuals.html"><a href="적합값fitted-value-와-잔차residuals.html"><i class="fa fa-check"></i><b>5.4</b> 적합값(fitted value) 와 잔차(residuals)</a></li>
+<li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
+<li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
+<li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-ploting과-테스트.html"><a href="계절성-ploting과-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 ploting과 테스트</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="simple-모델.html"><a href="simple-모델.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="simple-모델.html"><a href="simple-모델.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
+<li class="chapter" data-level="6.1.2" data-path="simple-모델.html"><a href="simple-모델.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.3" data-path="simple-모델.html"><a href="simple-모델.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.4" data-path="simple-모델.html"><a href="simple-모델.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
+<li class="chapter" data-level="6.1.5" data-path="simple-모델.html"><a href="simple-모델.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>6.2.1</b> tslm 함수(forecast 패키지)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 모델</a></li>
+<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
+<li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.4.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
+<li class="chapter" data-level="6.4.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.4.2</b> 이동평균 모델(Moving Average Model)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.4.3</b> ARIMA 모델 결정</a></li>
+<li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
+<li class="chapter" data-level="6.6" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.6</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.7" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.7</b> Neural Network 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html"><i class="fa fa-check"></i><b>7.1</b> 성능분석 지수</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.1</b> RMSE(Root Means Squaread Error)</a></li>
+<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mae"><i class="fa fa-check"></i><b>7.1.2</b> MAE</a></li>
+<li class="chapter" data-level="7.1.3" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mpe"><i class="fa fa-check"></i><b>7.1.3</b> MPE</a></li>
+<li class="chapter" data-level="7.1.4" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mape"><i class="fa fa-check"></i><b>7.1.4</b> MAPE</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="fable-framework.html"><a href="fable-framework.html"><i class="fa fa-check"></i><b>7.2</b> fable framework</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="fable-framework.html"><a href="fable-framework.html#미래-학생수-예측"><i class="fa fa-check"></i><b>7.2.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.2.2" data-path="fable-framework.html"><a href="fable-framework.html#미래-취업자수-예측"><i class="fa fa-check"></i><b>7.2.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.2.3" data-path="fable-framework.html"><a href="fable-framework.html#미래-코로나-확진자수-예측"><i class="fa fa-check"></i><b>7.2.3</b> 미래 코로나 확진자수 예측</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="modeltime-1.html"><a href="modeltime-1.html"><i class="fa fa-check"></i><b>7.3</b> modeltime</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="modeltime-1.html"><a href="modeltime-1.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modeltime-1.html"><a href="modeltime-1.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modeltime-1.html"><a href="modeltime-1.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a>
+<ul>
+<li class="chapter" data-level="7.4" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>7.4</b> R Markdown</a></li>
+<li class="chapter" data-level="7.5" data-path="including-plots.html"><a href="including-plots.html"><i class="fa fa-check"></i><b>7.5</b> Including Plots</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Untitled</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="시계열-데이터의-특성" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> 시계열 데이터의 특성</h2>
+<div id="고정된-시간-독립변수" class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> 고정된 시간 독립변수</h3>
+<p>일반적으로 데이터 분석시에는 독립변수와 종속변수간의 관계를 분석하는 것이 목적인 경우가 많다.</p>
+<p>종속변수의 행동을 예측하기 위해서는 하나 혹은 여러개의 독립변수가 필요하고 이들간의 관계성을 도출함으로서 향후 독립변수에 따라 종속변수의 예측값을 도출한다. 예를 들어 자동차의 속도가 빠를수록 제동거리는 길수밖에 없다. 이를 그래프 상으로 보면 양의 상관관계를 보이는데 이 경우는 제동거리를 종속변수로, 자동차 속도를 독립변수로 분석할 수 있다.</p>
+<p><img src="%EA%B7%B8%EB%A6%BC1.png" /></p>
+<p>그러나 <strong>시계열 데이터는 독립변수가 시간으로 고정된다.</strong> 따라서 시계열 데이터는 타 변수와의 상관관계 없이 분석이 된다는 점에서 다른 데이터와의 차이가 있다.</p>
+<p>시계열 데이터를 구축하는데 중요한 요소는 시간 간격이 동일해야 한다는 점이다. 예를 들어 매월마다 측정된 어떤 물품의 판매량이 있다면 데이터 전체적으로 매월 데이터가 기록되어야 하지만 특정 기간동안 주간 데이터로 기록된다던지 분기데이터로 기록되면 올바른 시계열 데이터로 볼 수 없다. 매시간, 매일, 매월, 매분기, 매년 등 데이터가 기록된 간격이 일정해야 시계열 데이터를 다루기 위한 다양한 함수들에 적용이 가능함.</p>
+<p>이것은 간격이 일정하더라도 결측치에 의해 모든 간격의 데이터가 기록되지 않은 것과는 다르다. 결측치가 있는 데이터는 시계열 데이터의 plot을 만들고 EDA(Exploratory Data Analysis)를 수행할 수는 있으나 모델링을 하고 예측에 적용하기 위해서는 결측치를 적절히 처리하는 것이 중요하다.</p>
+</div>
+<div id="자기-상관관계" class="section level3" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> 자기 상관관계</h3>
+<p>최근 우리나라는 저출산 고령화 사회에 접어들었다고 한다. 우리나라의 출생아수는 지속적으로 줄고 있는 추세가 몇년째 계속되고 있다고 뉴스에서 보도되고 있다. 작년에 비해 올해가 줄었고 재작년에 비해 작년이 줄었다. 우리나라에 특별한 사건이나 이슈가 발생하지 않는 이상 이러한 추세는 반복될 것이다. 이와 같이 과거의 데이터가 현재의 데이터에 영향을 주는 경향을 자기상관이라고 한다.</p>
+<p>시계열 데이터는 일련의 시간간의 흐름에 따라 기록되는 데이터들의 집합이기 때문에 인접한 시간의 데이터간의 상관관계가 존재하는 경우가 많다.</p>
+<p>일반적으로 상관관계는 서로 다른 두개의 변수간의 영향성을 살펴본다. 기온과 아이스크림 판매량, 자동차 속도와 제동거리 등과 같이 한 변수가 움직일때 다른 변수가 어떻게 움직이는지를 살펴보는 것이 상관관계이고 이를 수치화하는 것이 상관계수이다. 하지만 자기 상관관계는 자기 자신의 n번째 과거 데이터(n차 지연(lag) 데이터)와 현재 데이터간의 상관관계를 의미한다. 상관관계가 존재한다는 것은 n차 지연데이터와 현재 데이터간의 상관계수가 높다는 점을 의미한다.</p>
+<p>아래 그림의 왼쪽 표는 1999년부터 2020년까지의 우리나라 유,초,중,고등학교의 전체 학생수를 나타내고 있다. 1년전 전체 학생수와 전체 학생수에 대한 plot은 오른쪽의 plot이다. 이 plot을 보면 1년전 학생수가 증가하면 전체 학생수가 증가하는 매우 관계성이 높은 plot이 나타난다. 이는 전체 학생수는 자기 자신의 데이터와의 상관성, 즉 자기 상관성이 매우 높다고 말할 수 있다.</p>
+<p><img src="autocorelation.png" /></p>
+</div>
+<div id="추세-경향성trend" class="section level3" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> 추세 경향성(Trend)</h3>
+<p>시계열 데이터는 장기적으로 점차 증가하거나 점차 감소하는 추세에 대한 경향성을 보이는 경우가 있다. 사실 시계열 데이터 분석에서 우리가 가장 원하는 것이 데이터가 그동안 어떤 추세를 보였고 이 추세가 유지된다면 앞으로 어떻게 미래를 대응해야 할지를 결정하기 위한 정보이다. 따라서 이 추세 경향성을 어떻게 찾아낼 것인가가 시계열 분석에서 중요한 부분이다.</p>
+<p>아래의 그림은 위에서 살펴본 우리나라 총학생수의 plot이다. plot에서도 보다시피 우리나라의 총 학생수는 전반적으로 감소하는 추세에 있다. 2003년에서부터 2007년까지는 추세가 유지되었지만 이후 급격히 감소하는 추세가 있음을 눈으로 쉽게 확인할 수 있다.</p>
+<p><img src="trend.png" /></p>
+<p>추세 경향성은 시간의 흐름에 따라 나타나는 인구, 경기, 기술, 환경 등의 변화에 따라 영향을 받는 데이터의 중장기적인 지속적 데이터의 변동을 말하는데 시간축에 따라 발생하는 데이터 변동에 대한 그래프에서 확인이 가능하다.</p>
+<p>이 추세변동성을 해석할때는 변동성을 단순한 선형회귀로 단정하여 예측하지 않도록 주의해야 한다. 추세 경향성을 선형회귀로 분석할 때는 앞서 언급한 자기 상관관계가 있는지를 먼저 확인한 후에 적용해야 한다. 자기 상관관계가 있는 경우에는 선형회귀외에 다른 시계열 분석방법을 함께 고려하고 성능을 분석하여 더 좋은 모델을 사용하도록 해야한다.</p>
+</div>
+<div id="계절성seasonality-순환성cyclic" class="section level3" number="1.2.4">
+<h3><span class="header-section-number">1.2.4</span> 계절성(Seasonality), 순환성(Cyclic)</h3>
+<p>시계열 데이터는 중장기적인 추세경향성외에 데이터가 달력(Calender)상의 날짜나 기간에 따라 주기적으로 변화하거나 장기적인 시간의 흐름에 따라 오르거나 내리는 추세가 반복되는 변동성을 가지는 경우가 있다.</p>
+<p>달력 상의 날짜나 기간에 따라 데이터가 변동되는 경우의 대표적인 예가 아이스크림 판매량, 익사자자의 수, 발렌타인데이의 초콜렛 판매량, 크리스마스 기간의 소매 판매량, 설, 추석의 고속도로 이용자수 등이다.</p>
+<p>이는 앞으로 사용할 우리나라 월별 전체 취업자수 plot에서도 명확하게 나타난다. 아래의 그림은 2013년부터 2020년까지의 우리나라의 월별 신규 취업자수 plot이다. plot을 보면 매년 겨울에는 신규 취업자수는 전반적으로 줄어들고 봄부터 증가하고 여름에 잠시 줄어들며 가을에 다소 회복했다가 다시 겨울이 시작하면서 줄어드는 계절성을 보인다.</p>
+<p><img src="season.png" /></p>
+<p>이와 같이 계절성은 봄, 여름, 가을, 겨울과 같은 계절, 일, 주, 월, 분기와 같은 기간의 변화에 따라 주기적으로 변동하는 시계열 성질을 말한다. 이에 비해 순환성은 일정한 기간의 특징없이 데이터의 변동성이 반복되거나 1년을 넘겨 주기적으로 발생하는 데이터의 반복성을 말한다.</p>
+<p>계절성과 순환성은 혼동되는 경우가 많다. 계절성은 주기가 고정된 기간에 대한 순환성이고 순환성은 변동적 기간에 대한 순환성이고 일반적으로 순환성의 주기가 계절성 주기보다 길기 때문에 계절성은 언제쯤 데이터 피크(Peak)가 나타날지 예측이 가능하나 순환성은 데이터 피크에 대한 예측이 어려운 성질이 있다.</p>
+</div>
+<div id="불확실성uncertainty" class="section level3" number="1.2.5">
+<h3><span class="header-section-number">1.2.5</span> 불확실성(Uncertainty)</h3>
+<p>우리는 아침마다 일기예보를 확인 한다. 일기예보는 오늘 비가 올 확률을 알려준다 .일기예보를 확인한 사람들은 비 올 확률을 보고 우산을 가져갈지 안가져갈지에 대한 판단을 한다. 기상청에서는 우리에게 주는 정보는 결국 불확실성인 것이다.</p>
+<p>아래의 그림은 기상청에서 제공하는 태풍의 경로<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>이다. 태풍이 앞으로 어떻게 이동할지를 시간대별로 예측한 그림으로 현재 서귀포 부근에 상륙한 태풍은 부산, 독도를 지나 일본 삿포로로 빠져나갈 것이라고 예측하고 있다. 하지만 그 태풍의 경로를 둘러싸고 있는 범위를 보면 태풍위치 70% 확률 반경의 범위가 보인다. 결국 태풍의 경로는 70%의 확률로 그 범위안에 있을것이라는 것이다. 여기서 하나 주의해아할 것은 태풍의 경로가 70% 범위라는 것은 태풍이 그 경로를 지나갈 확률이 70%라는 것이 아니고 수많은 예측을 수행했을 때 태풍의 경로 예측치의 70%가 해당 범위내에 있다는 것이다. 좀 이해하기 어렵고 말장난 같을 수 있을 것이다. 하지만 두가지 모두에서 중요한 것은 <strong>‘미래 예측치는 현재로써는 정확히 모른다’</strong>는 것이다.</p>
+<p><img src="img_typoon_2020_2.png" /></p>
+<p>따라서 시계열 모델의 해석에는 반드시 불확실성에 대한 고려가 반드시 수반되어야 한다. 시계열 분석을 통해 예측된 미래 데이터는 사용된 모델에 적합한 확률 분포 모델(Probability Distribution)을 통한 신뢰구간이 같이 제공되어 평가되어야 한다.</p>
+<p>일반적으로 미래 예측을 말할 때에는 앞서 말한 예측분포(forecast distribution)의 평균을 말하는 경우가 많다 이를 나타낼 때는 “모자 기호(hat)”을 붙여서 <span class="math inline">\(\hat{x}\)</span> 로 표현하는 경우가 많다. 하지만 예측분포의 중앙값을 사용하는 경우도 있다.</p>
+<p>대부분의 시계열 모델은 불확실성을 표현하기 위한 신뢰구간을 제공한다. 시계열 예측의 신뢰구간의 이해에서 가장 먼저 생각해야하는 것은 시계열 예측은 예측 기간이 길수록 예측의 신뢰구간이 점점 넓어진다는 것이다. 결국 먼 미래의 예측이 더 힘들고 어렵다는 의미이다.</p>
+
+</div>
+</div>
+<!-- </div> -->
+<div class="footnotes">
+<hr />
+<ol start="3">
+<li id="fn3"><p><a href="https://www.weather.go.kr/HELP/html/help_tpi001.jsp" class="uri">https://www.weather.go.kr/HELP/html/help_tpi001.jsp</a><a href="시계열-데이터의-특성.html#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="시계열-데이터란.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="시계열-데이터-타입-및-import.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["t.pdf", "t.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

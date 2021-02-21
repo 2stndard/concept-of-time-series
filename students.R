@@ -364,7 +364,7 @@ students.tsibble.training <- students.tsibble %>%
 
 install.packages('fable.prophet')
 library(fable.prophet)
-
+index(students.tsibble)
 
 model.students.tsibble <- students.tsibble.training %>% 
    model(ets = ETS(학생수계), 
@@ -372,8 +372,8 @@ model.students.tsibble <- students.tsibble.training %>%
          naive = NAIVE(학생수계), 
          tslm = TSLM(학생수계),
          rw = RW(학생수계),
-         mean = MEAN(학생수계)
-         #prophet = prophet(학생수계)
+         mean = MEAN(학생수계),
+         prophet = prophet(학생수계)
         )
 model.students.tsibble <- students.tsibble %>% 
   model(arima = ARIMA(학생수계 ~ pdq(2, 1, 0) )
@@ -397,10 +397,32 @@ forecast.students.tsibble %>%
 
 model.students.tsibble %>% select(arima, ets)
 
-students.tsibble %>% model(ets = ETS(학생수계), 
-                                    arima = ARIMA(학생수계), 
-                                    naive = NAIVE(학생수계), 
-                                    tslm = TSLM(학생수계),
-                                    rw = RW(학생수계),
-                                    mean = MEAN(학생수계)
+students.tsibble %>% model(ETS(학생수계), 
+                           ARIMA(학생수계), 
+                           NAIVE(학생수계), 
+                           TSLM(학생수계 ~ trend()),
+                           RW(학생수계),
+                           MEAN(학생수계)
 )                           
+
+students.tsibble %>% model( 
+                           TSLM(학생수계 ~ trend())
+)                           
+
+
+model.fable.studetns <- students.tsibble.tr %>% 
+  model(ets = ETS(학생수계 + 유치원)
+  )
+model.fable.studetns %>% forecast(h = 10) %>% autoplot(students.tsibble.tr)
+
+
+
+
+students$연도 <- as.Date(paste0(students$연도, '-01-01'))
+splits.students <- initial_time_split(students, prop = 0.8)
+
+fit(set_engine(arima_reg(), engine = 'auto_arima'), 학생수계 ~ 연월일, data = training(splits.students))
+
+students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE, colClasses = c(rep('character', 2), rep('numeric', 16)))
+
+                     

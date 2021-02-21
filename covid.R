@@ -219,3 +219,5 @@ best.model.covid19.by.age.tsibble %>%
   autolayer(fitted(best.model.covid19.by.age.tsibble), lwd = 1) + 
   geom_point(aes(x = date, y = `0-9세`)) + 
   labs(title = '코로나 확진자수 예측', x = '년월일', y = '확진자수')
+
+?Date

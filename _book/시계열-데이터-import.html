@@ -4,35 +4,35 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 시계열 데이터 Import | t.utf8</title>
-  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <title>2.3 시계열 데이터 Import | Untitled</title>
+  <meta name="description" content="2.3 시계열 데이터 Import | Untitled" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 시계열 데이터 Import | t.utf8" />
+  <meta property="og:title" content="2.3 시계열 데이터 Import | Untitled" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 시계열 데이터 Import | t.utf8" />
+  <meta name="twitter:title" content="2.3 시계열 데이터 Import | Untitled" />
   
-  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
   
 
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-01-31" />
+<meta name="date" content="2021-02-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="literature.html"/>
+<link rel="prev" href="시계열-데이터-객체object.html"/>
+<link rel="next" href="시계열-visualization.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -130,45 +130,142 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
+<li><a href="./">교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 정의 및 특성</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#정의"><i class="fa fa-check"></i><b>1.1</b> 정의</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#특성"><i class="fa fa-check"></i><b>1.2</b> 특성</a>
+<li class="chapter" data-level="1.1" data-path="시계열-데이터란.html"><a href="시계열-데이터란.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?</a></li>
+<li class="chapter" data-level="1.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html"><i class="fa fa-check"></i><b>1.2</b> 시계열 데이터의 특성</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.1</b> 자기 상관관계</a></li>
-<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.2</b> 추세 경향성(Trend)</a></li>
-<li class="chapter" data-level="1.2.3" data-path="index.html"><a href="index.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.3</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
-<li class="chapter" data-level="1.2.4" data-path="index.html"><a href="index.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.4</b> 불확실성(Uncertainty)</a></li>
+<li class="chapter" data-level="1.2.1" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
+<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.3" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 Import</a>
+<li class="chapter" data-level="2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 타입 및 Import</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#시계열-패키지-및-데이터-타입"><i class="fa fa-check"></i><b>2.1</b> 시계열 패키지 및 데이터 타입</a></li>
-<li class="chapter" data-level="2.2" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#데이터-import의-두가지-방법"><i class="fa fa-check"></i><b>2.2</b> 데이터 Import의 두가지 방법</a></li>
+<li class="chapter" data-level="2.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 데이터 클래스</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#date-클래스"><i class="fa fa-check"></i><b>2.1.1</b> date 클래스</a></li>
+<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-data-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt data class</a></li>
+<li class="chapter" data-level="2.1.3" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#yearmon-yearqtr-class"><i class="fa fa-check"></i><b>2.1.3</b> yearmon, yearqtr class</a></li>
+<li class="chapter" data-level="2.1.4" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#날짜-시간-포맷"><i class="fa fa-check"></i><b>2.1.4</b> 날짜, 시간 포맷</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
-<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
-<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<li class="chapter" data-level="2.2" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html"><i class="fa fa-check"></i><b>2.2</b> 시계열 데이터 객체(Object)</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
-<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+<li class="chapter" data-level="2.2.1" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html#ts-r-basestats"><i class="fa fa-check"></i><b>2.2.1</b> ts : R base(stats)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html#xts"><i class="fa fa-check"></i><b>2.2.2</b> xts</a></li>
+<li class="chapter" data-level="2.2.3" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html#tsibble"><i class="fa fa-check"></i><b>2.2.3</b> tsibble</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="chapter" data-level="7" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>7</b> Introduction</a></li>
-<li class="chapter" data-level="8" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html"><i class="fa fa-check"></i><b>8</b> 정의 및 특성</a>
+<li class="chapter" data-level="2.3" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html"><i class="fa fa-check"></i><b>2.3</b> 시계열 데이터 Import</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#정의-1"><i class="fa fa-check"></i><b>8.1</b> 정의</a></li>
-<li class="chapter" data-level="8.2" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#특성-1"><i class="fa fa-check"></i><b>8.2</b> 특성</a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#자기-상관관계-1"><i class="fa fa-check"></i><b>8.2.1</b> 자기 상관관계</a></li>
-<li class="chapter" data-level="8.2.2" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#추세-경향성trend-1"><i class="fa fa-check"></i><b>8.2.2</b> 추세 경향성(Trend)</a></li>
-<li class="chapter" data-level="8.2.3" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#계절성seasonality-순환성cyclic-1"><i class="fa fa-check"></i><b>8.2.3</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
-<li class="chapter" data-level="8.2.4" data-path="정의-및-특성-1.html"><a href="정의-및-특성-1.html#불확실성uncertainty-1"><i class="fa fa-check"></i><b>8.2.4</b> 불확실성(Uncertainty)</a></li>
+<li class="chapter" data-level="2.3.1" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#엑셀-파일"><i class="fa fa-check"></i><b>2.3.1</b> 엑셀 파일</a></li>
+<li class="chapter" data-level="2.3.2" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#csv-파일"><i class="fa fa-check"></i><b>2.3.2</b> CSV 파일</a></li>
+<li class="chapter" data-level="2.3.3" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#추가-실습-데이터-생성"><i class="fa fa-check"></i><b>2.3.3</b> 추가 실습 데이터 생성</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="시계열-visualization.html"><a href="시계열-visualization.html"><i class="fa fa-check"></i><b>3</b> 시계열 Visualization</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-frame-ggplot2-패키지.html"><a href="data-frame-ggplot2-패키지.html"><i class="fa fa-check"></i><b>3.1</b> data.frame : ggplot2 패키지</a></li>
+<li class="chapter" data-level="3.2" data-path="xts-xts-패키지.html"><a href="xts-xts-패키지.html"><i class="fa fa-check"></i><b>3.2</b> xts : xts 패키지</a></li>
+<li class="chapter" data-level="3.3" data-path="ts-forecast-패키지.html"><a href="ts-forecast-패키지.html"><i class="fa fa-check"></i><b>3.3</b> ts : forecast 패키지</a></li>
+<li class="chapter" data-level="3.4" data-path="tsibble-feasts-패키지.html"><a href="tsibble-feasts-패키지.html"><i class="fa fa-check"></i><b>3.4</b> tsibble : feasts 패키지</a></li>
+<li class="chapter" data-level="3.5" data-path="data-frame-timetk-패키지.html"><a href="data-frame-timetk-패키지.html"><i class="fa fa-check"></i><b>3.5</b> data.frame : timetk 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html"><i class="fa fa-check"></i><b>4.1</b> 시계열 데이터 정보 다루기</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-정보-추출"><i class="fa fa-check"></i><b>4.1.1</b> 시계열 정보 추출</a></li>
+<li class="chapter" data-level="4.1.2" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-연산"><i class="fa fa-check"></i><b>4.1.2</b> 시계열 데이터 연산</a></li>
+<li class="chapter" data-level="4.1.3" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-반올림"><i class="fa fa-check"></i><b>4.1.3</b> 시계열 데이터 반올림</a></li>
+<li class="chapter" data-level="4.1.4" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-grouping"><i class="fa fa-check"></i><b>4.1.4</b> 시계열 데이터 Grouping</a></li>
+<li class="chapter" data-level="4.1.5" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-ohlc"><i class="fa fa-check"></i><b>4.1.5</b> 시계열 데이터 OHLC</a></li>
+<li class="chapter" data-level="4.1.6" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-rolling"><i class="fa fa-check"></i><b>4.1.6</b> 시계열 데이터 Rolling</a></li>
+<li class="chapter" data-level="4.1.7" data-path="시계열-데이터-정보-다루기.html"><a href="시계열-데이터-정보-다루기.html#시계열-데이터-filtering"><i class="fa fa-check"></i><b>4.1.7</b> 시계열 데이터 Filtering</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html"><i class="fa fa-check"></i><b>4.2</b> 시계열 데이터 응용 사례</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-합계"><i class="fa fa-check"></i><b>4.2.1</b> 월별, 분기별, 연별 합계</a></li>
+<li class="chapter" data-level="4.2.2" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-증감량"><i class="fa fa-check"></i><b>4.2.2</b> 월별, 분기별, 연별 증감량</a></li>
+<li class="chapter" data-level="4.2.3" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월-비중-백분율-연-비중-백분율"><i class="fa fa-check"></i><b>4.2.3</b> 월 비중 백분율, 연 비중 백분율</a></li>
+<li class="chapter" data-level="4.2.4" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#월별-분기별-연별-누적합계"><i class="fa fa-check"></i><b>4.2.4</b> 월별, 분기별, 연별 누적합계</a></li>
+<li class="chapter" data-level="4.2.5" data-path="시계열-데이터-응용-사례.html"><a href="시계열-데이터-응용-사례.html#동월별-동분기별-동년별-plot"><i class="fa fa-check"></i><b>4.2.5</b> 동월별, 동분기별, 동년별 Plot</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="정상성stationary-비정상성non-stationary.html"><a href="정상성stationary-비정상성non-stationary.html"><i class="fa fa-check"></i><b>5.1</b> 정상성(Stationary), 비정상성(Non-Stationary)</a></li>
+<li class="chapter" data-level="5.2" data-path="지연lag와-차분difference.html"><a href="지연lag와-차분difference.html"><i class="fa fa-check"></i><b>5.2</b> 지연(Lag)와 차분(Difference)</a></li>
+<li class="chapter" data-level="5.3" data-path="acf와-pacf.html"><a href="acf와-pacf.html"><i class="fa fa-check"></i><b>5.3</b> ACF와 PACF</a></li>
+<li class="chapter" data-level="5.4" data-path="적합값fitted-value-와-잔차residuals.html"><a href="적합값fitted-value-와-잔차residuals.html"><i class="fa fa-check"></i><b>5.4</b> 적합값(fitted value) 와 잔차(residuals)</a></li>
+<li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
+<li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
+<li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-ploting과-테스트.html"><a href="계절성-ploting과-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 ploting과 테스트</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="simple-모델.html"><a href="simple-모델.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="simple-모델.html"><a href="simple-모델.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
+<li class="chapter" data-level="6.1.2" data-path="simple-모델.html"><a href="simple-모델.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.3" data-path="simple-모델.html"><a href="simple-모델.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.4" data-path="simple-모델.html"><a href="simple-모델.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
+<li class="chapter" data-level="6.1.5" data-path="simple-모델.html"><a href="simple-모델.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>6.2.1</b> tslm 함수(forecast 패키지)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 모델</a></li>
+<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
+<li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.4.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
+<li class="chapter" data-level="6.4.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.4.2</b> 이동평균 모델(Moving Average Model)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.4.3</b> ARIMA 모델 결정</a></li>
+<li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
+<li class="chapter" data-level="6.6" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.6</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.7" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.7</b> Neural Network 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html"><i class="fa fa-check"></i><b>7.1</b> 성능분석 지수</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.1</b> RMSE(Root Means Squaread Error)</a></li>
+<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mae"><i class="fa fa-check"></i><b>7.1.2</b> MAE</a></li>
+<li class="chapter" data-level="7.1.3" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mpe"><i class="fa fa-check"></i><b>7.1.3</b> MPE</a></li>
+<li class="chapter" data-level="7.1.4" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mape"><i class="fa fa-check"></i><b>7.1.4</b> MAPE</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="fable-framework.html"><a href="fable-framework.html"><i class="fa fa-check"></i><b>7.2</b> fable framework</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="fable-framework.html"><a href="fable-framework.html#미래-학생수-예측"><i class="fa fa-check"></i><b>7.2.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.2.2" data-path="fable-framework.html"><a href="fable-framework.html#미래-취업자수-예측"><i class="fa fa-check"></i><b>7.2.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.2.3" data-path="fable-framework.html"><a href="fable-framework.html#미래-코로나-확진자수-예측"><i class="fa fa-check"></i><b>7.2.3</b> 미래 코로나 확진자수 예측</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="modeltime.html"><a href="modeltime.html"><i class="fa fa-check"></i><b>7.3</b> modeltime</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="modeltime.html"><a href="modeltime.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modeltime.html"><a href="modeltime.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modeltime.html"><a href="modeltime.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a>
+<ul>
+<li class="chapter" data-level="7.4" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>7.4</b> R Markdown</a></li>
+<li class="chapter" data-level="7.5" data-path="including-plots.html"><a href="including-plots.html"><i class="fa fa-check"></i><b>7.5</b> Including Plots</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -182,9 +279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><center>
-교육통계를 활용한 데이터 분석 방법
-</center></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Untitled</a>
           </h1>
         </div>
 
@@ -192,216 +287,201 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="시계열-데이터-import" class="section level1" number="2">
-<h1><span class="header-section-number">Chapter 2</span> 시계열 데이터 Import</h1>
-<div id="시계열-패키지-및-데이터-타입" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> 시계열 패키지 및 데이터 타입</h2>
-<p>R에서 많이 사용하는 시계열 패키지 및 데이터 타입은 다음의 몇가지가 많이 사용됨</p>
+<div id="시계열-데이터-import" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> 시계열 데이터 Import</h2>
+<p>시계열(Time Series) 데이터를 R에서 직접 생성할 수도 있으나 대부분의 경우는 다양한 파일 포맷(Excel, CSV, SPSS 등)으로 저장된 파일에서 읽어들이는 방법이 일반적이다. 일반적으로 데이터 파일에서 데이터를 읽어들여 시계열 데이터로 저장하는 방법은 다음과 같은 과정을 거친다.</p>
+<div class="boxBorder">
+<ol style="list-style-type: decimal">
+<li><code>read_excel()</code>, <code>read.csv()</code>을 사용하여 엑셀 파일을 읽어 데이터를 데이터 프레임에 저장</li>
+<li>읽어온 데이터가 적절한 데이터 타입으로 불러들여졌는지 확인하고 적절치 않은 데이터 타입으로 설정된 경우 적절히 변환</li>
+<li>읽어온 데이터 중 시간을 기록한 데이터 컬럼을 <code>as.Date()</code>를 사용하여 date 클래스로 변환</li>
+<li>시간 컬럼이 생성된 데이터 프레임을 <code>as.ts()</code>, <code>as.xts()</code>, <code>as.tsibble()</code> 등을 사용하여 사용하기 원하는 시계열 객체로 변환</li>
+</ol>
+</div>
+<p>본 문서에서는 다양한 파일 포맷 중 Excel과 CSV파일에서 시계열 데이터를 읽어들여 활용하는 방법을 설명한다.</p>
+<div id="엑셀-파일" class="section level3" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> 엑셀 파일</h3>
+<p>데이터를 엑셀 파일에서 읽어들여 데이터 프레임에 저장 후 저장된 데이터 프레임을 시계열 데이터 타입으로 변환한다.</p>
+<p>다음 예제에서 사용하는 자료는 연도별 학교급별 학생수 자료로 한국교육개발원 교육통계 서비스 홈페이지<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>에서 다운로드하였으며 연도별 시계열 데이터 샘플로 사용한다.</p>
+<p><code>read_excel()</code>을 통해 excel 파일을 바로 읽어들일 수 있다. <code>read_excel()</code>을 사용하기 위해서는 먼저 <code>readxl</code> 패키지가 필요하다. 앞에서 소개한 엑셀 데이터를 데이터 프레임으로 읽어들이는 방법은 아래와 같다. 하나 주의해야하는 점은 col_type으로 적절한 데이터 타입을 미리 알려주지 않으면 엉뚱한 데이터가 들어온다는 것이다. 이 데이터 파일에서의 문제는 숫자에 천단위 구분기호(,)가 포함되어 있다보니 해당 컬럼이 numeric이라고 설정해주지 않으면 엉뚱한 데이터 타입(POSIXct)으로 불러들인다는 점이다.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="시계열-데이터-import.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb60-2"><a href="시계열-데이터-import.html#cb60-2" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;./students.xlsx&quot;</span>, <span class="at">skip =</span> <span class="dv">16</span>, <span class="at">na =</span> <span class="st">&#39;-&#39;</span>, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">&#39;text&#39;</span>, <span class="st">&#39;text&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>))</span>
+<span id="cb60-3"><a href="시계열-데이터-import.html#cb60-3" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> </span>
+<span id="cb60-4"><a href="시계열-데이터-import.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(지역규모 <span class="sc">==</span> <span class="st">&#39;계&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>지역규모)</span>
+<span id="cb60-5"><a href="시계열-데이터-import.html#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(students)  <span class="co"># 데이터 확인</span></span></code></pre></div>
+<pre><code>## # A tibble: 6 x 17
+##   연도  학생수계 유치원 초등학교 중학교 고등학교계 일반계고 전문계고 일반고
+##   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+## 1 1999   8658358 534166  3935537 1.90e6    2251140  1399389   851751      0
+## 2 2000   8535867 545263  4019991 1.86e6    2071468  1324482   746986      0
+## 3 2001   8414423 545142  4089429 1.83e6    1911173  1259975   651198      0
+## 4 2002   8361933 550256  4138366 1.84e6    1795509  1220146   575363      0
+## 5 2003   8379775 546531  4175626 1.85e6    1766529  1224452   542077      0
+## 6 2004   8371630 541713  4116195 1.93e6    1746560  1232010   514550      0
+## # ... with 8 more variables: 특목고 &lt;dbl&gt;, 특성화고 &lt;dbl&gt;, 자율고 &lt;dbl&gt;,
+## #   특수학교 &lt;dbl&gt;, 공민학교 &lt;dbl&gt;, 고등공민 &lt;dbl&gt;, 고등기술학교 &lt;dbl&gt;,
+## #   각종학교 &lt;dbl&gt;</code></pre>
+<div class="comment">
 <ul>
-<li><p>ts(data type) : ts 데이터 타입은 R에서 가장 기본적으로 활용되는 시계열 데이터 타입임. ts 데이터 타입은 ‘stats’ 패키지를 로드해야 사용할 수 있지만 R이 실행될 때 기본적으로 로드되는 패키지이기 때문에 특별한 패키지를 로드하지 않고 바로 활용할 수 있음. 또한 stats 패키지에 포함된 다양한 시계열 데이터 처리 함수를 사용할 수 있어 많이 사용됨.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<li><p>코드 설명</p>
 <ul>
-<li><p>ts 타입 데이터 생성 예 <span class="citation">(<a href="정의-및-특성-1.html#ref-RDocumentation" role="doc-biblioref">R Core Team, n.d.</a>)</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="시계열-데이터-import.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span></code></pre></div>
-<pre><code>##      Qtr1 Qtr2 Qtr3 Qtr4
-## 1959         1    2    3
-## 1960    4    5    6    7
-## 1961    8    9   10</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="시계열-데이터-import.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  ts - ts 객체 생성 함수</span></span>
-<span id="cb3-2"><a href="시계열-데이터-import.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  1:10 - ts 객체 함수에 저장되는 데이터 벡터</span></span>
-<span id="cb3-3"><a href="시계열-데이터-import.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#  frequency - ts 객체의 시간 간격을 지정하는 매개변수</span></span>
-<span id="cb3-4"><a href="시계열-데이터-import.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#  start - ts 객체의 인덱스가 되는 시간의 시작점</span></span></code></pre></div></li>
+<li><p><code>readxl</code> 패키지를 로딩</p></li>
+<li><p>‘지역규모’ 컬럼이 ’계’인 데이터만 사용할 것이므로 <code>filter()</code>를 사용하여 원하는 데이터만 걸러내고 더이상 지역규모 컬럼이 필요없으니 제거</p></li>
+<li><p>read_excel()을 이용하여 ‘students.xlsx’파일의 데이터를 읽음. 데이터 파일의 처음 16줄은 skip,(<code>skip = 16</code>)’-’로 표기된 데이터는 NA로 처리(<code>na = '-'</code>), 첫번째 엑셀 시트 데이터를 읽고(<code>sheet = 1</code>), 컬럼별 데이터 타입을 설정</p></li>
 </ul></li>
-<li><p>zoo(package &amp; data type) : 시간의 순서로 정렬된 S3 클래스의 데이터 타입으로 수치 벡터나 매트릭스와 팩터의 시계열 데이터를 표현함. zoo는 특정한 인덱스 / 날짜 / 시간 클래스의 독립성과 ts 및 기본 R과의 일관성을 확보하기 위한 표준 제네릭의 확장 방법을 제공하는 것임.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
-<ul>
-<li><p>zoo 패키지 설치</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="시계열-데이터-import.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(zoo)) {</span>
-<span id="cb4-2"><a href="시계열-데이터-import.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;zoo&#39;</span>)</span>
-<span id="cb4-3"><a href="시계열-데이터-import.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(zoo)</span>
-<span id="cb4-4"><a href="시계열-데이터-import.html#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
-<li><p>zoo 타입 데이터 생성 예</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="시계열-데이터-import.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">zoo</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
-<pre><code>## 2008-08-01 2008-08-02 2008-08-03 2008-08-04 2008-08-05 
-##  0.4707241  1.6501676  1.1817794 -0.6536758  0.1092915</code></pre></li>
-</ul></li>
-<li><p>xts(package &amp; data type) : xts는 extensible time-series의 준말로 ‘xts’ 패키지를 로드해야 활용할 수 있는 데이터 타입임. 앞서 기술된 zoo 데이터 타입에 종속된 데이터 타입으로 zoo를 확장하여 다양한 시간 기반 데이터 클래스를 균일하게 처리 할 수 있는 데이터 타입임.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
-<ul>
-<li><p>xts 패키지 설치</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="시계열-데이터-import.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(xts)) {</span>
-<span id="cb7-2"><a href="시계열-데이터-import.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;xts&#39;</span>)</span>
-<span id="cb7-3"><a href="시계열-데이터-import.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(xts)</span>
-<span id="cb7-4"><a href="시계열-데이터-import.html#cb7-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
-<li><p>xts 타입 데이터 생성 예</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="시계열-데이터-import.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
-<pre><code>##                  [,1]
-## 2008-08-01  1.3442331
-## 2008-08-02  1.0555967
-## 2008-08-03 -0.1225527
-## 2008-08-04  0.7939866
-## 2008-08-05 -0.2784863</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="시계열-데이터-import.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span></code></pre></div>
-<pre><code>##                  [,1]
-## 2008-08-01  0.6826759
-## 2008-08-02 -0.6094092
-## 2008-08-03 -0.3840073
-## 2008-08-04 -0.4171187
-## 2008-08-05 -0.5958465</code></pre>
-<ul>
-<li><p>xts()와 as.xts()의 차이 : xts()는 xts 객체를 생성하는 함수이나 as.xts()는 timeSeries, ts, irts, fts, matrix, data.frame, zoo 객체를 xts객체로 변환하는 함수임.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> 다음과 같은 차이가 발생함.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="시계열-데이터-import.html#cb12-1" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span>
-<span id="cb12-2"><a href="시계열-데이터-import.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(ts)</span></code></pre></div>
-<pre><code>## Error in xts(ts): order.by requires an appropriate time-based object</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="시계열-데이터-import.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(ts)</span></code></pre></div>
-<pre><code>##         [,1]
-## 1959 Q2    1
-## 1959 Q3    2
-## 1959 Q4    3
-## 1960 Q1    4
-## 1960 Q2    5
-## 1960 Q3    6
-## 1960 Q4    7
-## 1961 Q1    8
-## 1961 Q2    9
-## 1961 Q3   10</code></pre></li>
-</ul></li>
-</ul></li>
-<li><p>ts, zoo, xts는 모두 시계열 데이터를 다루는 객체이지만 xts(zoo의 확장판)가 보다 유연한 함수가 있음. 다만 최근에는 ts 객체에도 동일하게 적용할 수 있는 함수가 제공되고 있음. 또한 xts 매뉴얼에 의하면 as.xts와 reclass를 활용하는 것이 xts를 사용하는 것보다 이익이 있다고 명기하고 있음.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="시계열-데이터-import.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ts)  <span class="co"># 시계열 데이터 형태로 보이지 않음</span></span></code></pre></div>
-<pre><code>## [1] 1 2 3 4 5 6</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="시계열-데이터-import.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.xts</span>(ts))  <span class="co"># 시계열 형태로 보임</span></span></code></pre></div>
-<pre><code>##         [,1]
-## 1959 Q2    1
-## 1959 Q3    2
-## 1959 Q4    3
-## 1960 Q1    4
-## 1960 Q2    5
-## 1960 Q3    6</code></pre></li>
-<li><p>modeltime(package) : ‘tidymodel’과 같이 사용이 가능한 시계열 예측 프레임워크임. modeltime 패키지에서 제공하는 시계열 모델은 ARIMA, Exponential Smoothing 외에도 ’forecast’ 패키지와 ‘prophet’ 패키지에서 제공하는 추가적인 시계열 모델을 제공함.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> 이 패키지는 ’tidymodel’과 같이 사용하는 기본 사상으로 특별한 시계열 데이터 타입을 제공하지 않고 tibble 데이터 타입을 사용할 수 있다는 장점이 있음.</p>
-<ul>
-<li>modeltime 패키지 설치</li>
-</ul>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="시계열-데이터-import.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(modeltime)) {</span>
-<span id="cb20-2"><a href="시계열-데이터-import.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;modeltime&#39;</span>)</span>
-<span id="cb20-3"><a href="시계열-데이터-import.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(modeltime)</span>
-<span id="cb20-4"><a href="시계열-데이터-import.html#cb20-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## Warning: package &#39;modeltime&#39; was built under R version 4.0.3</code></pre></li>
 </ul>
 </div>
-<div id="데이터-import의-두가지-방법" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> 데이터 Import의 두가지 방법</h2>
+<p>불러들인 데이터는 데이터프레임으로 저장된다. 데이터 프레임도 시계열 객체를 담아 사용할 수 있는데 이를 위해서는 반드시 시간 인덱스로 사용할 컬럼이 필요하다. 불러들인 데이터에는 시간 인덱스로 사용할 수 있는 컬럼이 ‘연도’ 컬럼이다. 이 컬럼을 date 컬럼으로 바꾸는 과정은 다음과 같다.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="시계열-데이터-import.html#cb62-1" aria-hidden="true" tabindex="-1"></a>students<span class="sc">$</span>연도 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">paste0</span>(students<span class="sc">$</span>연도, <span class="st">&#39;-01-01&#39;</span>))</span></code></pre></div>
+<div class="comment">
 <ul>
-<li><p>시계열(Time Series) 데이터를 R에서 직접 생성할 수도 있으나 대부분의 경우는 다양한 파일 포맷(Excel, CSV, SPSS 등)으로 저장된 파일에서 읽어들이는 방법이 일반적임.</p></li>
-<li><p>데이터 파일에는 반드시 시계열 데이터의 인덱스로 활용할 수 있는 시간 데이터 컬럼이 필요함.</p></li>
-<li><p>본 문서에서는 다양한 파일 포맷 중 Excel과 CSV파일에서 시계열 데이터를 읽어들여 활용하는 방법을 언급하겠음.</p></li>
-<li><p>파일에서 시계열 데이터를 읽어들이는 방법은 크게 두가지가 있음</p>
+<li><p>코드 설명</p>
 <ul>
-<li><p>데이터를 파일에서 읽어들여 data.frame에 저장 후 저장된 data.frame을 시계열 데이터 타입으로 변환함.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="시계열-데이터-import.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb22-2"><a href="시계열-데이터-import.html#cb22-2" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;exercise1.xlsx&quot;</span>) <span class="co"># 엑셀 파일로부터 데이터를 읽어옴</span></span>
-<span id="cb22-3"><a href="시계열-데이터-import.html#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="시계열-데이터-import.html#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the first few lines of mydata</span></span>
-<span id="cb22-5"><a href="시계열-데이터-import.html#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mydata)  <span class="co"># 데이터 확인</span></span></code></pre></div>
-<pre><code>## # A tibble: 6 x 4
-##   ...1   Sales AdBudget   GDP
-##   &lt;chr&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
-## 1 Mar-81 1020.     659.  252.
-## 2 Jun-81  889.     589   291.
-## 3 Sep-81  795      512.  291.
-## 4 Dec-81 1004.     614.  292.
-## 5 Mar-82 1058.     647.  279.
-## 6 Jun-82  944.     602   254</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="시계열-데이터-import.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ts object called myts</span></span>
-<span id="cb24-2"><a href="시계열-데이터-import.html#cb24-2" aria-hidden="true" tabindex="-1"></a>myts <span class="ot">&lt;-</span> <span class="fu">ts</span>(mydata[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1981</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">4</span>)  <span class="co"># 읽어온 데이터를 ts 객체로 생성</span></span>
-<span id="cb24-3"><a href="시계열-데이터-import.html#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="시계열-데이터-import.html#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(myts)  <span class="co"># 데이터 확인</span></span></code></pre></div>
-<pre><code>## [1] &quot;mts&quot;    &quot;ts&quot;     &quot;matrix&quot;</code></pre></li>
-<li><p>시계열 패키지에서 제공하는 데이터 Import 함수를 이용하여 직접 시계열 데이터 타입으로 읽어들임.</p></li>
-<li><p>다만 xts 패키지와 modeltime 패키지는 외부 데이터를 직접 읽어 올 수 있는 방법 제공하지 않음. xts의 경우는 read.ts(tseries 패키지 필요)나 read.zoo 함수를 이용해 읽어들인 시계열 객체를 as.xts 함수를 이용하여 xts 객체로 변환하고 modeltime은 tidymodel 객체를 변환하여 사용하는 것이 일반적임.</p></li>
-<li><p>ts 객체를 읽어올때 주의할 점은 ts 객체는 파일에 기록된 시간 인덱스를 직접 시간인덱스로 사용할 수 없고 read.ts 함수 호출시 시계열 시작점과 간격을 지정함으로써 일정한 간격의 시계열 데이터를 생성해야 함. 시작점부터 일정한 간격으로 모든 데이터가 기록된 경우는 문제가 없지만 일부 데이터가 결측되는 경우 정확히 읽어들일 수 없음.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="시계열-데이터-import.html#cb26-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(tseries)</span></code></pre></div>
-<pre><code>## Warning: package &#39;tseries&#39; was built under R version 4.0.3</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="시계열-데이터-import.html#cb28-1" aria-hidden="true" tabindex="-1"></a>    df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2010-01-01&#39;</span>), <span class="at">length.out =</span> <span class="dv">30</span>, <span class="at">by =</span> <span class="st">&#39;months&#39;</span>), <span class="at">value1 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>), <span class="at">value2 =</span> <span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
-<span id="cb28-2"><a href="시계열-데이터-import.html#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(df[,<span class="sc">-</span><span class="dv">1</span>], <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
-<span id="cb28-3"><a href="시계열-데이터-import.html#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read.ts</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
-<pre><code>##               value1      value2
-## Jan 2010  2.25557123 -0.92352810
-## Feb 2010  0.21973820 -0.10156404
-## Mar 2010  0.14713542 -0.47947759
-## Apr 2010 -0.21600065  0.38222332
-## May 2010  1.29550799  2.53245282
-## Jun 2010  0.68578893  1.54108790
-## Jul 2010 -0.50223037 -1.03754399
-## Aug 2010 -0.44825934  0.07678336
-## Sep 2010 -0.09414722 -1.43875873
-## Oct 2010 -0.07572250  0.79444143
-## Nov 2010  0.66067314 -0.27261801
-## Dec 2010  1.46387403  0.21814994
-## Jan 2011 -1.46530112 -1.18626521
-## Feb 2011 -1.26725425  0.18432121
-## Mar 2011 -0.15470946  0.72991190
-## Apr 2011  0.51679902  0.40477166
-## May 2011  0.79660554 -0.92201558
-## Jun 2011 -0.44569770 -3.53453320
-## Jul 2011 -2.75336968 -1.34299175
-## Aug 2011 -0.33245040  1.22546113
-## Sep 2011  2.14675936  1.12423509
-## Oct 2011  0.23294528  1.41575902
-## Nov 2011 -0.83637941  1.45804765
-## Dec 2011  0.13649185  0.24080084
-## Jan 2012 -0.14217529  0.28830527
-## Feb 2012  0.65081219 -0.21799183
-## Mar 2012 -0.54456415  0.55220475
-## Apr 2012 -0.83974704 -2.38715257
-## May 2012 -0.39253402  0.97598670
-## Jun 2012 -1.30646150 -1.12087555</code></pre></li>
-<li><p>읽어들일 파일에 시간이 기재되어 있는 경우는 zoo 패키지의 read.zoo 함수를 이용하여 zoo 객체로 읽어들인 후 이 객체를 xts 객체로 변환하여 활용하는 방법을 활용할 수 있음. read.ts에 비해 read.zoo는 지정된 주기의 비일정한 시계열 데이터 타입을 불러 들일 수 있다는 장점이 있음. 예를 들어 매일 기록되는 데이터의 경우 read.ts는 중간에 빠지는 날이 없이 지정된 기간동안 매일 기록된 데이터를 가져오지만 read.zoo는 기본적으로 매일 기록된 데이터를 가져온다하더라도 중간중간 빠진 날을 인정하고 가져올 수 있는 방법임.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="시계열-데이터-import.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">row.names =</span> F)</span>
-<span id="cb30-2"><a href="시계열-데이터-import.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read.zoo</span>(<span class="st">&quot;testfile_readts.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&#39;,&#39;</span>, <span class="at">index.column =</span> <span class="dv">1</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%m-%d&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>##                 value1      value2
-## 2010-01-01  2.25557123 -0.92352810
-## 2010-02-01  0.21973820 -0.10156404
-## 2010-03-01  0.14713542 -0.47947759
-## 2010-04-01 -0.21600065  0.38222332
-## 2010-05-01  1.29550799  2.53245282
-## 2010-06-01  0.68578893  1.54108790
-## 2010-07-01 -0.50223037 -1.03754399
-## 2010-08-01 -0.44825934  0.07678336
-## 2010-09-01 -0.09414722 -1.43875873
-## 2010-10-01 -0.07572250  0.79444143
-## 2010-11-01  0.66067314 -0.27261801
-## 2010-12-01  1.46387403  0.21814994
-## 2011-01-01 -1.46530112 -1.18626521
-## 2011-02-01 -1.26725425  0.18432121
-## 2011-03-01 -0.15470946  0.72991190
-## 2011-04-01  0.51679902  0.40477166
-## 2011-05-01  0.79660554 -0.92201558
-## 2011-06-01 -0.44569770 -3.53453320
-## 2011-07-01 -2.75336968 -1.34299175
-## 2011-08-01 -0.33245040  1.22546113
-## 2011-09-01  2.14675936  1.12423509
-## 2011-10-01  0.23294528  1.41575902
-## 2011-11-01 -0.83637941  1.45804765
-## 2011-12-01  0.13649185  0.24080084
-## 2012-01-01 -0.14217529  0.28830527
-## 2012-02-01  0.65081219 -0.21799183
-## 2012-03-01 -0.54456415  0.55220475
-## 2012-04-01 -0.83974704 -2.38715257
-## 2012-05-01 -0.39253402  0.97598670
-## 2012-06-01 -1.30646150 -1.12087555</code></pre></li>
-<li></li>
+<li><p>연도만 있는 데이터를 date형태로 바꾸려면 먼저 월, 일을 추가해야하기 때문에 <code>paste0()</code>를 사용하여 연도에 ‘-01-01’ 문자열을 붙임.</p></li>
+<li><p>’연도-01-01’로 만들어지 문자열을 <code>as.Date()</code>로 date 클래스로 변환</p></li>
+<li><p>변환된 데이터를 student.from.excel$연도에 저장</p></li>
 </ul></li>
 </ul>
+</div>
+<p>연도 컬럼을 date 클래스로 변환한 데이터 프레임을 사용하여 <code>ts</code>, <code>xts</code>, <code>tsibble</code> 시계열 데이터로 변환한다. 하나 주의해야할 사항은 각각의 클래스로 변환하는 함수명의 형태가 다르다는 점이다.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="시계열-데이터-import.html#cb63-1" aria-hidden="true" tabindex="-1"></a>ts.students <span class="ot">&lt;-</span> <span class="fu">ts</span>(students, <span class="at">frequency =</span> <span class="dv">1</span>, <span class="at">start =</span> <span class="dv">1999</span>)</span>
+<span id="cb63-2"><a href="시계열-데이터-import.html#cb63-2" aria-hidden="true" tabindex="-1"></a>xts.students <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(students[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">order.by =</span> students<span class="sc">$</span>연도)</span>
+<span id="cb63-3"><a href="시계열-데이터-import.html#cb63-3" aria-hidden="true" tabindex="-1"></a>tsibble.students <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(students, <span class="at">index =</span> 연도)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드 설명</p>
+<ul>
+<li><p><code>ts()</code>로 student.from.excel 데이터 프레임의 데이터를 ts 객체로 변환하는데 연간 데이터이므로 주기를 1(<code>frequency = 1</code>)로 시작년을 1999년(<code>start = 1999</code>)으로 설정</p></li>
+<li><p>as.xts()로 student.from.excel 데이터 프레임의 데이터를 xts 객체로 변환하는데 시간 인덱스를 student.from.excel$연도로 설정(<code>order.by = student.from.excel$연도</code>)</p></li>
+<li><p>as_tsibble()을 사용하여</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="csv-파일" class="section level3" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> CSV 파일</h3>
+<p>CSV 파일은 데이터 필드의 구분자를 ’,’로 사용하는 형태의 텍스트 파일로 Comma Seperated Value의 준말이다. 데이터간의 호환을 위해 광범위하게 사용되는 파일 포맷이다.</p>
+<p>R에서 CSV 파일을 읽을수 있는 함수는 여러가지가 있지만 여기서는 <code>read.csv()</code> 을 사용하는 방법을 설명한다.</p>
+<p>CSV 파일로 데이터를 읽어들이는 예제는 월별 데이터는 통계청 KOSIS 홈페이지의 경제활동인구조사의 산업별 취업자수에서 다운받은 월간 취업자수와 교육서비스업 취업자수 데이터를 사용한다. 이 데이터는 통계청 KOSIS 홈페이지에서 다운로드<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>받을 수 있는데 ’국내통계 &gt; 노동 &gt; 경제활동인구조사 &gt; 취업자 &gt; 산업별 취업자’에서 시점을 2013.1월부터 2020.12월까지, 산업구분을 전체 계와 교육서비스업으로 설정 후 행렬전환 기능을 사용하여 행에 기간, 열에 산업을 설정한 후 다운로드 받았는데 필자의 github에서 <a href="https://github.com/2stndard/concept-of-time-series/blob/master/%EC%82%B0%EC%97%85%EB%B3%84_%EC%B7%A8%EC%97%85%EC%9E%90_20210206234505.csv&#39;">다운</a>받을 수 있다.(csv 파일을 다운로드받는 방법은 다음의 사이트를 참조하길 바란다. <a href="https://technical-support.tistory.com/54" class="uri">&lt;https://technical-support.tistory.com/54&gt;</a>)</p>
+<p>아래와 같이 read.csv 함수를 통해 csv파일을 읽어들일수 있다.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="시계열-데이터-import.html#cb64-1" aria-hidden="true" tabindex="-1"></a>employees <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;./산업별_취업자_20210206234505.csv&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na =</span> <span class="st">&#39;-&#39;</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb64-2"><a href="시계열-데이터-import.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(employees) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;time&#39;</span>, <span class="st">&#39;total&#39;</span>, <span class="st">&#39;employees.edu&#39;</span>)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li><p><code>read.csv()</code>를 사용하여 csv 파일의 데이터를 읽어오는데 csv 파일의 첫줄은 헤더줄로 설정(<code>header = TRUE</code>), ’-’로 기록된 데이터는 NA로 설정(<code>na = '-'</code>), 빈칸은 제거(<code>strip.white = TRUE</code>), 문자열은 factor로 설정(<code>stringsAsFactors = TRUE</code>)</p></li>
+<li><p>컬럼명을 time, total, employees.edu 로 설정</p></li>
+</ul></li>
+</ul>
+</div>
+<p>읽어들인 데이터가 저장된 employees 데이터프레임에는 시계열 객체에서 사용할 수 있는 시간 인덱스 컬럼이 없다. 따라서 time 컬럼을 date 클래스로 바꿔준다.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="시계열-데이터-import.html#cb65-1" aria-hidden="true" tabindex="-1"></a>employees<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">paste0</span>(employees<span class="sc">$</span>time, <span class="st">&#39;. 01&#39;</span>), <span class="at">format =</span> <span class="st">&#39;%Y. %m. %d&#39;</span>)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li>employees$time 컬럼에 저장된 데이터 형태는 ‘연도네자리. 월두자리’의 형태로 되어있기 때문에 우선 ’연도네자리. 월두자리. 일두자리’로 맞추기 위해 <code>paste0()</code>를 사용하여.’ 01’을 붙여줌</li>
+<li>생성된 문자열을 date 클래스로 바꾸기 위해 <code>as.Date()</code>를 사용하는데 문자열 형태가 <code>date</code> 클래스의 기본형태가 아니기 때문에 R이 년월일을 제대로 읽을 수 있도록 <code>format</code> 매개변수를 사용하여 문자열 형태에서 날짜 정보를 추출하기 위한 정보(‘%Y. %m. %d’)를 전달</li>
+</ul></li>
+</ul>
+</div>
+<p>시간 인덱스로 사용될 date 클래스가 생성되었으므로 <code>ts</code>, <code>xts</code>, <code>tsibble</code> 객체로 변환한다.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="시계열-데이터-import.html#cb66-1" aria-hidden="true" tabindex="-1"></a>employees.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(employees, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb66-2"><a href="시계열-데이터-import.html#cb66-2" aria-hidden="true" tabindex="-1"></a>employees.xts <span class="ot">&lt;-</span> <span class="fu">xts</span>(employees[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>], <span class="at">order.by =</span> employees[,<span class="dv">1</span>])</span>
+<span id="cb66-3"><a href="시계열-데이터-import.html#cb66-3" aria-hidden="true" tabindex="-1"></a>employees.tsibble <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(employees, <span class="at">index =</span> time)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li><code>ts()</code>를 사용하여 employees를 <code>ts</code> 클래스로 변환하는데 시작월을 2013년 1월로 설정(<code>start = c(2013, 01)</code>), 월별 데이터이기 때문에 시계열 주기를 12(<code>frequency = 12</code>)로 설정</li>
+<li><code>xts()</code>를 사용하여 employees를 <code>xts</code> 클래스로 변환하는데 사용하는 데이터는 employees의 두번쨰와 세번째 컬럼만을 선택(<code>employees[,2:3]</code>)하고 시간인덱스로 첫번째 컬럼(<code>order.by = employees[,1]</code>)을 사용한다.</li>
+<li><code>as_tsibble()</code>을 사용하여 employees를 <code>tsibble</code> 클래스로 변환하는데 인덱스 컬럼을 time컬럼으로 설정</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="추가-실습-데이터-생성" class="section level3" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> 추가 실습 데이터 생성</h3>
+<p>앞서 생성한 두개의 데이터셋(students, employees)에 더하여 하나의 추가 데이터셋을 더 생성할 것이다. 일별 데이터로써 코로나 확진자수 데이터셋을 생성할 것이다. 코로나 데이터 셋은 통계청 KOSIS 홈페이지의 코로나 현황 홈페이지에서 다운로드 받았다. 앞서 생성한 연별 데이터(students), 월별 데이터(employees)에 추가적으로 일별 데이터를 생성한다.</p>
+<div id="일별-데이터---코로나-확진자-수" class="section level4" number="2.3.3.1">
+<h4><span class="header-section-number">2.3.3.1</span> 일별 데이터 - 코로나 확진자 수</h4>
+<p>일별 코로나 확진자수는 통계청 KOSIS 홈페이지에서 다운로드<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>받았고 필자의 github에서 다운로드 받을수 있다. 이 데이터 셋을 사용하기 위해서는 <code>spread()</code>를 사용하여 긴(long) 형태의 데이터 프레임을 넓은(wide) 형태의 데이터프레임이 필요하다.</p>
+<p>먼저 <code>read.csv()</code>를 이용하여 파일의 데이터를 읽어들인다.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="시계열-데이터-import.html#cb67-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;./covid19.csv&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na =</span> <span class="st">&#39;-&#39;</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb67-2"><a href="시계열-데이터-import.html#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(covid19) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;category&#39;</span>, <span class="st">&#39;status&#39;</span>, <span class="st">&#39;date&#39;</span>, <span class="st">&#39;value&#39;</span>)</span>
+<span id="cb67-3"><a href="시계열-데이터-import.html#cb67-3" aria-hidden="true" tabindex="-1"></a>covid19 <span class="ot">&lt;-</span> covid19[, <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)]</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드 설명</p>
+<ul>
+<li><code>read.csv()</code>를 사용하여 csv 파일의 데이터를 읽어오는데 csv 파일의 첫줄은 헤더줄로 설정(<code>header = TRUE</code>), ’-’로 기록된 데이터는 NA로 설정(<code>na = '-'</code>), 빈칸은 제거(<code>strip.white = TRUE</code>), 문자열은 factor로 설정(<code>stringsAsFactors = TRUE</code>)</li>
+<li>컬럼명을 ‘category,’ ‘status,’ ‘date,’ ’value’로 설정</li>
+<li>데이터프레임을 보기쉽게 하기 위해 컬럼의 순서를 바꿈</li>
+</ul></li>
+</ul>
+</div>
+<p>날짜 컬럼을 만들기 위해 date 컬럼의 데이터를 date 클래스로 바꾼다.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="시계열-데이터-import.html#cb68-1" aria-hidden="true" tabindex="-1"></a>covid19<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(covid19<span class="sc">$</span>date, <span class="st">&quot;%Y. %m. %d&quot;</span>)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드 설명</p>
+<ul>
+<li>읽어들인 데이터의 date 컬럼의 데이터 클래스를 바꾸기 위해 <code>as.Date()</code>를 사용하는데 문자열 형태가 <code>date</code> 클래스의 기본형태가 아니기 때문에 R이 년월일을 제대로 읽을 수 있도록 <code>format</code> 매개변수를 사용하여 문자열 형태에서 날짜 정보를 추출하기 위한 정보(‘%Y. %m. %d’)를 전달</li>
+</ul></li>
+</ul>
+</div>
+<p>읽어들인 데이터 중에 연령대별 데이터만 사용하기 위해 category 컬럼에서 ’세’를 포함한 행만 선택하는데 지역구분중에 ’세종’이 있기 때문에 ’세종’만 추가적으로 제외한다.그 다음 데이터에 NA로 기록된 결측치를 처리한다. 결측치를 처리하는 방법으로 여러가지가 있지만 여기서는 일단 0을 넣어주는 방법으로 결측치를 처리하였다.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="시계열-데이터-import.html#cb69-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="ot">&lt;-</span> covid19 <span class="sc">%&gt;%</span> </span>
+<span id="cb69-2"><a href="시계열-데이터-import.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">&#39;세&#39;</span>, category)) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-3"><a href="시계열-데이터-import.html#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">!=</span> <span class="st">&#39;세종&#39;</span>)</span>
+<span id="cb69-4"><a href="시계열-데이터-import.html#cb69-4" aria-hidden="true" tabindex="-1"></a>covid19<span class="sc">$</span>value <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(covid19<span class="sc">$</span>value), <span class="dv">0</span>, covid19<span class="sc">$</span>value)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드 설명</p>
+<ul>
+<li><p><code>grepl()</code>은 문자열에서 특정 문자가 존재하면 TRUE를 반환하는 함수임. category에서 ’세’문자가 존재하는 행을 골라내고, 다시 그 결과중에 ’세종’이 아닌 행만 골라내서 covid19에 저장함</p>
+<ul>
+<li><code>is.na()</code>로 covid1$value이 NA인지 검사하고 만약(<code>ifelse</code>) NA라면 0을 넣고 아니면 원래값(covid19$value)을 넣어줌. :</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<p>이제 사용해야할 데이터의 처리가 완료되었다. 시계열 데이터 처리에는 긴(long) 형태의 데이터보다는 넓은(wide) 형태의 데이터가 좋기 때문에 <code>spread()</code>를 사용하여 긴 형태를 좁은 형태로 바꾸었다.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="시계열-데이터-import.html#cb70-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">spread</span>(covid19, category, value)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드 설명</p>
+<ul>
+<li>covid19 데이터프레임의 category의 변수들을 컬럼화하고 해당 컬럼에 넣을 데이터는 value로 채워넣음</li>
+</ul></li>
+</ul>
+</div>
+<p>데이터 정리가 다 끝났으므로 <code>ts</code>, <code>xts</code>, <code>tsibble</code> 객체로 변환한다.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="시계열-데이터-import.html#cb71-1" aria-hidden="true" tabindex="-1"></a>covid19.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(covid19[, <span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">frequency =</span> <span class="dv">365</span>)</span>
+<span id="cb71-2"><a href="시계열-데이터-import.html#cb71-2" aria-hidden="true" tabindex="-1"></a>covid19.xts <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(covid19[, <span class="dv">3</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">order.by =</span> covid19<span class="sc">$</span>date)</span>
+<span id="cb71-3"><a href="시계열-데이터-import.html#cb71-3" aria-hidden="true" tabindex="-1"></a>covid19.tsibble <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(covid19, <span class="at">index =</span> date)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드 설명</p>
+<ul>
+<li><code>ts()</code>를 사용하여 covid19를 <code>ts</code>로 변환하는데 covid19의 두번째부터 10번째컬럼(<code>covid19[, 2:10]</code>)까지를 사용하고 일별 데이터이기 때문에 시계열 주기를 365로 설정(<code>frequency = 365</code>)</li>
+<li><code>xts()</code>를 사용하여 covid19를 <code>xts</code>로 변환하는데 covid19의 세번째부터 10번째컬럼(<code>covid19[, 3:10]</code>)까지를 사용하고 시간인덱스를 covid19$date로 설정(<code>order.by = covid19\$date</code>)</li>
+<li><code>as_tsibble()</code>을 사용하여 covid19를 <code>tsibble</code>로 변환하는데 시간인덱스를 date로 설정(<code>index = date</code>)</li>
+</ul></li>
+</ul>
+</div>
 
 </div>
 </div>
+</div>
+<!-- </div> -->
 <div class="footnotes">
 <hr />
-<ol start="2">
-<li id="fn2"><p>ts, R document , <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/ts" class="uri">https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/ts</a>, 2021.1.31<a href="시계열-데이터-import.html#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p><a href="https://cran.r-project.org/web/packages/zoo/zoo.pdf" class="uri">https://cran.r-project.org/web/packages/zoo/zoo.pdf</a><a href="시계열-데이터-import.html#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p><a href="https://cran.r-project.org/web/packages/xts/xts.pdf" class="uri">https://cran.r-project.org/web/packages/xts/xts.pdf</a><a href="시계열-데이터-import.html#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p><a href="https://www.rdocumentation.org/packages/xts/versions/0.12.1/topics/as.xts.methods" class="uri">https://www.rdocumentation.org/packages/xts/versions/0.12.1/topics/as.xts.methods</a><a href="시계열-데이터-import.html#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p><a href="https://cran.r-project.org/web/packages/xts/xts.pdf" class="uri">https://cran.r-project.org/web/packages/xts/xts.pdf</a><a href="시계열-데이터-import.html#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p><a href="https://cran.r-project.org/web/packages/modeltime/index.html" class="uri">https://cran.r-project.org/web/packages/modeltime/index.html</a><a href="시계열-데이터-import.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<ol start="9">
+<li id="fn9"><p><a href="https://kess.kedi.re.kr/userfile/6711778" class="uri">https://kess.kedi.re.kr/userfile/6711778</a><a href="시계열-데이터-import.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p><a href="https://kosis.kr/statisticsList/statisticsListIndex.do?parentId=D.1&amp;menuId=M_01_01&amp;vwcd=MT_ZTITLE&amp;parmTabId=M_01_01&amp;entrType=btn#content-group" class="uri">https://kosis.kr/statisticsList/statisticsListIndex.do?parentId=D.1&amp;menuId=M_01_01&amp;vwcd=MT_ZTITLE&amp;parmTabId=M_01_01&amp;entrType=btn#content-group</a><a href="시계열-데이터-import.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p><a href="https://kosis.kr/covid/covid_index.do" class="uri">https://kosis.kr/covid/covid_index.do</a><a href="시계열-데이터-import.html#fnref11" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -409,8 +489,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="literature.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="시계열-데이터-객체object.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="시계열-visualization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
