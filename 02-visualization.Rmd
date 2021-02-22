@@ -3,315 +3,428 @@
 library(dplyr)
 library(xts)
 library(tsibble)
-students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
-students[, 3:18] <- apply(students[, 3:18], 2, function(y) as.numeric(gsub(",", "", y)))
-students.total.xts <- students %>% filter(지역규모 == '계') %>% select(-지역규모)
-students.total.xts <- as.xts(students.total.xts, order.by = as.Date(paste0(students.total.xts[,1], '-01-01'), format = '%Y-%m-%d'))
-library(timetk)
-students.total.ts <- students %>% 
-  filter(지역규모 == '계') %>% 
-  select(3:18) %>%
-  ts(start = c(1999), frequency = 1)
-students.tsibble <- as_tsibble(students, key = 지역규모, index = 연도)
+library(readxl)
+students.all <- read_excel("./students.xlsx", skip = 16, na = '-', sheet = 1, col_types = c('text', 'text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric'))
+students <- students.all %>% 
+  filter(지역규모 == '계') %>% select(-지역규모)
+students$연도 <- as.Date(paste0(students$연도, '-01-01'))
+students.ts <- ts(students, frequency = 1, start = 1999)
+students.xts <- as.xts(students[,-1], order.by = students$연도)
+students.tsibble <- as_tsibble(students, index = 연도)
+
 
 employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 colnames(employees) <- c('time', 'total', 'employees.edu')
 employees$time <- as.Date(paste0(employees$time, '. 01'), format = '%Y. %m. %d')
 employees.ts <- ts(employees, start = c(2013, 01), frequency = 12)
 employees.xts <- xts(employees[,2:3], order.by = employees[,1])
-employees$yearmonth <- yearmonth(employees$time)
-employees.tsibble <- as_tsibble(employees, index = yearmonth)
+employees.tsibble <- as_tsibble(employees, index = time)
+
 
 covid19 <- read.csv('./covid19.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
 colnames(covid19) <- c('category', 'status', 'date', 'value')
 covid19 <- covid19[, c(3, 1, 2, 4)]
 covid19$date <- as.Date(covid19$date, "%Y. %m. %d")
-covid19.by.age <- covid19 %>% 
+covid19 <- covid19 %>% 
   filter(grepl('세', category)) %>% 
   filter(category != '세종')
-covid19.by.age$value <- ifelse(is.na(covid19.by.age$value), 0, covid19.by.age$value)
-wide.covid19.by.age <- tidyr::spread(covid19.by.age, category, value)
-
-wide.covid19.by.age.ts = ts(wide.covid19.by.age[, 2:10], frequency = 365)
-wide.covid19.by.age.xts <- as.xts(wide.covid19.by.age[, 3:10], order.by = wide.covid19.by.age$date)
-wide.covid19.by.age.tsibble <- as_tsibble(wide.covid19.by.age, index = date)
-
+covid19$value <- ifelse(is.na(covid19$value), 0, covid19$value)
+covid19 <- tidyr::spread(covid19, category, value)
+covid19.ts <- ts(covid19[, 2:10], frequency = 365)
+covid19.xts <- as.xts(covid19[, 3:10], order.by = covid19$date)
+covid19.tsibble <- as_tsibble(covid19, index = date)
 ```
 
 # 시계열 Visualization
 
-시계열 데이터는 일반적으로 가로축(X axis)에는 시간 인덱스가 위치하고 세로축(Y axis)에 값이 표현되는 라인 그래프가 일반적으로 많이 사용된다.이러한 그래프의 형태는 시간의 흐름에 따라 발생하는 추세(Trend), 계절성(Seasonality) 등의 시계열 특성을 표현하고 파악하는데 효율적이다. 시계열 데이터 분석에는 시계열 데이터의 직접적인 라인 그래프 외에도 자기 상관 함수(ACF : AutoCorelation Function), 편자기상관함수(PACF : Partial AutoCorelation Function) 등의 다양한 그래프들이 존재하나 이 장에서는 data.frame, ts, xts, tsibble 등 시계열 객체별로 plotting을 작성하는 방법을 설명한다.
+시계열 데이터는 일반적으로 가로축(X axis)에는 시간 인덱스가 위치하고 세로축(Y axis)에 값이 표현되는 라인 plot이 많이 사용된다.이러한 plot의 형태는 시간의 흐름에 따라 발생하는 추세(Trend), 계절성(Seasonality) 등의 시계열 특성을 표현하고 파악하는데 효율적이다. 시계열 데이터 분석에는 시계열 데이터의 직접적인 라인 그래프 외에도 자기 상관 함수(ACF : AutoCorelation Function), 편자기상관함수(PACF : Partial AutoCorelation Function) 등의 다양한 plot들이 사용되지만 이 장에서는 `data.frame`, `ts`, `xts`, `tsibble`등 시계열 객체별로 plotting을 작성하는 방법을 설명한다.
 
 ## data.frame : ggplot2 패키지
 
-ggplot2는 시계열 데이터 이외에 다양한 plot을 그리는 방법을 제공하는 R의 대표적인 plot 작도 패키지로 널리 사용되고 있음. ggplot2는 R-Studio의 수석 데이터 사이언티스트인 Hadley Wickham이 주도적으로 개발한 패키지로 2005년 발간된 Leland Wilkinson의 The Grammar of Graphics을 기본으로 작성되었음.
+`ggplot2` 패키지는 시계열 데이터 이외에 다양한 plot을 그리는 방법을 제공하는 R의 대표적인 plot 패키지로 널리 사용되고 있다. `ggplot2`는 R-Studio의 수석 데이터 사이언티스트인 Hadley Wickham이 주도적으로 개발한 패키지로 2005년 발간된 Leland Wilkinson의 'The Grammar of Graphics'을 토대로 개발되었다.
 
-The Grammar of Graphics는 데이터를 효과적으로 표현하기 위해 다음과 같은 7가지 element를 통해 표현할 것을 제안함.[^visualization-1] ggplot2 plot의 시작은 ggplot 함수를 호출하면서 시작하는데 다음의 각각 element들을 + 기호를 사용하여 누적시켜가면서 하나의 plot를 생성함.
+'The Grammar of Graphics'는 데이터를 효과적으로 표현하기 위해 다음과 같은 7가지 요소를 통해 표현할 것을 제안하였는데[^visualization-1] `ggplot2`에서도 이를 사용하여 plot를 그리는 요소로 사용하고 있다. `ggplot2`의 plot 생성의 시작은 `ggplot()` 를 호출하면서 시작하는데 다음의 요소들을 `+` 기호를 사용하여 연결시켜가면서 전체 plot를 생성한다.
 
 [^visualization-1]: <https://ramnathv.github.io/pycon2014-r/visualize/ggplot2.html>
 
+::: {.boxBorder}
+ggplot2의 plot 7 요소
+
 -   data
 
-plot에서 표현해야할 데이터를 지정함. 하나의 ggplot2 plot 안에는 하나 이상의 데이터를 포함시킬수 있는데 기본적으로 하나의 데이터는 ggplot 함수에 포함되어야 하며 추가적인 데이터를 표현하기 위해서는 +로 연결되는 geom\_ 함수에 설정하여 사용할 수 있음. ggplot에서 지원하는 데이터 타입은 data frame인데 data frame이 아닌 객체가 설정되면 내부적으로 data.frame으로 변환(fortify 함수를 활용)하여 데이터로 설정함.
+plot에서 표현해야할 데이터를 지정함. 하나의 `ggplot` plot 안에는 하나 이상의 데이터를 포함시킬수 있는데 기본적으로 하나의 데이터는 `ggplot()`에 포함되어야 함. 추가적인 데이터를 표현하기 위해서는 +로 연결되는 geom\_ 함수에 설정하여 사용할 수 있음. ggplot에서 지원하는 데이터 타입은 데이터 프레임인데 데이터프레임이 아닌 객체가 설정되면 내부적으로 data.frame으로 변환(`fortify()`를 활용)하여 사용함.
 
 -   Aesthetics
 
-Aesthetics는 데이터의 컬럼을 시각적 속성에 매핑시키는 element임. Aesthetics는 ggplot 함수와 geom_함수로 표현되는 개별 레이어에서 aes 매개변수를 이용하여 매핑 가능함. 매핑 가능한 시각적 속성은 X axis, Y axis, color, size 등임.
+Aesthetics는 데이터의 컬럼을 시각적 속성에 매핑시키는 요소로써 Aesthetics는 `ggplot()`와 geom_함수로 표현되는 개별 레이어에서 aes 매개변수를 이용하여 매핑 가능함. 매핑 가능한 시각적 속성은 X 축, Y 축, color, size 등임.
 
 -   Geometries
 
-Geometries는 plot에서 실질적으로 표현되는 point, line, bar 등의 그래픽 element를 설정함. 일반적으로 하나의 Geometries는 하나의 layer를 생성하여 표현되는데 여러 Geometry layer가 겹쳐져서 하나의 plot을 생성하게 됨.
+Geometries는 plot에서 실질적으로 표현되는 point, line, bar 등의 그래픽 요소를 설정함. 일반적으로 하나의 Geometries는 하나의 layer를 생성하여 표현되는데 여러 Geometry layer가 겹쳐져서 하나의 plot을 생성하게 됨.
 
 -   Facet
 
-plot에 표현되는 데이터가 일변량(univariate)이 아닌 다변량(multivariate)인 경우 하나의 plot에 다변량을 표현하면 여러 Geometries가 혼재되어 데이터의 분석이 어려움. 이런 경우 다변량을 일변량화하여 일변량 plot을 다중으로 표현할 때 사용하는 element임.
+plot에 표현되는 데이터가 일변량(univariate)이 아닌 다변량(multivariate)인 경우 하나의 plot에 다변량을 표현하면 여러 Geometries가 혼재되어 데이터의 분석이 어려움. 이런 경우 다변량을 일변량화하여 일변량 plot을 다중으로 표현할 때 사용하는 요소임.
 
 -   Statistics
 
-mean, median 등 표현할 데이터의 통계값을 표현할 필요가 있을 때 사용하는 element임.
+mean, median 등 표현할 데이터의 통계값을 표현할 필요가 있을 때 사용하는 요소임.
 
 -   Coordinates
 
-plot에 표현되는 2차원 좌표계를 설정하기 위한 element임. X axis와 Y axis의 limit, label 등을 설정할 수 있음.
+plot에 표현되는 2차원 좌표계를 설정하기 위한 요소임. X 축와 Y 축의 limit, label 등을 설정할 수 있음.
 
 -   Theme
 
-plot 제목, axis 제목, axis 단위, legend 등 plot의 전반적인 디자인을 꾸며줄 수 있음. 미리 정의된 Theme을 적용하여 설정할 수 있음.
+plot 제목, 축 제목, 축 단위, legend 등 plot의 전반적인 디자인을 꾸며줄 수 있음. 미리 정의된 Theme을 적용하여 설정할 수 있음.
+:::
 
-ggplot를 활용해 시계열 plot를 표현하기 위해서는 위의 7개 element 중 Geometry는 line 이어야 하며 Aesthetic의 X axis는 시간 인덱스로 설정되는 plot이 많이 사용됨. 앞서 설명한 바와 같이 ggplot는 data.frame을 데이터로 설정이 가능하고 X axis에 시간 컬럼을 설정하기 위해서는 컬럼에 접근이 가능한 컬럼명이 있어야 하기 때문에 ts나 xts 클래스보다는 data.frame을 data로 설정하는 것이 적합함. 2장에서 저장한 students 데이터프레임을 시계열 plot으로 그리면 다음과 같음.
+`ggplot`를 활용해 시계열 plot를 표현하기 위해서는 위의 7개 요소 중 Geometry는 line으로 사용하는 경우가 많이 활용된다. Aesthetic의 X 축은 시간 인덱스로 주로 설정되는데 ggplot()를 사용하여 2장에서 저장한 students 데이터프레임을 시계열 plot으로 다음과 같이 그릴수 있다.
 
 ```{r ggplot_overall}
 library(ggplot2)
-students.ggplot <- students %>% filter(지역규모 == '계') # 2장에서 읽어들인 students data.frame에서 합계만 filtering
-ggplot(data = students.ggplot, aes(x = 연도, y = 학생수계)) +
-  geom_line(aes(group = 1))
+students %>%
+  ggplot(aes(x = 연도, y = 학생수계)) +
+  geom_line(aes(group = 1)) + 
+  labs(title = '연도별 학생수 추이')
 ```
 
--   ggplot 문법 설명 및 plot 수정
+::: {.comment}
+-   코드 설명
 
-    -   'data =' : ggplot를 사용하여 플로팅하기 위한 데이터가 저장된 data.frame 객체명을 설정. 'data =' 키워드는 생략 가능하므로 바로 객체명을 설정해도 가능함.
+    -   ggplot를 사용하여 플로팅하기 위한 데이터프레임을 `%>%`으로 `ggplot()`에 전달.
 
-    -   aes : Aesthetic element를 설정하는 부분으로 'x =' 은 가로축에 바인딩 될 컬럼명, 'y = '은 세로축에 바인딩 될 컬럼명을 설정하는데 가로축은 시간이 포함된 컬럼을 설정해야 올바른 시계열 plot임. 위의 예제에서 X axis에 연도 컬럼을 바인딩했는데 student data.frame에 연도 컬럼은 integer class이기 때문에 바로 연도 컬럼을 바인딩 하면 연도가 다 표기되지 않고 일부 연도만 가로축에 표기됨. 연도 전체를 표기하기 위해 연도컬럼을 as.factor 함수를 사용해 factor class로 변환함
+    -   Aesthetic 요소를 설정하기 위해 `aes()` 를 사용함. x축에 바인딩 될 컬럼은 연도, y축에 바인딩 될 컬럼은 학생수로 설정(`aes(x = 연도, y = 학생수계)`)
 
-        ```{r ggplot_aes}
-        ggplot(data = students.ggplot, aes(x = as.factor(연도), y = 학생수계)) +
-          geom_line(aes(group = 1))
-        ```
+    -   `geom_line()`을 사용하여 라인 geometry를 표현하는 layer를 생성. 라인 geometry는 여러 라인이 표기될 수 있으므로 같은 라인으로 표현될 데이터를 묶어주는데 그룹이 하나인 경우는 1로 설정(`aes(group = 1)`).
 
-    -   geom_line : plot에 직접적으로 표기될 Geometries를 line으로 설정하는 부분임. 다른 Geometries와 달리 line plot은 하나의 라인으로 묶이는 데이터 그룹을 지정해야 하는데, 위의 예와 같이 데이터 그룹이 하나밖에 없을때는 1로 설정 가능함. 만약 다변량 라인 플롯을 작성시에는 그룹핑이 가능한 컬럼을 확보하고 이 컬럼을 'group ='로 지정하여 ploting함.
+    -   `labs()`를 사용하여 plot 제목을 설정(`title =`)
+:::
 
-        ```{r ggplot_geomline}
-        ggplot(data = students, aes(x = 연도, y = 학생수계)) +
-          geom_line(aes(group = 지역규모, color = 지역규모))
-        ```
+위의 예제에서 X 축에 연도 컬럼을 연결했는데 students 데이터프레임에 연도가 다 나타나지 않는다. 연도 컬럼은 date 클래스이기 때문에 ggplot()에서 적절한 표기 범위를 잡는데 이를 1년 단위로 표기하기 위해서는 다음과 같이 그릴 수 있다.
 
-    -   데이터 포인트 추가 : plot을 plot을 보다 보기 편하게 만들기 위해 point geometires layer를 추가함. geom_point함수를 사용하며 'shape ='은 point 형태로 circle로 설정함.
+```{r ggplot_aes}
+ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
+  geom_line(aes(group = 1)) + 
+  theme(axis.text.x=element_text(angle=90,hjust=1)) + 
+  labs(title = '연도별 학생수 추이', x = '연도')
+```
 
-        ```{r ggplot_datapoint}
-        ggplot(data = students.ggplot, aes(x = as.factor(연도), y = 학생수계)) +
-          geom_line(aes(group = 1)) + 
-          geom_point(shape = 'circle')
-        ```
+::: {.comment}
+-   코드 설명
 
-    -   plot 제목, 축 제목 설정 : 축 제목은 aes에서 설정된 컬럼명이 자동 설정되는데 앞서 X axis에 바인딩된 컬럼에 as.factor함수를 적용했기 때문에 축 제목이 'as.factor(연도)'로 설정됨. 또한 전체 plot의 제목을 설정할 필요가 있는데 plot 제목과 X axis의 축 제목을 labs 함수를 사용하여 재설정해야 함.
+    -   앞선 코드에서 사용한 파이프라인(`%>%`)을 사용하지 않으면 `ggplot()`에 직접 사용할 데이터프레임을 지정해야 함(`data =`).
 
-        ```{r ggplot_plottitle}
-        ggplot(data = students.ggplot, aes(x = as.factor(연도), y = 학생수계)) +
-          geom_line(aes(group = 1)) + 
-          geom_point(shape = 'circle') +
-          labs(title = '연도별 학생수', x = '연도')
-        ```
+    -   date 클래스로 년-월-일로 설정된 연도 컬럼에서 `lubridate` 패키지의 `year()`를 이용하여 연도만 추출(`lubridate::year(연도)`)하고 이를 `factor()`를 사용하여 `factor`로 변환
 
-    -   Y axis label : Y axis의 표현을 설정하는 부분으로 'label ='은 Y axis에 표기되는 label 값이 클 경우 자연수가 아닌 지수형태로 표기되어 보기가 불편함. 따라서 지수 형태의 표기를 자연수 형태의 표기로 바꾸어줄 필요가 있으며 천단위에 ,를 찍어 보다 보기 편하게 설정함
+    -   `theme()`을 사용하여 theme 요소를 추가. 추가된 요소는 X축에 표기되는 텍스트(axis.text.x)를 `element_text()`를 사용하여 설정하는데 텍스트 방향을 90도 회전(`angle=90`)시키고 정렬을 맞춤(`hjust=1`)
 
-        ```{r ggplot_Yaxislabel}
-        ggplot(data = students.ggplot, aes(x = as.factor(연도), y = 학생수계)) +
-          geom_line(aes(group = 1)) + 
-          geom_point(shape = 'circle') +
-          labs(title = '연도별 학생수', x = '연도') +
-          scale_y_continuous(labels = scales::number_format(big.mark = ','))
-        ```
+    -   `labs()`를 사용하여 X축 제목을 추가로 설정(`x =`)
+:::
 
-    -   X axis label : X axis label이 너무 붙어있어서 연도가 정확히 보이지 않음. 따라서 연도를 90도 회전하여 세로쓰기하면 보다 보기가 편함.
+이번에는 다중 선 plot을 그려본다. 앞 장에서 생성했던 데이터 중에 students.all 데이터 프레임을 사용한다. 앞에서 설명했듯이 라인 geometry는 여러 그룹들을 같이 그릴수 있는데 지역규모별로 plot을 생성하려면 아래와 같이 그릴 수 있다.
 
-        ```{r ggplot_Xaxislabel}
-        ggplot(data = students.ggplot, aes(x = as.factor(연도), y = 학생수계)) +
-          geom_line(aes(group = 1)) + 
-          geom_point(shape = 'circle') +
-          labs(title = '연도별 학생수', x = '연도') +
-          scale_y_continuous(labels = scales::number_format(big.mark = ',')) + 
-          theme(axis.text.x=element_text(angle=90,hjust=1))
-        ```
+```{r ggplot_geomline}
+ggplot(data = students.all, aes(x = 연도, y = 학생수계)) +
+  geom_line(aes(group = 지역규모, color = 지역규모)) + 
+  theme(axis.text.x=element_text(angle=90,hjust=1)) + 
+  labs(title = '연도별 학생수 추이', x = '연도')
+```
 
-ggplot외 타 패키지에서 제공하는 plot은 ggplot에서 제공하는 기능만큼 다양한 기능을 제공하지 않는다. 디자인이 중요한 plot을 작성하기 위해서는 ggplot의 다양한 기능을 사용하여 plot을 작성하는 것이 바람직하다. 이외에 ggplot에 관련한 자세한 사항은 다른 문서를 참조할 것을 권한다.
+::: {.comment}
+-   코드 설명
+
+    -   `geom_line()`을 사용하여 라인 Geometries Layer를 설정. 라인 Geometries로 표시할 다변량 라인 plot은 그룹핑이 가능한 컬럼인 지역규모를 `group =`로 설정하고 색상 변경을 설정(`color =`)
+:::
+
+위에서 그려진 plot은 전체적인 흐름을 보기에는 편리하지만 연도별 데이터의 위치를 가늠하기에는 조금 어려운 점이 있다. 각 연도에 점을 찍어주면 더욱 보기가 편리할 듯 하다.
+
+데이터 포인트 추가 : plot을 plot을 보다 보기 편하게 만들기 위해 point geometires layer를 추가함. geom_point함수를 사용하며 'shape ='은 point 형태로 circle로 설정함.
+
+```{r ggplot_datapoint1}
+ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
+  geom_line(aes(group = 1)) + 
+  geom_point(shape = 'circle') + 
+  theme(axis.text.x=element_text(angle=90,hjust=1)) + 
+  labs(title = '연도별 학생수 추이', x = '연도')
+```
+
+::: {.comment}
+-   코드 설명
+
+    -   `geom_point()`를 사용하여 점 geometry layer를 추가. 점 모형은 circle로 설정(`shape = 'circle'`)
+:::
+
+```{r ggplot_datapoint2}
+ggplot(data = students.all, aes(x = 연도, y = 학생수계)) +
+  geom_line(aes(group = 지역규모, color = 지역규모)) + 
+  geom_point(shape = 'circle', size = 0.5) + 
+  theme(axis.text.x=element_text(angle=90,hjust=1)) + 
+  labs(title = '연도별 학생수 추이', x = '연도')
+```
+
+점을 표기하면 좀 더 데이터를 이해하기가 쉬워진다. 하지만 구체적인 값을 표기하면 더 이해하기가 좋아질 것이다. 다만 이 과정에서 조심해야할 것은 값을 표기하다보면 숫자들이 너무 많아져 거꾸로 plot이 전체적으로 보기가 어려워 질 수 있다.
+
+```{r ggplot_text}
+ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
+  geom_line(aes(group = 1)) + 
+  geom_point(shape = 'circle') + 
+  geom_text(aes(label = scales::number(학생수계, big.mark = ',')), size = 2, vjust = 1.5) + 
+  theme(axis.text.x=element_text(angle=90,hjust=1)) + 
+  labs(title = '연도별 학생수 추이', x = '연도')
+```
+
+::: {.comment}
+-   코드 설명
+
+    -   `geom_text()`를 사용하여 각 데이터 포인트에 데이터 값을 표기(`aes(label =)`). 표기되는 값은 `scales` 패키지의`number()`를 사용하여 숫자형태로 표기하되 천단위 콤마를 표기(`big.mark = ','`)하고 크기는 2(`size = 2`)로, 정렬은 수직위치로 1.5(`vjust = 1.5`)만큼 이동
+:::
+
+위의 plot에서도 2000년에서 2006년까지는 데이터 값을 보기가 어렵다. 이럴때는 `ggrepel` 패키지의 `geom_text_repel()`을 이용하면 겹치지 않게 라벨을 표시할 수 있다.
+
+```{r ggplot_repel}
+library(ggrepel)
+ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
+  geom_line(aes(group = 1)) + 
+  geom_point(shape = 'circle') + 
+  geom_text_repel(aes(label = scales::number(학생수계, big.mark = ',')), size = 2, vjust = 1.5) + 
+  theme(axis.text.x=element_text(angle=90,hjust=1)) + 
+  labs(title = '연도별 학생수 추이', x = '연도')
+```
+
+::: {.comment}
+-   코드 설명
+
+    -   `ggrelpe` 패키지의 `geom_text_repel()`을 사용하여 각 데이터 포인트에 데이터 값을 표기. 사용법은 `geom_text()`와 동일.
+:::
+
+ggplot()은 X 축과 Y 축의 표현 설정을 지정하지 않으면 자체적으로 판단하여 설정하는데 표현되는 값이 클 경우 지수형태로 표기된다. 앞의 전체 학생수 plot이 지수형태로 표기된 Y 축 라벨이 보이는데 이렇게 표현되면 값을 알아보기가 어렵다. 이 부분을 수정해보자.
+
+```{r ggplot_Yaxislabel}
+ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
+  geom_line(aes(group = 1)) +
+  geom_point(shape = 'circle') + 
+  geom_text_repel(aes(label = scales::number(학생수계, big.mark = ',')), size = 2, vjust = 1.5) +   
+  theme(axis.text.x=element_text(angle=90,hjust=1)) + 
+  labs(title = '연도별 학생수 추이', x = '연도') +
+  scale_y_continuous(labels = scales::number_format(big.mark = ','))
+```
+
+::: {.comment}
+-   코드 설명
+
+    -   `scale_y_continuous()`를 사용하여 Y 축 특성을 설정. 설정하는 특성은 라벨 특성으로 `sacles` 패키지의 `number_format()`을 사용하는데 천단위의 콤마를 찍어주도록 설정
+:::
+
+`ggplot`외 타 패키지에서 제공하는 plot은 `ggplot`에서 제공하는 기능만큼 다양한 기능을 제공하지 않는다. 디자인이 중요한 plot을 작성하기 위해서는 ggplot의 다양한 기능을 사용하여 plot을 작성하는 것이 바람직하다. 이외에 `ggplot`에 관련한 자세한 사항은 다른 문서를 참조할 것을 권한다. 아래의 코드는 전체 취업자 데이터와 코로나 발생 데이터를 `ggplot()`을 사용하여 그린 예제이다.
 
 ```{r ggplot_employees}
-ggplot(data = employees, aes(x = as.factor(time), y = total)) +
+ggplot(data = employees, aes(x = time, y = total)) +
   geom_line(aes(group = 1)) + 
   geom_point(shape = 'circle') +
-  labs(title = '월별 취업자수', x = '시간') +
+  labs(title = '월별 취업자수', x = '기간', y = '취업자수') +
   scale_y_continuous(labels = scales::number_format(big.mark = ',')) +
-  scale_x_discrete(breaks = c('2013. 01', '2014. 01', '2015. 01', '2016. 01', '2017. 01', '2018. 01', '2019. 01', '2020. 01')) +
+  scale_x_date(breaks = '6 month') +
   theme(axis.text.x=element_text(angle=90,hjust=1))
 ```
 
+::: {.comment}
+-   코드 설명
+
+    -   `scale_x_date()`을 사용하여 X 축의 라벨 표기점을 설정. X 축으로 바인딩 된 컬럼이 date 클래스이므로 `scale_x_date()`를 사용할 수 있는데 표기점을 6개월마다로 설정(`breaks = '6 month'`)
+:::
+
 ```{r ggplot_covid}
-ggplot(data = wide.covid19.by.age, aes(x = as.factor(date), y = `0-9세`)) +
+ggplot(data = covid19, aes(x = date, y = `0-9세`)) +
   geom_line(aes(group = 1)) + 
   geom_point(shape = 'circle') +
   labs(title = '일별 확진자수(0-9세)', x = '시간') +
   scale_y_continuous(labels = scales::number_format(big.mark = ',')) +   
-  scale_x_discrete(breaks = c('2020-04-10', '2020-05-01', '2020-06-02', '2020-07-01', '2020-08-01', '2020-09-01', '2020-10-01', '2020-11-01', '2020-12-01', '2021-01-01', '2021-02-01')) +
+  scale_x_date(breaks = '15 day') +
   theme(axis.text.x=element_text(angle=90,hjust=1))
 ```
 
 ## xts : xts 패키지
 
-xts는 시계열 데이터를 다루는 데이터 클래스와 데이터 핸들링 함수, 데이터 ploting 함수 등을 제공한다. 따라서 xts 패키지에서 제공하는 함수는 xts class의 데이터 객체를 대상으로 작동한다.
+`xts`는 시계열 데이터를 다루는 데이터 클래스로 `xts` 패키지를 로딩해야 사용할 수 있다. xts 패키지에서는 데이터 핸들링 함수, 데이터 ploting 함수 등을 제공한다. 따라서 `xts` 패키지에서 제공하는 함수는 `xts` class의 데이터 객체를 대상으로 작동한다.
 
-xts 패키지를 사용하여 plot을 작성하려면 plot.xts()함수를 사용한다. plot.xts()을 활용해 작성한 plot에 추가적으로 line, legend 등을 추가하기 위해 add\_ 함수를 사용할 수 있다.
+`xts` 패키지를 사용하여 plot을 작성하려면 `plot.xts()`함수를 사용한다. `plot.xts()`을 활용해 작성한 plot에 추가적으로 line, legend 등을 추가할 수 있다.
 
-xts 패키지의 plot.xts를 활용하는 것은 디자인적 측면에서 ggplot보다 못미치지만 시계열 데이터의 흐름을 빠르고 쉽게 파악하는 사용이 간편한 plot 함수를 제공한다는 점에서 큰 장점이 있다.
+`xts` 패키지의 `plot.xts()`를 활용하는 것은 디자인적 측면에서 `ggplot`보다 못미치지만 시계열 데이터의 흐름을 빠르고 쉽게 파악하는 사용이 간편한 plot 함수를 제공한다는 점에서 큰 장점이 있다.
 
-```{r plot_xts}
-plot.xts(students.total.xts)
+```{r plot_xts_uni}
+library(xts)
+plot.xts(employees.xts$total, main = '월별 취업자수 추세', xlab = '월, 년',  ylab = '취업자수')
 ```
 
--   plot.xts 문법 설명 및 plot 수정
+::: {.comment}
+-   코드 설명
 
-    -   plot.xts 함수에 xts 데이터를 설정함으로써 xts class 데이터에 대한 plot을 간단한 코드로 생성할 수 있다.
+    -   `xts` 데이터를 다루기 위해 `xts` 패키지를 로딩
 
-    -   plot 제목 및 축 제목 : plot.xts로 생성된 plot의 제목은 'main' 매개변수를 사용하여 설정이 가능하고 부제목은 'sub' 매개변수로 설정이 가능하다. 축 제목은 'xlab', 'ylab' 매개변수를 통해 설정한다.
+    -   plot.xts()을 사용하여 전체 취업자수(employees\$total)의 plot을 생성
 
-        ```{r plot_xts_title}
-        plot.xts(students.total.xts[,2], main = '연도별 학생수', sub = '전체 학생수의 연도별 변화', xlab = '연도',  ylab = '학생수')
-        ```
+    -   plot의 제목(`main =`), X 축 제목(`xlab =`), Y 축 제목(`ylab =`)을 설정
+:::
 
-    -   plot 축 범위 : plot 축의 범위는 'xlim', 'ylim' 매개변수를 사용하여 설정이 가능하다. 설정시에는 최소값과 최대값을 c() 함수를 사용하여 설정한다.
+위에서 본 것과 같이 `xts` 클래스 데이터의 단변량 plot은 `plot.xts()`로 간단히 그릴수 있다. 그렇다면 다변량 plot은 어떻게 그릴 수 있을까? 같은 xts 클래스 데이터에 여러 컬럼으로 저장된 다변량 plot은 단지 `plot.xts()`에 `xts` 객체를 전달할 때 그리고자 하는 컬럼을 전달해주면 같이 그려진다.
 
-        ```{r plot_xts_axis}
-        plot.xts(students.total.xts[,2], main = '연도별 학생수', sub = '전체 학생수의 연도별 변화', xlab = '연도',  ylab = '학생수', ylim = c(0, max(students.total.xts[,2])))
-        ```
-
-    -   다변량 시계열 ploting : 다변량 xts의 경우 한번에 다량의 line plot가 자동적으로 생성되는데 일변량 line plot를 여러개 생성해야할 경우는 lines 함수를 사용하여 기존의 plot에 추가할 수 있다.
-
-        ```{r plot_xts_multiplot}
-        lines(students.total.xts[,4], col = 'red')
-        ```
-
-    -   범례 추가 : 다중의 line이 하나의 plot에 표현되는 경우 범례가 필요하다. xts에서 범례를 표시하기 위해서는 legend함수를 사용하여 plot에 표시한다.
-
-        ```{r plot_xts_legend}
-        addLegend("topright", legend.names=c('전체', '초등학교'), col=c('black', 'red'), lty=c(1,1), lwd=c(2,2), ncol=2, bg="white")
-        ```
-
-```{r xts_employees}
-plot.xts(employees.xts[, 1], main = '월별 취업자수', xlab = '연도',  ylab = '취업자수')
+```{r plot_xts_multi}
+plot.xts(employees.xts, main = '연도별 학생수 추세', xlab = '년',  ylab = '학생수', yaxis.right=FALSE)
+addLegend('bottomleft', ncol = 1, bg = 'white', lty=c(rep(1, 12)), lwd=c(rep(2, 12)), bty="o")
 ```
+
+::: {.comment}
+-   코드 설명
+
+    -   `plot.xts()`에 두개의 시계열 데이터가 저장된 employees.xts를 전달함으로써 다변량 plot을 그림. 좌우 Y축에 모두 값이 표기되므로 우측 Y축에는 값을 제거
+:::
+
+만약 같이 그리고자 하는 다변량 데이터가 다른 데이터 프레임에 있거나 컬럼을 같이 전달하기가 어려울 경우에는 다음과 같이 `lines()`를 사용하여 겹쳐서 그릴 수 있다.
+
+```{r plot_xts_multi_line}
+plot.xts(students.xts$초등학교, main = '연도별 학생수 추세', xlab = '년',  ylab = '학생수', yaxis.right=FALSE, ylim = c(0, max(students.xts$초등학교)), col = 'black')
+lines(students.xts$유치원, lty = 2, col = 'red')
+lines(students.xts$중학교, lty = 3, col = 'blue')
+addLegend('topright', ncol = 1, , legend.names = c('초등학교', '유치원', '중학교'), col = c('black', 'red', 'blue'), lty=c(1, 2, 3), bg = 'white', bty="o")
+```
+
+::: {.comment}
+-   코드 설명
+
+    -   `plot.xts()`를 사용하여 students.xts\$초등학교 plot을 그림. plot 제목, 축 제목들을 적절히 설정. Y 축 값의 범위를 0부터 students.xts\$초등학교의 최대값까지를 설정하였는데 범위가 적절히 설정되지 않으면 뒤에 그려지는 라인들이 범위를 벗어나서 보이지 않을 수 있음.
+
+    -   `lines()`를 사용하여 students.xts\$유치원 라인 plot을 생성, 라인타입(`lty = 2`)과 색(`col = 'red'`)을 설정
+
+    -   `lines()`를 사용하여 students.xts\$중학교 라인 plot을 생성, 라인타입(`lty = 3`)과 색(`col = 'blue'`)을 설정
+
+    -   `addLegend()`를 사용하여 범례를 생성. 범례의 행은 1개, 범례에 사용하는 item 이름(`legend.names = c('초등학교', '유치원', '중학교')`), 색(`col = c('black', 'red', 'blue')`), 라인타입(`lty=c(1, 2, 3)`)을 설정, 배경색은 흰색(`bg = 'white'`), 범례 배경타입은 불투명(`bty="o"`)으로 설정
+:::
+
+plot.xts()를 사용하여 코로나 확진자에 대한 plot은 다음과 같이 그릴 수 있다.
 
 ```{r xts_covid19}
-plot.xts(wide.covid19.by.age.xts, main = '일별 확진자수', xlab = '날짜',  ylab = '확진자수')
-plot.xts(wide.covid19.by.age.xts[, 1], main = '일별 확진자수(0-9세)', xlab = '날짜',  ylab = '확진자수')
+plot.xts(covid19.xts, main = '일별 확진자수', xlab = '날짜',  ylab = '확진자수')
+addLegend('topleft', ncol = 2, , legend.names = c('0-9세', '10-19세', '20-29세', '30-39세', '40-49세', '50-59세', '60-69세', '70-79세', '80세 이상'), lty = 1, bg = 'white', bty="o")
 ```
 
 ## ts : forecast 패키지
 
-forecast 패키지는 시계열 자료의 시각화와 분석 방법과 도구를 제공하는 패키지로 호주의 Rob Hyndman교수가 주도하여 개발하였다.[^visualization-2] 이 패키지는 단변량(Univariate) 시계열 데이터를 다루도록 설계되었고 ploting에는 ggplot2 패키지를 기반으로 사용하고 있다.
+`forecast` 패키지는 시계열 자료의 시각화와 분석 방법과 도구를 제공하는 패키지로 호주의 Rob Hyndman교수가 주도하여 개발하였다.[^visualization-2] 이 패키지는 단변량(Univariate) 시계열 데이터에 적합하도록 설계되었고 plotting에는 `ggplot2` 패키지를 기반으로 사용하고 있다.
 
 [^visualization-2]: <https://cran.r-project.org/web/packages/forecast/forecast.pdf>
 
-forecast 패키지에서는 시계열 ploting 방법으로 autoplot()함수를 제공하고 있다. 사실 forecast 패키지에서 사용하는 autoplot() 함수는 ggplot2에서 제공하는 함수이지만 ggplot2에서는 ts 데이터 클래스를 지원하지 않는다. 따라서 autoplot() 함수에 전달된 데이터가 ts 클래스인 경우는 ggplot2 패키지의 autoplot() 함수가 아닌 forecast에서 제공하는 autoplot() 함수(autoplot.ts 또는 autoplot.mts)를 호출하여 plot을 생성한다.
+`forecast` 패키지에서는 시계열 plotting 방법으로 `autoplot()`를 제공하고 있다. 사실 `forecast` 패키지에서 사용하는 `autoplot()` 함수는 `ggplot2`에서 제공하는 함수이지만 `ggplot2`에서는 `ts` 데이터 클래스를 지원하지 않는다. 따라서 `autoplot()` 함수에 전달된 데이터가 `ts` 클래스인 경우는 `ggplot2` 패키지의 `autoplot()` 함수가 아닌 `forecast`에서 제공하는 `autoplot()` 함수(`autoplot.ts()` 또는 `autoplot.mts()`)를 호출하여 plot을 생성한다.[^visualization-3]
 
-autoplot()는 ggplot2와 마찬가지로 geometries layer를 겹쳐가면서 최종 plot를 생성하는데 + 기호를 사용하여 autolayer() 함수를 통해 layer를 겹칠 수 있다.
+[^visualization-3]: 이런 형태의 함수를 랩핑(wrapping) 함수라고 한다.
 
-autoplot()에서 사용하는 객체는 ts객체를 사용해야 한다.
+`autoplot()`는 `ggplot2`와 마찬가지로 geometries layer를 겹쳐가면서 최종 plot를 생성하는데 + 기호를 사용하여 `autolayer()` 함수를 사용해 layer를 겹칠 수 있다.
 
-```{r forecast_autoplot, message=FALSE, warning=FALSE}
+`autoplot()`에서 사용하는 객체는 `ts`객체를 사용해야 한다.
+
+```{r autoplot, message=FALSE, warning=FALSE}
 library(forecast)
-autoplot(students.total.ts)
+autoplot(students.ts[,-1], main = '연도별 학생수', xlab = '연도', ylab = '학생수')
 ```
 
--   autoplot 문법 및 plot 수정
+::: {.comment}
+-   코드 설명
 
-    -   autoplot : autoplot()함수에 전달되는 필수 매개변수는 최소 ts 또는 mts 클래스의 객체이다. 전달되는 객체가 여러 컬럼으로 저장된 다변량 데이터 인 경우 자동적으로 각각의 line plot이 생성된다. ggplot와 다른 점은 ggplot는 다변량 line plot를 생성하기 위해서는 다변량을 구분할 수 있는 컬럼과 다변량 정보를 저장한 컬럼이 필요하다. 그래서 spread() 함수를 사용해 넓은 형태의 data.frame을 좁은 형태의 data.frame으로 변경하는 작업을 수행하지만 autoplot()은 컬럼으로 구분된 다변량 데이터를 일괄적으로 ploting 할 수 있다는 점에서 다변량 plot를 쉽게 생성할 수 있다는 장점이 있다.
+    -   `autoplot()`을 사용하여 plot을 생성. students.ts의 첫번째 컬럼은 연도이므로 제외(`students.ts[,-1]`)하고 plot 제목(`main =`) , X 축 제목(`xlab =`), Y 축 제목(`ylab =` )을 설정.
+:::
 
-    -   plot 제목 및 축 제목 : autoplot() 함수를 사용해 생성된 plot의 제목은 'main' 매개변수를 통해 설정하고 X, Y 축의 제목은 'xlab', 'ylab' 매개변수를 통해 설정이 가능하다.
+위의 plot에서는 students.ts의 전체 컬럼을 모두 plotting하였다. 하지만 일부만 그리고 싶다면 어떻게 할까? `autoplot()`에서도 앞선 `plot.xts()`와 유사한 방법을 사용한다.
 
-        ```{r forecast_axistitle}
-        autoplot(students.total.ts[,1], main = '연도별 학생수', xlab = '연도', ylab = '학생수')
-        ```
+먼저 `autoplot()`으로 처음 그리고 싶은 데이터를 설정하여 그리고 `+ autolayer()`를 사용하여 추가적인 layer를 겹쳐서 그린다. 위의 plot에서 유치원, 초등학교, 중학교만 그리면 다음과 같다. 단 여기서 주의해야 할 것은 ts 객체에서는 /\$를 사용하여 열에 접근할 수 없기 때문에 []에 열 번호를 넣어 접근해야한다.
 
-    -   layer 추가 : 앞서 설명한 바와 같이 autoplot은 ggplot2 패키지를 기반으로 작성되었기 때문에 plot의 표현 방법도 ggplot2와 유사한 방법을 사용한다. ggplot2가 여러 Geometries를 표현할 때 layer를 겹쳐서 생성한 것과 같이 autoplot()도 여러 layer를 겹쳐서 plot을 생성할 수 있다. layer를 생성하는 함수는 autolayer()함수이며 autoplot() 함수 호출 후에 + 기호를 통해 계속 겹쳐서 layer를 생성할 수 있다. 이 경우 각각의 라인을 구분하기 위해 'series' 매개변수를 이용해 legend에 표기될 이름을 설정할 수 있다.
+```{r autoplot_select}
+autoplot(students.ts[, 4], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '초등학교') +  
+  autolayer(students.ts[, 3], series = '유치원') + 
+  autolayer(students.ts[, 5], series = '중학교') + 
+  labs(colour = "학교급")
+```
 
-        ```{r forecast_autolayer}
-        autoplot(students.total.ts[,2], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '유치원') +
-          autolayer(students.total.ts[,3], series = '초등학교') +
-          autolayer(students.total.ts[,4], series = '중학교') +
-          autolayer(students.total.ts[,5], series = '고등학교') 
-        ```
+::: {.comment}
+-   코드 설명
 
-    -   라인 타입 변경 : 라인 형태는 'lty' 매개변수, 라인 두께는 'lwd' 매개변수를 통해 설정이 가능하다.
+    -   `autoplot()`을 사용하여 students.ts의 네번째 컬럼(초등학교) plot을 생성. plot 제목(`main =`) , X 축 제목(`xlab =`), Y 축 제목(`ylab =` ), 범례 아이템 이름(`series =`)을 설정.
+    -   `autolayer()`를 사용하여 students.ts의 세번째 컬럼(유치원) plot layer를 추가하고 범례 아이템 이름(`series =`)을 설정.
+    -   `autolayer()`를 사용하여 students.ts의 다섯번째 컬럼(중학교) plot layer를 추가하고 범례 아이템 이름(`series =`)을 설정.
+    -   `labs()`를 사용하여 범레 제목을 설정(`colour =`)
+:::
 
-        ```{r forecast_changelty}
-        autoplot(students.total.ts[,2], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '유치원', lty = 1, lwd = 1) +
-          autolayer(students.total.ts[,3], series = '초등학교', lty = 2, lwd = 1.2) +
-          autolayer(students.total.ts[,4], series = '중학교', lty = 3, lwd = 1.4) +
-          autolayer(students.total.ts[,5], series = '고등학교', lty = 4, lwd = 1.6)
-        ```
+이번에는 다변량 plot을 하나의 plot이 아닌 여러 plot으로 그려보겠다. ggplot에서도 facet 요소를 사용하여 다중 plot을 생성하는데 autoplot()에서도 facet 매개변수를 사용하여 다중 plot을 그릴 수 있다.
 
-    -   facet : 다변량 plot을 하나의 plot이 아닌 다중 plot을 사용하기를 원하는 경우는 'facet' 매개변수를 TRUE/FALSE로 설정함으로써 가능하다.
+```{r autoplot_facet}
+autoplot(students.ts[, 3:5], main = '연도별 학생수', xlab = '연도', ylab = '학생수', facet = TRUE)
+```
 
-        ```{r forecast_facet}
-        autoplot(students.total.ts[,2:5], main = '연도별 학생수', xlab = '연도', ylab = '학생수', facet = TRUE)
-        ```
+::: {.comment}
+-   코드 설명
 
-    -   그외 세부적인 plot의 변경은 ggplot에서 사용하는 방법을 준하여 사용할 수 있다.
+    -   `autoplot()`을 사용하여 students.ts의 세번째, 네번째, 다섯번째 컬럼(유치원, 초등학교, 중학교) plot을 생성. plot 제목(`main =`) , X 축 제목(`xlab =`), Y 축 제목(`ylab =` ), 범례 아이템 이름(`series =`)을 설정하고 다중 plot을 사용하도록 설정(`facet = TRUE`)
+:::
 
-        ```{r forecast_etc}
+그외 세부적인 plot의 변경은 ggplot에서 사용하는 방법을 준하여 사용할 수 있다.
+
+```{r forecast_etc}
         autoplot(students.total.ts[,2], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '유치원', lty = 1, lwd = 1) +
           autolayer(students.total.ts[,3], series = '초등학교', lty = 2, lwd = 1.2) +
           autolayer(students.total.ts[,4], series = '중학교', lty = 3, lwd = 1.4) +
           autolayer(students.total.ts[,5], series = '고등학교', lty = 4, lwd = 1.6) + 
           scale_y_continuous(labels=scales::number_format(big.mark = ','))
-        ```
+```
 
+autoplot()을 사용해서 전체 취업자수와 코로나 확진자수 plot은 다음과 같이 그린다. 
 ```{r forecast_employees}
 autoplot(employees.ts[,2], main = '월별 취업자수', xlab = '연도', ylab = '취업자수', series = '전체 취업자', lty = 1, lwd = 1)
 ```
 
 ```{r forecast_covid19}
-autoplot(wide.covid19.by.age.ts[,2], main = '일별 확진자수(0-9세)', xlab = '날짜', ylab = '확진자수', series = '확진자', lty = 1, lwd = 1)
+autoplot(covid19.ts[,2], main = '일별 확진자수(0-9세)', xlab = '날짜', ylab = '확진자수', series = '확진자', lty = 1, lwd = 1)
 ```
 
 ## tsibble : feasts 패키지
 
-forecast 패키지에서 제공하는 autoplot() 함수를 통해 ploting 할 수 있다. 다만 tsibble 객체를 ploting 하기 위해서는 feasts 패키지를 설치 후 loading 시켜야 한다.
+`tsibble` 객체를 분석하고 plotting 하기 위해서 `feasts` 패키지가 제공된다. `feasts`는 'Feature Extraction And Statistics for Time Series'의 준말이다. `tsibble` 객체을 대상으로 시계열기능, 분해, 통계산출, 시각화를 위한 각종 함수들을 제공한다. `feasts`도 앞서 `ts`를 다루는 `forecast` 패키지의 개발자인 Rob Hyndman 교수가 제작한 패키지이기 때문에 `forecast`와 유사한 함수들이 있다. 
+우선 `tsibble` 객체의 가장 간단한 plot을 생성하는 방법은 `forecast` 패키지와 같이 `autoplot()`을 사용하는 방법이다. 
 
 ```{r tsibble_students, warning=FALSE, message=FALSE}
 library(feasts)
 library(dplyr)
-students.tsibble %>%
-  autoplot()
+autoplot(students.tsibble, 초등학교, series = '초등학교', color = 'red') + 
+  geom_line(data = students.tsibble, aes(x = 연도, y = 유치원, group =1)) + 
+  labs(title = '연도별 학생수', x = '연도', y = '학생수') + 
+  guides(shape=TRUE) + theme(legend.position="top")
+
+
+ggplot(students.tsibble) +
+  geom_line(aes(x = 연도, y = 초등학교, group = 1, color = 'red')) +
+  geom_line(aes(x = 연도, y = 유치원, group =1, color = 'blue')) + 
+  labs(title = '연도별 학생수', x = '연도', y = '학생수') + 
+  scale_colour_manual(values = c('red' = "red", 'blue' = "blue"))
+
 ```
 
-feasts 패키지에서는 ggplot2와 유사한 계절성 plot 함수인 gg_season() 함수와 gg_subseries() 함수를 제공한다.
+`feasts` 패키지에서는 `forecast`에서 제공하는 다양한 함수들을 제공하는데 다음과 같은 함수들을 제공한다. 
+계절성 plot 함수인 gg_season() 함수와 gg_subseries() 함수를 제공한다.
 
 ```{r tsibble_season}
-employees.tsibble %>%
+employees.tsibble %>% mutate(time = yearmonth(employees.tsibble$time)) %>%
   gg_season(total)
 ```
 
 ```{r tsibble_subseries}
-employees.tsibble %>%
+employees.tsibble %>%  mutate(time = yearmonth(employees.tsibble$time)) %>%
   gg_subseries(total)
 
 ```
 
 ## data.frame : timetk 패키지
 
-timetk 패키지는 미래 예측, 머신러닝 예측을 위해 시계열 데이터의 시각화, 데이터 핸들링을 하기 위한 패키지이다. 이 패키지는 'dplyr', 'xts', 'forecast' 등의 패키지를 기반으로 설계되었고 xts패키지와 달리 tibble이나 data.frame을 기반으로 작동한다. [^visualization-3]
+timetk 패키지는 미래 예측, 머신러닝 예측을 위해 시계열 데이터의 시각화, 데이터 핸들링을 하기 위한 패키지이다. 이 패키지는 'dplyr', 'xts', 'forecast' 등의 패키지를 기반으로 설계되었고 xts패키지와 달리 tibble이나 data.frame을 기반으로 작동한다. [^visualization-4]
 
-[^visualization-3]: <https://business-science.github.io/timetk/>
+[^visualization-4]: <https://business-science.github.io/timetk/>
 
 timetk에서 제공하는 데이터 plot 함수는 plot_time_series() 함수가 유일하다. 추가적으로 상관관계, 계절성, 이상치 ploting을 위한 함수들이 추가적으로 존재한다.
 
@@ -354,9 +467,9 @@ plot_time_series(.date_var = 연도, .value = 학생수계)
         plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F, .title = '연도별 학생수', .x_lab = '연도', .y_lab = '학생수', .color_lab = '지역규모')
         ```
 
-    -   그 외 추가적인 매개변수는 timetk의 plot_time_series() 함수 매뉴얼을 참조하면 더 추가적인 정보를 얻을 수 있다.[^visualization-4]
+    -   그 외 추가적인 매개변수는 timetk의 plot_time_series() 함수 매뉴얼을 참조하면 더 추가적인 정보를 얻을 수 있다.[^visualization-5]
 
-[^visualization-4]: <https://business-science.github.io/timetk/reference/plot_time_series.html>
+[^visualization-5]: <https://business-science.github.io/timetk/reference/plot_time_series.html>
 
 ```{r timetk_emplyees}
 employees %>%
