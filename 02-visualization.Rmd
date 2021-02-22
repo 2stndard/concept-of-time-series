@@ -368,14 +368,15 @@ autoplot(students.ts[, 3:5], main = '연도별 학생수', xlab = '연도', ylab
 그외 세부적인 plot의 변경은 ggplot에서 사용하는 방법을 준하여 사용할 수 있다.
 
 ```{r forecast_etc}
-        autoplot(students.total.ts[,2], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '유치원', lty = 1, lwd = 1) +
-          autolayer(students.total.ts[,3], series = '초등학교', lty = 2, lwd = 1.2) +
-          autolayer(students.total.ts[,4], series = '중학교', lty = 3, lwd = 1.4) +
-          autolayer(students.total.ts[,5], series = '고등학교', lty = 4, lwd = 1.6) + 
+        autoplot(students.ts[,2], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '유치원', lty = 1, lwd = 1) +
+          autolayer(students.ts[,3], series = '초등학교', lty = 2, lwd = 1.2) +
+          autolayer(students.ts[,4], series = '중학교', lty = 3, lwd = 1.4) +
+          autolayer(students.ts[,5], series = '고등학교', lty = 4, lwd = 1.6) + 
           scale_y_continuous(labels=scales::number_format(big.mark = ','))
 ```
 
-autoplot()을 사용해서 전체 취업자수와 코로나 확진자수 plot은 다음과 같이 그린다. 
+autoplot()을 사용해서 전체 취업자수와 코로나 확진자수 plot은 다음과 같이 그린다.
+
 ```{r forecast_employees}
 autoplot(employees.ts[,2], main = '월별 취업자수', xlab = '연도', ylab = '취업자수', series = '전체 취업자', lty = 1, lwd = 1)
 ```
@@ -386,33 +387,71 @@ autoplot(covid19.ts[,2], main = '일별 확진자수(0-9세)', xlab = '날짜', 
 
 ## tsibble : feasts 패키지
 
-`tsibble` 객체를 분석하고 plotting 하기 위해서 `feasts` 패키지가 제공된다. `feasts`는 'Feature Extraction And Statistics for Time Series'의 준말이다. `tsibble` 객체을 대상으로 시계열기능, 분해, 통계산출, 시각화를 위한 각종 함수들을 제공한다. `feasts`도 앞서 `ts`를 다루는 `forecast` 패키지의 개발자인 Rob Hyndman 교수가 제작한 패키지이기 때문에 `forecast`와 유사한 함수들이 있다. 
-우선 `tsibble` 객체의 가장 간단한 plot을 생성하는 방법은 `forecast` 패키지와 같이 `autoplot()`을 사용하는 방법이다. 
+`tsibble` 객체를 분석하고 plotting 하기 위해서 `feasts` 패키지가 제공된다. `feasts`는 'Feature Extraction And Statistics for Time Series'의 준말이다. `tsibble` 객체을 대상으로 시계열기능, 분해, 통계산출, 시각화를 위한 각종 함수들을 제공한다. `feasts`도 앞서 `ts`를 다루는 `forecast` 패키지의 개발자인 Rob Hyndman 교수가 제작한 패키지이기 때문에 `forecast`와 유사한 함수들이 있다. 우선 `tsibble` 객체의 가장 간단한 plot을 생성하는 방법은 `forecast` 패키지와 같이 `autoplot()`을 사용하는 방법이다.
 
 ```{r tsibble_students, warning=FALSE, message=FALSE}
 library(feasts)
 library(dplyr)
-autoplot(students.tsibble, 초등학교, series = '초등학교', color = 'red') + 
-  geom_line(data = students.tsibble, aes(x = 연도, y = 유치원, group =1)) + 
-  labs(title = '연도별 학생수', x = '연도', y = '학생수') + 
-  guides(shape=TRUE) + theme(legend.position="top")
+students.tsibble %>% autoplot(학생수계)+ 
+  labs(title = '연도별 학생수', x = '연도', y = '학생수')
+```
 
+::: {.comment}
+-   코드 설명
 
-ggplot(students.tsibble) +
-  geom_line(aes(x = 연도, y = 초등학교, group = 1, color = 'red')) +
-  geom_line(aes(x = 연도, y = 유치원, group =1, color = 'blue')) + 
-  labs(title = '연도별 학생수', x = '연도', y = '학생수') + 
-  scale_colour_manual(values = c('red' = "red", 'blue' = "blue"))
+    -   %\>%를 사용하여 students.tsibble을 `autoplot()`에 전달하고 students.tsibble의 '학생수계' 열의 데이터를 plotting함. labs()를 사용하여 plot 제목(`title =`) , X 축 제목(`x =`), Y 축 제목(`y =` )을 설정
+:::
+
+하지만 forecast와는 달리 feasts에서는 autolayer()를 통해서 원하는 데이터의 layer를 추가할 수 없다. 따라서 다중(multivariate) 시계열 plot을 그리기 위해서는 긴(long)형태의 tsibble 객체로 변환하여야 한다.
+
+```{r}
+students.tsibble %>% select(1, 3, 4, 5) %>% 
+  tidyr::gather(category, value, 2:4) %>% autoplot()
+```
+
+::: {.comment}
+-   코드 설명
+
+    -   `%>%`를 students.tsibble의 첫번째, 세번째, 네번째, 다섯번째 열을 선택하고 이 열들을 `gather()`를 사용하여 category 열로 모으고 해당 데이터를 value 열로 모음.
+    -   이 후 `autoplot()`을 사용하여 다중 시계열 plot을 생성.
+:::
+
+위와 같이 `tidy`에서 제공하는 몇가지 방법을 사용하면 원하는 plot을 생성할 수 있지만 범례 설정이나 세부적인 설정이 여간 곤혹스러운 것이 아니다. 따라서 `feasts`에서 제공하는 plotting 방법보다는 차라리 `ggplot`을 사용하는 것이 오히려 편하다.
+
+```{r tsibble_students_ggplot, warning=FALSE, message=FALSE}
+ggplot(students.tsibble, aes(x = 연도)) +
+  geom_line(aes(y = 초등학교, group = 1, color = '초등학교')) +
+  geom_line(aes(y = 유치원, group =1, color = '유치원')) + 
+  geom_line(aes(y = 중학교, group =1, color = '중학교')) + 
+  labs(title = '연도별 학생수', x = '연도', y = '학생수', color = '학교급') + 
+  scale_y_continuous(labels = scales::number_format(big.mark = ',')) +
+  scale_colour_manual(values = c('초등학교' = "red", '유치원' = "blue", '중학교' = 'darkgreen'))
 
 ```
 
-`feasts` 패키지에서는 `forecast`에서 제공하는 다양한 함수들을 제공하는데 다음과 같은 함수들을 제공한다. 
-계절성 plot 함수인 gg_season() 함수와 gg_subseries() 함수를 제공한다.
+::: {.comment}
+-   코드 설명
+
+    -   `ggplot()`으로 원본 데이터인 students.tsibble을 plot 대상 데이터로 설정하고 `aes()`로 공통으로 사용될 X축 설정만 해줌.
+    -   `geom_line`으로 첫번째 라인 geometry layer를 생성. `aes()`로 Y축을 초등학교에 바인딩. 초등학교 열은 단일 데이터 그룹핑(`group = 1`), color를 '초등학교'로 매핑(`color = '초등학교'`, 범례에 매핑해줄 이름).\
+    -   `geom_line()`으로 두번째 라인 geometry layer를 생성. `aes()`로 Y축을 유치원에 바인딩. 유치원 열은 단일 데이터 그룹핑(`group = 1`), color를 '유치원'으로 매핑.
+    -   `labs()`를 사용해 plot 제목, X축 제목, Y축 제목, 범례 제목을 설정
+    -   `scale_y_continuous()`를 사용하여 Y축의 라벨을 숫자형(천단위 콤마)으로 조절
+    -   `scale_color_manual()`을 사용하여 컬러 매핑값을 실제 컬러값으로 설정
+:::
+
+`feasts` 패키지에서는 시계열 분석에 사용하는 계절성 plot 함수인 gg_season() 함수와 gg_subseries() 함수를 제공한다.
 
 ```{r tsibble_season}
 employees.tsibble %>% mutate(time = yearmonth(employees.tsibble$time)) %>%
   gg_season(total)
 ```
+
+::: {.comment}
+-   코드 설명
+
+    -   employees.tsibble은 월별 데이터이기 때문에 `gg_season()`을 사용하기 위해서는 `yearmonth()`를 사용하여 시간인덱스(time) 열을 `yearmonth` 데이터 클래스로 변환하여 사용.
+:::
 
 ```{r tsibble_subseries}
 employees.tsibble %>%  mutate(time = yearmonth(employees.tsibble$time)) %>%
@@ -422,52 +461,44 @@ employees.tsibble %>%  mutate(time = yearmonth(employees.tsibble$time)) %>%
 
 ## data.frame : timetk 패키지
 
-timetk 패키지는 미래 예측, 머신러닝 예측을 위해 시계열 데이터의 시각화, 데이터 핸들링을 하기 위한 패키지이다. 이 패키지는 'dplyr', 'xts', 'forecast' 등의 패키지를 기반으로 설계되었고 xts패키지와 달리 tibble이나 data.frame을 기반으로 작동한다. [^visualization-4]
+`timetk` 패키지는 미래 예측, 머신러닝 예측을 위해 시계열 데이터의 시각화, 데이터 핸들링을 하기 위한 패키지이다. 이 패키지는 `dplyr`, `xts`, `forecast` 등의 패키지를 기반으로 설계되었고 `xts`패키지와 달리 `tibble`이나 `data.frame`을 기반으로 작동한다. [^visualization-4]
 
 [^visualization-4]: <https://business-science.github.io/timetk/>
 
-timetk에서 제공하는 데이터 plot 함수는 plot_time_series() 함수가 유일하다. 추가적으로 상관관계, 계절성, 이상치 ploting을 위한 함수들이 추가적으로 존재한다.
+`timetk`에서 제공하는 데이터 plot 함수는 `plot_time_series()` 함수가 유일하다. 이외에도 상관관계, 계절성, 이상치 plotting을 위한 함수들을 추가적으로 제공한다.
 
-timetk plot이 다른 plot에 비한 장점은 여러가지가 있는데 필자는 가장 큰 장점은 interactive plot이 자동적으로 생성된다는 점을 들수 있다고 본다. plot_time_series() 함수는 plot_ly 패키지를 기반으로 ploting하기 때문에 plot_ly의 기능을 모두 사용할 수 있는데, 마우스를 plot위로 가져가면 해당 마우스 포인트에 대응하는 정보가 표현되거나 드래그하여 plot을 zoom in 할 수 있는 기능을 기본적으로 제공한다.
+`timetk` plot이 다른 plot에 비해 장점이 여러가지가 있는데 필자가 생각하는 가장 큰 장점은 interactive plot이 자동적으로 생성된다는 점이다. `plot_time_series()` 함수는 `plot_ly` 패키지를 기반으로 plotting하기 때문에 `plot_ly`의 기능을 모두 사용할 수 있는데, 마우스를 plot위로 가져가면 해당 마우스 포인트에 대응하는 정보가 표현되거나 드래그하여 plot을 zoom in 할 수 있는 기능을 기본적으로 제공한다. plot_time_series()를 사용하여 시계열 plot을 만드는 방법은 다음과 같다. 아래의 예제에서 .value로 설정된 하나의 컬럼을 ploting되어야 하지만 실제는 두개의 선이 나타난다. 검정색 선은 실제 데이터를 표현하는 line plot이고 파랑색 선은 'LOESS' 평활화된 line plot이 나타난다. 평활화 line은 .smooth 매개변수로 조절 가능하다.
 
-```{r timetk_plot}
-students %>% filter(지역규모 == '계') %>%
-plot_time_series(.date_var = 연도, .value = 학생수계)
+```{r timetk_plot, warning=FALSE, message=FALSE}
+library(timetk)
+students %>%  
+  plot_time_series(.date_var = 연도, .value = 학생수계, .smooth = FALSE)
 ```
 
--   plot_time_series 문법 및 plot 수정
+::: {.comment}
+-   코드 설명
 
-    -   데이터, X, Y 축 매핑 : plot_time_series 함수의 가장 먼저 나오는 세가지 매개변수인 .data, .date_var, .value는 기본값으로 생략할 수 없기 때문데 최소한 3개의 매개변수는 필수적으로 필요하다. .data는 시간 컬럼이 포함된 tibble이나 data.frame, .date_var는 시간이 표기된 컬럼, .value는 plot에 표현될 숫자형 컬럼을 설정함.
+    -   `timetk` 패키지를 로딩
+    -   `%>%`을 사용하여 students를 `plot_time_series()`에 전달. 시간인덱스로 사용할 열은 '연도'열(`.date_var =`)로, 데이터로 사용할 열을 '학생수계'열(`.value =`)로 설정하고 추세선을 없앰(`.smooth =`)
+:::
 
-    -   추세선 설정 : 위의 예제에서 .value로 설정된 하나의 컬럼을 ploting되어야 하지만 실제는 두개의 선이 나타난다. 검정색 선은 실제 데이터를 표현하는 line plot이고 파랑색 선은 'LOESS' 평활화된 line plot이 나타난다. 평활화 line은 .smooth 매개변수로 조절 가능하다.
+```{r timetk_smooth}
+students %>%
+plot_time_series(.date_var = 연도, .value = 학생수계, .smooth = FALSE)
+```
 
-        ```{r timetk_smooth}
-        students %>% filter(지역규모 == '계') %>%
-        plot_time_series(.date_var = 연도, .value = 학생수계, .smooth = FALSE)
-        ```
+`plot_time_series()`를 사용하여 다변량 plot을 하기 위해서는 `ggplot`와 마찬가지로 .value에 매핑한 데이터 열을 분류해줄 열이 필요하다. 즉 긴(long) 형태의 데이터가 필요하다는 것이다. 다변량 데이터는 컬러로 구분되어 표현되며 자동적으로 범례가 오른쪽에 표시된다.
 
-    -   다변량 plot : plot_time_series()를 사용하여 다변량 plot을 하기 위해서는 ggplot와 마찬가지로 .value에 매핑한 데이터 컬럼을 분류해줄 컬럼이 필요하다. 다변량 데이터는 컬러로 구분되어 표현되며 자동적으로 범례가 오른쪽에 표시된다.
+```{r timetk_multiplot, warning=FALSE}
+students.all %>%
+plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F)
 
-        ```{r timetk_multiplot, warning=FALSE}
-        students %>%
-        plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F)
-        ```
+students %>% select(1, 3, 4, 5) %>% 
+  tidyr::gather(category, value, 2:4) %>%
+  plot_time_series(.date_var = 연도, .value = value, .color_var = category, .smooth = F)
+```
 
-    -   Faceting : 위와 같이 하나의 plot에 다변량 line plot을 작성할 수도 있지만 각각의 line plot을 각각 생성하는 것도 가능하다. ggplot에서도 Faceting이 가능한 것처럼 plot_time_series() 함수에서도 Faceting이 가능하다. Feceting은 .facet_vars를 이용해서 설정이 가능한데 컬러로 구분되는 것과 마찬가지로 .value에 매핑한 데이터 컬럼을 분류해 줄 컬럼을 .facet_vars 매개변수에 설정함으로서 생성할 수 있다.
-
-        ```{r timetk_facet, warning=FALSE}
-        students %>%
-        plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F, .facet_vars = 지역규모)
-        ```
-
-    -   그래프 제목, 축 제목 : plot_time_series()로 생성한 plot의 제목과 X, Y 축의 설정은 .title, .x_lab, .y_lab 매개변수를 통해서 설정이 가능하다. 또한 범례의 제목은 .color_lab을 통해 설정이 가능하다.
-
-        ```{r timetk_title, warning=FALSE}
-        students %>%
-        plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F, .title = '연도별 학생수', .x_lab = '연도', .y_lab = '학생수', .color_lab = '지역규모')
-        ```
-
-    -   그 외 추가적인 매개변수는 timetk의 plot_time_series() 함수 매뉴얼을 참조하면 더 추가적인 정보를 얻을 수 있다.[^visualization-5]
+그 외 추가적인 매개변수는 timetk의 plot_time_series() 함수 매뉴얼을 참조하면 더 추가적인 정보를 얻을 수 있다.[^visualization-5]
 
 [^visualization-5]: <https://business-science.github.io/timetk/reference/plot_time_series.html>
 
@@ -477,6 +508,6 @@ employees %>%
 ```
 
 ```{r timetk_covid19}
-wide.covid19.by.age %>%
+covid19 %>%
   plot_time_series(.date_var = date, .value = `0-9세`, .smooth = F, .title = '일별 확진자수(0-9세)', .x_lab = '시간', .y_lab = '확진자수')
 ```
