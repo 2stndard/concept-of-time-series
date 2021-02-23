@@ -42,11 +42,9 @@ R에서 주로 사용하는 데이터프레임에서는 행렬 인덱스나 조�
 
 이 장에서는 시계열 데이터를 시간 단위로 다루는 방법을 설명할 것이다. 시간을 주로 다루기 위해서 R에서 가장 많이 활용되는 패키지는 `lubridate` 패키지이다. 이 패키지는 시간을 다루기 위한 다양한 함수를 제공하는데 시계열 데이터를 잘 활용하기 위해 `lubridate` 패키지를 위주로 시간 인덱스를 다루는 방법에 대해 설명하고자 한다.
 
-## 시계열 데이터 정보 다루기
+## 오늘 몇일이야? : 시간 정보 추출
 
-### 시계열 정보 추출
-
-시계열 데이터는 년, 월, 일, 시, 분, 초, 타임존 등의 여러 데이터가 결합되어 생성된 시간을 인덱스로 사용하는 데이터이다. 그래서 시계열 데이터를 잘 활용하기 위해서는 시간 인덱스에 포함된 요소들을 목적에 맞게 적절히 추출해내야 활용이 가능해진다.
+시계열 데이터는 년, 월, 일, 시, 분, 초, 타임존 등의 여러 데이터가 결합되어 생성된 시간을 인덱스로 사용하는 데이터이다. 그래서 시계열 데이터를 잘 활용하기 위해서는 시간 인덱스에 포함된 요소들을 목적에 맞게 적절히 추출해내야 활용이 가능해진다. 아래의 함수들은 `lubridate` 패키지에서 제공하는 시간 정보를 추출하는 함수들이다. 이 함수들을 적절히 사용하면 시간을 다루기가 매우 쉬워진다.
 
 | 함수명  | 설명      | 함수명   | 설명                  | 함수명               | 설명                            |
 |---------|-----------|----------|-----------------------|----------------------|---------------------------------|
@@ -56,47 +54,60 @@ R에서 주로 사용하는 데이터프레임에서는 행렬 인덱스나 조�
 | wday()  | 요일 추출 | yday()   | 1월1일으로부터의 날수 | leap_year()          | 윤년 여부의 논리값              |
 
 ```{r message=FALSE}
-library(lubridate)
+library(lubridate)   ### lubridate 패키지 로딩
 now.date <- Sys.time()  ### 현재 시간을 now.date에 저장(date 클래스)
 now.char <- as.character(Sys.time())  ### 현재 시간을 now.char에 저장(character 클래스)
+
+### year(), month(), day()를 시용하여 날짜를 표기하는 문자열 생성
 paste0('오늘은 ', year(now.date), '년 ', month(now.char), '월 ', day(now.date), '일 입니다')
+### ydya()를 사용하여 1월 1일부터 오늘까지의 날자수 계산
 paste0('1월 1일부터 오늘까지 ', yday(now.date), '일 지났습니다')
+### qday()를 사용하여 분기시작일로부터 오늘까지의 날자수 계산
 paste0('이번 분기 시작일부터 오늘까지 ', qday(now.date), '일 지났습니다')
+### wday()를 사용하여 오늘의 요일 표기
 paste0('오늘은 ', wday(now.date, label = T, abbr = T), '요일입니다')
+### hour(), minute(), second()를 사용하여 시간을 표시
 paste0('지금은 ', hour(now.date), '시 ', minute(now.char), '분 ',  second(now.date), '초 입니다')
+### week()를 사용하여 올해 몇번째 주인지 계산
 paste0('이번주는 올해의 ', week(now.date), '번째 주입니다')
 ```
 
-### 시계열 데이터 연산
+## 몇일 지났어? : 시간 기간 연산
 
-시간의 연산은 일반적으로 오늘로부터 며칠후, 언제로부터 몇개월전 등과 같은 연산을 의미한다. 이번 절에서는 `lubridate` 패키지에서는 제공하는 시간 연산 함수들을 설명한다. 다만 앞선 장에서는 `ts` 와 `xts` 클래스의 시계열 객체는 본 절에서 다루는 시계열 데이터 연산 중 일부가 지원되지 않기 때문에 `data.frame`을 위주로 설명하겠다.
+시간의 연산은 일반적으로 오늘로부터 며칠후, 언제로부터 몇개월전 등과 같은 연산을 말한다. 이번 절에서는 `lubridate` 패키지에서는 제공하는 시간 연산 함수들을 설명한다.
 
 -   시간 더하기/빼기
 
-`lubridate` 패키지에서는 시간의 더하기나 빼기 연산을 지원한다. 일반적인 정수를 이용하여 더하거나 빼면 기준일로부터 과거나 미래를 산출할 수 있고 `lubridate`에서 제공하는 `years()`, `months()`, `days()` 등의 함수를 이용하면 년 단위, 월 단위, 일 단위의 연산도 가능하다.
+`lubridate` 패키지에서는 시간의 더하기나 빼기 연산을 지원한다. 일반적인 정수의 연산하듯이 더하거나 빼면 기준일로부터 과거나 미래의 시간을 구할 수 있고 앞에서 설명한 `lubridate`의 `years()`, `months()`, `days()` 등의 함수를 이용하면 년 단위, 월 단위, 일 단위의 연산도 가능하다.
 
 ```{r}
 as.Date('2021-01-01') - as.Date('1980-01-01')  ### 1980년 1월 1일부터 2021년 1월 1일까지의 날짜 수
-today <- today()
+today <- today()  ### 오늘 날짜를 today에 저장
 today + 100   ### 오늘부터 100일 후
 today - months(2)  ### 오늘부터 2개월 전  
 today - years(1)   ### 오늘부터 1년전
 ```
 
--   시간간 기간 구하기
+-   경과 기간 구하기
 
-앞선 예에서 1980년 1월 1일부터 2021년 1월 1일까지는 14,976일로 계산되었다. 그러나 우리는 보통 몇년 몇월 몇일로 표현된다. `lubridate`에서는 이렇게 몇년 몇월 몇일로 변환하는 것을 `interval()`함수를 사용하여 계산한다. 하지만 바로 계산되는 것은 아니고 `interval()`함수에 의해 반환되는 값은`interval` 클래스의 데이터값으로 시작점으로부터의 초를 기록한다. 이렇게 변환된 `interval` 객체를 올바르게 표현하기 위해서는 `interva`l 객체를 `period` 나 `duration` 클래스 객체로 변환하여야 한다. `interval()`는 함수형태로 사용이 가능하고 `%–%` 연산자를 사용할 수도 있다.
+앞선 예에서 1980년 1월 1일부터 2021년 1월 1일까지는 14,976일로 계산되었다. 그러나 우리는 보통 몇년 몇월 몇일로 표현하여 사용한다. `lubridate`패키지는 이렇게 몇년 몇월 몇일로 변환하는 것을 위해 `interval()`를 제공한다. 하지만 바로 계산되는 것은 아니다. `interval()`에 의해 반환되는 값은`interval` 클래스의 데이터값으로 시작점으로부터의 초를 기록한다. 이렇게 변환된 `interval` 객체를 우리가 보기 편하게 년, 월, 일 등으로 표시하기 위해서는 `interva`l 객체를 `as.period()` 나 `as.duration()`으로 `period`나 `duration` 클래스 객체로 변환하여야 한다.
+
+`interval()`는 `%–%` 연산자로 사용할 수도 있다.
 
 ```{r}
-int <- lubridate::interval(as.Date('1980-01-01'), as.Date('2021-12-31'))   ### 1980.1.1부터 2021.12.31까지의 interval 클래스를 int에 저장
+### 1980.1.1부터 2021.12.31까지의 interval 클래스를 int에 저장
+### 결과값을 보면 우리가 생각하는 형태가 아님
+(int <- lubridate::interval(as.Date('1980-01-01'), as.Date('2021-12-31'))   )
 lubridate::as.period(int)   ### 년월일 형태로 interval 출력
 lubridate::as.duration(int)  ### 경과 초 형태로 interval 출력
+### 1980.1.1부터 2021.12.31까지의 interval 클래스를 int1에 저장
 int1 <- '1980-01-01' %--% '2021-12-31'
-     ### 1980.1.1부터 2021.12.31까지의 interval 클래스를 int1에 저장
 lubridate::as.period(int1)   ### 년월일 형태로 interval 출력
 ```
 
-위의 예제와 같이 `internal`은 시간 범위(time spans)를 표현하는데 `lubridate`는 `period`와 `duration`의 두가지 시간 범위(time spans) 클래스를 제공한다. `lubridate`에서 제공하는 `period`함수는 복수형태(`years()`,`months()` 등)로 표현된 함수를 사용하고 `duration` 함수는 함수의 접두어를 'd'를 사용하여 표현한다.
+위의 예제와 같이 `internal`은 시간 범위(time spans)를 표현하는데 `lubridate`패키지에서는 `period`와 `duration`의 두가지 시간 범위(time spans) 클래스를 제공한다.
+
+`lubridate` 패키지에서 제공하는 `period`함수는 복수형태(`years()`,`months()` 등)로 표현된 함수를 사용하고 `duration` 함수는 함수의 접두어를 'd'를 사용하여 표현한다.
 
 두가지 형태의 `internal`을 제공하는 이유는 시간 경과의 표현과 기간 경과의 표현이 다르기 때문이다. `duration`은 항상 수학적으로 동일한 시간 경과의 결과를 제공한다. 하지만 `period`는 우리가 흔히 년월일로 생각하는 기간 경과의 결과를 제공한다. 예를 들어 `duration`의 1년 후는 시작일로부터 365일 후가 되는 날짜를 리턴하지만 `period`의 1년 후는 연도가 1이 더해진 날짜를 리턴한다. 두가지의 결과가 동일할 것이라고 생각되지만 윤년이 낀 경우는 `duration`의 결과는 `period`의 결과와 달라진다. 또 `duration` 함수에 정수 시퀀스를 넣어주면 해당 연산에 의한 vector값이 얻어진다. [^data_handling-1]
 
@@ -104,14 +115,14 @@ lubridate::as.period(int1)   ### 년월일 형태로 interval 출력
 
 ```{r}
 leap_year(2020)   ### 2020년은 윤년
-as.Date('2020-01-01') + years(1)  ### 2020-01-01부터 기간상 1년 후(period)는 2021-01-01
-as.Date('2020-01-01') + dyears(1)  ### 2020-01-01부터 시간상 1년 후(duration)는 2020-12-31
+as.Date('2020-01-01') + years(1)  ### 2020-01-01부터 기간상 1년 후(period)는 우리의 상식대로 2021-01-01
+as.Date('2020-01-01') + dyears(1)  ### 2020-01-01부터 시간상 1년 후(duration)는 2020년은 윤년이므로 2020년은 365일임. 그래서 365일 후인 2020-12-31이 표기됨
 
-as.Date('2021-02-01') + weeks(0:5)  ### 2011-01-01부터 일주일씩 11주 같은 요일 날짜
-as.Date('2020-02-01') + dweeks(0:5)  ### 2012-01-01부터 일주일씩 11주 같은 요일 날짜(윤년때문에 2021과 다르다)
+as.Date('2021-02-01') + months(1)  ### 2011-02-01부터 한달후(period)는 21년 3월 1일
+as.Date('2020-02-01') + dmonths(1)  ### 2012-01-01부터 한달 후(duration)는 30일 후인 3월 2일
 ```
 
-### 시계열 데이터 반올림
+## 이번주 마지막날은 몇일이야? : 시간 반올림
 
 시간의 계산에서도 숫자의 계산과 같이 올림, 내림, 반올림 등이 가능하다. 숫자의 계산에서는 소수점 세째자리, 천단위 반올림, 올림 등과 같이 반올림될 단위를 지정해야 하는데 시간의 올림, 반올림 연산에도 월에서 반올림을 할것인지 일에서 반올림을 할 것인지와 같은 단위를 지정해야 한다. [^data_handling-2]
 
@@ -120,7 +131,7 @@ as.Date('2020-02-01') + dweeks(0:5)  ### 2012-01-01부터 일주일씩 11주 같
 `lubridate` 패키지에서는 시간 데이터의 반올림을 위해 `round_date()`, 내림을 위해 `floor_date()`, 올림을 위해 `ceiling_date()` 함수를 제공한다. 매개변수로 'day', 'week', 'month', 'halfyear', 'year' 등을 설정하여 반올림, 올림, 내림의 기본 단위를 지정할 수 있다.
 
 ```{r}
-x <- as.Date("2009-08-03")
+x <- as.Date("2009-08-03 13:45:40")
 round_date(x, "day")         # 일단위로 반올림
 floor_date(x, "day")         # 일단위로 내림
 ceiling_date(x, "day")       # 일단위로 올림
@@ -144,11 +155,11 @@ ceiling_date(x, "year")      # 년단위로 올림
 days_in_month(as.Date('2012-2', format = '%Y-%d'))  # 말일을 구하는 코드
 ```
 
-### 시계열 데이터 Grouping
+## 주간, 월간 데이터 합계, 평균은? : 시간 Grouping
 
 시계열 데이터를 사용할 때 많이 사용하는 계산은 월별 평균, 주별 합계 등 일정 단위별로 그룹핑한 후 그룹함수를 적용하여 산출하는 작업이다.
 
-아쉽게도 앞서 사용한 `lubridate` 패키지에서는 시계열 데이터를 주단위, 월단위, 년단위 등으로 그룹핑하는 함수를 제공하지 않는다. 따라서 `lubridate` 함수를 이용하여 그룹화하기 위해서는 `dplyr`에서 제공하는 파이프 연산자인 `%>%`와 함수를 같이 사용하여 산출할 수 있다.
+아쉽게도 앞서 사용한 `lubridate` 패키지에서는 시계열 데이터를 주 단위, 월 단위, 년단위 등으로 그룹핑하는 함수를 제공하지 않는다. 따라서 `lubridate` 함수를 이용하여 그룹화하기 위해서는 `dplyr`에서 제공하는 파이프 연산자인 `%>%`와 앞에 설명한 시간 정보 추출 함수를 같이 사용하여 산출할 수 있다.
 
 하지만 앞장에서 소개한 `timetk` 패키지에서는 그룹핑하여 평균을 내거나 합계를 내는 함수를 제공하기 때문에 이를 사용할 수도 있다.
 
@@ -158,76 +169,127 @@ days_in_month(as.Date('2012-2', format = '%Y-%d'))  # 말일을 구하는 코드
 
 먼저 그룹핑을 하기 위한 단위를 설정하기 위해 `lubridate` 패키지의 `year()`, `month()`, `week()` 등의 함수를 사용하여 해당 일의 년, 월, 주등을 산출하고 `mutate` 함수를 사용하여 컬럼으로 만들어준다. 다음 `group_by` 함수를 사용하여 데이터를 그룹핑하고 `summarise` 함수를 통해 `sum()`, `mean()` 등의 그룹 함수를 사용하여 원하는 값을 산출한다.
 
-```{r message=FALSE, warning=FALSE}
+```{r group1, message=FALSE, warning=FALSE}
 library(dplyr)
 library(ggplot2)
 ###  월별 취업자수를 연별 취업자수로 그룹핑
-(employees.by.year <- employees %>% 
-  mutate(year = year(time)) %>%
+(employees.by.year <- employees %>%
+  mutate(year = year(time)) %>%   
   group_by(year) %>%
-  summarise(total.year = sum(total), 
+  summarise(total.year = sum(total),
             employees.edu = sum(employees.edu)))
+```
 
+::: {.comment}
+-   코드 설명
+
+    -   employees 데이터프레임에서 `mutate()`를 사용하여 time에서 뽑은 연도(`year()`)를 year 열에 저장
+
+    -   `group_by()`로 year 열로 그룹핑한후 `summarise()`를 사용하여 전체 취업자수의 합계를 total.year, 교육서비스업의 합계 employees.edu 열을 생성
+
+    -   최종 결과를 employees.by.year에 저장
+:::
+
+```{r group2}
 employees.by.year %>% 
   ggplot(aes(as.factor(year), total.year)) + 
   geom_line(aes(group = 1)) +
   geom_text(aes(label = scales::number(total.year, big.mark = ',')), size = 3, vjust = 1.5) + 
   labs(title = '연별 취업자수', x = '연도', y = '취업자수') + 
   scale_y_continuous(labels = scales::number_format(big.mark = ','))
-
-###  일별 확진자수를 월별 확진자수로 그룹핑
-covid19 %>%
-  mutate(month = month(date), year = year(date)) %>%
-  group_by(month, year) %>%
-  summarise(total.1대확진자 = sum(`0-9세`), 
-            total.10대확진자 = sum(`10-19세`), 
-            total.20대확진자 = sum(`20-29세`), 
-            total.30대확진자 = sum(`30-39세`), 
-            total.40대확진자 = sum(`40-49세`), 
-            total.50대확진자 = sum(`50-59세`), 
-            total.60대확진자 = sum(`60-69세`), 
-            total.70대확진자 = sum(`70-79세`), 
-            total.80대확진자 = sum(`80세 이상`))
 ```
 
-또 하나의 방법은 tibbletime 패키지에서 제공하는 collapse_by() 함수를 사용하는 방법이다. collapse_by() 함수는 시간 인덱스열을 직접 컨트롤하여 매개변수로 전달된 기간마다 데이터를 접은(collapse) 후에 group_by() 함수를 이용해 그룹핑하여 기간별 데이터를 산출할 수 있다.[^data_handling-3] 다만 collapse_by()함수를 사용하려면 tibbletime 패키지를 설치, 로딩해야하며 tbl_time 클래스 객체로 변환된 데이터 객체에 한해서 사용할 수 있다.
+```{r message=FALSE, warning=FALSE}
+###  일별 평균 확진자수를 산출
+(mean.covid19.by.age <- covid19 %>%
+  mutate(yearmon = yearmonth(date)) %>%
+  group_by(yearmon) %>%
+  summarise(`01대` = mean(`0-9세`), 
+            `10대` = mean(`10-19세`), 
+            `20대` = mean(`20-29세`), 
+            `30대` = mean(`30-39세`), 
+            `40대` = mean(`40-49세`), 
+            `50대` = mean(`50-59세`), 
+            `60대` = mean(`60-69세`), 
+            `70대` = mean(`70-79세`), 
+            `80대` = mean(`80세 이상`)))
+```
+
+::: {.comment}
+-   코드 설명
+
+    -   covid19 데이터프레임을 `%>%`로 `mutate()`에 전달
+
+    -   `mutate()`를 사용하여 date에서 뽑은 연도, 월(year`month()`)를 yearmon 열에 저장
+
+    -   `group_by()`로 yearmon 열로 그룹핑한후 `summarise()`를 사용하여 연령대별 평균을 각각의 열로 저장
+:::
+
+```{r group3, message=FALSE, warning=FALSE}
+mean.covid19.by.age %>%
+  tidyr::gather(category, value, 2:10) %>%
+  ggplot(aes(x = yearmon, y = value)) + 
+  geom_line(aes(group = category, color = category)) + 
+  labs(title = '월간 평균 확진자수', x = '시간', y = '평균확진자', color = '세대')
+```
+
+또 하나의 방법은 `tibbletime` 패키지에서 제공하는 `collapse_by()` 함수를 사용하는 방법이다. `collapse_by()` 함수는 시간 인덱스열을 직접 컨트롤하여 매개변수로 전달된 기간마다 데이터를 접은(collapse) 후에 `group_by()` 함수를 이용해 그룹핑하여 기간별 데이터를 산출할 수 있다.[^data_handling-3] 다만 `collapse_by()`함수를 사용하려면 `tibbletime`패키지를 설치, 로딩해야하며 `tbl_time` 클래스 객체로 변환된 데이터 객체에 한해서 사용할 수 있다.
 
 [^data_handling-3]: <https://cran.r-project.org/web/packages/tibbletime/vignettes/TT-04-use-with-dplyr.html>
 
-```{r warning=FALSE, message=FALSE}
+```{r as_tbl_time, warning=FALSE, message=FALSE}
 library(tibbletime)
 as_tbl_time(covid19, index = date) %>%
   collapse_by('weekly') %>%
   group_by(date) %>% 
-  summarise(`1대`= sum(`0-9세`), 
-            `10대` = sum(`10-19세`), 
-            `20대` = sum(`20-29세`), 
-            `30대` = sum(`30-39세`), 
-            `40대` = sum(`40-49세`), 
-            `50대` = sum(`50-59세`), 
-            `60대` = sum(`60-69세`), 
-            `70대` = sum(`70-79세`), 
-            `80대` = sum(`80세 이상`)) %>%
-  head(10)
+  summarise(`01대` = mean(`0-9세`), 
+            `10대` = mean(`10-19세`), 
+            `20대` = mean(`20-29세`), 
+            `30대` = mean(`30-39세`), 
+            `40대` = mean(`40-49세`), 
+            `50대` = mean(`50-59세`), 
+            `60대` = mean(`60-69세`), 
+            `70대` = mean(`70-79세`), 
+            `80대` = mean(`80세 이상`)) %>%
+  tidyr::gather(category, value, 2:10) %>%
+  ggplot(aes(x = date, y = value)) + 
+  geom_line(aes(group = category, color = category)) + 
+  labs(title = '주간 평균 확진자수', x = '월', y = '평균확진자', color = '세대')
 ```
 
--   timetk 패키지
+::: {.comment}
+-   코드 설명
 
-timetk 패키지에서는 그룹핑을 위해 summarise_by_time() 함수를 제공한다. 매개변수로 .date_var(시간컬럼), .by(그룹핑 단위) 등을 설정하고 산출하기 원하는 컬럼명과 그룹함수를 기재하여 원하는 값을 얻을 수 있다.
+    -   `as_tble_time()`을 사용하여 covid19데이터 프레임을 `tibbletime` 클래스로 변환
 
-```{r message=FALSE, warning=FALSE}
+    -   `collapse_by()`를 이용하여 주간단위로 데이터를 접어줌. 접힌 데이터의 date는 주의 마지막날로 날짜가 바뀌어서 저장됨
+
+    -   `group_by()`로 주간 단위로 바뀌어진 날짜로 grouping
+
+    -   `summarise()`로 각 세대별 합계값을 구해 열을 생성
+:::
+
+-   `timetk` 패키지
+
+`timetk` 패키지에서는 그룹핑을 위해 `summarise_by_time()` 함수를 제공한다. 매개변수로 .date_var(시간컬럼), .by(그룹핑 단위)를 설정하면 설정된 단위대로 데이터를 그룹핑해준다. 이 결과를 산출하기 원하는 컬럼명과 그룹함수를 기재하여 원하는 값을 얻을 수 있다.
+
+```{r summarise_by_time, message=FALSE, warning=FALSE}
 library(timetk)
 covid19 %>% 
   summarise_by_time(.date_var = date, .by = 'week', 
-                    `1대`= sum(`0-9세`), 
-            `10대` = sum(`10-19세`), 
-            `20대` = sum(`20-29세`), 
-            `30대` = sum(`30-39세`), 
-            `40대` = sum(`40-49세`), 
-            `50대` = sum(`50-59세`), 
-            `60대` = sum(`60-69세`), 
-            `70대` = sum(`70-79세`), 
-            `80대` = sum(`80세 이상`))
+                    `01대` = mean(`0-9세`), 
+                    `10대` = mean(`10-19세`),
+                    `20대` = mean(`20-29세`),
+                    `30대` = mean(`30-39세`),
+                    `40대` = mean(`40-49세`),
+                    `50대` = mean(`50-59세`),
+                    `60대` = mean(`60-69세`),
+                    `70대` = mean(`70-79세`),
+                    `80대` = mean(`80세 이상`)) %>%
+  tidyr::gather(category, value, 2:10) %>%
+  ggplot(aes(x = date, y = value)) + 
+  geom_line(aes(group = category, color = category)) + 
+  labs(title = '주간 평균 확진자수', x = '월', y = '평균확진자', color = '세대')
 
 employees %>% 
   summarise_by_time(.date_var = time, .by = 'month', 
@@ -236,23 +298,23 @@ employees %>%
   head(10)
 ```
 
--   xts 패키지
+-   `xts` 패키지
 
-data.frame 클래스의 시계열 객체는 위와 같이 dplyr 패키지의 기능을 이용해 그룹핑하고 그룹함수를 적용용하지만 xts 클래스에서는 시간 유닛별로 그룹핑하여 그룹함수를 적용할 수 있는 함수를 지원한다. 따라서 연 평균, 월 합계와 같은 작업에 편리하게 사용할 수 있다.
+`data.frame` 클래스의 시계열 객체는 위와 같이 `dplyr` 패키지의 기능을 이용해 그룹핑하고 그룹함수를 적용용하지만 `xts` 클래스에서는 시간 유닛별로 그룹핑하여 그룹함수를 적용할 수 있는 함수를 지원한다. 따라서 연 평균, 월 합계와 같은 작업에 편리하게 사용할 수 있다.
 
-```{r warning=FALSE}
-apply.monthly(employees.xts, sum) %>% head(10)
-apply.weekly(employees.xts, sum) %>% head(10)
-apply.quarterly(employees.xts, sum) %>% head(10)
+```{r applyyearly, warning=FALSE}
+apply.yearly(covid19.xts, mean) %>% plot.xts()
+apply.monthly(covid19.xts, mean) %>% plot.xts()
+apply.weekly(covid19.xts, mean) %>% plot.xts()
 ```
 
-### 시계열 데이터 OHLC
+## 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC
 
-시계열 데이터를 다룰때 앞서 설명한 grouping을 많이 사용한다. 대부분의 데이터에서는 그룹함수로 제공되는 sum(), mean(), median() 등의 함수를 사용하는 경우가 많지만 시계열 데이터, 특히 금융권 데이터에서는 OHLC 정보를 확인하는 경우도 많다 OHLC는 주어진 기간동안의 첫번째 값(Open), 최대값(High), 최소값(Low), 마지막값(Close) 값을 말한다.
+시계열 데이터를 다룰때 앞서 설명한 grouping을 많이 사용한다. 대부분의 데이터에서는 그룹함수로 제공되는 `sum()`, `mean()`, `median()` 등의 함수를 사용하는 경우가 많지만 시계열 데이터, 특히 금융권 데이터에서는 OHLC 정보를 확인하는 경우도 많다 OHLC는 주어진 기간동안의 첫번째 값(Open), 최대값(High), 최소값(Low), 마지막값(Close) 값을 말한다.
 
--   lubridate, tibbletime, dplyr 패키지
+-   `lubridate`, `tibbletime`, `dplyr` 패키지
 
-앞서 소개한 collapse_by() 함수를 사용하면 OHLC 정보를 간단히 산출할 수 있다. collapse_by()를 이용해 그룹핑할 시간 주기를 설정하고 group_by()함수를 사용하여 data.frame을 그룹핑한 후 lubridata 패키지의first(), max(), min(), last() 함수를 사용하면 산출이 가능하다.
+앞서 소개한 `collapse_by()` 함수를 사용하면 OHLC 정보를 간단히 산출할 수 있다. `collapse_by()`를 이용해 그룹핑할 시간 주기를 설정하고 `group_by()`함수를 사용하여 data.frame을 그룹핑한 후 `lubridate` 패키지의 `first()`, `max()`, `min()`, `last()` 함수를 사용하면 산출이 가능하다.
 
 ```{r warning=FALSE, message=FALSE}
 as_tbl_time(covid19, index = date) %>%
@@ -267,65 +329,73 @@ as_tbl_time(covid19, index = date) %>%
 
 -   xts
 
-xts 패키지에서는 OHLC 정보를 확인할 수 있는 함수를 직접 제공한다. to.period()함수인데 OHLC를 제공하는데 to.period 함수의 매개변수인 period에 'months', 'quarters' 등 적절한 시간 간격을 설정해주면 해당 기간동안의 OHCL를 자동으로 출력해준다.
+`xt`s 패키지에서는 OHLC 정보를 확인할 수 있는 함수를 직접 제공한다. `to.period()`인데 OHLC를 제공하는데 `to.period()` 함수의 매개변수인 `method`에 'months', 'quarters' 등 적절한 시간 간격을 설정해주면 해당 기간동안의 OHCL를 자동으로 출력해준다.
 
-```{r}
+```{r toperiod, message=FALSE, warning=FALSE}
 to.period(covid19.xts, method = 'months', OLHC = TRUE)
 ```
 
-### 시계열 데이터 Rolling
+## 3일 평균, 5일 합계는? : 시간 Rolling
 
-주식투자를 하는 분들은 주식거래 프로그램에서 많은 시계열 그래프들을 보게된다. 이들 그래프 중에 어떤 그래프에는 MA(5), MA(10)과 같은 표기가 된 line plot을 볼 수 있는데 이를 이동평균이라고 한다. 최근 5일 평균, 최근 10일 평균과 같이 평균의 기준 범위가 날짜별로 달라지면서 평균을 구하게 되는데 이와 같이 기준일에서 특정 기간의 일, 월의 집합 함수를 적용하는 과정을 rolling이라 하고 rolling의 기간을 rolling window라고 한다. rolling도 앞선 group과 같이 lubridate 패키지에서 제공하는 함수를 dplyr 함수와 파이프라인을 사용하는 방법, timetk 패키지를 사용하는 방법, xts 패키지를 사용하는 방법을 설명하고자 한다.
+주식투자를 하는 분들은 주식거래 프로그램에서 많은 시계열 그래프들을 보게된다. 이들 그래프 중에 어떤 그래프에는 MA(5), MA(10)과 같은 표기가 된 라인 plot을 볼 수 있는데 이를 이동평균이라고 한다. 최근 5일 평균, 최근 10일 평균과 같이 평균의 기준 범위가 날짜별로 달라지면서 평균을 구하게 되는데 이와 같이 기준일에서 특정 기간의 일, 월의 집합 함수를 적용하는 과정을 rolling이라 하고 rolling의 기간을 rolling window라고 한다. rolling도 앞선 group과 같이 `lubridate` 패키지에서 제공하는 함수를 `dplyr` 함수와 파이프라인을 사용하는 방법, `timetk` 패키지를 사용하는 방법, `xts` 패키지를 사용하는 방법을 설명하고자 한다.
 
--   lubridate, dplyr 패키지
+-   `lubridate`, `dplyr` 패키지
 
-lubridate 패키지를 사용하여 data.frame 클래스 객체에 대한 rolling은 좀 복잡하다. 하지만 zoo 패키지에서 제공하는 roll\* 함수를 사용하면 비교적 쉽게 rolling을 수행할 수있어 이 방법을 소개하고자 한다. 사실 이 방법에서는 lubridate 패키지 함수는 사용되지 않는데 mutate 함수를 이용하여 새로운 컬럼을 생성하는데 각 컬럼을 생성하는 함수로 zoo 패키지의 roll\* 함수를 사용한다. roll\* 함수는 rollapply()와 rollmean()의 두가지를 제공하는데 rollapply는 apply함수를 rolling용으로 수정한 버젼이고 rollapply 함수에 mean을 적용하는 경우가 많기 때문에 추가적으로 이동평균을 구하는 함수를 제공한다.
+`lubridate` 패키지를 사용하여 data.frame 클래스 객체에 대한 rolling은 좀 복잡하다. 하지만 `zoo` 패키지에서 제공하는 roll\* 함수를 사용하면 비교적 쉽게 rolling을 수행할 수있어 이 방법을 소개하고자 한다. 사실 이 방법에서는 `lubridate` 패키지 함수는 사용되지 않는데 `mutate` 함수를 이용하여 새로운 컬럼을 생성하는데 각 컬럼을 생성하는 함수로 zoo 패키지의 roll\* 함수를 사용한다. roll\* 함수는 `rollapply()`와 `rollmean()`의 두가지를 제공하는데 `rollapply()`는 `apply()`를 rolling용으로 수정한 버젼이고 `rollapply()`에 평균(`mean()`)을 적용하는 경우가 많기 때문에 추가적으로 이동평균을 구하는 함수를 제공한다.
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 #detach(package:xts)
 ```
 
-```{r}
+```{r rollapply, message=FALSE, warning=FALSE}
 library(zoo)
 employees %>%
   mutate(ma3 = rollmean(total, k = 3, fill = NA),
          sum3 = rollapply(total, 3, sum, fill = NA)) %>%
-  select(total, ma3, sum3) %>%
-  head(10)
+  select(time, total, ma3, sum3) %>%
+  ggplot(aes(x = time)) + 
+  geom_line(aes(y = total, group = 1, color = 'total')) +
+  geom_line(aes(y = ma3, group = 1, color = 'ma3')) + 
+  scale_color_manual(values = c('total' = 'red', 'ma3' = 'blue'))
+
 ```
 
--   timetk 패키지
+-   `timetk` 패키지
 
-timetk 패키지에서는 rolling 기능을 위해 slidify() 함수를 제공한다. slidify() 함수가 타 함수와 다른점은 그 반환값이 함수의 실행 결과값이 아니고 함수자체를 반환한다는 것이다. 즉 rolling window 기간에 특정 함수를 적용하는 함수를 제공하기 때문에 이후 함수의 형태로 사용해야 한다. 아래의 예에 m3와 sum3는 data.frame이나 숫자값이 아니고 함수 객체이다. 이 함수 객체는 mutate 함수안에서 함수처럼 작용하는데 그 매개변수로 rolling을 해야할 컬럼을 전달하면 그 결과 벡터가 전달되는 형태로 실행된다.
+`timetk` 패키지에서는 rolling 기능을 위해 `slidify()` 함수를 제공한다. `slidify()` 함수가 타 함수와 다른점은 그 반환값이 함수의 실행 결과값이 아니고 함수자체를 반환한다는 것이다. 즉 rolling window 기간에 특정 함수를 적용하는 함수를 제공하기 때문에 이후 함수의 형태로 사용해야 한다. 아래의 예에 ma3와 sum3는 data.frame이나 숫자값이 아니고 함수 객체이다. 이 함수 객체는 mutate 함수안에서 함수처럼 작용하는데 그 매개변수로 rolling을 해야할 컬럼을 전달하면 그 결과 벡터가 전달되는 형태로 실행된다.
 
-```{r}
-ma3 <- slidify(mean, .period = 3, .align = "right")
+```{r slidify, message=FALSE, warning=FALSE}
+ma3 <- slidify(mean, .period = 3, .align = "center")
 sum3 <- slidify(sum, .period = 3, .align = "center")
 class(ma3)
 class(sum3)
 
 employees %>%
   mutate(ma3 = ma3(total), sum3 = sum3(total)) %>%
-  select(total, ma3, sum3) %>%
-  head(10)
+  select(time, total, ma3, sum3) %>%
+  ggplot(aes(x = time)) + 
+  geom_line(aes(y = total, group = 1, color = 'total')) +
+  geom_line(aes(y = ma3, group = 1, color = 'ma3')) + 
+  scale_color_manual(values = c('total' = 'red', 'ma3' = 'blue'))
+
 ```
 
--   xts 패키지
+-   `xts` 패키지
 
-xts 패키지에서는 rolling을 위한 간단한 함수를 제공한다. rollapply함수로 xts 객체와 rolling window 기간, 적용할 함수를 전달하면 rolling을 간단히 구할수 있다.
+`xts` 패키지에서는 rolling을 위한 간단한 함수를 제공한다. `rollapply()`로 `xts` 객체와 rolling window 기간, 적용할 함수를 전달하면 rolling을 간단히 구할수 있다.
 
 ```{r}
-rollapply(employees.xts, width = 3, FUN = sum) %>%
+rollapply(employees.xts, width = 3, FUN = mean) %>%
   head(10)
 ```
 
-### 시계열 데이터 Filtering
+## 지난달 데이터는? : 시간 Filtering(Subsetting)
 
-시계열 데이터가 아닌 데이터들은 데이터 값에 대한 조건의 결과에 따라 filtering한다. 물론 시계열 데이터도 데이터 값의 조건에 따라 filtering이 가능하지만 시간 인덱스에 조건을 적용하여 filtering도 가능하다.
+시계열 데이터가 아닌 데이터들은 데이터 값에 대한 조건을 적용하여 결과를 filtering한다. 예를 들어 판매량이 100보다 크거나 취업자수가 10,000명보다 큰 경우 등이다. 물론 시계열 데이터도 데이터 값에 조건을 적용하여 filtering이 가능하지만 시간 인덱스에 조건을 적용하여 filtering도 가능하다. 이 방법은 filtering이라고도 하고 subsetting이라고도 한다. 여기서는 시간 인덱스에 조건을 적용하는 방법에 대해 설명한다.
 
--   lubridate, dplyr 패키지
+-   `lubridate`, `dplyr` 패키지
 
-data.frame에 저장된 시계열 객체의 시간 인덱스 컬럼은 조건 연산자가 산술 연산과 동일하게 적용된다. 따라서 \<, \>, \<=, \>= 등의 연산자를 사용하여 인덱스를 filtering하여 전체 데이터를 filtering 할 수 있다.
+데이터프레임에 저장된 시계열 객체의 시간 인덱스 컬럼은 조건 연산자를 산술 연산과 동일하게 사용할 수 있다. 따라서 `<`, `>`, `<=`, `>=` 등의 연산자를 사용하여 시간 인덱스에 대해 filtering하여 전체 데이터 중 일부를 filtering 할 수 있다.
 
 ```{r}
 covid19 %>%
@@ -342,9 +412,9 @@ covid19 %>%
   head(15)
 ```
 
--   timetk 패키지
+-   `timetk` 패키지
 
-timetk 패키지에서는 filter_by_time() 함수를 제공한다. 이 함수는 dplyr 패키지의 파이프라인(%\>%)을 이용해서 시계열 데이터를 filtering 할 수 있다. 매개변수 .start로 시작일과 .end 종료일을 전달하면 해당 기간동안의 데이터를 반환한다. 또 timetk에서는 주어진 기간동안의 데이터에 한하여 조건에 적합한 데이터를 반환하는 filter_period() 함수를 제공한다. filter_period() 함수는 위에서 설명한 xts의 누적값을 구하는 방법과 유사하게 작동하는데 우선 데이터를 filter_period() 에서 설정한 기간으로 나누고 나뉘어진 데이터 내에서 주어진 조건에 적합한 결과들을 산출해서 반환한다. 예를 들어 매월 최대 매출일을 기록한 날, 매년 월평균 매출액보다 큰 매출을 기록한 월 등을 산출할 때 유용하다.
+`timetk` 패키지에서는 `filter_by_time()` 함수를 제공한다. 이 함수는 `dplyr` 패키지의 파이프라인(`%>%`)을 이용해서 시계열 데이터를 filtering 할 수 있다. 매개변수 .start로 시작일과 .end 종료일을 전달하면 해당 기간동안의 데이터를 반환한다. 또 `timetk`에서는 주어진 기간동안의 데이터에 한하여 조건에 적합한 데이터를 반환하는 `filter_period()`를 제공한다. `filter_period()`는 위에서 설명한 `xts`의 누적값을 구하는 방법과 유사하게 작동하는데 우선 데이터를 `filter_period()` 에서 설정한 기간으로 나누고 나뉘어진 데이터 내에서 주어진 조건에 적합한 결과들을 산출해서 반환한다. 예를 들어 매월 최대 매출일을 기록한 날, 매년 월평균 매출액보다 큰 매출을 기록한 월 등을 산출할 때 유용하다.
 
 ```{r message=FALSE, warning=FALSE}
 covid19 %>%
@@ -356,9 +426,9 @@ covid19 %>%
   head(10)
 ```
 
--   xts 패키지
+-   `xts` 패키지
 
-xts 객체의 시간 인덱스 filtering은 앞선 lubridate, dplyr, timetk와는 조금 달리 filtering이 가능하다. xts 객체는 함수로 filtering하지 않고 [ ]내에 조건을 전달할 수 있고 연산자인 '/'로 기간 구간을 설정할 수 있다.
+`xts` 객체의 시간 인덱스 filtering은 앞선 `lubridate`, `dplyr`, `timetk`와는 조금 달리 filtering이 가능하다. `xts` 객체는 함수로 filtering하지 않고 [ ]내에 조건을 전달할 수 있고 연산자인 '/'로 기간 구간을 설정할 수 있다.
 
 ```{r}
 covid19.xts['2020-10-02']   ### 2020-10-02에 해당하는 데이터 filtering
@@ -367,15 +437,11 @@ covid19.xts['2021-02-05/'] ### 2021-02-05일 부터 끝까지 데이터 filterin
 covid19.xts['/2020-04-11']   ### 처음부터 2020-04-11까지의 filtering
 ```
 
-## 시계열 데이터 응용 사례
+## 월별, 분기별, 연별 합계 Plot
 
-본 절에서는 앞에서 설명한 시계열 데이터 핸들링 방법을 기초로 실제 리포팅 과정에서 주로 많이 사용되는 응용 사례에 대해 설명한다. 시계열 데이터가 저장되어 있는 객체의 형태별로 사용가능한 함수와 plotting 예제를 보인다.
+-   데이터프레임 : `month()`, `quarter()`, `year()` 함수
 
-### 월별, 분기별, 연별 합계
-
--   데이터프레임 : month(), quarter(), year() 함수
-
-데이터 프레임 객체는 dplyr의 group_by()함수와 파이프라인(%\>%)을 사용하여 데이터를 그룹핑 한 후 summarise() 함수를 사용하여 합계를 구할 수 있다.
+데이터 프레임 객체는 `dplyr`의 `group_by()`함수와 파이프라인(`%>%`)을 사용하여 데이터를 그룹핑 한 후 `summarise()`를 사용하여 합계를 구할 수 있다.
 
 ```{r example1, warning=FALSE, message=FALSE}
 employees %>% 
@@ -515,7 +581,7 @@ apply.quarterly(covid19.xts[,1], sum) %>% plot.xts(main = '분기별 0-9세 코�
 
 ts 객체는 다음장부터 다뤄질 시계열 분석 패키지인 forecast 패키지에서 중요하게 사용되는 객체이다. 하지만 앞선 data.frame 이나 xts 처럼 핸들링이 용이하지 않다. 따라서 데이터 핸들링을 위해서는 data.frame 이나 xts 객체로 변환하여 사용하는 것이 정신 건강에 좋다.
 
-### 월별, 분기별, 연별 증감량
+## 월별, 분기별, 연별 증감량 Plot
 
 -   데이터프레임 : lag() 함수
 
@@ -588,7 +654,7 @@ employees.xts[, c('total', '증감', '증감율')] %>% head(10)
 plot.xts(employees.xts[, c('증감율')], main = '전월대비 전체 취업자 증감률')
 ```
 
-### 월 비중 백분율, 연 비중 백분율
+## 월 비중 백분율, 연 비중 백분율
 
 전체 연간 매출의 월별 비중, 전체 월간 합계 중 일별, 주간별 비중과 같은 수치를 산출해야할 때가 있다. 전체 연간 매출의 월별 비중을 모두 합하면 100%가 되어야 한다. 이를 위해서는 각각의 row에 비중을 구하기 위한 총 합계치가 계산되어야 한다.
 
@@ -641,7 +707,7 @@ employees.tsibble%>%
 
 ```
 
-### 월별, 분기별, 연별 누적합계
+## 월별, 분기별, 연별 누적합계 Plot
 
 시계열 데이터는 시간동안의 데이터 흐름을 나타내지만 경우에 따라서 계속된 합계값을 나타내야 할 경우가 있다. 예를 들어 주간별 매출액의 연도별 누적 매출액, 웹사이트의 누적 사용자와 같은 경우이다. 누적값은 앞서 설명한 grouping과 함께 쓰면 더 좋은 결과를 낼 수 있다.
 
@@ -716,7 +782,7 @@ do.call(rbind, lapply(split(employees.xts, f = 'year'), cumsum)) %>%
   head(15)
 ```
 
-### 동월별, 동분기별, 동년별 Plot
+## 동월별, 동분기별, 동년별 Plot
 
 앞선 plot에서처럼 시계열 데이터는 대부분 선 plot으로 그려지는 경우가 많다. 하지만 동년, 동월, 동분기의 데이터를 전체적으로 확인해야 할 떄가 있다. 이 plot은 다른 응용 분야보다 plot을 그릴 수 있는 시계열 객체가 제한된다. data.frame이 가장 구현하기가 쉽고 계절성을 위주로 그리면 시계열 패키지에서 제공하는 함수를 사용할 수도 있다.
 
