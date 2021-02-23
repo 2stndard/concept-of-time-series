@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.5 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC | Untitled</title>
   <meta name="description" content="4.5 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC | Untitled" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.5 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-23" />
+<meta name="date" content="2021-02-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="주간-월간-데이터-합계-평균은-시간-grouping.html"/>
 <link rel="next" href="일-평균-5일-합계는-시간-rolling.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -191,11 +191,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC</a></li>
 <li class="chapter" data-level="4.6" data-path="일-평균-5일-합계는-시간-rolling.html"><a href="일-평균-5일-합계는-시간-rolling.html"><i class="fa fa-check"></i><b>4.6</b> 3일 평균, 5일 합계는? : 시간 Rolling</a></li>
 <li class="chapter" data-level="4.7" data-path="지난달-데이터는-시간-filteringsubsetting.html"><a href="지난달-데이터는-시간-filteringsubsetting.html"><i class="fa fa-check"></i><b>4.7</b> 지난달 데이터는? : 시간 Filtering(Subsetting)</a></li>
-<li class="chapter" data-level="4.8" data-path="월별-분기별-연별-합계-plot.html"><a href="월별-분기별-연별-합계-plot.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 합계 Plot</a></li>
-<li class="chapter" data-level="4.9" data-path="월별-분기별-연별-증감량-plot.html"><a href="월별-분기별-연별-증감량-plot.html"><i class="fa fa-check"></i><b>4.9</b> 월별, 분기별, 연별 증감량 Plot</a></li>
-<li class="chapter" data-level="4.10" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.10</b> 월 비중 백분율, 연 비중 백분율</a></li>
-<li class="chapter" data-level="4.11" data-path="월별-분기별-연별-누적합계-plot.html"><a href="월별-분기별-연별-누적합계-plot.html"><i class="fa fa-check"></i><b>4.11</b> 월별, 분기별, 연별 누적합계 Plot</a></li>
-<li class="chapter" data-level="4.12" data-path="동월별-동분기별-동년별-plot.html"><a href="동월별-동분기별-동년별-plot.html"><i class="fa fa-check"></i><b>4.12</b> 동월별, 동분기별, 동년별 Plot</a></li>
+<li class="chapter" data-level="4.8" data-path="월별-분기별-연별-증감량.html"><a href="월별-분기별-연별-증감량.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 증감량</a></li>
+<li class="chapter" data-level="4.9" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.9</b> 월 비중 백분율, 연 비중 백분율</a></li>
+<li class="chapter" data-level="4.10" data-path="월별-분기별-연별-누적합계.html"><a href="월별-분기별-연별-누적합계.html"><i class="fa fa-check"></i><b>4.10</b> 월별, 분기별, 연별 누적합계</a></li>
+<li class="chapter" data-level="4.11" data-path="동월별-동분기별-동년별-plot.html"><a href="동월별-동분기별-동년별-plot.html"><i class="fa fa-check"></i><b>4.11</b> 동월별, 동분기별, 동년별 Plot</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
 <ul>
@@ -292,7 +291,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.5</span> 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC</h2>
 <p>시계열 데이터를 다룰때 앞서 설명한 grouping을 많이 사용한다. 대부분의 데이터에서는 그룹함수로 제공되는 <code>sum()</code>, <code>mean()</code>, <code>median()</code> 등의 함수를 사용하는 경우가 많지만 시계열 데이터, 특히 금융권 데이터에서는 OHLC 정보를 확인하는 경우도 많다 OHLC는 주어진 기간동안의 첫번째 값(Open), 최대값(High), 최소값(Low), 마지막값(Close) 값을 말한다.</p>
 <ul>
-<li><code>lubridate</code>, <code>tibbletime</code>, <code>dplyr</code> 패키지</li>
+<li>데이터프레임 : <code>lubridate</code>, <code>tibbletime</code>, <code>dplyr</code> 패키지</li>
 </ul>
 <p>앞서 소개한 <code>collapse_by()</code> 함수를 사용하면 OHLC 정보를 간단히 산출할 수 있다. <code>collapse_by()</code>를 이용해 그룹핑할 시간 주기를 설정하고 <code>group_by()</code>함수를 사용하여 data.frame을 그룹핑한 후 <code>lubridate</code> 패키지의 <code>first()</code>, <code>max()</code>, <code>min()</code>, <code>last()</code> 함수를 사용하면 산출이 가능하다.</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(covid19, <span class="at">index =</span> date) <span class="sc">%&gt;%</span></span>
@@ -318,9 +317,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 2020-06-06     0     3     0     3
 ## 10 2020-06-13     1     1     0     0</code></pre>
 <ul>
-<li>xts</li>
+<li><code>xts</code></li>
 </ul>
-<p><code>xt</code>s 패키지에서는 OHLC 정보를 확인할 수 있는 함수를 직접 제공한다. <code>to.period()</code>인데 OHLC를 제공하는데 <code>to.period()</code> 함수의 매개변수인 <code>method</code>에 ‘months,’ ‘quarters’ 등 적절한 시간 간격을 설정해주면 해당 기간동안의 OHCL를 자동으로 출력해준다.</p>
+<p><code>xts</code> 패키지에서는 OHLC 정보를 확인할 수 있는 함수를 직접 제공한다. <code>to.period()</code>인데 OHLC를 제공하는데 <code>to.period()</code> 함수의 매개변수인 <code>method</code>에 ‘months,’ ‘quarters’ 등 적절한 시간 간격을 설정해주면 해당 기간동안의 OHCL를 자동으로 출력해준다.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">to.period</span>(covid19.xts, <span class="at">method =</span> <span class="st">&#39;months&#39;</span>, <span class="at">OLHC =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##            covid19.xts.Open covid19.xts.High covid19.xts.Low covid19.xts.Close
 ## 2020-04-30                2                5               1                 2

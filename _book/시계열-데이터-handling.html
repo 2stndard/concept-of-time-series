@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 시계열 데이터 Handling | Untitled</title>
   <meta name="description" content="Chapter 4 시계열 데이터 Handling | Untitled" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 시계열 데이터 Handling | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-23" />
+<meta name="date" content="2021-02-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="data-frame-timetk-패키지.html"/>
 <link rel="next" href="오늘-몇일이야-시간-정보-추출.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -191,11 +191,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC</a></li>
 <li class="chapter" data-level="4.6" data-path="일-평균-5일-합계는-시간-rolling.html"><a href="일-평균-5일-합계는-시간-rolling.html"><i class="fa fa-check"></i><b>4.6</b> 3일 평균, 5일 합계는? : 시간 Rolling</a></li>
 <li class="chapter" data-level="4.7" data-path="지난달-데이터는-시간-filteringsubsetting.html"><a href="지난달-데이터는-시간-filteringsubsetting.html"><i class="fa fa-check"></i><b>4.7</b> 지난달 데이터는? : 시간 Filtering(Subsetting)</a></li>
-<li class="chapter" data-level="4.8" data-path="월별-분기별-연별-합계-plot.html"><a href="월별-분기별-연별-합계-plot.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 합계 Plot</a></li>
-<li class="chapter" data-level="4.9" data-path="월별-분기별-연별-증감량-plot.html"><a href="월별-분기별-연별-증감량-plot.html"><i class="fa fa-check"></i><b>4.9</b> 월별, 분기별, 연별 증감량 Plot</a></li>
-<li class="chapter" data-level="4.10" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.10</b> 월 비중 백분율, 연 비중 백분율</a></li>
-<li class="chapter" data-level="4.11" data-path="월별-분기별-연별-누적합계-plot.html"><a href="월별-분기별-연별-누적합계-plot.html"><i class="fa fa-check"></i><b>4.11</b> 월별, 분기별, 연별 누적합계 Plot</a></li>
-<li class="chapter" data-level="4.12" data-path="동월별-동분기별-동년별-plot.html"><a href="동월별-동분기별-동년별-plot.html"><i class="fa fa-check"></i><b>4.12</b> 동월별, 동분기별, 동년별 Plot</a></li>
+<li class="chapter" data-level="4.8" data-path="월별-분기별-연별-증감량.html"><a href="월별-분기별-연별-증감량.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 증감량</a></li>
+<li class="chapter" data-level="4.9" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.9</b> 월 비중 백분율, 연 비중 백분율</a></li>
+<li class="chapter" data-level="4.10" data-path="월별-분기별-연별-누적합계.html"><a href="월별-분기별-연별-누적합계.html"><i class="fa fa-check"></i><b>4.10</b> 월별, 분기별, 연별 누적합계</a></li>
+<li class="chapter" data-level="4.11" data-path="동월별-동분기별-동년별-plot.html"><a href="동월별-동분기별-동년별-plot.html"><i class="fa fa-check"></i><b>4.11</b> 동월별, 동분기별, 동년별 Plot</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
 <ul>
@@ -292,7 +291,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 4</span> 시계열 데이터 Handling</h1>
 <p>우리는 시간 단위로 기록된 데이터를 항상 다루어왔다. 데이터의 월 평균, 데이터의 전월 대비 변동량 등을 산출하기 위해서는 데이터를 월 단위로 구분하여 평균을 구하거나 전월 데이터를 산출하여 당월 데이터와의 차이를 구하는 등의 작업을 해야한다.</p>
 <p>R에서 주로 사용하는 데이터프레임에서는 행렬 인덱스나 조건을 <code>[]</code>를 이용하여 전달함으로써 데이터를 검색하고 일부 데이터를 subsetting하거나 <code>dplyr</code> 패키지에서 제공하는 <code>select</code>, <code>filter</code>, <code>group_by</code>, <code>arrange</code>, <code>mutate</code> 등의 함수를 많이 사용하여 작업을 수행할 수 있다. 물론 데이터프레임에 저장된 시계열 데이터는 <code>dplyr</code>에서 제공하는 함수를 사용할 수 있지만 <code>ts</code>나 <code>xts</code>의 시계열 class의 객체에 대해서는 적용이 되지 않는다. 또한 시계열 데이터는 타 데이터에는 없는 시간적 특성(예를 들어 1분은 60초, 국가마다 년, 월을 표현하하는 방식의 차이, Time Zone)이 있기 때문에 이를 잘 활용하기 위해서는 시계열 데이터의 핸들링 방법을 익혀둘 필요가 있다.</p>
-<p>이 장에서는 시계열 데이터를 시간 단위로 다루는 방법을 설명할 것이다. 시간을 주로 다루기 위해서 R에서 가장 많이 활용되는 패키지는 <code>lubridate</code> 패키지이다. 이 패키지는 시간을 다루기 위한 다양한 함수를 제공하는데 시계열 데이터를 잘 활용하기 위해 <code>lubridate</code> 패키지를 위주로 시간 인덱스를 다루는 방법에 대해 설명하고자 한다.</p>
+<p>이 장에서는 시계열 데이터를 시간 단위로 다루는 방법을 설명할 것이다. 데이터가 저장된 형태에 따라 데이터프레임 객체에 저장된 경우의 처리방법과 xts 객체에 저장된 경우의 처리 방법을 구분하여 설명한다.</p>
+<p>시간을 주로 다루기 위해서 R에서 가장 많이 활용되는 패키지는 <code>lubridate</code> 패키지이다. 이 패키지는 시간을 다루기 위한 다양한 함수를 제공하는데 시계열 데이터를 잘 활용하기 위해 <code>lubridate</code> 패키지를 위주로 시간 인덱스를 다루는 방법에 대해 설명하고자 한다.</p>
 </div>
             </section>
 

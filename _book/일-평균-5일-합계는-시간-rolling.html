@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.6 3일 평균, 5일 합계는? : 시간 Rolling | Untitled</title>
   <meta name="description" content="4.6 3일 평균, 5일 합계는? : 시간 Rolling | Untitled" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.6 3일 평균, 5일 합계는? : 시간 Rolling | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-23" />
+<meta name="date" content="2021-02-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"/>
 <link rel="next" href="지난달-데이터는-시간-filteringsubsetting.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -191,11 +191,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC</a></li>
 <li class="chapter" data-level="4.6" data-path="일-평균-5일-합계는-시간-rolling.html"><a href="일-평균-5일-합계는-시간-rolling.html"><i class="fa fa-check"></i><b>4.6</b> 3일 평균, 5일 합계는? : 시간 Rolling</a></li>
 <li class="chapter" data-level="4.7" data-path="지난달-데이터는-시간-filteringsubsetting.html"><a href="지난달-데이터는-시간-filteringsubsetting.html"><i class="fa fa-check"></i><b>4.7</b> 지난달 데이터는? : 시간 Filtering(Subsetting)</a></li>
-<li class="chapter" data-level="4.8" data-path="월별-분기별-연별-합계-plot.html"><a href="월별-분기별-연별-합계-plot.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 합계 Plot</a></li>
-<li class="chapter" data-level="4.9" data-path="월별-분기별-연별-증감량-plot.html"><a href="월별-분기별-연별-증감량-plot.html"><i class="fa fa-check"></i><b>4.9</b> 월별, 분기별, 연별 증감량 Plot</a></li>
-<li class="chapter" data-level="4.10" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.10</b> 월 비중 백분율, 연 비중 백분율</a></li>
-<li class="chapter" data-level="4.11" data-path="월별-분기별-연별-누적합계-plot.html"><a href="월별-분기별-연별-누적합계-plot.html"><i class="fa fa-check"></i><b>4.11</b> 월별, 분기별, 연별 누적합계 Plot</a></li>
-<li class="chapter" data-level="4.12" data-path="동월별-동분기별-동년별-plot.html"><a href="동월별-동분기별-동년별-plot.html"><i class="fa fa-check"></i><b>4.12</b> 동월별, 동분기별, 동년별 Plot</a></li>
+<li class="chapter" data-level="4.8" data-path="월별-분기별-연별-증감량.html"><a href="월별-분기별-연별-증감량.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 증감량</a></li>
+<li class="chapter" data-level="4.9" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.9</b> 월 비중 백분율, 연 비중 백분율</a></li>
+<li class="chapter" data-level="4.10" data-path="월별-분기별-연별-누적합계.html"><a href="월별-분기별-연별-누적합계.html"><i class="fa fa-check"></i><b>4.10</b> 월별, 분기별, 연별 누적합계</a></li>
+<li class="chapter" data-level="4.11" data-path="동월별-동분기별-동년별-plot.html"><a href="동월별-동분기별-동년별-plot.html"><i class="fa fa-check"></i><b>4.11</b> 동월별, 동분기별, 동년별 Plot</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
 <ul>
@@ -290,11 +289,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="일-평균-5일-합계는-시간-rolling" class="section level2" number="4.6">
 <h2><span class="header-section-number">4.6</span> 3일 평균, 5일 합계는? : 시간 Rolling</h2>
-<p>주식투자를 하는 분들은 주식거래 프로그램에서 많은 시계열 그래프들을 보게된다. 이들 그래프 중에 어떤 그래프에는 MA(5), MA(10)과 같은 표기가 된 라인 plot을 볼 수 있는데 이를 이동평균이라고 한다. 최근 5일 평균, 최근 10일 평균과 같이 평균의 기준 범위가 날짜별로 달라지면서 평균을 구하게 되는데 이와 같이 기준일에서 특정 기간의 일, 월의 집합 함수를 적용하는 과정을 rolling이라 하고 rolling의 기간을 rolling window라고 한다. rolling도 앞선 group과 같이 <code>lubridate</code> 패키지에서 제공하는 함수를 <code>dplyr</code> 함수와 파이프라인을 사용하는 방법, <code>timetk</code> 패키지를 사용하는 방법, <code>xts</code> 패키지를 사용하는 방법을 설명하고자 한다.</p>
+<p>주식 거래 프로그램에서는 많은 시계열 그래프들을 보여준다. 아래의 plot에서 보면 초록색은 5일 동안의 평균, 빨간색은 20일 동안의 평균, 주황색은 60일 동안의 평균을 나타낸다. 이를 이동평균이라고 한다.</p>
+<p><img src="ma.jpg" /></p>
+<p>이동평균은 평균의 산출 기간이 매일 날짜별로 달라지면서 구해지는 평균인데 이와 같이 기준일에서 특정 기간동안에 집합 함수를 적용하는 과정을 rolling이라 하고 rolling에 적용되는 기간을 rolling window라고 한다. 위의 그림에서 5일 이동평균의 rolling window는 5, 20일 이동평균의 rolling window는 20이 된다.</p>
+<p>지금까지 시계열 데이터를 다루는데 계속 사용했던 lubridate 패키지에서는 rolling에 관련된 함수를 제공하지 않는다 대신 <code>zoo</code> 패키지에서 제공하는 함수를 <code>dplyr</code> 함수와 파이프라인을 사용하는 방법, <code>timetk</code> 패키지를 사용하는 방법을 사용할 수 있고 <code>xts</code> 시계열 데이터는 <code>xts</code> 패키지에서 제공하는 함수를 사용하는 방법을 설명한다.</p>
 <ul>
-<li><code>lubridate</code>, <code>dplyr</code> 패키지</li>
+<li>데이터프레임 : <code>zoo</code>, <code>dplyr</code> 패키지</li>
 </ul>
-<p><code>lubridate</code> 패키지를 사용하여 data.frame 클래스 객체에 대한 rolling은 좀 복잡하다. 하지만 <code>zoo</code> 패키지에서 제공하는 roll* 함수를 사용하면 비교적 쉽게 rolling을 수행할 수있어 이 방법을 소개하고자 한다. 사실 이 방법에서는 <code>lubridate</code> 패키지 함수는 사용되지 않는데 <code>mutate</code> 함수를 이용하여 새로운 컬럼을 생성하는데 각 컬럼을 생성하는 함수로 zoo 패키지의 roll* 함수를 사용한다. roll* 함수는 <code>rollapply()</code>와 <code>rollmean()</code>의 두가지를 제공하는데 <code>rollapply()</code>는 <code>apply()</code>를 rolling용으로 수정한 버젼이고 <code>rollapply()</code>에 평균(<code>mean()</code>)을 적용하는 경우가 많기 때문에 추가적으로 이동평균을 구하는 함수를 제공한다.</p>
+<p>데이터프레임으로 저장된 시계열 객체에 대한 rolling은 zoo 패키지에서 제공하는 roll* 함수를 사용하면 비교적 쉽게 rolling을 수행할 수있다.</p>
+<p>roll* 함수는 <code>rollapply()</code>와 <code>rollmean()</code>의 두가지를 제공하는데 <code>rollapply()</code>는 <code>apply()</code>를 rolling용으로 수정한 버전이다. <code>rollmean()</code>은 <code>rollapply()</code>에 평균(<code>mean()</code>)을 적용하는 함수로 rolling에는 평균을 사용하는 경우가 많기 때문에 이를 위해서 특별히 <code>rollmean()</code>을 제공한다.</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
 <span id="cb90-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-2" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span></span>
 <span id="cb90-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ma3 =</span> <span class="fu">rollmean</span>(total, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
@@ -305,10 +308,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb90-8"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma3, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;ma3&#39;</span>)) <span class="sc">+</span> </span>
 <span id="cb90-9"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;total&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;ma3&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/rollapply-1.png" width="672" /></p>
+<div class="comment">
 <ul>
-<li><code>timetk</code> 패키지</li>
+<li><p>코드 설명</p>
+<ul>
+<li><p><code>%&gt;%</code>를 사용하여 <code>mutate()</code>에 employees를 전달.</p></li>
+<li><p><code>mutate()</code>로 total 열의 데이터를 rolling window가 3(<code>k = 3</code>)인 평균(<code>rollmean</code>)을 구하는 ma3 열을 생성하는데 빈 행은 NA로 채움(<code>fill = NA</code>).</p></li>
+<li><p><code>mutate()</code>로 total 열의 데이터를 rolling window가 3인 합계(<code>sum</code>)를 구하는 ma3 열을 생성(<code>rollapply()</code>)하는데 빈 행은 NA로 채움(<code>fill = NA</code>).</p></li>
+<li><p>결과중에 time, total, ma3, sum3만 선택</p></li>
+<li><p><code>ggplot()</code>를 사용하여 다변량 라인 plot을 그림</p></li>
+</ul></li>
 </ul>
-<p><code>timetk</code> 패키지에서는 rolling 기능을 위해 <code>slidify()</code> 함수를 제공한다. <code>slidify()</code> 함수가 타 함수와 다른점은 그 반환값이 함수의 실행 결과값이 아니고 함수자체를 반환한다는 것이다. 즉 rolling window 기간에 특정 함수를 적용하는 함수를 제공하기 때문에 이후 함수의 형태로 사용해야 한다. 아래의 예에 ma3와 sum3는 data.frame이나 숫자값이 아니고 함수 객체이다. 이 함수 객체는 mutate 함수안에서 함수처럼 작용하는데 그 매개변수로 rolling을 해야할 컬럼을 전달하면 그 결과 벡터가 전달되는 형태로 실행된다.</p>
+</div>
+<ul>
+<li>데이터프레임 : <code>timetk</code> 패키지</li>
+</ul>
+<p><code>timetk</code> 패키지에서는 rolling 기능을 위해 <code>slidify()</code> 함수를 제공한다. <code>slidify()</code> 함수가 타 함수와 다른점은 그 반환값이 함수의 실행 결과값이 아니고 함수자체를 반환한다는 것이다.</p>
+<p>즉 rolling window 기간에 특정 함수를 적용하는 함수를 제공하기 때문에 이후 함수의 형태로 사용해야 한다.</p>
+<p>아래의 예에 ma3와 sum3는 data.frame이나 숫자값이 아니고 함수 객체이다. 이 함수 객체는 <code>mutate()</code> 안에서 함수처럼 작용하는데 그 매개변수로 rolling을 해야할 컬럼을 전달하면 그 결과 벡터가 전달되는 형태로 실행된다.</p>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb91-1" aria-hidden="true" tabindex="-1"></a>ma3 <span class="ot">&lt;-</span> <span class="fu">slidify</span>(mean, <span class="at">.period =</span> <span class="dv">3</span>, <span class="at">.align =</span> <span class="st">&quot;center&quot;</span>)</span>
 <span id="cb91-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb91-2" aria-hidden="true" tabindex="-1"></a>sum3 <span class="ot">&lt;-</span> <span class="fu">slidify</span>(sum, <span class="at">.period =</span> <span class="dv">3</span>, <span class="at">.align =</span> <span class="st">&quot;center&quot;</span>)</span>
 <span id="cb91-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ma3)</span></code></pre></div>
@@ -323,8 +340,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb95-6"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma3, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;ma3&#39;</span>)) <span class="sc">+</span> </span>
 <span id="cb95-7"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;total&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;ma3&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/slidify-1.png" width="672" /></p>
+<div class="comment">
 <ul>
-<li><code>xts</code> 패키지</li>
+<li><p>코드 설명</p>
+<ul>
+<li><p>slidify()를 사용하여 rolling window가 3인 평균함수를 ma3로 생성</p></li>
+<li><p>slidify()를 사용하여 rolling window가 3인 합계함수를 sum3로 생성</p></li>
+<li><p>ma3와 sum3의 클래스를 확인해보면 function임을 확인</p></li>
+<li><p>mutate()로 slidify()로 생성한 함수로 total 열에 대한 rolling window가 3인 평균과 합계를 구해 ma3, sum3 열을 생성</p></li>
+<li><p>결과중에 time, total, ma3, sum3만 선택</p></li>
+<li><p><code>ggplot()</code>를 사용하여 다변량 라인 plot을 그림</p></li>
+</ul></li>
+</ul>
+</div>
+<ul>
+<li><code>xts</code></li>
 </ul>
 <p><code>xts</code> 패키지에서는 rolling을 위한 간단한 함수를 제공한다. <code>rollapply()</code>로 <code>xts</code> 객체와 rolling window 기간, 적용할 함수를 전달하면 rolling을 간단히 구할수 있다.</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rollapply</span>(employees.xts, <span class="at">width =</span> <span class="dv">3</span>, <span class="at">FUN =</span> mean) <span class="sc">%&gt;%</span></span>

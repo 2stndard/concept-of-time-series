@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.3 이번주 마지막날은 몇일이야? : 시간 반올림 | Untitled</title>
   <meta name="description" content="4.3 이번주 마지막날은 몇일이야? : 시간 반올림 | Untitled" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.3 이번주 마지막날은 몇일이야? : 시간 반올림 | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-23" />
+<meta name="date" content="2021-02-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="몇일-지났어-시간-기간-연산.html"/>
 <link rel="next" href="주간-월간-데이터-합계-평균은-시간-grouping.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -191,11 +191,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC</a></li>
 <li class="chapter" data-level="4.6" data-path="일-평균-5일-합계는-시간-rolling.html"><a href="일-평균-5일-합계는-시간-rolling.html"><i class="fa fa-check"></i><b>4.6</b> 3일 평균, 5일 합계는? : 시간 Rolling</a></li>
 <li class="chapter" data-level="4.7" data-path="지난달-데이터는-시간-filteringsubsetting.html"><a href="지난달-데이터는-시간-filteringsubsetting.html"><i class="fa fa-check"></i><b>4.7</b> 지난달 데이터는? : 시간 Filtering(Subsetting)</a></li>
-<li class="chapter" data-level="4.8" data-path="월별-분기별-연별-합계-plot.html"><a href="월별-분기별-연별-합계-plot.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 합계 Plot</a></li>
-<li class="chapter" data-level="4.9" data-path="월별-분기별-연별-증감량-plot.html"><a href="월별-분기별-연별-증감량-plot.html"><i class="fa fa-check"></i><b>4.9</b> 월별, 분기별, 연별 증감량 Plot</a></li>
-<li class="chapter" data-level="4.10" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.10</b> 월 비중 백분율, 연 비중 백분율</a></li>
-<li class="chapter" data-level="4.11" data-path="월별-분기별-연별-누적합계-plot.html"><a href="월별-분기별-연별-누적합계-plot.html"><i class="fa fa-check"></i><b>4.11</b> 월별, 분기별, 연별 누적합계 Plot</a></li>
-<li class="chapter" data-level="4.12" data-path="동월별-동분기별-동년별-plot.html"><a href="동월별-동분기별-동년별-plot.html"><i class="fa fa-check"></i><b>4.12</b> 동월별, 동분기별, 동년별 Plot</a></li>
+<li class="chapter" data-level="4.8" data-path="월별-분기별-연별-증감량.html"><a href="월별-분기별-연별-증감량.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 증감량</a></li>
+<li class="chapter" data-level="4.9" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.9</b> 월 비중 백분율, 연 비중 백분율</a></li>
+<li class="chapter" data-level="4.10" data-path="월별-분기별-연별-누적합계.html"><a href="월별-분기별-연별-누적합계.html"><i class="fa fa-check"></i><b>4.10</b> 월별, 분기별, 연별 누적합계</a></li>
+<li class="chapter" data-level="4.11" data-path="동월별-동분기별-동년별-plot.html"><a href="동월별-동분기별-동년별-plot.html"><i class="fa fa-check"></i><b>4.11</b> 동월별, 동분기별, 동년별 Plot</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
 <ul>
@@ -292,40 +291,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.3</span> 이번주 마지막날은 몇일이야? : 시간 반올림</h2>
 <p>시간의 계산에서도 숫자의 계산과 같이 올림, 내림, 반올림 등이 가능하다. 숫자의 계산에서는 소수점 세째자리, 천단위 반올림, 올림 등과 같이 반올림될 단위를 지정해야 하는데 시간의 올림, 반올림 연산에도 월에서 반올림을 할것인지 일에서 반올림을 할 것인지와 같은 단위를 지정해야 한다.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <p><code>lubridate</code> 패키지에서는 시간 데이터의 반올림을 위해 <code>round_date()</code>, 내림을 위해 <code>floor_date()</code>, 올림을 위해 <code>ceiling_date()</code> 함수를 제공한다. 매개변수로 ‘day,’ ‘week,’ ‘month,’ ‘halfyear,’ ‘year’ 등을 설정하여 반올림, 올림, 내림의 기본 단위를 지정할 수 있다.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb41-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2009-08-03 13:45:40&quot;</span>)</span>
-<span id="cb41-2"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round_date</span>(x, <span class="st">&quot;day&quot;</span>)         <span class="co"># 일단위로 반올림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2009-08-03&quot;</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">floor_date</span>(x, <span class="st">&quot;day&quot;</span>)         <span class="co"># 일단위로 내림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2009-08-03&quot;</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling_date</span>(x, <span class="st">&quot;day&quot;</span>)       <span class="co"># 일단위로 올림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2009-08-04&quot;</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round_date</span>(x, <span class="st">&quot;week&quot;</span>)        <span class="co"># 주단위로 반올림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2009-08-02&quot;</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">floor_date</span>(x, <span class="st">&quot;week&quot;</span>)        <span class="co"># 주단위로 내림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2009-08-02&quot;</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling_date</span>(x, <span class="st">&quot;week&quot;</span>)      <span class="co"># 주단위로 올림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2009-08-09&quot;</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round_date</span>(x, <span class="st">&quot;month&quot;</span>)       <span class="co"># 월단위로 반올림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2009-08-01&quot;</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">floor_date</span>(x, <span class="st">&quot;month&quot;</span>)       <span class="co"># 월단위로 내림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2009-08-01&quot;</code></pre>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling_date</span>(x, <span class="st">&quot;month&quot;</span>)     <span class="co"># 월단위로 올림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2009-09-01&quot;</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round_date</span>(x, <span class="st">&quot;halfyear&quot;</span>)    <span class="co"># 반기단위로 반올림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2009-07-01&quot;</code></pre>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">floor_date</span>(x, <span class="st">&quot;halfyear&quot;</span>)    <span class="co"># 반기 단위로 내림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2009-07-01&quot;</code></pre>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling_date</span>(x, <span class="st">&quot;halfyear&quot;</span>)  <span class="co"># 반기 단위로 올림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2010-01-01&quot;</code></pre>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round_date</span>(x, <span class="st">&quot;year&quot;</span>)        <span class="co"># 년단위로 반올림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2010-01-01&quot;</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">floor_date</span>(x, <span class="st">&quot;year&quot;</span>)        <span class="co"># 년단위로 내림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2009-01-01&quot;</code></pre>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling_date</span>(x, <span class="st">&quot;year&quot;</span>)      <span class="co"># 년단위로 올림</span></span></code></pre></div>
-<pre><code>## [1] &quot;2010-01-01&quot;</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">days_in_month</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2012-2&#39;</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%d&#39;</span>))  <span class="co"># 말일을 구하는 코드</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb43-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">&quot;2020-11-12 13:45:40&quot;</span>)</span>
+<span id="cb43-2"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round_date</span>(x, <span class="st">&quot;week&quot;</span>)        <span class="co"># 주단위로 반올림</span></span></code></pre></div>
+<pre><code>## [1] &quot;2020-11-15&quot;</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">floor_date</span>(x, <span class="st">&quot;week&quot;</span>)        <span class="co"># 주단위로 내림</span></span></code></pre></div>
+<pre><code>## [1] &quot;2020-11-08&quot;</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling_date</span>(x, <span class="st">&quot;week&quot;</span>)      <span class="co"># 주단위로 올림</span></span></code></pre></div>
+<pre><code>## [1] &quot;2020-11-15&quot;</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round_date</span>(x, <span class="st">&quot;month&quot;</span>)       <span class="co"># 월단위로 반올림</span></span></code></pre></div>
+<pre><code>## [1] &quot;2020-11-01&quot;</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">floor_date</span>(x, <span class="st">&quot;month&quot;</span>)       <span class="co"># 월단위로 내림</span></span></code></pre></div>
+<pre><code>## [1] &quot;2020-11-01&quot;</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling_date</span>(x, <span class="st">&quot;month&quot;</span>)     <span class="co"># 월단위로 올림</span></span></code></pre></div>
+<pre><code>## [1] &quot;2020-12-01&quot;</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round_date</span>(x, <span class="st">&quot;year&quot;</span>)        <span class="co"># 년단위로 반올림</span></span></code></pre></div>
+<pre><code>## [1] &quot;2021-01-01&quot;</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">floor_date</span>(x, <span class="st">&quot;year&quot;</span>)        <span class="co"># 년단위로 내림</span></span></code></pre></div>
+<pre><code>## [1] &quot;2020-01-01&quot;</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling_date</span>(x, <span class="st">&quot;year&quot;</span>)      <span class="co"># 년단위로 올림</span></span></code></pre></div>
+<pre><code>## [1] &quot;2021-01-01&quot;</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="이번주-마지막날은-몇일이야-시간-반올림.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">days_in_month</span>(<span class="fu">as.Date</span>(<span class="st">&#39;2012-2&#39;</span>, <span class="at">format =</span> <span class="st">&#39;%Y-%d&#39;</span>))  <span class="co"># 말일을 구하는 코드</span></span></code></pre></div>
 <pre><code>## Feb 
 ##  29</code></pre>
+<p><img src="rounddate.jpg" /></p>
 </div>
 <div class="footnotes">
 <hr />

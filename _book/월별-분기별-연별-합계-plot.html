@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.8 월별, 분기별, 연별 합계 Plot | Untitled</title>
   <meta name="description" content="4.8 월별, 분기별, 연별 합계 Plot | Untitled" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.8 월별, 분기별, 연별 합계 Plot | Untitled" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="지난달-데이터는-시간-filteringsubsetting.html"/>
 <link rel="next" href="월별-분기별-연별-증감량-plot.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -294,14 +294,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>데이터프레임 : <code>month()</code>, <code>quarter()</code>, <code>year()</code> 함수</li>
 </ul>
 <p>데이터 프레임 객체는 <code>dplyr</code>의 <code>group_by()</code>함수와 파이프라인(<code>%&gt;%</code>)을 사용하여 데이터를 그룹핑 한 후 <code>summarise()</code>를 사용하여 합계를 구할 수 있다.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="월별-분기별-연별-합계-plot.html#cb118-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
-<span id="cb118-2"><a href="월별-분기별-연별-합계-plot.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(time)) <span class="sc">%&gt;%</span>  <span class="do">### 시간에서 연도를 추출하여 컬럼 생성</span></span>
-<span id="cb118-3"><a href="월별-분기별-연별-합계-plot.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span>   <span class="do">### 연도컬럼으로 group</span></span>
-<span id="cb118-4"><a href="월별-분기별-연별-합계-plot.html#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.year =</span> <span class="fu">sum</span>(total), </span>
-<span id="cb118-5"><a href="월별-분기별-연별-합계-plot.html#cb118-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">employees.edu.year =</span> <span class="fu">sum</span>(employees.edu))  <span class="do">### 연도별 합계 산출</span></span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="월별-분기별-연별-합계-plot.html#cb108-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb108-2"><a href="월별-분기별-연별-합계-plot.html#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(time)) <span class="sc">%&gt;%</span>  <span class="do">### 시간에서 연도를 추출하여 컬럼 생성</span></span>
+<span id="cb108-3"><a href="월별-분기별-연별-합계-plot.html#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span>   <span class="do">### 연도컬럼으로 group</span></span>
+<span id="cb108-4"><a href="월별-분기별-연별-합계-plot.html#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.year =</span> <span class="fu">sum</span>(total), </span>
+<span id="cb108-5"><a href="월별-분기별-연별-합계-plot.html#cb108-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">employees.edu.year =</span> <span class="fu">sum</span>(employees.edu))  <span class="do">### 연도별 합계 산출</span></span></code></pre></div>
 <pre><code>## # A tibble: 8 x 3
 ##    year total.year employees.edu.year
-## * &lt;dbl&gt;      &lt;int&gt;              &lt;int&gt;
+##   &lt;dbl&gt;      &lt;int&gt;              &lt;int&gt;
 ## 1  2013     303592              21192
 ## 2  2014     310766              21957
 ## 3  2015     314133              22028
@@ -310,25 +310,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6  2018     321866              22165
 ## 7  2019     325474              22600
 ## 8  2020     322852              21570</code></pre>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="월별-분기별-연별-합계-plot.html#cb120-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
-<span id="cb120-2"><a href="월별-분기별-연별-합계-plot.html#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(time)) <span class="sc">%&gt;%</span></span>
-<span id="cb120-3"><a href="월별-분기별-연별-합계-plot.html#cb120-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
-<span id="cb120-4"><a href="월별-분기별-연별-합계-plot.html#cb120-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.year =</span> <span class="fu">sum</span>(total), </span>
-<span id="cb120-5"><a href="월별-분기별-연별-합계-plot.html#cb120-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">employees.edu.year =</span> <span class="fu">sum</span>(employees.edu)) <span class="sc">%&gt;%</span></span>
-<span id="cb120-6"><a href="월별-분기별-연별-합계-plot.html#cb120-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">as.factor</span>(year), total.year)) <span class="sc">+</span> <span class="do">### x축에 연도를 as.factor로 변환하지 않으면 연도가 모두 표기되지 않음(정수와 factor의 차이임)</span></span>
-<span id="cb120-7"><a href="월별-분기별-연별-합계-plot.html#cb120-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb120-8"><a href="월별-분기별-연별-합계-plot.html#cb120-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb120-9"><a href="월별-분기별-연별-합계-plot.html#cb120-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">comma</span>(total.year)), <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb120-10"><a href="월별-분기별-연별-합계-plot.html#cb120-10" aria-hidden="true" tabindex="-1"></a>      <span class="do">### 데이터 포인트마다 취업자수를 표기하는데 scales::comma() 함수로 1000단위 콤마를 찍고 포인트와 겹치기 때문에 vsjut로 위치조정</span></span>
-<span id="cb120-11"><a href="월별-분기별-연별-합계-plot.html#cb120-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;연도별 전체 취업자수 합계 추이&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="월별-분기별-연별-합계-plot.html#cb110-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb110-2"><a href="월별-분기별-연별-합계-plot.html#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(time)) <span class="sc">%&gt;%</span></span>
+<span id="cb110-3"><a href="월별-분기별-연별-합계-plot.html#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
+<span id="cb110-4"><a href="월별-분기별-연별-합계-plot.html#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.year =</span> <span class="fu">sum</span>(total), </span>
+<span id="cb110-5"><a href="월별-분기별-연별-합계-plot.html#cb110-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">employees.edu.year =</span> <span class="fu">sum</span>(employees.edu)) <span class="sc">%&gt;%</span></span>
+<span id="cb110-6"><a href="월별-분기별-연별-합계-plot.html#cb110-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">as.factor</span>(year), total.year)) <span class="sc">+</span> <span class="do">### x축에 연도를 as.factor로 변환하지 않으면 연도가 모두 표기되지 않음(정수와 factor의 차이임)</span></span>
+<span id="cb110-7"><a href="월별-분기별-연별-합계-plot.html#cb110-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb110-8"><a href="월별-분기별-연별-합계-plot.html#cb110-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb110-9"><a href="월별-분기별-연별-합계-plot.html#cb110-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">comma</span>(total.year)), <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb110-10"><a href="월별-분기별-연별-합계-plot.html#cb110-10" aria-hidden="true" tabindex="-1"></a>      <span class="do">### 데이터 포인트마다 취업자수를 표기하는데 scales::comma() 함수로 1000단위 콤마를 찍고 포인트와 겹치기 때문에 vsjut로 위치조정</span></span>
+<span id="cb110-11"><a href="월별-분기별-연별-합계-plot.html#cb110-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;연도별 전체 취업자수 합계 추이&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/example1-1.png" width="672" /></p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="월별-분기별-연별-합계-plot.html#cb121-1" aria-hidden="true" tabindex="-1"></a>      <span class="do">### plot, x, y 축제목 설정</span></span>
-<span id="cb121-2"><a href="월별-분기별-연별-합계-plot.html#cb121-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb121-3"><a href="월별-분기별-연별-합계-plot.html#cb121-3" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
-<span id="cb121-4"><a href="월별-분기별-연별-합계-plot.html#cb121-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(time), <span class="at">qrt =</span> <span class="fu">quarter</span>(time)) <span class="sc">%&gt;%</span></span>
-<span id="cb121-5"><a href="월별-분기별-연별-합계-plot.html#cb121-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, qrt) <span class="sc">%&gt;%</span></span>
-<span id="cb121-6"><a href="월별-분기별-연별-합계-plot.html#cb121-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.year =</span> <span class="fu">sum</span>(total), </span>
-<span id="cb121-7"><a href="월별-분기별-연별-합계-plot.html#cb121-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">employees.edu.year =</span> <span class="fu">sum</span>(employees.edu))</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="월별-분기별-연별-합계-plot.html#cb111-1" aria-hidden="true" tabindex="-1"></a>      <span class="do">### plot, x, y 축제목 설정</span></span>
+<span id="cb111-2"><a href="월별-분기별-연별-합계-plot.html#cb111-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-3"><a href="월별-분기별-연별-합계-plot.html#cb111-3" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb111-4"><a href="월별-분기별-연별-합계-plot.html#cb111-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(time), <span class="at">qrt =</span> <span class="fu">quarter</span>(time)) <span class="sc">%&gt;%</span></span>
+<span id="cb111-5"><a href="월별-분기별-연별-합계-plot.html#cb111-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, qrt) <span class="sc">%&gt;%</span></span>
+<span id="cb111-6"><a href="월별-분기별-연별-합계-plot.html#cb111-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.year =</span> <span class="fu">sum</span>(total), </span>
+<span id="cb111-7"><a href="월별-분기별-연별-합계-plot.html#cb111-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">employees.edu.year =</span> <span class="fu">sum</span>(employees.edu))</span></code></pre></div>
 <pre><code>## # A tibble: 32 x 4
 ## # Groups:   year [8]
 ##     year   qrt total.year employees.edu.year
@@ -344,22 +344,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9  2015     1      76629               5466
 ## 10  2015     2      79024               5464
 ## # ... with 22 more rows</code></pre>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="월별-분기별-연별-합계-plot.html#cb123-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
-<span id="cb123-2"><a href="월별-분기별-연별-합계-plot.html#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(time), <span class="at">qrt =</span> <span class="fu">quarter</span>(time)) <span class="sc">%&gt;%</span></span>
-<span id="cb123-3"><a href="월별-분기별-연별-합계-plot.html#cb123-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, qrt) <span class="sc">%&gt;%</span></span>
-<span id="cb123-4"><a href="월별-분기별-연별-합계-plot.html#cb123-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.year =</span> <span class="fu">sum</span>(total), </span>
-<span id="cb123-5"><a href="월별-분기별-연별-합계-plot.html#cb123-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">employees.edu.year =</span> <span class="fu">sum</span>(employees.edu)) <span class="sc">%&gt;%</span> </span>
-<span id="cb123-6"><a href="월별-분기별-연별-합계-plot.html#cb123-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(<span class="fu">paste0</span>(year, <span class="st">&#39;,&#39;</span>, qrt)), <span class="at">y =</span> employees.edu.year)) <span class="sc">+</span> </span>
-<span id="cb123-7"><a href="월별-분기별-연별-합계-plot.html#cb123-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb123-8"><a href="월별-분기별-연별-합계-plot.html#cb123-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb123-9"><a href="월별-분기별-연별-합계-plot.html#cb123-9" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">number</span>(employees.edu.year, <span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>, <span class="at">accuracy =</span> <span class="dv">1</span>)), <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="do">### ggrepel::geom_text_repel() 함수로 숫자들이 겹치지 않게 plotting</span></span>
-<span id="cb123-10"><a href="월별-분기별-연별-합계-plot.html#cb123-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;분기별 교육서비스업 취업자수 합계 추이&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>) <span class="sc">+</span></span>
-<span id="cb123-11"><a href="월별-분기별-연별-합계-plot.html#cb123-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="월별-분기별-연별-합계-plot.html#cb113-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb113-2"><a href="월별-분기별-연별-합계-plot.html#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(time), <span class="at">qrt =</span> <span class="fu">quarter</span>(time)) <span class="sc">%&gt;%</span></span>
+<span id="cb113-3"><a href="월별-분기별-연별-합계-plot.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, qrt) <span class="sc">%&gt;%</span></span>
+<span id="cb113-4"><a href="월별-분기별-연별-합계-plot.html#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.year =</span> <span class="fu">sum</span>(total), </span>
+<span id="cb113-5"><a href="월별-분기별-연별-합계-plot.html#cb113-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">employees.edu.year =</span> <span class="fu">sum</span>(employees.edu)) <span class="sc">%&gt;%</span> </span>
+<span id="cb113-6"><a href="월별-분기별-연별-합계-plot.html#cb113-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(<span class="fu">paste0</span>(year, <span class="st">&#39;,&#39;</span>, qrt)), <span class="at">y =</span> employees.edu.year)) <span class="sc">+</span> </span>
+<span id="cb113-7"><a href="월별-분기별-연별-합계-plot.html#cb113-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb113-8"><a href="월별-분기별-연별-합계-plot.html#cb113-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb113-9"><a href="월별-분기별-연별-합계-plot.html#cb113-9" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">number</span>(employees.edu.year, <span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>, <span class="at">accuracy =</span> <span class="dv">1</span>)), <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="do">### ggrepel::geom_text_repel() 함수로 숫자들이 겹치지 않게 plotting</span></span>
+<span id="cb113-10"><a href="월별-분기별-연별-합계-plot.html#cb113-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;분기별 교육서비스업 취업자수 합계 추이&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>) <span class="sc">+</span></span>
+<span id="cb113-11"><a href="월별-분기별-연별-합계-plot.html#cb113-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/example1-2.png" width="672" /></p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="월별-분기별-연별-합계-plot.html#cb124-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
-<span id="cb124-2"><a href="월별-분기별-연별-합계-plot.html#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date), <span class="at">month =</span> <span class="fu">month</span>(date)) <span class="sc">%&gt;%</span></span>
-<span id="cb124-3"><a href="월별-분기별-연별-합계-plot.html#cb124-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month) <span class="sc">%&gt;%</span></span>
-<span id="cb124-4"><a href="월별-분기별-연별-합계-plot.html#cb124-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">0-9세.month</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="월별-분기별-연별-합계-plot.html#cb114-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
+<span id="cb114-2"><a href="월별-분기별-연별-합계-plot.html#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date), <span class="at">month =</span> <span class="fu">month</span>(date)) <span class="sc">%&gt;%</span></span>
+<span id="cb114-3"><a href="월별-분기별-연별-합계-plot.html#cb114-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month) <span class="sc">%&gt;%</span></span>
+<span id="cb114-4"><a href="월별-분기별-연별-합계-plot.html#cb114-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">0-9세.month</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 11 x 3
 ## # Groups:   year [2]
 ##     year month `0-9세.month`
@@ -379,10 +379,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>데이터프레임, tsibble : collapse_by() 함수</li>
 </ul>
 <p>데이터프레임이나 tsibble 객체는 collapse_by() 함수를 사용할 수 있다. 앞서 설명한 바와 같이 collpase_by 함수를 사용하기 위해서는 tbl_time 객체로 변환이 필요하다.</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="월별-분기별-연별-합계-plot.html#cb126-1" aria-hidden="true" tabindex="-1"></a>(employees_tbl_time <span class="ot">&lt;-</span> <span class="fu">as_tbl_time</span>(employees, <span class="at">index =</span> time) <span class="sc">%&gt;%</span></span>
-<span id="cb126-2"><a href="월별-분기별-연별-합계-plot.html#cb126-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;quarterly&#39;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb126-3"><a href="월별-분기별-연별-합계-plot.html#cb126-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
-<span id="cb126-4"><a href="월별-분기별-연별-합계-plot.html#cb126-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.quater =</span> <span class="fu">sum</span>(total)))</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="월별-분기별-연별-합계-plot.html#cb116-1" aria-hidden="true" tabindex="-1"></a>(employees_tbl_time <span class="ot">&lt;-</span> <span class="fu">as_tbl_time</span>(employees, <span class="at">index =</span> time) <span class="sc">%&gt;%</span></span>
+<span id="cb116-2"><a href="월별-분기별-연별-합계-plot.html#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;quarterly&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb116-3"><a href="월별-분기별-연별-합계-plot.html#cb116-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb116-4"><a href="월별-분기별-연별-합계-plot.html#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total.quater =</span> <span class="fu">sum</span>(total)))</span></code></pre></div>
 <pre><code>## # A time tibble: 32 x 2
 ## # Index: time
 ##    time       total.quater
@@ -398,23 +398,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 2015-03-01        76629
 ## 10 2015-06-01        79024
 ## # ... with 22 more rows</code></pre>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="월별-분기별-연별-합계-plot.html#cb128-1" aria-hidden="true" tabindex="-1"></a>employees_tbl_time <span class="sc">%&gt;%</span> </span>
-<span id="cb128-2"><a href="월별-분기별-연별-합계-plot.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(time, total.quater)) <span class="sc">+</span> </span>
-<span id="cb128-3"><a href="월별-분기별-연별-합계-plot.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb128-4"><a href="월별-분기별-연별-합계-plot.html#cb128-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb128-5"><a href="월별-분기별-연별-합계-plot.html#cb128-5" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">comma</span>(total.quater)), <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="do">### ggrepel::geom_text_repel() 함수로 숫자들이 겹치지 않게 plotting</span></span>
-<span id="cb128-6"><a href="월별-분기별-연별-합계-plot.html#cb128-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;분기별 전체 취업자수 합계 추이&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="월별-분기별-연별-합계-plot.html#cb118-1" aria-hidden="true" tabindex="-1"></a>employees_tbl_time <span class="sc">%&gt;%</span> </span>
+<span id="cb118-2"><a href="월별-분기별-연별-합계-plot.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(time, total.quater)) <span class="sc">+</span> </span>
+<span id="cb118-3"><a href="월별-분기별-연별-합계-plot.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb118-4"><a href="월별-분기별-연별-합계-plot.html#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb118-5"><a href="월별-분기별-연별-합계-plot.html#cb118-5" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">comma</span>(total.quater)), <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="do">### ggrepel::geom_text_repel() 함수로 숫자들이 겹치지 않게 plotting</span></span>
+<span id="cb118-6"><a href="월별-분기별-연별-합계-plot.html#cb118-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;분기별 전체 취업자수 합계 추이&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/example2-1.png" width="672" /></p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="월별-분기별-연별-합계-plot.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(covid19.tsibble, <span class="at">index =</span> date) <span class="sc">%&gt;%</span></span>
-<span id="cb129-2"><a href="월별-분기별-연별-합계-plot.html#cb129-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;monthly&#39;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb129-3"><a href="월별-분기별-연별-합계-plot.html#cb129-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
-<span id="cb129-4"><a href="월별-분기별-연별-합계-plot.html#cb129-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(total<span class="fl">.1</span>대 <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb129-5"><a href="월별-분기별-연별-합계-plot.html#cb129-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">as.factor</span>(date), total<span class="fl">.1</span>대)) <span class="sc">+</span> </span>
-<span id="cb129-6"><a href="월별-분기별-연별-합계-plot.html#cb129-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb129-7"><a href="월별-분기별-연별-합계-plot.html#cb129-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb129-8"><a href="월별-분기별-연별-합계-plot.html#cb129-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">comma</span>(total<span class="fl">.1</span>대, <span class="at">accuracy =</span> <span class="dv">1</span>)), <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="do">### ggrepel::geom_text_repel() 함수로 숫자들이 겹치지 않게 plotting</span></span>
-<span id="cb129-9"><a href="월별-분기별-연별-합계-plot.html#cb129-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;월별 0-9세 코로나 확진자수 합계 추이&#39;</span>, <span class="at">x =</span> <span class="st">&#39;월&#39;</span>, <span class="at">y =</span> <span class="st">&#39;확진자수&#39;</span>) <span class="sc">+</span></span>
-<span id="cb129-10"><a href="월별-분기별-연별-합계-plot.html#cb129-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="월별-분기별-연별-합계-plot.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(covid19.tsibble, <span class="at">index =</span> date) <span class="sc">%&gt;%</span></span>
+<span id="cb119-2"><a href="월별-분기별-연별-합계-plot.html#cb119-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;monthly&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb119-3"><a href="월별-분기별-연별-합계-plot.html#cb119-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
+<span id="cb119-4"><a href="월별-분기별-연별-합계-plot.html#cb119-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(total<span class="fl">.1</span>대 <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb119-5"><a href="월별-분기별-연별-합계-plot.html#cb119-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">as.factor</span>(date), total<span class="fl">.1</span>대)) <span class="sc">+</span> </span>
+<span id="cb119-6"><a href="월별-분기별-연별-합계-plot.html#cb119-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb119-7"><a href="월별-분기별-연별-합계-plot.html#cb119-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb119-8"><a href="월별-분기별-연별-합계-plot.html#cb119-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">comma</span>(total<span class="fl">.1</span>대, <span class="at">accuracy =</span> <span class="dv">1</span>)), <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="do">### ggrepel::geom_text_repel() 함수로 숫자들이 겹치지 않게 plotting</span></span>
+<span id="cb119-9"><a href="월별-분기별-연별-합계-plot.html#cb119-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;월별 0-9세 코로나 확진자수 합계 추이&#39;</span>, <span class="at">x =</span> <span class="st">&#39;월&#39;</span>, <span class="at">y =</span> <span class="st">&#39;확진자수&#39;</span>) <span class="sc">+</span></span>
+<span id="cb119-10"><a href="월별-분기별-연별-합계-plot.html#cb119-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/example2-2.png" width="672" /></p>
 <ul>
 <li>tsibble : index_by() 함수</li>
@@ -455,10 +455,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="월별-분기별-연별-합계-plot.html#cb130-1" aria-hidden="true" tabindex="-1"></a>employees.tsibble<span class="sc">%&gt;%</span></span>
-<span id="cb130-2"><a href="월별-분기별-연별-합계-plot.html#cb130-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearqtr =</span> <span class="sc">~</span> <span class="fu">yearquarter</span>(.)) <span class="sc">%&gt;%</span></span>
-<span id="cb130-3"><a href="월별-분기별-연별-합계-plot.html#cb130-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum.qtrly =</span> <span class="fu">sum</span>(total)) <span class="sc">%&gt;%</span> </span>
-<span id="cb130-4"><a href="월별-분기별-연별-합계-plot.html#cb130-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="월별-분기별-연별-합계-plot.html#cb120-1" aria-hidden="true" tabindex="-1"></a>employees.tsibble<span class="sc">%&gt;%</span></span>
+<span id="cb120-2"><a href="월별-분기별-연별-합계-plot.html#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearqtr =</span> <span class="sc">~</span> <span class="fu">yearquarter</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb120-3"><a href="월별-분기별-연별-합계-plot.html#cb120-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum.qtrly =</span> <span class="fu">sum</span>(total)) <span class="sc">%&gt;%</span> </span>
+<span id="cb120-4"><a href="월별-분기별-연별-합계-plot.html#cb120-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tsibble: 10 x 2 [1Q]
 ##    yearqtr sum.qtrly
 ##      &lt;qtr&gt;     &lt;int&gt;
@@ -472,10 +472,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 2014 Q4     78186
 ##  9 2015 Q1     76629
 ## 10 2015 Q2     79024</code></pre>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="월별-분기별-연별-합계-plot.html#cb132-1" aria-hidden="true" tabindex="-1"></a>covid19.tsibble[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">%&gt;%</span></span>
-<span id="cb132-2"><a href="월별-분기별-연별-합계-plot.html#cb132-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearweek =</span> <span class="sc">~</span> <span class="fu">yearweek</span>(.)) <span class="sc">%&gt;%</span></span>
-<span id="cb132-3"><a href="월별-분기별-연별-합계-plot.html#cb132-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum.weekly =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb132-4"><a href="월별-분기별-연별-합계-plot.html#cb132-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="월별-분기별-연별-합계-plot.html#cb122-1" aria-hidden="true" tabindex="-1"></a>covid19.tsibble[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">%&gt;%</span></span>
+<span id="cb122-2"><a href="월별-분기별-연별-합계-plot.html#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearweek =</span> <span class="sc">~</span> <span class="fu">yearweek</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb122-3"><a href="월별-분기별-연별-합계-plot.html#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum.weekly =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb122-4"><a href="월별-분기별-연별-합계-plot.html#cb122-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tsibble: 10 x 2 [1W]
 ##    yearweek sum.weekly
 ##      &lt;week&gt;      &lt;dbl&gt;
@@ -490,10 +490,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 2020 W23          7
 ## 10 2020 W24          3</code></pre>
 <p>index_by를 사용할 때 장점은 grouping 기간을 자유자재로 설정할 수 있다는 점이다. 월, 분기, 년과 같이 달력상의 주기 외에 ‘매 4일마다,’ ’매 2달마다’와 같이 주기를 설정할 수 있다.</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="월별-분기별-연별-합계-plot.html#cb134-1" aria-hidden="true" tabindex="-1"></a>covid19.tsibble[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">%&gt;%</span></span>
-<span id="cb134-2"><a href="월별-분기별-연별-합계-plot.html#cb134-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">twoweek =</span> <span class="sc">~</span> lubridate<span class="sc">::</span><span class="fu">floor_date</span>(., <span class="st">&quot;2 month&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb134-3"><a href="월별-분기별-연별-합계-plot.html#cb134-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum.2week =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb134-4"><a href="월별-분기별-연별-합계-plot.html#cb134-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="월별-분기별-연별-합계-plot.html#cb124-1" aria-hidden="true" tabindex="-1"></a>covid19.tsibble[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">%&gt;%</span></span>
+<span id="cb124-2"><a href="월별-분기별-연별-합계-plot.html#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">twoweek =</span> <span class="sc">~</span> lubridate<span class="sc">::</span><span class="fu">floor_date</span>(., <span class="st">&quot;2 month&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb124-3"><a href="월별-분기별-연별-합계-plot.html#cb124-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum.2week =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb124-4"><a href="월별-분기별-연별-합계-plot.html#cb124-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tsibble: 6 x 2 [1D]
 ##   twoweek    sum.2week
 ##   &lt;date&gt;         &lt;dbl&gt;
@@ -503,10 +503,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 2020-09-01       248
 ## 5 2020-11-01      1317
 ## 6 2021-01-01      1081</code></pre>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="월별-분기별-연별-합계-plot.html#cb136-1" aria-hidden="true" tabindex="-1"></a>covid19.tsibble[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">%&gt;%</span></span>
-<span id="cb136-2"><a href="월별-분기별-연별-합계-plot.html#cb136-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">fourday =</span> <span class="sc">~</span> lubridate<span class="sc">::</span><span class="fu">floor_date</span>(., <span class="st">&quot;4 day&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb136-3"><a href="월별-분기별-연별-합계-plot.html#cb136-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum.4days =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb136-4"><a href="월별-분기별-연별-합계-plot.html#cb136-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="월별-분기별-연별-합계-plot.html#cb126-1" aria-hidden="true" tabindex="-1"></a>covid19.tsibble[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">%&gt;%</span></span>
+<span id="cb126-2"><a href="월별-분기별-연별-합계-plot.html#cb126-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">fourday =</span> <span class="sc">~</span> lubridate<span class="sc">::</span><span class="fu">floor_date</span>(., <span class="st">&quot;4 day&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb126-3"><a href="월별-분기별-연별-합계-plot.html#cb126-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sum.4days =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb126-4"><a href="월별-분기별-연별-합계-plot.html#cb126-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tsibble: 10 x 2 [1D]
 ##    fourday    sum.4days
 ##    &lt;date&gt;         &lt;dbl&gt;
@@ -554,8 +554,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="월별-분기별-연별-합계-plot.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
-<span id="cb138-2"><a href="월별-분기별-연별-합계-plot.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.quarterly</span>(employees.xts, sum) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="월별-분기별-연별-합계-plot.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb128-2"><a href="월별-분기별-연별-합계-plot.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.quarterly</span>(employees.xts, sum) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##             [,1]
 ## 2013-03-01 78345
 ## 2013-06-01 81923
@@ -567,11 +567,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2014-12-01 83741
 ## 2015-03-01 82095
 ## 2015-06-01 84488</code></pre>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="월별-분기별-연별-합계-plot.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.yearly</span>(employees.xts, sum) <span class="sc">%&gt;%</span> <span class="fu">plot.xts</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="월별-분기별-연별-합계-plot.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.yearly</span>(employees.xts, sum) <span class="sc">%&gt;%</span> <span class="fu">plot.xts</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/example3-1.png" width="672" /></p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="월별-분기별-연별-합계-plot.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.monthly</span>(covid19.xts[,<span class="dv">1</span>], sum) <span class="sc">%&gt;%</span> <span class="fu">plot.xts</span>(<span class="at">main =</span> <span class="st">&#39;월별 0-9세 코로나 확진자수&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="월별-분기별-연별-합계-plot.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.monthly</span>(covid19.xts[,<span class="dv">1</span>], sum) <span class="sc">%&gt;%</span> <span class="fu">plot.xts</span>(<span class="at">main =</span> <span class="st">&#39;월별 0-9세 코로나 확진자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/example3-2.png" width="672" /></p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="월별-분기별-연별-합계-plot.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.quarterly</span>(covid19.xts[,<span class="dv">1</span>], sum) <span class="sc">%&gt;%</span> <span class="fu">plot.xts</span>(<span class="at">main =</span> <span class="st">&#39;분기별 0-9세 코로나 확진자수&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="월별-분기별-연별-합계-plot.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.quarterly</span>(covid19.xts[,<span class="dv">1</span>], sum) <span class="sc">%&gt;%</span> <span class="fu">plot.xts</span>(<span class="at">main =</span> <span class="st">&#39;분기별 0-9세 코로나 확진자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/example3-3.png" width="672" /></p>
 <ul>
 <li>ts 객체</li>
