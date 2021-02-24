@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.7 지난달 데이터는? : 시간 Filtering(Subsetting) | Untitled</title>
   <meta name="description" content="4.7 지난달 데이터는? : 시간 Filtering(Subsetting) | Untitled" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.7 지난달 데이터는? : 시간 Filtering(Subsetting) | Untitled" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="일-평균-5일-합계는-시간-rolling.html"/>
 <link rel="next" href="월별-분기별-연별-증감량.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -294,8 +294,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>데이터프레임 : <code>lubridate</code>, <code>dplyr</code> 패키지</li>
 </ul>
 <p>데이터프레임에 저장된 시계열 객체의 시간 인덱스 컬럼은 조건 연산자를 산술 연산과 동일하게 사용할 수 있다. 따라서 <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code> 등의 연산자를 dplyr 패키지에서 제공하는 <code>filter()</code>와 파이프라인(<code>%&gt;%</code>)을 사용하여 시간 인덱스에 대해 조건별로 filtering 할 수 있다.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb98-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
-<span id="cb98-2"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">&#39;2020-10-01&#39;</span>) <span class="sc">&amp;</span> date <span class="sc">&lt;=</span> <span class="fu">as.Date</span>(<span class="st">&#39;2020-10-10&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb100-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
+<span id="cb100-2"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date <span class="sc">&gt;=</span> <span class="fu">as.Date</span>(<span class="st">&#39;2020-10-01&#39;</span>) <span class="sc">&amp;</span> date <span class="sc">&lt;=</span> <span class="fu">as.Date</span>(<span class="st">&#39;2020-10-10&#39;</span>))</span></code></pre></div>
 <pre><code>##         date status 0-9세 10-19세 20-29세 30-39세 40-49세 50-59세 60-69세
 ## 1 2020-10-01   신규     6       4       7       9      14      13      13
 ## 2 2020-10-02   신규     3       6       6      10       6      11      13
@@ -316,8 +316,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 7      16         5
 ## 8      10         3
 ## 9       0         0</code></pre>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb100-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
-<span id="cb100-2"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(date, <span class="fu">as.Date</span>(<span class="st">&#39;2021-01-01&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2021-01-15&#39;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb102-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
+<span id="cb102-2"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(date, <span class="fu">as.Date</span>(<span class="st">&#39;2021-01-01&#39;</span>), <span class="fu">as.Date</span>(<span class="st">&#39;2021-01-15&#39;</span>)))</span></code></pre></div>
 <pre><code>##          date status 0-9세 10-19세 20-29세 30-39세 40-49세 50-59세 60-69세
 ## 1  2021-01-01   신규    41      74     131     145     154     204     159
 ## 2  2021-01-02   신규    39      66     111     109     106     160     125
@@ -350,13 +350,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 13      47        16
 ## 14      39        29
 ## 15      22        11</code></pre>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb102-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span></span>
-<span id="cb102-2"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(time) <span class="sc">==</span> <span class="dv">2019</span> <span class="sc">&amp;</span> <span class="fu">month</span>(time) <span class="sc">==</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb104-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span></span>
+<span id="cb104-2"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(time) <span class="sc">==</span> <span class="dv">2019</span> <span class="sc">&amp;</span> <span class="fu">month</span>(time) <span class="sc">==</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>##         time total employees.edu
 ## 1 2019-05-01 27322          1884</code></pre>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb104-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
-<span id="cb104-2"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(<span class="fu">day</span>(date), <span class="dv">3</span>, <span class="dv">7</span>)) <span class="sc">%&gt;%</span>  <span class="co"># 매월 3일부터 7일까지 filtering</span></span>
-<span id="cb104-3"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb104-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb106-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
+<span id="cb106-2"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(<span class="fu">day</span>(date), <span class="dv">3</span>, <span class="dv">7</span>)) <span class="sc">%&gt;%</span>  <span class="co"># 매월 3일부터 7일까지 filtering</span></span>
+<span id="cb106-3"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
 <pre><code>##          date status 0-9세 10-19세 20-29세 30-39세 40-49세 50-59세 60-69세
 ## 1  2020-05-03   신규     0       1       2       3       2       0       2
 ## 2  2020-05-04   신규     0       0       2       1       3       0       2
@@ -394,8 +394,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p><code>timetk</code> 패키지에서는 <code>filter_by_time()</code> 함수를 제공한다. 매개변수 <code>.start</code>로 시작일과 <code>.end</code> 종료일을 전달하면 해당 기간동안의 데이터를 반환한다.</p>
 <p>또 <code>timetk</code> 패키지에서는 주어진 기간동안의 데이터에 한하여 조건에 적합한 데이터를 반환하는 <code>filter_period()</code>를 제공한다. 우선 데이터를 <code>filter_period()</code> 에서 설정한 기간으로 나누고 나뉘어진 데이터 내에서 주어진 조건에 적합한 결과들을 산출해서 반환한다. 예를 들어 매월 최대 매출일을 기록한 날, 매년 월평균 매출액보다 큰 매출을 기록한 월 등을 산출할 때 유용하다.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb106-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
-<span id="cb106-2"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_by_time</span>(<span class="at">.date_var =</span> date, <span class="at">.start =</span> <span class="st">&#39;2020-10-01&#39;</span>, <span class="at">.end =</span> <span class="st">&#39;2020-10-05&#39;</span>)  </span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb108-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
+<span id="cb108-2"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_by_time</span>(<span class="at">.date_var =</span> date, <span class="at">.start =</span> <span class="st">&#39;2020-10-01&#39;</span>, <span class="at">.end =</span> <span class="st">&#39;2020-10-05&#39;</span>)  </span></code></pre></div>
 <pre><code>##         date status 0-9세 10-19세 20-29세 30-39세 40-49세 50-59세 60-69세
 ## 1 2020-10-01   신규     6       4       7       9      14      13      13
 ## 2 2020-10-02   신규     3       6       6      10       6      11      13
@@ -408,11 +408,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3      13         3
 ## 4       8         6
 ## 5       6         4</code></pre>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="do">###   </span></span>
-<span id="cb108-2"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb108-2" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
-<span id="cb108-3"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb108-4"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_period</span>(<span class="at">.date_var =</span> date, <span class="at">.period =</span> <span class="st">&#39;1 month&#39;</span>, <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="sc">==</span> <span class="fu">max</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb108-5"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb108-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="do">###   </span></span>
+<span id="cb110-2"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb110-2" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
+<span id="cb110-3"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb110-4"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter_period</span>(<span class="at">.date_var =</span> date, <span class="at">.period =</span> <span class="st">&#39;1 month&#39;</span>, <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="sc">==</span> <span class="fu">max</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb110-5"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb110-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 11
 ##    date       status `0-9세` `10-19세` `20-29세` `30-39세` `40-49세` `50-59세`
 ##    &lt;date&gt;     &lt;fct&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
@@ -442,10 +442,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p><code>xts</code> 객체의 시간 인덱스 filtering은 앞선 경우 와는 조금 달리 filtering한다. <code>xts</code> 객체는 기간 조건을 설정할 때에는 함수를 사용하지 않고 연산자인 <code>/</code>로 기간 구간을 설정하여 <code>[ ]</code>내에 조건을 전달한다.</p>
 <p><code>/</code>연산자는 우리가 흔히 쓰는 ~로 생각하면 편리한데 날짜 사이에 <code>/</code>가 들어가면 두 날짜 사이 기간을 의미하고 날짜 앞에 <code>/</code>가 오면 처음부터 날짜까지의 기간, 날짜 뒤에 <code>/</code>가 오면 날짜부터 끝까지의 기간을 의미한다.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb110-1" aria-hidden="true" tabindex="-1"></a>covid19.xts[<span class="st">&#39;2020-10-02&#39;</span>]   <span class="do">### 2020-10-02에 해당하는 데이터 filtering</span></span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb112-1" aria-hidden="true" tabindex="-1"></a>covid19.xts[<span class="st">&#39;2020-10-02&#39;</span>]   <span class="do">### 2020-10-02에 해당하는 데이터 filtering</span></span></code></pre></div>
 <pre><code>##            0-9세 10-19세 20-29세 30-39세 40-49세 50-59세 60-69세 70-79세
 ## 2020-10-02     3       6       6      10       6      11      13       4</code></pre>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb112-1" aria-hidden="true" tabindex="-1"></a>covid19.xts[<span class="st">&#39;2020-10-01/2020-10-10&#39;</span>]  <span class="do">### 2020-10-01에서부터 2020-10-10 까지 데이터 filtering</span></span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb114-1" aria-hidden="true" tabindex="-1"></a>covid19.xts[<span class="st">&#39;2020-10-01/2020-10-10&#39;</span>]  <span class="do">### 2020-10-01에서부터 2020-10-10 까지 데이터 filtering</span></span></code></pre></div>
 <pre><code>##            0-9세 10-19세 20-29세 30-39세 40-49세 50-59세 60-69세 70-79세
 ## 2020-10-01     6       4       7       9      14      13      13       7
 ## 2020-10-02     3       6       6      10       6      11      13       4
@@ -456,14 +456,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2020-10-07     1       2       8      13      10      28      31      16
 ## 2020-10-08     6       5       6       7       9      12      11      10
 ## 2020-10-10     0       0       0       0       0       0       0       0</code></pre>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb114-1" aria-hidden="true" tabindex="-1"></a>covid19.xts[<span class="st">&#39;2021-02-05/&#39;</span>] <span class="do">### 2021-02-05일 부터 끝까지 데이터 filtering</span></span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb116-1" aria-hidden="true" tabindex="-1"></a>covid19.xts[<span class="st">&#39;2021-02-05/&#39;</span>] <span class="do">### 2021-02-05일 부터 끝까지 데이터 filtering</span></span></code></pre></div>
 <pre><code>##            0-9세 10-19세 20-29세 30-39세 40-49세 50-59세 60-69세 70-79세
 ## 2021-02-05    30      28      30      60      42      65      75      25
 ## 2021-02-06    25      31      53      41      60      77      63      30
 ## 2021-02-07    21      27      51      47      44      79      66      26
 ## 2021-02-08    19       9      35      31      53      52      59      22
 ## 2021-02-09    15      NA      33      41      52      59      38      28</code></pre>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb116-1" aria-hidden="true" tabindex="-1"></a>covid19.xts[<span class="st">&#39;/2020-04-11&#39;</span>]   <span class="do">### 처음부터 2020-04-11까지의 filtering</span></span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="지난달-데이터는-시간-filteringsubsetting.html#cb118-1" aria-hidden="true" tabindex="-1"></a>covid19.xts[<span class="st">&#39;/2020-04-11&#39;</span>]   <span class="do">### 처음부터 2020-04-11까지의 filtering</span></span></code></pre></div>
 <pre><code>##            0-9세 10-19세 20-29세 30-39세 40-49세 50-59세 60-69세 70-79세
 ## 2020-04-09     2       4      12       7       7       2       2       0
 ## 2020-04-10     1       1       7       4       2       3       6       2

@@ -698,3 +698,23 @@ holidays <- tourism %>%
   summarise(Trips = sum(Trips))
 
 holidays %>% autoplot(Trips)
+
+x <- 1:10
+diff(diff(x))
+
+diff(x, difference = 2)
+
+cor(students[,2], lag(students[,2]), use = 'na.or.complete')
+
+x <- data.frame(x1 = students[,2], x2 = lag(students[,2], 3))
+colnames(x) <- c('x1', 'x2')
+
+ggplot(x, aes(x = x1, y = x2)) +
+  geom_point() + 
+  labs(title = 'lag(3)과의 자기 상관 plot', x = '학생수계', y = 'lag(3)') + 
+  scale_x_continuous(labels = scales::number_format(big.mark = ',')) +
+  scale_y_continuous(labels = scales::number_format(big.mark = ','))
+
+acf(students[,2], plot = F)
+
+

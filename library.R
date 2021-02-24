@@ -23,5 +23,4 @@ library(numbers)
 
 library(fable.prophet)
 library(fable)
-install.packages('rmarkdown')
-install.packages('tibbletime')
+library('tibbletime')
