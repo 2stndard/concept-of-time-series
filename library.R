@@ -23,4 +23,4 @@ library(numbers)
 
 library(fable.prophet)
 library(fable)
-library('tibbletime')
+library(tibbletime)

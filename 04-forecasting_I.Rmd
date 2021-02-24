@@ -58,7 +58,7 @@ covid19.tsibble <- as_tsibble(covid19, index = date)
 
 우리가 항상보는 시계열 데이터의 대부분이 비정상성 시계열이다. 심지어는 우리 몸속에서도 비정상 시계열 데이터가 발생되고 있다. 사실 대부분의 보고서에 들어가는 시계열 plot은 추세나 계절적 반복이 있는 현상을 보고하기 위해 사용하지 아무 의미없는 잡음같은 plot을 보고서에 넣지는 않는다. 또 우리 몸속에서 발생되는 비정상성 시계열 데이터는 우리 심장의 박동수이다. 심장 박동은 1분에 60\~100회라고 한다. 이는 사람마다 다르지만 중요한 것은 지속적으로 박동수가 유지되는 것이다. 따라서 심장박동의 plot은 일정한 주기를 반복해서 나타나야 한다. 그렇지 않고 정상성 시계열 데이터로 나타난다면?? 정상성 시계열이라고 정상이 아니다. 빨리 병원에 가야한다.
 
-![https://pixabay.com/](equipment-3089883_1920.jpg)
+![<https://pixabay.com/>](equipment-3089883_1920.jpg)
 
 뒤에서 설명할 백색 잡음(white noise)은 정상성 시계열 데이터이다. 백색잡음은 시간에 의해 데이터의 특별한 패턴을 보이지 않기 때문이다. 그러나 모든 정상성 시계열라고 백색잡음이 아니다. 정상성 시계열도 추세나 주기적 반복이 있는 경우도 있기 때문이다. 하지만 주기적 반복이 존재한다 하더라도 그 주기가 일정하지 않아서 예측이 어렵다면 정상성 시계열로 볼 수 있다.[^forecasting_i-2]
 
@@ -117,22 +117,37 @@ students %>%
   head(10)
 ```
 
+::: {.comment}
+-   코드 설명
+
+    -   `lag()`를 이용하여 lag1 열을 생성하는데 students의 '학생수계' 열의 1차 지연 데이터(`lag(학생수계, 1)`)를 사용
+
+    -   `lag()`를 이용하여 lag3 열을 생성하는데 students의 '학생수계' 열의 3차 지연 데이터(`lag(학생수계, 3)`)를 사용
+:::
+
 `timetk` 패키지에서도 `lag()` 함수와 유사한 함수인 lag_vec() 함수를 제공한다.
 
 ```{r lag_timetk}
+library(timetk)
 students %>%
-  mutate(lag1 = timetk::lag_vec(학생수계, lag = 1), 
-         lag3 = timetk::lag_vec(학생수계, lag = 3)) %>%
+  mutate(lag1 = lag_vec(학생수계, lag = 1), 
+         lag3 = lag_vec(학생수계, lag = 3)) %>%
   select(연도, 학생수계, lag1, lag3) %>%
   head(10)
 ```
+
+::: {.comment}
+-   코드 설명
+
+    -   `timetk` 패키지의 `lag_vec()`을 사용하여 students의 '학생수계' 열의 1차 지연 데이터(`lag_vec(학생수계, lag = 1)`)를 생성하여 lag1 열 생성
+
+    -   `timetk` 패키지의 `lag_vec()`을 사용하여 students의 '학생수계' 열의 3차 지연 데이터(`lag_vec(학생수계, lag = 3)`)를 생성하여 lag3 열 생성
+:::
 
 `xts` 클래스의 객체도 `lag()` 함수를 동일하게 적용할 수 있다.
 
 ```{r}
 stats::lag(students.xts$학생수계, 1) %>% head(10)
-
-?diff
 ```
 
 -   차분(Difference)
@@ -148,126 +163,137 @@ students %>%
   mutate(lag1 = lag(학생수계, 1), 
          lag3 = lag(학생수계, 3), 
          diff1 = c(NA, diff(학생수계, lag = 1)), 
-         diff3 = c(NA, NA, NA, diff(학생수계, lag = 3)), 
-         diff1.cal = ifelse(!is.na(lag1), 학생수계-lag1, NA), 
-         diff3.cal = ifelse(!is.na(lag3), 학생수계-lag3, NA)) %>%
-  select(연도, 학생수계, lag1, diff1, diff1.cal, lag3, diff3, diff3.cal) %>%
+         diff3 = c(NA, NA, NA, diff(학생수계, lag = 3))) %>%
+  select(연도, 학생수계, lag1, diff1, lag3, diff3) %>%
   head(10)
 ```
+
+::: {.comment}
+-   코드 설명
+
+    -   lag()를 사용하여 '학생수계' 열의 1차 지연 데이터인 lag1열 생성
+
+    -   lag()를 사용하여 '학생수계' 열의 3차 지연 데이터인 lag3열 생성
+
+    -   diff()를 사용하여 '학생수계' 열의 1차 차분 데이터를 생성하되 차분계산으로 인해 비워지는 데이터 하나를 NA로 채운 벡터를 생성하여 diff1 열 생성
+
+    -   diff()를 사용하여 '학생수계' 열의 3차 차분 데이터를 생성하되 차분계산으로 인해 비워지는 데이터 세개를 NA로 채운 벡터를 생성하여 diff3 열 생성
+:::
 
 `timetk` 패키지에서도 `diff()` 함수와 유사한 함수인 `diff_vec()` 함수를 제공한다. `diff_vec()` lag 크기만큼의 빈자리를 NA로 채워원본 데이터와 동일한 길이의 벡터를 반환한다.
 
 ```{r warning=FALSE, message=FALSE}
 students %>%
-  filter(지역규모 == '계') %>%
-  mutate(diff1 = timetk::diff_vec(학생수계, lag = 1), 
-         diff3 = timetk::diff_vec(학생수계, lag = 3)) %>%
+  mutate(diff1 = diff_vec(학생수계, lag = 1), 
+         diff3 = diff_vec(학생수계, lag = 3)) %>%
   select(연도, 학생수계, diff1, diff3) %>%
   head(10)
 ```
 
+::: {.comment}
+-   코드 설명
+
+    -   `timetk` 패키지의 `diff_vec()`을 사용하여 students의 '학생수계' 열의 1차 차분 데이터(`diff_vec(학생수계, lag = 1)`)를 생성하여 lag1 열 생성
+
+    -   `timetk` 패키지의 `diff_vec()`을 사용하여 students의 '학생수계' 열의 3차 차분 데이터(`diff_vec(학생수계, lag = 3)`)를 생성하여 lag3 열 생성
+:::
+
 `xts` 클래스 객체도 `diff()` 함수를 동일하게 적용할 수있다.
 
 ```{r}
-diff(students.total.xts$학생수계, 1) %>% head(10)
+diff(students.xts$학생수계, 1) %>% head(10)
 ```
 
 ## ACF와 PACF
 
 시계열 데이터가 일반 데이터와 다른 점으로 자기 상관이라는 것을 계속 언급하였다. 자기 상관이라는 것은 1장에서 소개했듯이 시계열 데이터 원본과 lag된 데이터와의 상관관계가 있는 경우를 말한다.
 
-그렇다면 해당 시계열 데이터가 자기 상관이 있는지를 어떻게 알수 있을것인까? 앞서 말한것처럼 lag된 데이터와 원본데이터를 상관계수 산출 함수인 cor()를 사용해서 상관계수를 구해보면 얼마나 상관관계가 있는지 알 수 있다. 하지만 시계열 분석에서는 여러 lag의 상관관계를 확인해야 하는데 이처럼 시계열 데이터가 자기 상관관계를 가지는 지를 확인하는 방법이 ACF, PACF 이다. ACF는 자기 상관 함수를 가리키고 PACF는 부분 자기상관 함수를 말한다. 이들은 plot으로 확인할 수도 있고 수치로 확인할 수도 있다.
+그렇다면 해당 시계열 데이터가 자기 상관이 있는지를 어떻게 알수 있을것인까? 앞서 말한것처럼 lag된 데이터와 원본데이터를 상관계수 산출 함수인 `cor()`를 사용해서 상관계수를 구해보면 얼마나 상관관계가 있는지 알 수 있다. 하지만 시계열 분석에서는 여러 lag의 상관관계를 확인해야 하는데 이처럼 시계열 데이터가 자기 상관관계를 가지는 지를 확인하는 방법이 ACF, PACF 이다. ACF는 자기 상관 함수를 가리키고 PACF는 부분 자기상관 함수를 말한다. 이들은 plot으로 확인할 수도 있고 수치로 확인할 수도 있다.
 
 -   자기상관함수(ACF : AutoCorelation Function)
 
-ACF는 AutoCorelation Function의 준말로 자기 상관 관계를 확인할 수 있는 함수이다. ACF 함수는 주어진 데이터의 각각의 lag를 원본데이터와 상관계수를 구해 자기상관관계를 확인할 수 있게 해준다. ACF를 확인하는 함수는 여러가지가 있는데 R에서 기본제공하는 stats 패키지의 acf(), forecast 패키지의 Acf() 함수와 ggACF() 함수, timetk 패키지에는 plot_acf_diagnostics() 함수, ts 패키지의 ts.acf() 함수 등 대부분의 시계열 데이터를 다루는 패키지에서 acf를 확인할 수 있는 방법을 제공하고 있다. 대부분의 ACF 함수들은 기본값으로 ACF plot을 제공하지만 매개변수를 설정함으로써 자기상관계수를 반환할 수도 있다.
+ACF는 AutoCorelation Function의 준말로 자기 상관 관계를 확인할 수 있는 함수이다. ACF 함수는 주어진 데이터의 각각의 lag를 원본데이터와 상관계수를 구해 자기상관관계를 확인할 수 있게 해준다. ACF를 확인하는 함수는 여러가지가 있는데 R에서 기본제공하는 stats 패키지의 `acf()`, `forecast` 패키지의 `Acf()` 함수와 `ggACF()` 함수, `timetk` 패키지에는 `plot_acf_diagnostics()` 함수, `ts` 패키지의 `ts.acf()` 함수 등 대부분의 시계열 데이터를 다루는 패키지에서 acf를 확인할 수 있는 방법을 제공하고 있다. 대부분의 ACF 함수들은 기본값으로 ACF plot을 제공하지만 매개변수를 설정함으로써 자기상관계수를 반환할 수도 있다.
 
 아래 각각의 ACF 함수를 보면 세로축 상관계수 0.4에서 가로선이 보이는데 이 선은 자기 상관계수의 신뢰구간 95%를 나타낸다.[^forecasting_i-5] 이 선은 자기 상관계수가 의미를 갖는지를 평가하는 선으로 자기상관계수가 이 선 밖으로 나가는 경우는 자기 상관이 있는 것으로 파악하는 것이 일반적이다.
 
 [^forecasting_i-5]: <https://nwfsc-timeseries.github.io/atsa-labs/sec-tslab-correlation-within-and-among-time-series.html>
 
-```{r acf_stat, echo=FALSE}
-#   stats 패키지의 acf plot
-  stats::acf(students$학생수계)
+```{r acf_stat, results='hide'}
+###  stats 패키지의 acf plot 생성
+acf(students$학생수계)
 ```
 
 ![](acfall.jpg)
 
 ```{r acf_stat1}
-#   stats 패키지의 acf 수치
-  stats::acf(students$학생수계, plot = FALSE)
+###   stats 패키지의 acf 수치 산출
+acf(students$학생수계, plot = FALSE)
 ```
 
 ```{r acf_forecast}
-#   forecast 패키지의 Acf plot
+###   forecast 패키지의 Acf plot
 students %>%
-  filter(지역규모 == '계') %>%
   select(학생수계) %>%
   forecast::Acf()
-#   forecast 패키지의 Acf 수치
+###   forecast 패키지의 Acf 수치
 students %>%
-  filter(지역규모 == '계') %>%
   select(학생수계) %>%
   forecast::Acf(plot = FALSE)
-#   forecast 패키지의 ggAcf plot
+###   forecast 패키지의 ggAcf plot
 students %>%
-  filter(지역규모 == '계') %>%
   select(학생수계) %>%
   forecast::ggAcf()
-#   forecast 패키지의 ggAcf 수치
+###   forecast 패키지의 ggAcf 수치
 students %>%
-  filter(지역규모 == '계') %>%
   select(학생수계) %>%
   forecast::ggAcf(plot = FALSE)
 ```
 
 ```{r acf_timetk, message=FALSE, warning=FALSE}
+###   timetk 패키지의 plot_acf_diagnostics plot
 students %>%
-  filter(지역규모 == '계') %>%
   select(연도, 학생수계) %>%
-  plot_acf_diagnostics(.date_var = 연도, .value = 학생수계, .lag = 14, .show_white_noise_bars = TRUE)
+  timetk::plot_acf_diagnostics(.date_var = 연도, .value = 학생수계, .lag = 14, .show_white_noise_bars = TRUE)
 ```
 
 -   부분자기상관함수(PACF : Partial AutoCorelation Fuctoin)
 
-부분자기상관함수는 ACF의 문제점을 개선하기 위해 사용되는 함수이다. 위의 예제에서 1999년의 학생수는 2001년의 학생수와 자기상관계수는 0.745이다. 하지만 1999년 학생수와 2000년 학생수가 높은 상관관계인 0.875이기 때문에 2001년 학생수는 단순히 1999년 학생수와 상관관계가 높은건지 2000년 학생수와의 상관관계가 높기 때문에 2001년의 상관관계가 높은건지 알수가 없다. 따라서 부분자기상관함수는 2000년 학생수의 개입을 제거하고 1999년과 2001년의 상관관계를 산출하는 함수이다. 따라서 중간에 개입되는 자기상관계수가 없는 첫번째 lag의 경우는 ACF 값과 PACF의 값이 같아지게 된다[^forecasting_i-6].
+부분자기상관함수는 ACF의 문제점을 개선하기 위해 사용되는 함수이다.
+
+위의 예제에서 1999년의 학생수는 2001년의 학생수와 자기상관계수는 0.745이다. 하지만 1999년 학생수와 2000년 학생수가 높은 상관관계인 0.875이기 때문에 2001년 학생수는 단순히 1999년 학생수와 상관관계가 높은건지 2000년 학생수와의 상관관계가 높기 때문에 2001년의 상관관계가 높은건지 알수가 없다.
+
+따라서 부분자기상관함수는 2000년 학생수의 개입을 제거하고 1999년과 2001년의 상관관계를 산출하는 함수이다. 따라서 중간에 개입되는 자기상관계수가 없는 첫번째 lag의 경우는 ACF 값과 PACF의 값이 같아지게 된다[^forecasting_i-6].
 
 [^forecasting_i-6]: <https://otexts.com/fpp2/non-seasonal-arima.html>
 
-PACF 함수도 ACF 함수의 제공과 거의 유사한 형태로 각각의 패키지에서 제공한다. stats 패키지의 pacf(), forecast 패키지의 Pacf() 함수와 ggPacf() 함수, timetk 패키지에는 plot_acf_diagnostics() 함수, ts 패키지의 ts.acf() 함수가 제공된다.
+PACF 함수도 ACF 함수의 제공과 거의 유사한 형태로 각각의 패키지에서 제공한다. `stats` 패키지의 `pacf()`, `forecast` 패키지의 `Pacf()` 함수와 `ggPacf()` 함수, `timetk` 패키지에는`plot_acf_diagnostics()` 함수, `ts` 패키지의 `ts.acf()` 함수가 제공된다.
 
 ```{r pacf_stats}
-#   stats 패키지의 pacf plot
+###   stats 패키지의 pacf plot
 students %>%
-  filter(지역규모 == '계') %>%
   select(학생수계) %>%
   stats::pacf()
-#   stats 패키지의 pacf 수치
+###   stats 패키지의 pacf 수치
 students %>%
-  filter(지역규모 == '계') %>%
   select(학생수계) %>%
   stats::pacf(plot = FALSE)
 ```
 
 ```{r pacf_forecast}
-#   forecast 패키지의 Pacf plot
+###   forecast 패키지의 Pacf plot
 students %>%
-  filter(지역규모 == '계') %>%
   select(학생수계) %>%
   forecast::Pacf()
-#   forecast 패키지의 Pacf 수치
+###   forecast 패키지의 Pacf 수치
 students %>%
-  filter(지역규모 == '계') %>%
   select(학생수계) %>%
   forecast::Pacf(plot = FALSE)
-#   forecast 패키지의 ggPacf plot
+###   forecast 패키지의 ggPacf plot
 students %>%
-  filter(지역규모 == '계') %>%
   select(학생수계) %>%
   forecast::ggPacf()
-#   forecast 패키지의 ggPacf 수치
+###   forecast 패키지의 ggPacf 수치
 students %>%
-  filter(지역규모 == '계') %>%
   select(학생수계) %>%
   forecast::ggPacf(plot = FALSE)
 ```
@@ -278,7 +304,32 @@ students %>%
 
 잔차는 실제값과 적합값과의 차이를 잔차라고 한다. 잔차는 시계열 모델의 성능과 정확성을 평가하기 위해 사용된다. 결국 시계열 분석을 통해 생성된 모델의 성능과 정확성을 측정하기 위해서는 잔차가 필요하고 잔차를 계산하기 위해서는 적합값이 산출되어야 한다.
 
-이 적합값과 잔차는 다음 절의 시계열 모델 설명시에 예제를 볼 수 있다.
+아래의 plot에서 파란색 선은 전체 학생수의 선형회귀 모델의 적합값 라인 plot이고 검은색 점은 각 년도별 전체 학생수의 실제값이다. 검은색 점부터 파란색 라인까지의 수직거리(붉은 선)이 잔차이다.
+
+```{r fitted, echo=FALSE}
+library(ggplot2)
+student.ts.lm <- tslm(students.ts[,2] ~ trend, data = students.ts)                   
+res <- as.vector(residuals(student.ts.lm))
+fit <- as.vector(fitted(student.ts.lm))
+
+ggplot(students, aes(x = 연도, y = 학생수계)) + 
+  geom_point() + 
+  geom_line(aes(y = fit, group = 1), color = 'blue', size = 1) +
+  geom_segment(aes(xend = 연도, yend = fit), color = 'red') + 
+  scale_color_continuous(low = "black", high = "red") +
+  scale_y_continuous(labels = scales::number_format(big.mark = ','))
+```
+
+적합값과 잔차를 확인하기 위해서는 먼저 모델을 생성해야 한다. 생성된 모델에 대한 적합값은 `fitted()`를 사용하여 산출가능하고 잔차는 `residuals()`을 사용하여 산출 가능하다.
+
+```{r}
+### 전체 학생수계의 선형회귀 모델 생성(다음장에서 설명)
+student.ts.lm <- forecast::tslm(students.ts[,2] ~ trend, data = students.ts)
+###  전체 학생수 선형회귀 모델의 적합값 산출
+fitted(student.ts.lm)               
+###  전체 학생수 선형회귀 모델의 잔차 산출
+residuals(student.ts.lm)
+```
 
 ## 백색 잡음(White Noise)
 
@@ -301,9 +352,9 @@ ggAcf(백색잡음)
 
 일반적으로 Ljung-Box test의 결과로 산출되는 Q\*값이 유의미한지를 검사해야하는데 이를 위해 제공하는 값이 p-value이다. p-value가 0.05보다 작다면 우연히 Q\*값이 나올 확률이 미미하기 때문에 유의미하지만 이보다 크면 우연히 발생될 확률이 있기 때문에 유의미하지 않다고 본다. 따라서 유의미하지 않다면(0.05보다 클 때) 해당 시계열의 잔차값은 백색잡음과 다르지 않다고 판단할 수 있다.
 
-Ljung-Box test는 forecast 패키지의 checkresiduals()함수를 이용하면 시계열 모델을 통해 산출된 잔차의 plot과 잔차에 대한 결과가 산출되어 출력된다.
+Ljung-Box test는 `forecast` 패키지의 `checkresiduals()`를 이용하면 시계열 모델을 통해 산출된 잔차의 plot과 잔차에 대한 결과가 산출되어 출력된다.
 
-아래의 예제는 fpp2 패키지에서 제공하는 구글의 주식 종가 데이터를 forecast 패키지에서 제공하는 naive() 모델링한 결과의 잔차를 checkresiduals() 함수에 적용한 결과를 보이고 있다. 결과 plot의 잔차 ACF plot의 자기상관계수는 모두 95% 신뢰구간 아래에 위치하므로 자기상관성이 없다고 볼 수 있고 잔차의 분포도 하나의 이상치를 제외하면 백색잡음과 유사한 패턴을 보이고 있다. 마지막으로 Ljung-Box test 결과를 보면 p-value가 0.05보다 큰 0.3551이기 때문에 잔차의 분포는 백색잡음과 다르지 않다고 판단할 수 있다.
+아래의 예제는 `fpp2` 패키지에서 제공하는 구글의 주식 종가 데이터를 `forecast` 패키지에서 제공하는 `naive()` 모델링한 결과의 잔차를 `checkresiduals()` 함수에 적용한 결과를 보이고 있다. 결과 plot의 잔차 ACF plot의 자기상관계수는 모두 95% 신뢰구간 아래에 위치하므로 자기상관성이 없다고 볼 수 있고 잔차의 분포도 하나의 이상치를 제외하면 백색잡음과 유사한 패턴을 보이고 있다. 마지막으로 잔차에 대한 Ljung-Box test 결과를 보면 p-value가 0.05보다 큰 0.3551이기 때문에 잔차의 분포는 백색잡음과 다르지 않다고 판단할 수 있다.
 
 ```{r checkresiduals}
 library(forecast)
@@ -313,19 +364,19 @@ checkresiduals(naive(goog200))
 
 ## 시계열 분해(Decomposition)
 
-앞에서 계속 언급했던 시계열 특성인 추세(Trend), 계절성(Seasonality), 자기상관성(Autocorelation) 중에 자기상관성은 ACF, PACF 함수를 사용하여 확인할 수 있는 방법을 설명하였다. 그렇다면 추세와 계절성은 어떻게 확인할 수 있는가? 몇몇 패키지에서는 시계열 데이터에서 추세와 계절성을 분해하여 볼 함수를 제공한다. , R의 기본 패키지인 stats 패키지에서 decompose(), stl() 함수, seasonal 패키지의 seas() 함수를 통해 시계열을 trend, seasonality, 잔차 등으로 분리하여 ploting 할 수 있다. 각각의 함수는 시계열 decomposition 알고리즘의 차이로 인해 약간씩 결과가 다르게 나타난다.
+앞에서 계속 언급했던 시계열 특성인 추세(Trend), 계절성(Seasonality), 자기상관성(Autocorelation) 중에 자기상관성은 `ACF()`, `PACF()`를 사용하여 확인할 수 있는 방법을 설명하였다. 그렇다면 추세와 계절성은 어떻게 확인할 수 있는가? 몇몇 패키지에서는 시계열 데이터에서 추세와 계절성을 분해하여 볼 함수를 제공한다. , R의 기본 패키지인 `stats` 패키지에서 `decompose()`, `stl()` , `seasonal` 패키지의 `seas()` 함수를 통해 시계열을 trend, seasonality, 잔차 등으로 분리하여 ploting 할 수 있다. 각각의 함수는 시계열 decomposition 알고리즘의 차이로 인해 약간씩 결과가 다르게 나타난다.
 
 ```{r decomposition}
-ts(employees[, 3], start = c(2013, 01), frequency = 12) %>%
+ts(employees$employees.edu, start = c(2013, 01), frequency = 12) %>%
   decompose() %>% autoplot()
 
-ts(employees[, 3], start = c(2013, 01), frequency = 12) %>%
+ts(employees$employees.edu, start = c(2013, 01), frequency = 12) %>%
   stl(s.window = 'periodic') %>% autoplot()
 
-ts(employees[, 3], start = c(2013, 01), frequency = 12) %>%
+ts(employees$employees.edu, start = c(2013, 01), frequency = 12) %>%
   seasonal::seas() %>% autoplot()
 
-ts(employees[, 3], start = c(2013, 01), frequency = 12) %>%
+ts(employees$employees.edu, start = c(2013, 01), frequency = 12) %>%
   seasonal::seas(x11 = '') %>% autoplot()
 ```
 
@@ -333,9 +384,9 @@ ts(employees[, 3], start = c(2013, 01), frequency = 12) %>%
 
 ```{r stationary_test}
 library(tseries)
-Box.test (ts(employees[, 3], start = c(2013, 01), frequency = 12), lag = 1, type = "Ljung") #p-value가 0.05보다 작으면 비정상성
-adf.test(ts(employees[, 3], start = c(2013, 01), frequency = 12)) # p-value 0.05보다 작으면 정상성
-kpss.test(ts(employees[, 3], start = c(2013, 01), frequency = 12))
+Box.test (ts(employees$employees.edu, start = c(2013, 01), frequency = 12), lag = 1, type = "Ljung") #p-value가 0.05보다 작으면 비정상성
+adf.test(ts(employees$employees.edu, start = c(2013, 01), frequency = 12)) # p-value 0.05보다 작으면 정상성
+kpss.test(ts(employees$employees.edu, start = c(2013, 01), frequency = 12))
 # p-value가 0.05보다 작으면 비정상성
 ```
 
@@ -343,7 +394,7 @@ kpss.test(ts(employees[, 3], start = c(2013, 01), frequency = 12))
 
 ```{r message=FALSE, warning=FALSE}
 library(seastests)
-summary(wo(students.total.ts[,3]))
+summary(wo(employees.ts[,2]))
 summary(wo(employees.ts[,2]))
 nsdiffs(employees.ts[,2])   ### seasonality를 제거하기 위해 필요한 차분수
 summary(wo(employees.ts[,3]))

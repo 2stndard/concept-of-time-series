@@ -424,5 +424,26 @@ splits.students <- initial_time_split(students, prop = 0.8)
 fit(set_engine(arima_reg(), engine = 'auto_arima'), 학생수계 ~ 연월일, data = training(splits.students))
 
 students <- read.csv('./students.csv', skip = 16, header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE, colClasses = c(rep('character', 2), rep('numeric', 16)))
+residuals(student.ts.lm)
+student.ts.lm <- tslm(students.ts[,2] ~ trend, data = students.ts)                   
+autoplot(students.ts[,2], series = '원본', geom = 'point') + 
+  autolayer(fitted(student.ts.lm), series = '적합값')
 
-                     
+res <- as.vector(residuals(student.ts.lm))
+fit <- as.vector(fitted(student.ts.lm))
+
+ggplot(students, aes(x = 연도, y = 학생수계)) + 
+  geom_point(aes(size = abs(res)), shape = 0) + 
+  geom_line(aes(y = fit, group = 1), color = 'blue', size = 1) +
+  geom_segment(aes(xend = 연도, yend = fit), color = 'red') + 
+  scale_color_continuous(low = "black", high = "red") +
+  scale_y_continuous(labels = scales::number_format(big.mark = ',')) + 
+  guides(size = F)
+
+ggplot(students, aes(x = 연도, y = 학생수계)) + 
+  geom_point() + 
+  geom_line(aes(y = fit, group = 1), color = 'blue', size = 1) +
+  geom_segment(aes(xend = 연도, yend = fit), color = 'red') + 
+  scale_color_continuous(low = "black", high = "red") +
+  scale_y_continuous(labels = scales::number_format(big.mark = ',')) + 
+  guides(size = F)
