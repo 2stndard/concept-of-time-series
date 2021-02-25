@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.4 적합값(fitted value) 와 잔차(residuals) | Untitled</title>
   <meta name="description" content="5.4 적합값(fitted value) 와 잔차(residuals) | Untitled" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.4 적합값(fitted value) 와 잔차(residuals) | Untitled" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="acf와-pacf.html"/>
 <link rel="next" href="백색-잡음white-noise.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -294,34 +294,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>아래의 plot에서 파란색 선은 전체 학생수의 선형회귀 모델의 적합값 라인 plot이고 검은색 점은 각 년도별 전체 학생수의 실제값이다. 검은색 점부터 파란색 라인까지의 수직거리(붉은 선)이 잔차이다.</p>
 <p><img src="t_files/figure-html/fitted-1.png" width="672" /></p>
 <p>적합값과 잔차를 확인하기 위해서는 먼저 모델을 생성해야 한다. 생성된 모델에 대한 적합값은 <code>fitted()</code>를 사용하여 산출가능하고 잔차는 <code>residuals()</code>을 사용하여 산출 가능하다.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="적합값fitted-value-와-잔차residuals.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수계의 선형회귀 모델 생성(다음장에서 설명)</span></span>
-<span id="cb34-2"><a href="적합값fitted-value-와-잔차residuals.html#cb34-2" aria-hidden="true" tabindex="-1"></a>student.ts.lm <span class="ot">&lt;-</span> forecast<span class="sc">::</span><span class="fu">tslm</span>(students.ts[,<span class="dv">2</span>] <span class="sc">~</span> trend, <span class="at">data =</span> students.ts)</span>
-<span id="cb34-3"><a href="적합값fitted-value-와-잔차residuals.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="do">###  전체 학생수 선형회귀 모델의 적합값 산출</span></span>
-<span id="cb34-4"><a href="적합값fitted-value-와-잔차residuals.html#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted</span>(student.ts.lm)               </span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="적합값fitted-value-와-잔차residuals.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 학생수계의 선형회귀 모델 생성(다음장에서 설명)</span></span>
+<span id="cb32-2"><a href="적합값fitted-value-와-잔차residuals.html#cb32-2" aria-hidden="true" tabindex="-1"></a>student.ts.lm <span class="ot">&lt;-</span> forecast<span class="sc">::</span><span class="fu">tslm</span>(students.ts[,<span class="dv">2</span>] <span class="sc">~</span> trend, <span class="at">data =</span> students.ts)</span>
+<span id="cb32-3"><a href="적합값fitted-value-와-잔차residuals.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="do">###  전체 학생수 선형회귀 모델의 적합값 산출</span></span>
+<span id="cb32-4"><a href="적합값fitted-value-와-잔차residuals.html#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted</span>(student.ts.lm)               </span></code></pre></div>
 <pre><code>## Time Series:
 ## Start = 1999 
 ## End = 2020 
 ## Frequency = 1 
-##       1       2       3       4       5       6       7       8       9      10 
-## 8986320 8854157 8721993 8589830 8457666 8325503 8193339 8061176 7929012 7796849 
-##      11      12      13      14      15      16      17      18      19      20 
-## 7664685 7532522 7400358 7268195 7136031 7003868 6871704 6739541 6607377 6475213 
-##      21      22 
-## 6343050 6210886</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="적합값fitted-value-와-잔차residuals.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="do">###  전체 학생수 선형회귀 모델의 잔차 산출</span></span>
-<span id="cb36-2"><a href="적합값fitted-value-와-잔차residuals.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(student.ts.lm)</span></code></pre></div>
+##       1       2       3       4       5       6       7       8       9      10      11      12 
+## 8986320 8854157 8721993 8589830 8457666 8325503 8193339 8061176 7929012 7796849 7664685 7532522 
+##      13      14      15      16      17      18      19      20      21      22 
+## 7400358 7268195 7136031 7003868 6871704 6739541 6607377 6475213 6343050 6210886</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="적합값fitted-value-와-잔차residuals.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">###  전체 학생수 선형회귀 모델의 잔차 산출</span></span>
+<span id="cb34-2"><a href="적합값fitted-value-와-잔차residuals.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(student.ts.lm)</span></code></pre></div>
 <pre><code>## Time Series:
 ## Start = 1999 
 ## End = 2020 
 ## Frequency = 1 
-##          1          2          3          4          5          6          7 
-## -327962.15 -318289.65 -307570.14 -227896.63  -77891.12   46127.39  178081.89 
-##          8          9         10         11         12         13         14 
-##  293715.40  380919.91  390933.42  352238.93  275141.44  185907.94  102113.45 
-##         15         16         17         18         19         20         21 
-##   37872.96  -30713.53  -65293.02 -117993.51 -153096.01 -179847.50 -220851.99 
-##         22 
-## -215647.48</code></pre>
+##          1          2          3          4          5          6          7          8          9 
+## -327962.15 -318289.65 -307570.14 -227896.63  -77891.12   46127.39  178081.89  293715.40  380919.91 
+##         10         11         12         13         14         15         16         17         18 
+##  390933.42  352238.93  275141.44  185907.94  102113.45   37872.96  -30713.53  -65293.02 -117993.51 
+##         19         20         21         22 
+## -153096.01 -179847.50 -220851.99 -215647.48</code></pre>
 </div>
             </section>
 

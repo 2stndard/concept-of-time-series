@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.5 백색 잡음(White Noise) | Untitled</title>
   <meta name="description" content="5.5 백색 잡음(White Noise) | Untitled" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.5 백색 잡음(White Noise) | Untitled" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="적합값fitted-value-와-잔차residuals.html"/>
 <link rel="next" href="시계열-분해decomposition.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -297,12 +297,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>일반적으로 Ljung-Box test의 결과로 산출되는 Q*값이 유의미한지를 검사해야하는데 이를 위해 제공하는 값이 p-value이다. p-value가 0.05보다 작다면 우연히 Q*값이 나올 확률이 미미하기 때문에 유의미하지만 이보다 크면 우연히 발생될 확률이 있기 때문에 유의미하지 않다고 본다. 따라서 유의미하지 않다면(0.05보다 클 때) 해당 시계열의 잔차값은 백색잡음과 다르지 않다고 판단할 수 있다.</p>
 <p>Ljung-Box test는 <code>forecast</code> 패키지의 <code>checkresiduals()</code>를 이용하면 시계열 모델을 통해 산출된 잔차의 plot과 잔차에 대한 결과가 산출되어 출력된다.</p>
 <p>아래의 예제는 <code>fpp2</code> 패키지에서 제공하는 구글의 주식 종가 데이터를 <code>forecast</code> 패키지에서 제공하는 <code>naive()</code> 모델링한 결과의 잔차를 <code>checkresiduals()</code> 함수에 적용한 결과를 보이고 있다. 결과 plot의 잔차 ACF plot의 자기상관계수는 모두 95% 신뢰구간 아래에 위치하므로 자기상관성이 없다고 볼 수 있고 잔차의 분포도 하나의 이상치를 제외하면 백색잡음과 유사한 패턴을 보이고 있다. 마지막으로 잔차에 대한 Ljung-Box test 결과를 보면 p-value가 0.05보다 큰 0.3551이기 때문에 잔차의 분포는 백색잡음과 다르지 않다고 판단할 수 있다.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="백색-잡음white-noise.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
-<span id="cb38-2"><a href="백색-잡음white-noise.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(goog200, <span class="at">package =</span> <span class="st">&#39;fpp2&#39;</span>)</span>
-<span id="cb38-3"><a href="백색-잡음white-noise.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(<span class="fu">naive</span>(goog200))</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="백색-잡음white-noise.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb36-2"><a href="백색-잡음white-noise.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(goog200, <span class="at">package =</span> <span class="st">&#39;fpp2&#39;</span>)</span>
+<span id="cb36-3"><a href="백색-잡음white-noise.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(<span class="fu">naive</span>(goog200))</span></code></pre></div>
 <p><img src="t_files/figure-html/checkresiduals-1.png" width="672" /></p>
 <pre><code>## 
-##  Ljung-Box test
+## 	Ljung-Box test
 ## 
 ## data:  Residuals from Naive method
 ## Q* = 11.031, df = 10, p-value = 0.3551

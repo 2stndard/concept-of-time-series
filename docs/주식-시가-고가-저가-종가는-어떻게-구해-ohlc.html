@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.5 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC | Untitled</title>
   <meta name="description" content="4.5 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC | Untitled" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.5 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-24" />
+<meta name="date" content="2021-02-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="주간-월간-데이터-합계-평균은-시간-grouping.html"/>
 <link rel="next" href="일-평균-5일-합계는-시간-rolling.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -294,14 +294,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>데이터프레임 : <code>lubridate</code>, <code>tibbletime</code>, <code>dplyr</code> 패키지</li>
 </ul>
 <p>앞서 소개한 <code>collapse_by()</code> 함수를 사용하면 OHLC 정보를 간단히 산출할 수 있다. <code>collapse_by()</code>를 이용해 그룹핑할 시간 주기를 설정하고 <code>group_by()</code>함수를 사용하여 data.frame을 그룹핑한 후 <code>lubridate</code> 패키지의 <code>first()</code>, <code>max()</code>, <code>min()</code>, <code>last()</code> 함수를 사용하면 산출이 가능하다.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(covid19, <span class="at">index =</span> date) <span class="sc">%&gt;%</span></span>
-<span id="cb86-2"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;weekly&#39;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb86-3"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span> </span>
-<span id="cb86-4"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Open =</span> <span class="fu">first</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
-<span id="cb86-5"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">High =</span> <span class="fu">max</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
-<span id="cb86-6"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">Low =</span> <span class="fu">min</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
-<span id="cb86-7"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">Close =</span> <span class="fu">last</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb86-8"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(covid19, <span class="at">index =</span> date) <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;weekly&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb88-3"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span> </span>
+<span id="cb88-4"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Open =</span> <span class="fu">first</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
+<span id="cb88-5"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb88-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">High =</span> <span class="fu">max</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
+<span id="cb88-6"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb88-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">Low =</span> <span class="fu">min</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
+<span id="cb88-7"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb88-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">Close =</span> <span class="fu">last</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb88-8"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb88-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A time tibble: 10 x 5
 ## # Index: date
 ##    date        Open  High   Low Close
@@ -320,7 +320,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>xts</code></li>
 </ul>
 <p><code>xts</code> 패키지에서는 OHLC 정보를 확인할 수 있는 함수를 직접 제공한다. <code>to.period()</code>인데 OHLC를 제공하는데 <code>to.period()</code> 함수의 매개변수인 <code>method</code>에 ‘months,’ ‘quarters’ 등 적절한 시간 간격을 설정해주면 해당 기간동안의 OHCL를 자동으로 출력해준다.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">to.period</span>(covid19.xts, <span class="at">method =</span> <span class="st">&#39;months&#39;</span>, <span class="at">OLHC =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">to.period</span>(covid19.xts, <span class="at">method =</span> <span class="st">&#39;months&#39;</span>, <span class="at">OLHC =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##            covid19.xts.Open covid19.xts.High covid19.xts.Low covid19.xts.Close
 ## 2020-04-30                2                5               1                 2
 ## 2020-05-31                0               11               0                 7

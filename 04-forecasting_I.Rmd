@@ -218,7 +218,7 @@ ACF는 AutoCorelation Function의 준말로 자기 상관 관계를 확인할 �
 
 [^forecasting_i-5]: <https://nwfsc-timeseries.github.io/atsa-labs/sec-tslab-correlation-within-and-among-time-series.html>
 
-```{r acf_stat, results='hide'}
+```{r acf_stat, fig.show='hide'}
 ###  stats 패키지의 acf plot 생성
 acf(students$학생수계)
 ```
@@ -306,7 +306,7 @@ students %>%
 
 아래의 plot에서 파란색 선은 전체 학생수의 선형회귀 모델의 적합값 라인 plot이고 검은색 점은 각 년도별 전체 학생수의 실제값이다. 검은색 점부터 파란색 라인까지의 수직거리(붉은 선)이 잔차이다.
 
-```{r fitted, echo=FALSE}
+```{r fitted, echo=FALSE, warning=FALSE, message=FALSE}
 library(ggplot2)
 student.ts.lm <- tslm(students.ts[,2] ~ trend, data = students.ts)                   
 res <- as.vector(residuals(student.ts.lm))
@@ -364,7 +364,7 @@ checkresiduals(naive(goog200))
 
 ## 시계열 분해(Decomposition)
 
-앞에서 계속 언급했던 시계열 특성인 추세(Trend), 계절성(Seasonality), 자기상관성(Autocorelation) 중에 자기상관성은 `ACF()`, `PACF()`를 사용하여 확인할 수 있는 방법을 설명하였다. 그렇다면 추세와 계절성은 어떻게 확인할 수 있는가? 몇몇 패키지에서는 시계열 데이터에서 추세와 계절성을 분해하여 볼 함수를 제공한다. , R의 기본 패키지인 `stats` 패키지에서 `decompose()`, `stl()` , `seasonal` 패키지의 `seas()` 함수를 통해 시계열을 trend, seasonality, 잔차 등으로 분리하여 ploting 할 수 있다. 각각의 함수는 시계열 decomposition 알고리즘의 차이로 인해 약간씩 결과가 다르게 나타난다.
+앞에서 계속 언급했던 시계열 특성인 추세(Trend), 계절성(Seasonality), 자기상관성(Autocorelation) 중에 자기상관성은 `ACF()`, `PACF()`를 사용하여 확인할 수 있는 방법을 설명하였다. 그렇다면 추세와 계절성은 어떻게 확인할 수 있는가? 몇몇 패키지에서는 시계열 데이터에서 추세와 계절성을 분해하여 볼 함수를 제공한다. R의 기본 패키지인 `stats` 패키지에서 `decompose()`, `stl()` , `seasonal` 패키지의 `seas()` 함수를 통해 시계열을 trend, seasonality, 잔차 등으로 분리하여 ploting 할 수 있다. 각각의 함수는 시계열 decomposition 알고리즘의 차이로 인해 약간씩 결과가 다르게 나타난다.
 
 ```{r decomposition}
 ts(employees$employees.edu, start = c(2013, 01), frequency = 12) %>%

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.7 정상성 테스트 | Untitled</title>
   <meta name="description" content="5.7 정상성 테스트 | Untitled" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.7 정상성 테스트 | Untitled" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="시계열-분해decomposition.html"/>
 <link rel="next" href="계절성-ploting과-테스트.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -289,28 +289,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="정상성-테스트" class="section level2" number="5.7">
 <h2><span class="header-section-number">5.7</span> 정상성 테스트</h2>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="정상성-테스트.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span></code></pre></div>
-<pre><code>## Warning: package &#39;tseries&#39; was built under R version 4.0.3</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="정상성-테스트.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span> (<span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>), <span class="at">lag =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;Ljung&quot;</span>) <span class="co">#p-value가 0.05보다 작으면 비정상성</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="정상성-테스트.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span></code></pre></div>
 <pre><code>## 
-##  Box-Ljung test
+##     &#39;tseries&#39; version: 0.10-47
+## 
+##     &#39;tseries&#39; is a package for time series analysis and computational finance.
+## 
+##     See &#39;library(help=&quot;tseries&quot;)&#39; for details.</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="정상성-테스트.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span> (<span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>), <span class="at">lag =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;Ljung&quot;</span>) <span class="co">#p-value가 0.05보다 작으면 비정상성</span></span></code></pre></div>
+<pre><code>## 
+## 	Box-Ljung test
 ## 
 ## data:  ts(employees$employees.edu, start = c(2013, 1), frequency = 12)
 ## X-squared = 73.43, df = 1, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="정상성-테스트.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(<span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>)) <span class="co"># p-value 0.05보다 작으면 정상성</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="정상성-테스트.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(<span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>)) <span class="co"># p-value 0.05보다 작으면 정상성</span></span></code></pre></div>
 <pre><code>## 
-##  Augmented Dickey-Fuller Test
+## 	Augmented Dickey-Fuller Test
 ## 
 ## data:  ts(employees$employees.edu, start = c(2013, 1), frequency = 12)
 ## Dickey-Fuller = -1.6888, Lag order = 4, p-value = 0.7051
 ## alternative hypothesis: stationary</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="정상성-테스트.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(<span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="정상성-테스트.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(<span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>))</span></code></pre></div>
 <pre><code>## 
-##  KPSS Test for Level Stationarity
+## 	KPSS Test for Level Stationarity
 ## 
 ## data:  ts(employees$employees.edu, start = c(2013, 1), frequency = 12)
 ## KPSS Level = 0.66909, Truncation lag parameter = 3, p-value = 0.01636</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="정상성-테스트.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p-value가 0.05보다 작으면 비정상성</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="정상성-테스트.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p-value가 0.05보다 작으면 비정상성</span></span></code></pre></div>
 </div>
             </section>
 

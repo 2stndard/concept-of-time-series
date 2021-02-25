@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.8 월별, 분기별, 연별 증감량 | Untitled</title>
   <meta name="description" content="4.8 월별, 분기별, 연별 증감량 | Untitled" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.8 월별, 분기별, 연별 증감량 | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-24" />
+<meta name="date" content="2021-02-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="지난달-데이터는-시간-filteringsubsetting.html"/>
 <link rel="next" href="월-비중-백분율-연-비중-백분율.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -295,17 +295,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>데이터프레임 : lag() 함수</li>
 </ul>
 <p>시계열 데이터가 저장된 데이터프레임의 데이터 열에 <code>lag()</code>를 적용하면 데이터를 하나씩 Shift 시킨 벡터를 반환해준다. 이 벡터를 데이터프레임에 추가해주고 mutate()를 사용해 원본데이터에서 lag된 데이터를 빼주면 증감량을 얻을 수 있고 증감량을 원본 데이터로 나눠주면 증감률을 구할 수 있다.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="월별-분기별-연별-증감량.html#cb118-1" aria-hidden="true" tabindex="-1"></a>students_lag <span class="ot">&lt;-</span>  <span class="fu">cbind</span>(연도 <span class="ot">=</span> students<span class="sc">$</span>연도, </span>
-<span id="cb118-2"><a href="월별-분기별-연별-증감량.html#cb118-2" aria-hidden="true" tabindex="-1"></a>                      학생수계 <span class="ot">=</span> students<span class="sc">$</span>학생수계, </span>
-<span id="cb118-3"><a href="월별-분기별-연별-증감량.html#cb118-3" aria-hidden="true" tabindex="-1"></a>                      전년 <span class="ot">=</span> students <span class="sc">%&gt;%</span> </span>
-<span id="cb118-4"><a href="월별-분기별-연별-증감량.html#cb118-4" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">lag</span>(<span class="dv">1</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb118-5"><a href="월별-분기별-연별-증감량.html#cb118-5" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">select</span>(학생수계) <span class="sc">%&gt;%</span> </span>
-<span id="cb118-6"><a href="월별-분기별-연별-증감량.html#cb118-6" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">rename</span>(전년 <span class="ot">=</span> 학생수계)</span>
-<span id="cb118-7"><a href="월별-분기별-연별-증감량.html#cb118-7" aria-hidden="true" tabindex="-1"></a>                     ) <span class="sc">%&gt;%</span></span>
-<span id="cb118-8"><a href="월별-분기별-연별-증감량.html#cb118-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감 <span class="ot">=</span> 학생수계 <span class="sc">-</span> 전년, 증감율 <span class="ot">=</span> <span class="fu">round</span>((학생수계<span class="sc">/</span>전년)<span class="sc">-</span><span class="dv">1</span>, <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) </span>
-<span id="cb118-9"><a href="월별-분기별-연별-증감량.html#cb118-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">### 2. lag(1) 함수를 사용하여 시차1 데이터 생성(하나씩 아래로 shift) 하고 컬럼명을 lag로 변경</span></span>
-<span id="cb118-10"><a href="월별-분기별-연별-증감량.html#cb118-10" aria-hidden="true" tabindex="-1"></a>  <span class="do">### 3. 시차1 데이터와 원 데이터의 차이를 증감 컬럼으로, 원데이터를 시차1 데이터로 나눈 수치를 1에서 빼준 결과(비중을 증감으로 변환)에 100을 곱한다(백분률로 변환)</span></span>
-<span id="cb118-11"><a href="월별-분기별-연별-증감량.html#cb118-11" aria-hidden="true" tabindex="-1"></a>students_lag <span class="sc">%&gt;%</span> <span class="fu">head</span>() </span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="월별-분기별-연별-증감량.html#cb120-1" aria-hidden="true" tabindex="-1"></a>students_lag <span class="ot">&lt;-</span>  <span class="fu">cbind</span>(연도 <span class="ot">=</span> students<span class="sc">$</span>연도, </span>
+<span id="cb120-2"><a href="월별-분기별-연별-증감량.html#cb120-2" aria-hidden="true" tabindex="-1"></a>                      학생수계 <span class="ot">=</span> students<span class="sc">$</span>학생수계, </span>
+<span id="cb120-3"><a href="월별-분기별-연별-증감량.html#cb120-3" aria-hidden="true" tabindex="-1"></a>                      전년 <span class="ot">=</span> students <span class="sc">%&gt;%</span> </span>
+<span id="cb120-4"><a href="월별-분기별-연별-증감량.html#cb120-4" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">lag</span>(<span class="dv">1</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb120-5"><a href="월별-분기별-연별-증감량.html#cb120-5" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">select</span>(학생수계) <span class="sc">%&gt;%</span> </span>
+<span id="cb120-6"><a href="월별-분기별-연별-증감량.html#cb120-6" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">rename</span>(전년 <span class="ot">=</span> 학생수계)</span>
+<span id="cb120-7"><a href="월별-분기별-연별-증감량.html#cb120-7" aria-hidden="true" tabindex="-1"></a>                     ) <span class="sc">%&gt;%</span></span>
+<span id="cb120-8"><a href="월별-분기별-연별-증감량.html#cb120-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감 <span class="ot">=</span> 학생수계 <span class="sc">-</span> 전년, 증감율 <span class="ot">=</span> <span class="fu">round</span>((학생수계<span class="sc">/</span>전년)<span class="sc">-</span><span class="dv">1</span>, <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) </span>
+<span id="cb120-9"><a href="월별-분기별-연별-증감량.html#cb120-9" aria-hidden="true" tabindex="-1"></a>  <span class="do">### 2. lag(1) 함수를 사용하여 시차1 데이터 생성(하나씩 아래로 shift) 하고 컬럼명을 lag로 변경</span></span>
+<span id="cb120-10"><a href="월별-분기별-연별-증감량.html#cb120-10" aria-hidden="true" tabindex="-1"></a>  <span class="do">### 3. 시차1 데이터와 원 데이터의 차이를 증감 컬럼으로, 원데이터를 시차1 데이터로 나눈 수치를 1에서 빼준 결과(비중을 증감으로 변환)에 100을 곱한다(백분률로 변환)</span></span>
+<span id="cb120-11"><a href="월별-분기별-연별-증감량.html#cb120-11" aria-hidden="true" tabindex="-1"></a>students_lag <span class="sc">%&gt;%</span> <span class="fu">head</span>() </span></code></pre></div>
 <pre><code>##         연도 학생수계    전년    증감 증감율
 ## 1 1999-01-01  8658358      NA      NA     NA
 ## 2 2000-01-01  8535867 8658358 -122491   -1.4
@@ -323,22 +323,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="월별-분기별-연별-증감량.html#cb120-1" aria-hidden="true" tabindex="-1"></a>students_lag <span class="sc">%&gt;%</span></span>
-<span id="cb120-2"><a href="월별-분기별-연별-증감량.html#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">as.factor</span>(<span class="fu">year</span>(연도)), 증감)) <span class="sc">+</span> </span>
-<span id="cb120-3"><a href="월별-분기별-연별-증감량.html#cb120-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb120-4"><a href="월별-분기별-연별-증감량.html#cb120-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb120-5"><a href="월별-분기별-연별-증감량.html#cb120-5" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">comma</span>(증감)), <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="do">### ggrepel::geom_text_repel() 함수로 숫자들이 겹치지 않게 plotting</span></span>
-<span id="cb120-6"><a href="월별-분기별-연별-증감량.html#cb120-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;전년대비 전체 학생수 증감 추이&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">y =</span> <span class="st">&#39;학생수 증감량&#39;</span>) <span class="sc">+</span></span>
-<span id="cb120-7"><a href="월별-분기별-연별-증감량.html#cb120-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>(<span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>)) <span class="sc">+</span></span>
-<span id="cb120-8"><a href="월별-분기별-연별-증감량.html#cb120-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="월별-분기별-연별-증감량.html#cb122-1" aria-hidden="true" tabindex="-1"></a>students_lag <span class="sc">%&gt;%</span></span>
+<span id="cb122-2"><a href="월별-분기별-연별-증감량.html#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">as.factor</span>(<span class="fu">year</span>(연도)), 증감)) <span class="sc">+</span> </span>
+<span id="cb122-3"><a href="월별-분기별-연별-증감량.html#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb122-4"><a href="월별-분기별-연별-증감량.html#cb122-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb122-5"><a href="월별-분기별-연별-증감량.html#cb122-5" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> scales<span class="sc">::</span><span class="fu">comma</span>(증감)), <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="do">### ggrepel::geom_text_repel() 함수로 숫자들이 겹치지 않게 plotting</span></span>
+<span id="cb122-6"><a href="월별-분기별-연별-증감량.html#cb122-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;전년대비 전체 학생수 증감 추이&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">y =</span> <span class="st">&#39;학생수 증감량&#39;</span>) <span class="sc">+</span></span>
+<span id="cb122-7"><a href="월별-분기별-연별-증감량.html#cb122-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">number_format</span>(<span class="at">big.mark =</span> <span class="st">&#39;,&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb122-8"><a href="월별-분기별-연별-증감량.html#cb122-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/example5-1.png" width="672" /></p>
 <ul>
 <li><code>tsibble</code> : <code>diffrence()</code></li>
 </ul>
 <p>앞선 데이터 프레임에서는 <code>lag()</code> 함수를 사용하여 원 데이터의 time shift를 한 데이터 컬럼을 생성하고 두 컬럼의 차이를 구하였다. <code>tsibble</code> 객체는 이 과정을 바로 지원하는 <code>difference()</code> 함수를 제공한다. 따라서 데이터프레임보다는 몇단계 과정을 줄일 수 있다.</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="월별-분기별-연별-증감량.html#cb121-1" aria-hidden="true" tabindex="-1"></a>students.tsibble<span class="sc">%&gt;%</span>  <span class="fu">select</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb121-2"><a href="월별-분기별-연별-증감량.html#cb121-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감 <span class="ot">=</span> <span class="fu">difference</span>(.<span class="sc">$</span>학생수계, <span class="at">lag =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb121-3"><a href="월별-분기별-연별-증감량.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감율 <span class="ot">=</span> <span class="fu">round</span>((증감<span class="sc">/</span>학생수계), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="월별-분기별-연별-증감량.html#cb123-1" aria-hidden="true" tabindex="-1"></a>students.tsibble<span class="sc">%&gt;%</span>  <span class="fu">select</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb123-2"><a href="월별-분기별-연별-증감량.html#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감 <span class="ot">=</span> <span class="fu">difference</span>(.<span class="sc">$</span>학생수계, <span class="at">lag =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb123-3"><a href="월별-분기별-연별-증감량.html#cb123-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감율 <span class="ot">=</span> <span class="fu">round</span>((증감<span class="sc">/</span>학생수계), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tsibble: 10 x 4 [1D]
 ##    연도       학생수계    증감 증감율
 ##    &lt;date&gt;        &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
@@ -352,9 +352,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 2006-01-01  8354891  -16530   -0.2
 ##  9 2007-01-01  8309932  -44959   -0.5
 ## 10 2008-01-01  8187782 -122150   -1.5</code></pre>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="월별-분기별-연별-증감량.html#cb123-1" aria-hidden="true" tabindex="-1"></a>employees<span class="sc">%&gt;%</span></span>
-<span id="cb123-2"><a href="월별-분기별-연별-증감량.html#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감 <span class="ot">=</span> <span class="fu">difference</span>(employees.tsibble<span class="sc">$</span>total, <span class="at">lag =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb123-3"><a href="월별-분기별-연별-증감량.html#cb123-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감율 <span class="ot">=</span> <span class="fu">round</span>((증감<span class="sc">/</span>total), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="월별-분기별-연별-증감량.html#cb125-1" aria-hidden="true" tabindex="-1"></a>employees<span class="sc">%&gt;%</span></span>
+<span id="cb125-2"><a href="월별-분기별-연별-증감량.html#cb125-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감 <span class="ot">=</span> <span class="fu">difference</span>(employees.tsibble<span class="sc">$</span>total, <span class="at">lag =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb125-3"><a href="월별-분기별-연별-증감량.html#cb125-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감율 <span class="ot">=</span> <span class="fu">round</span>((증감<span class="sc">/</span>total), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##          time total 증감 증감율
 ## 1  2013-01-01 24287   NA     NA
 ## 2  2013-02-01 24215  -72   -0.3
@@ -370,9 +370,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>xts</code> : <code>diff()</code></li>
 </ul>
 <p><code>xts</code> 객체도 <code>tsibble</code> 객체와 같이 차분 함수인 <code>diff()</code> 함수를 제공한다. 이후 과정은 <code>tsibble</code>과 동일한 과정을 거친다.</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="월별-분기별-연별-증감량.html#cb125-1" aria-hidden="true" tabindex="-1"></a>students.xts<span class="sc">$</span>증감 <span class="ot">&lt;-</span> <span class="fu">diff</span>(students.xts[,<span class="dv">2</span>]) </span>
-<span id="cb125-2"><a href="월별-분기별-연별-증감량.html#cb125-2" aria-hidden="true" tabindex="-1"></a>students.xts<span class="sc">$</span>증감율 <span class="ot">&lt;-</span> <span class="fu">round</span>((students.xts<span class="sc">$</span>증감<span class="sc">/</span>students.xts<span class="sc">$</span>학생수계), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb125-3"><a href="월별-분기별-연별-증감량.html#cb125-3" aria-hidden="true" tabindex="-1"></a>students.xts[, <span class="fu">c</span>(<span class="st">&#39;학생수계&#39;</span>, <span class="st">&#39;증감&#39;</span>, <span class="st">&#39;증감율&#39;</span>)] <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="월별-분기별-연별-증감량.html#cb127-1" aria-hidden="true" tabindex="-1"></a>students.xts<span class="sc">$</span>증감 <span class="ot">&lt;-</span> <span class="fu">diff</span>(students.xts[,<span class="dv">2</span>]) </span>
+<span id="cb127-2"><a href="월별-분기별-연별-증감량.html#cb127-2" aria-hidden="true" tabindex="-1"></a>students.xts<span class="sc">$</span>증감율 <span class="ot">&lt;-</span> <span class="fu">round</span>((students.xts<span class="sc">$</span>증감<span class="sc">/</span>students.xts<span class="sc">$</span>학생수계), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb127-3"><a href="월별-분기별-연별-증감량.html#cb127-3" aria-hidden="true" tabindex="-1"></a>students.xts[, <span class="fu">c</span>(<span class="st">&#39;학생수계&#39;</span>, <span class="st">&#39;증감&#39;</span>, <span class="st">&#39;증감율&#39;</span>)] <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##            학생수계  증감 증감율
 ## 1999-01-01  8658358    NA     NA
 ## 2000-01-01  8535867 11097    0.1
@@ -384,11 +384,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2006-01-01  8354891  4209    0.1
 ## 2007-01-01  8309932 -4262   -0.1
 ## 2008-01-01  8187782 -3728    0.0</code></pre>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="월별-분기별-연별-증감량.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(students.xts[, <span class="st">&#39;증감율&#39;</span>], <span class="at">main =</span> <span class="st">&#39;전년대비 학생수 증감률&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="월별-분기별-연별-증감량.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(students.xts[, <span class="st">&#39;증감율&#39;</span>], <span class="at">main =</span> <span class="st">&#39;전년대비 학생수 증감률&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/xts_diff-1.png" width="672" /></p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="월별-분기별-연별-증감량.html#cb128-1" aria-hidden="true" tabindex="-1"></a>employees.xts<span class="sc">$</span>증감 <span class="ot">&lt;-</span> <span class="fu">diff</span>(employees.xts<span class="sc">$</span>total)</span>
-<span id="cb128-2"><a href="월별-분기별-연별-증감량.html#cb128-2" aria-hidden="true" tabindex="-1"></a>employees.xts<span class="sc">$</span>증감율 <span class="ot">&lt;-</span> <span class="fu">round</span>((employees.xts<span class="sc">$</span>증감<span class="sc">/</span>employees.xts<span class="sc">$</span>total), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb128-3"><a href="월별-분기별-연별-증감량.html#cb128-3" aria-hidden="true" tabindex="-1"></a>employees.xts[, <span class="fu">c</span>(<span class="st">&#39;total&#39;</span>, <span class="st">&#39;증감&#39;</span>, <span class="st">&#39;증감율&#39;</span>)] <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="월별-분기별-연별-증감량.html#cb130-1" aria-hidden="true" tabindex="-1"></a>employees.xts<span class="sc">$</span>증감 <span class="ot">&lt;-</span> <span class="fu">diff</span>(employees.xts<span class="sc">$</span>total)</span>
+<span id="cb130-2"><a href="월별-분기별-연별-증감량.html#cb130-2" aria-hidden="true" tabindex="-1"></a>employees.xts<span class="sc">$</span>증감율 <span class="ot">&lt;-</span> <span class="fu">round</span>((employees.xts<span class="sc">$</span>증감<span class="sc">/</span>employees.xts<span class="sc">$</span>total), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb130-3"><a href="월별-분기별-연별-증감량.html#cb130-3" aria-hidden="true" tabindex="-1"></a>employees.xts[, <span class="fu">c</span>(<span class="st">&#39;total&#39;</span>, <span class="st">&#39;증감&#39;</span>, <span class="st">&#39;증감율&#39;</span>)] <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##            total 증감 증감율
 ## 2013-01-01 24287   NA     NA
 ## 2013-02-01 24215  -72   -0.3
@@ -400,7 +400,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 2013-08-01 25513 -168   -0.7
 ## 2013-09-01 25701  188    0.7
 ## 2013-10-01 25798   97    0.4</code></pre>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="월별-분기별-연별-증감량.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(employees.xts[, <span class="fu">c</span>(<span class="st">&#39;증감율&#39;</span>)], <span class="at">main =</span> <span class="st">&#39;전월대비 전체 취업자 증감률&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="월별-분기별-연별-증감량.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(employees.xts[, <span class="fu">c</span>(<span class="st">&#39;증감율&#39;</span>)], <span class="at">main =</span> <span class="st">&#39;전월대비 전체 취업자 증감률&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/xts_diff-2.png" width="672" /></p>
 </div>
             </section>

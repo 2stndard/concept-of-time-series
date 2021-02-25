@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.6 시계열 분해(Decomposition) | Untitled</title>
   <meta name="description" content="5.6 시계열 분해(Decomposition) | Untitled" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.6 시계열 분해(Decomposition) | Untitled" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="백색-잡음white-noise.html"/>
 <link rel="next" href="정상성-테스트.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -289,18 +289,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="시계열-분해decomposition" class="section level2" number="5.6">
 <h2><span class="header-section-number">5.6</span> 시계열 분해(Decomposition)</h2>
-<p>앞에서 계속 언급했던 시계열 특성인 추세(Trend), 계절성(Seasonality), 자기상관성(Autocorelation) 중에 자기상관성은 <code>ACF()</code>, <code>PACF()</code>를 사용하여 확인할 수 있는 방법을 설명하였다. 그렇다면 추세와 계절성은 어떻게 확인할 수 있는가? 몇몇 패키지에서는 시계열 데이터에서 추세와 계절성을 분해하여 볼 함수를 제공한다. , R의 기본 패키지인 <code>stats</code> 패키지에서 <code>decompose()</code>, <code>stl()</code> , <code>seasonal</code> 패키지의 <code>seas()</code> 함수를 통해 시계열을 trend, seasonality, 잔차 등으로 분리하여 ploting 할 수 있다. 각각의 함수는 시계열 decomposition 알고리즘의 차이로 인해 약간씩 결과가 다르게 나타난다.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="시계열-분해decomposition.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-2"><a href="시계열-분해decomposition.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">decompose</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p>앞에서 계속 언급했던 시계열 특성인 추세(Trend), 계절성(Seasonality), 자기상관성(Autocorelation) 중에 자기상관성은 <code>ACF()</code>, <code>PACF()</code>를 사용하여 확인할 수 있는 방법을 설명하였다. 그렇다면 추세와 계절성은 어떻게 확인할 수 있는가? 몇몇 패키지에서는 시계열 데이터에서 추세와 계절성을 분해하여 볼 함수를 제공한다. R의 기본 패키지인 <code>stats</code> 패키지에서 <code>decompose()</code>, <code>stl()</code> , <code>seasonal</code> 패키지의 <code>seas()</code> 함수를 통해 시계열을 trend, seasonality, 잔차 등으로 분리하여 ploting 할 수 있다. 각각의 함수는 시계열 decomposition 알고리즘의 차이로 인해 약간씩 결과가 다르게 나타난다.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="시계열-분해decomposition.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="시계열-분해decomposition.html#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">decompose</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/decomposition-1.png" width="672" /></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="시계열-분해decomposition.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb41-2"><a href="시계열-분해decomposition.html#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stl</span>(<span class="at">s.window =</span> <span class="st">&#39;periodic&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="시계열-분해decomposition.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="시계열-분해decomposition.html#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stl</span>(<span class="at">s.window =</span> <span class="st">&#39;periodic&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/decomposition-2.png" width="672" /></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="시계열-분해decomposition.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb42-2"><a href="시계열-분해decomposition.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  seasonal<span class="sc">::</span><span class="fu">seas</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="시계열-분해decomposition.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="시계열-분해decomposition.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  seasonal<span class="sc">::</span><span class="fu">seas</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/decomposition-3.png" width="672" /></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="시계열-분해decomposition.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb43-2"><a href="시계열-분해decomposition.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  seasonal<span class="sc">::</span><span class="fu">seas</span>(<span class="at">x11 =</span> <span class="st">&#39;&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="시계열-분해decomposition.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="시계열-분해decomposition.html#cb41-2" aria-hidden="true" tabindex="-1"></a>  seasonal<span class="sc">::</span><span class="fu">seas</span>(<span class="at">x11 =</span> <span class="st">&#39;&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/decomposition-4.png" width="672" /></p>
 </div>
             </section>

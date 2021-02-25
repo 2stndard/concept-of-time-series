@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.6 3일 평균, 5일 합계는? : 시간 Rolling | Untitled</title>
   <meta name="description" content="4.6 3일 평균, 5일 합계는? : 시간 Rolling | Untitled" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.6 3일 평균, 5일 합계는? : 시간 Rolling | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-24" />
+<meta name="date" content="2021-02-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"/>
 <link rel="next" href="지난달-데이터는-시간-filteringsubsetting.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -298,15 +298,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>데이터프레임으로 저장된 시계열 객체에 대한 rolling은 zoo 패키지에서 제공하는 roll* 함수를 사용하면 비교적 쉽게 rolling을 수행할 수있다.</p>
 <p>roll* 함수는 <code>rollapply()</code>와 <code>rollmean()</code>의 두가지를 제공하는데 <code>rollapply()</code>는 <code>apply()</code>를 rolling용으로 수정한 버전이다. <code>rollmean()</code>은 <code>rollapply()</code>에 평균(<code>mean()</code>)을 적용하는 함수로 rolling에는 평균을 사용하는 경우가 많기 때문에 이를 위해서 특별히 <code>rollmean()</code>을 제공한다.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
-<span id="cb90-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-2" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span></span>
-<span id="cb90-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ma3 =</span> <span class="fu">rollmean</span>(total, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
-<span id="cb90-4"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">sum3 =</span> <span class="fu">rollapply</span>(total, <span class="dv">3</span>, sum, <span class="at">fill =</span> <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb90-5"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, ma3, sum3) <span class="sc">%&gt;%</span></span>
-<span id="cb90-6"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time)) <span class="sc">+</span> </span>
-<span id="cb90-7"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> total, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;total&#39;</span>)) <span class="sc">+</span></span>
-<span id="cb90-8"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma3, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;ma3&#39;</span>)) <span class="sc">+</span> </span>
-<span id="cb90-9"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;total&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;ma3&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb92-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-2" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span></span>
+<span id="cb92-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ma3 =</span> <span class="fu">rollmean</span>(total, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
+<span id="cb92-4"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">sum3 =</span> <span class="fu">rollapply</span>(total, <span class="dv">3</span>, sum, <span class="at">fill =</span> <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb92-5"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, ma3, sum3) <span class="sc">%&gt;%</span></span>
+<span id="cb92-6"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time)) <span class="sc">+</span> </span>
+<span id="cb92-7"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> total, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;total&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb92-8"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma3, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;ma3&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb92-9"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;total&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;ma3&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/rollapply-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -326,19 +326,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>timetk</code> 패키지에서는 rolling 기능을 위해 <code>slidify()</code> 함수를 제공한다. <code>slidify()</code> 함수가 타 함수와 다른점은 그 반환값이 함수의 실행 결과값이 아니고 함수자체를 반환한다는 것이다.</p>
 <p>즉 rolling window 기간에 특정 함수를 적용하는 함수를 제공하기 때문에 이후 함수의 형태로 사용해야 한다.</p>
 <p>아래의 예에 ma3와 sum3는 data.frame이나 숫자값이 아니고 함수 객체이다. 이 함수 객체는 <code>mutate()</code> 안에서 함수처럼 작용하는데 그 매개변수로 rolling을 해야할 컬럼을 전달하면 그 결과 벡터가 전달되는 형태로 실행된다.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb91-1" aria-hidden="true" tabindex="-1"></a>ma3 <span class="ot">&lt;-</span> <span class="fu">slidify</span>(mean, <span class="at">.period =</span> <span class="dv">3</span>, <span class="at">.align =</span> <span class="st">&quot;center&quot;</span>)</span>
-<span id="cb91-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb91-2" aria-hidden="true" tabindex="-1"></a>sum3 <span class="ot">&lt;-</span> <span class="fu">slidify</span>(sum, <span class="at">.period =</span> <span class="dv">3</span>, <span class="at">.align =</span> <span class="st">&quot;center&quot;</span>)</span>
-<span id="cb91-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ma3)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb93-1" aria-hidden="true" tabindex="-1"></a>ma3 <span class="ot">&lt;-</span> <span class="fu">slidify</span>(mean, <span class="at">.period =</span> <span class="dv">3</span>, <span class="at">.align =</span> <span class="st">&quot;center&quot;</span>)</span>
+<span id="cb93-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb93-2" aria-hidden="true" tabindex="-1"></a>sum3 <span class="ot">&lt;-</span> <span class="fu">slidify</span>(sum, <span class="at">.period =</span> <span class="dv">3</span>, <span class="at">.align =</span> <span class="st">&quot;center&quot;</span>)</span>
+<span id="cb93-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ma3)</span></code></pre></div>
 <pre><code>## [1] &quot;function&quot;</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sum3)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sum3)</span></code></pre></div>
 <pre><code>## [1] &quot;function&quot;</code></pre>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span></span>
-<span id="cb95-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ma3 =</span> <span class="fu">ma3</span>(total), <span class="at">sum3 =</span> <span class="fu">sum3</span>(total)) <span class="sc">%&gt;%</span></span>
-<span id="cb95-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, ma3, sum3) <span class="sc">%&gt;%</span></span>
-<span id="cb95-4"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time)) <span class="sc">+</span> </span>
-<span id="cb95-5"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> total, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;total&#39;</span>)) <span class="sc">+</span></span>
-<span id="cb95-6"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma3, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;ma3&#39;</span>)) <span class="sc">+</span> </span>
-<span id="cb95-7"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;total&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;ma3&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span></span>
+<span id="cb97-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ma3 =</span> <span class="fu">ma3</span>(total), <span class="at">sum3 =</span> <span class="fu">sum3</span>(total)) <span class="sc">%&gt;%</span></span>
+<span id="cb97-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, ma3, sum3) <span class="sc">%&gt;%</span></span>
+<span id="cb97-4"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time)) <span class="sc">+</span> </span>
+<span id="cb97-5"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> total, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;total&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb97-6"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma3, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;ma3&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb97-7"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;total&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;ma3&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/slidify-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -357,8 +357,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>xts</code></li>
 </ul>
 <p><code>xts</code> 패키지에서는 rolling을 위한 간단한 함수를 제공한다. <code>rollapply()</code>로 <code>xts</code> 객체와 rolling window 기간, 적용할 함수를 전달하면 rolling을 간단히 구할수 있다.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rollapply</span>(employees.xts, <span class="at">width =</span> <span class="dv">3</span>, <span class="at">FUN =</span> mean) <span class="sc">%&gt;%</span></span>
-<span id="cb96-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rollapply</span>(employees.xts, <span class="at">width =</span> <span class="dv">3</span>, <span class="at">FUN =</span> mean) <span class="sc">%&gt;%</span></span>
+<span id="cb98-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##               total employees.edu
 ## 2013-01-01       NA            NA
 ## 2013-02-01       NA            NA

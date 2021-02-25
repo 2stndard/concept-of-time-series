@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.10 월별, 분기별, 연별 누적합계 | Untitled</title>
   <meta name="description" content="4.10 월별, 분기별, 연별 누적합계 | Untitled" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.10 월별, 분기별, 연별 누적합계 | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-24" />
+<meta name="date" content="2021-02-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="월-비중-백분율-연-비중-백분율.html"/>
 <link rel="next" href="동월별-동분기별-동년별-plot.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -294,11 +294,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>데이터프레임 : cumsum(), group_by(), collapse_by() 함수</li>
 </ul>
 <p>데이터프레임 객체로 저장된 시계열 데이터에 대한 누적값을 구하기 위해서는 <code>dplyr</code> 패키지의 누적값을 산출 함수인 <code>cumsum()</code> 를 사용한다. 데이터를 grouping 하지 않고 전체 데이터에 대한 누적값은 <code>mutate()</code> 함수를 사용하여 <code>cumsum()</code> 결과 열을 생성함으로써 구할 수 있다.</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="월별-분기별-연별-누적합계.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="do">###   누적 취업자수 산출</span></span>
-<span id="cb141-2"><a href="월별-분기별-연별-누적합계.html#cb141-2" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
-<span id="cb141-3"><a href="월별-분기별-연별-누적합계.html#cb141-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum =</span> <span class="fu">cumsum</span>(total)) <span class="sc">%&gt;%</span></span>
-<span id="cb141-4"><a href="월별-분기별-연별-누적합계.html#cb141-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, cumsum) <span class="sc">%&gt;%</span></span>
-<span id="cb141-5"><a href="월별-분기별-연별-누적합계.html#cb141-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="월별-분기별-연별-누적합계.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="do">###   누적 취업자수 산출</span></span>
+<span id="cb143-2"><a href="월별-분기별-연별-누적합계.html#cb143-2" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb143-3"><a href="월별-분기별-연별-누적합계.html#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum =</span> <span class="fu">cumsum</span>(total)) <span class="sc">%&gt;%</span></span>
+<span id="cb143-4"><a href="월별-분기별-연별-누적합계.html#cb143-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, cumsum) <span class="sc">%&gt;%</span></span>
+<span id="cb143-5"><a href="월별-분기별-연별-누적합계.html#cb143-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
 <pre><code>##          time total cumsum
 ## 1  2013-01-01 24287  24287
 ## 2  2013-02-01 24215  48502
@@ -315,22 +315,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 13 2014-01-01 25050 328642
 ## 14 2014-02-01 25116 353758
 ## 15 2014-03-01 25463 379221</code></pre>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="월별-분기별-연별-누적합계.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 0-9세 코로나 확진자의 누적 plot</span></span>
-<span id="cb143-2"><a href="월별-분기별-연별-누적합계.html#cb143-2" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
-<span id="cb143-3"><a href="월별-분기별-연별-누적합계.html#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum =</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb143-4"><a href="월별-분기별-연별-누적합계.html#cb143-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>, cumsum) <span class="sc">%&gt;%</span></span>
-<span id="cb143-5"><a href="월별-분기별-연별-누적합계.html#cb143-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, cumsum)) <span class="sc">+</span></span>
-<span id="cb143-6"><a href="월별-분기별-연별-누적합계.html#cb143-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb143-7"><a href="월별-분기별-연별-누적합계.html#cb143-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">&quot;1 month&quot;</span>, <span class="at">date_labels =</span> <span class="st">&quot;%y.%m&quot;</span>)  <span class="sc">+</span></span>
-<span id="cb143-8"><a href="월별-분기별-연별-누적합계.html#cb143-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="월별-분기별-연별-누적합계.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 0-9세 코로나 확진자의 누적 plot</span></span>
+<span id="cb145-2"><a href="월별-분기별-연별-누적합계.html#cb145-2" aria-hidden="true" tabindex="-1"></a>covid19 <span class="sc">%&gt;%</span></span>
+<span id="cb145-3"><a href="월별-분기별-연별-누적합계.html#cb145-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum =</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb145-4"><a href="월별-분기별-연별-누적합계.html#cb145-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>, cumsum) <span class="sc">%&gt;%</span></span>
+<span id="cb145-5"><a href="월별-분기별-연별-누적합계.html#cb145-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, cumsum)) <span class="sc">+</span></span>
+<span id="cb145-6"><a href="월별-분기별-연별-누적합계.html#cb145-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb145-7"><a href="월별-분기별-연별-누적합계.html#cb145-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks =</span> <span class="st">&quot;1 month&quot;</span>, <span class="at">date_labels =</span> <span class="st">&quot;%y.%m&quot;</span>)  <span class="sc">+</span></span>
+<span id="cb145-8"><a href="월별-분기별-연별-누적합계.html#cb145-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/dataframe_cumsum-1.png" width="672" /></p>
 <p>전체 데이터에 대한 누적 합계가 아닌 연별, 월별, 주별 등의 주기별 누적합계를 구하려면 앞서 설명한<code>group_by()</code>와 함께 사용하면 원하는 기간동안의 누적 합계를 구할 수 있다.</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="월별-분기별-연별-누적합계.html#cb144-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
-<span id="cb144-2"><a href="월별-분기별-연별-누적합계.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">year</span>(time)) <span class="sc">%&gt;%</span></span>
-<span id="cb144-3"><a href="월별-분기별-연별-누적합계.html#cb144-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum.total =</span> <span class="fu">cumsum</span>(total), </span>
-<span id="cb144-4"><a href="월별-분기별-연별-누적합계.html#cb144-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">cumsum.edu =</span> <span class="fu">cumsum</span>(employees.edu)) <span class="sc">%&gt;%</span></span>
-<span id="cb144-5"><a href="월별-분기별-연별-누적합계.html#cb144-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, cumsum.total, employees.edu, cumsum.edu) <span class="sc">%&gt;%</span></span>
-<span id="cb144-6"><a href="월별-분기별-연별-누적합계.html#cb144-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="월별-분기별-연별-누적합계.html#cb146-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span> </span>
+<span id="cb146-2"><a href="월별-분기별-연별-누적합계.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">year</span>(time)) <span class="sc">%&gt;%</span></span>
+<span id="cb146-3"><a href="월별-분기별-연별-누적합계.html#cb146-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum.total =</span> <span class="fu">cumsum</span>(total), </span>
+<span id="cb146-4"><a href="월별-분기별-연별-누적합계.html#cb146-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">cumsum.edu =</span> <span class="fu">cumsum</span>(employees.edu)) <span class="sc">%&gt;%</span></span>
+<span id="cb146-5"><a href="월별-분기별-연별-누적합계.html#cb146-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, cumsum.total, employees.edu, cumsum.edu) <span class="sc">%&gt;%</span></span>
+<span id="cb146-6"><a href="월별-분기별-연별-누적합계.html#cb146-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 15 x 6
 ## # Groups:   year(time) [2]
 ##    `year(time)` time       total cumsum.total employees.edu cumsum.edu
@@ -354,11 +354,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>tsibble</code> : index_by() 함수</li>
 </ul>
 <p><code>tsibble</code> 객체에 대한 누적합계는 앞서 설명한 grouping 방법과 유사한데, <code>index_by()</code>를 사용하여 grouping 하고 합계를 산출하는 방법의 <code>sum()</code>를 <code>cumsum()</code>으로, <code>summarise()</code>를 <code>mutate()</code> 로 바꾸어 주면 간단히 끝난다. <code>mutate()</code>를 쓰는 이유는 누적합계는 모든 관측값에 필요한 열이기 때문이다.</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="월별-분기별-연별-누적합계.html#cb146-1" aria-hidden="true" tabindex="-1"></a>employees.tsibble<span class="sc">%&gt;%</span></span>
-<span id="cb146-2"><a href="월별-분기별-연별-누적합계.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearqtr =</span> <span class="sc">~</span> <span class="fu">yearquarter</span>(.)) <span class="sc">%&gt;%</span></span>
-<span id="cb146-3"><a href="월별-분기별-연별-누적합계.html#cb146-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum.qtrly =</span> <span class="fu">cumsum</span>(total)) <span class="sc">%&gt;%</span> </span>
-<span id="cb146-4"><a href="월별-분기별-연별-누적합계.html#cb146-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(yearqtr, cumsum.qtrly) <span class="sc">%&gt;%</span></span>
-<span id="cb146-5"><a href="월별-분기별-연별-누적합계.html#cb146-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="월별-분기별-연별-누적합계.html#cb148-1" aria-hidden="true" tabindex="-1"></a>employees.tsibble<span class="sc">%&gt;%</span></span>
+<span id="cb148-2"><a href="월별-분기별-연별-누적합계.html#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearqtr =</span> <span class="sc">~</span> <span class="fu">yearquarter</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb148-3"><a href="월별-분기별-연별-누적합계.html#cb148-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum.qtrly =</span> <span class="fu">cumsum</span>(total)) <span class="sc">%&gt;%</span> </span>
+<span id="cb148-4"><a href="월별-분기별-연별-누적합계.html#cb148-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(yearqtr, cumsum.qtrly) <span class="sc">%&gt;%</span></span>
+<span id="cb148-5"><a href="월별-분기별-연별-누적합계.html#cb148-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tsibble: 10 x 3 [1D]
 ## # Groups:    @ yearqtr [4]
 ##    yearqtr cumsum.qtrly time      
@@ -373,10 +373,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 2013 Q3        51194 2013-08-01
 ##  9 2013 Q3        76895 2013-09-01
 ## 10 2013 Q4        25798 2013-10-01</code></pre>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="월별-분기별-연별-누적합계.html#cb148-1" aria-hidden="true" tabindex="-1"></a>covid19.tsibble[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">%&gt;%</span></span>
-<span id="cb148-2"><a href="월별-분기별-연별-누적합계.html#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearweek =</span> <span class="sc">~</span> <span class="fu">yearweek</span>(.)) <span class="sc">%&gt;%</span></span>
-<span id="cb148-3"><a href="월별-분기별-연별-누적합계.html#cb148-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum.weekly =</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb148-4"><a href="월별-분기별-연별-누적합계.html#cb148-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="월별-분기별-연별-누적합계.html#cb150-1" aria-hidden="true" tabindex="-1"></a>covid19.tsibble[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">%&gt;%</span></span>
+<span id="cb150-2"><a href="월별-분기별-연별-누적합계.html#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">index_by</span>(<span class="at">yearweek =</span> <span class="sc">~</span> <span class="fu">yearweek</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb150-3"><a href="월별-분기별-연별-누적합계.html#cb150-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cumsum.weekly =</span> <span class="fu">cumsum</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb150-4"><a href="월별-분기별-연별-누적합계.html#cb150-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tsibble: 10 x 4 [1D]
 ## # Groups:    @ yearweek [2]
 ##    date       `0-9세` yearweek cumsum.weekly
@@ -398,8 +398,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>그렇기 때문에 누적값을 구하기 위해서는 몇가지 단계를 거쳐야 한다. 먼저 <code>split()</code> 함수를 사용하여 누적값을 적용할 시간단위로 데이터를 분리해준다. 분리한 결과는 list의 형태로 반환되는데 이 결과를 <code>lapply()</code>함수를 이용하여 <code>cumsum()</code> 함수를 각각의 list에 적용시켜 준다. 이 결과는 list의 형태이기 때문에 <code>do.call()</code> 함수를 이용하여 하나의 <code>xts</code> 형태로 다시 묶어 주면 원하는 값을 얻을 수 있다.</p>
 <p>이 과정에서 list를 다루는 함수인 <code>lapply()</code>와 <code>do.call()</code> 함수가 사용되었다. 이 두 함수 모두 매개변수로 받은 함수를 각각의 list 요소에 적용하는데 차이점은 <code>lapply()</code>의 경우 각각의 list의 모든 행에 대해 매개변수 함수를 적용하는데 반해 <code>do.call()</code>은 list의 요소에 대해 함수를 적용한다는 점에서 차이가 있다.</p>
 <p>아래의 예에서 <code>lapply()</code>로 전달된 <code>cumsum()</code> 는 <code>split()</code>로 분리된 12개의 요소의 각 행(총 1,424개)에 적용되고 <code>do.call()</code>로 전달된 <code>rbind()</code> 함수는 <code>split()</code>로 분리된 12개의 요소에 적용되기 때문에 단순히 12번 호출된다.</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="월별-분기별-연별-누적합계.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="fu">split</span>(employees.xts, <span class="at">f =</span> <span class="st">&#39;year&#39;</span>), cumsum)) <span class="sc">%&gt;%</span></span>
-<span id="cb150-2"><a href="월별-분기별-연별-누적합계.html#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="월별-분기별-연별-누적합계.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="fu">split</span>(employees.xts, <span class="at">f =</span> <span class="st">&#39;year&#39;</span>), cumsum)) <span class="sc">%&gt;%</span></span>
+<span id="cb152-2"><a href="월별-분기별-연별-누적합계.html#cb152-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span></code></pre></div>
 <pre><code>##             total employees.edu 증감 증감율
 ## 2013-01-01  24287          1710   NA     NA
 ## 2013-02-01  48502          3391   NA     NA
