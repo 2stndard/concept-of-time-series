@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.6 시계열 분해(Decomposition) | Untitled</title>
-  <meta name="description" content="5.6 시계열 분해(Decomposition) | Untitled" />
+  <title>5.8 계절성 검정 | Untitled</title>
+  <meta name="description" content="5.8 계절성 검정 | Untitled" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.6 시계열 분해(Decomposition) | Untitled" />
+  <meta property="og:title" content="5.8 계절성 검정 | Untitled" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.6 시계열 분해(Decomposition) | Untitled" />
+  <meta name="twitter:title" content="5.8 계절성 검정 | Untitled" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="백색-잡음white-noise.html"/>
-<link rel="next" href="정상성-테스트.html"/>
+<link rel="prev" href="정상성-테스트.html"/>
+<link rel="next" href="시계열-forecasting-part-ii-시계열-예측-모델.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -287,42 +287,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="시계열-분해decomposition" class="section level2" number="5.6">
-<h2><span class="header-section-number">5.6</span> 시계열 분해(Decomposition)</h2>
-<p>1장에서 시계열 데이터의 특성으로 추세(Trend), 계절성(Seasonality), 자기상관성(Autocorelation)을 설명하였다. 이 중 자기상관성을 확인하기 위해 <code>ACF()</code>, <code>PACF()</code>를 사용해서 확인했다.</p>
-<p>그렇다면 추세와 계절성은 어떻게 확인할 수 있을까?</p>
-<p>몇몇 패키지에서는 시계열 데이터에서 추세와 계절성을 추출해서 plot으로 제공하는 함수를 제공한다. 를 제공하고 <code>seasonal</code> 패키지의 <code>seas()</code> 함수를 통해 주어진 시계열 데이터의 추세, 계절성, 잔차에 관한 상세한 plot을 볼 수 있다. 각각의 함수는 시계열 데이터를 분해(decomposition)하는 알고리즘의 차이로 인해 약간씩 결과가 다르게 나타난다.</p>
-<p>시계열 데이터를 분해하는 방법은 크게 덧셈방법(additive)과 곱셈방법(multiplicative)의 두가지가 있다.</p>
-<p>덧셈방법으로 분해되는 데이터는 추세에 따라 계절성의 변화량이 비교적 일정하게 유지되는 경우이며 곱셈방법으로 분해되는 데이터는 추세에 따른 계절성의 변화량이 증가 또는 감소하는 경우이다. 아래의 예를 보면 덧셈방법의 plot은 전반적으로 증가하는 추세가 보이지만 추세에 따라 변동되는 계절성의 진폭이 거의 일정하게 유지된다. 반면 곱셈방법의 plot은 추세가 증가하면서 계절성의 진폭도 증가하는 것을 눈으로 확인할 수 있다.</p>
-<p><img src="t_files/figure-html/decompose_add_multi-1.png" width="672" /></p>
-<p>덧셈방법은 특정 시점의 데이터 원본 값을 같은 시점의 추세값, 계절성값, 잔차값을 모두 더하여 계산하고 곱셈방법은 특정 시점의 데이터 원본 값을 추세값, 계절성값, 잔차값을 모두곱해서 계산한다. 아래의 plot은 월별 데이터인 전체 취업자수를 <code>decompose()</code>를 사용하여 분해한 plot인데 덧셈(additive) 방법과 곱셈(multiplicative) 방법을 각각 적용한 결과이다.</p>
-<p><img src="decomadd.jpg" /></p>
-<p><img src="decommulti.jpg" /></p>
-<p>ts 객체로 저장된 시계열 데이터의 시계열성 분해에는 R의 기본 패키지인 <code>stats</code> 패키지에서 <code>decompose()</code>, <code>stl()</code> 을 사용할 수 있다. <code>decompose()</code>는 이동평균 방법을 통해 추세(trend), 계절성(seasonality), 잔차(remainder)로 분해하는데 분해하는 방법으로</p>
-<p>아래의 코드에서 보면 연도별 학생수계의 시계열성을 분해하는 코드에서는 오류가 발생한다. 그 이유는 계절성은 연도별 데이터에서는 찾아낼 수 없기 때문이다.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="시계열-분해decomposition.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 학생수계는 년별 데이터이기 때문에 계절성을 추출할 수 없음.  </span></span>
-<span id="cb40-2"><a href="시계열-분해decomposition.html#cb40-2" aria-hidden="true" tabindex="-1"></a>students.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span></span>
-<span id="cb40-3"><a href="시계열-분해decomposition.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">decompose</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
-<pre><code>## Error in decompose(.): time series has no or less than 2 periods</code></pre>
-<p>다음은 앞서 <code>decompse()</code>로 분해했던 전체 취업자수를 stl()을 사용하여 분해하는 방법이다. <code>stl()</code>은 ’Seasonal and Trend decomposition using Loess’의 준말이다. Loess는 비선형에는 회귀에서 주로 사용하는 방법으로 <code>stl()</code>은 t.window와 <code>s.window</code>를 사용하여 추세의 주기와 계절성의 주기를 설정할 수 있다는 장점이 있다. <code>s.window</code>의 값은 ’periodic’이나 계절 추출을 위한 홀수 숫자의 lag 갯수를 지정해야하는데 7을 넘을 수 없다는 제한이 있다.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="시계열-분해decomposition.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 취업자수를 stl()을 사용하여 분해  </span></span>
-<span id="cb42-2"><a href="시계열-분해decomposition.html#cb42-2" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span></span>
-<span id="cb42-3"><a href="시계열-분해decomposition.html#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stl</span>(<span class="at">s.window =</span> <span class="st">&#39;periodic&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
-<p><img src="t_files/figure-html/decompose_stl-1.png" width="672" /></p>
-<p>하지만 단점으로 곱셈방법을 지원하지 못하는 단점이 있다. 이를 해결하기 위해 원본 데이터에 log를 취하면 진폭이 일정해져서 뎃셈 방법으로 분해하고 다시 지수를 취해 원본데이터로 복귀시키는 방법을 사용할 수 있다.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="시계열-분해decomposition.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb43-2"><a href="시계열-분해decomposition.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(AirPassengers, <span class="at">main =</span> <span class="st">&#39;시계열 분해 : stl&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;data&#39;</span>)</span>
-<span id="cb43-3"><a href="시계열-분해decomposition.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">log</span>(AirPassengers), <span class="at">main =</span> <span class="st">&#39;시계열 분해 : stl곱셈방법(log 사용)&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;log(data)&#39;</span>)</span></code></pre></div>
-<p><img src="t_files/figure-html/decompose_stl_log-1.png" width="672" /></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="시계열-분해decomposition.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div id="계절성-검정" class="section level2" number="5.8">
+<h2><span class="header-section-number">5.8</span> 계절성 검정</h2>
+<p>앞에서는 정상성을 테스트하기 위한 방법을 살펴보았다. 그렇다면 계절성이 있는지 없는지는 어떻게 알수 있을까? 이에 대한 검정 방법도 존재한다.</p>
+<p>계절성 검정을 위해 많이 사용되는 방법이 WO(Webel-Ollech) 테스트이다. <code>seastests</code> 패키지에서 제공하는 함수로 QS-test와 kwman-test를 혼합하여 계절성을 판단한다. <code>wo()</code>는 <code>qs()</code>의 p value가 0.01보다 작거나 <code>kw()</code>이 결과가 0.002보다 작다면 계절성이 있다고 판단한다.</p>
+<p><code>wo()</code>는 앞선 <code>ur.kpss()</code>나 <code>box.test()</code>와는 달리 명확하게 계절성이 있는지 없는지를 알려준다.(<code>ur.kpss()</code>나 <code>box.test()</code>도 이렇게 해주면 얼마나 좋을까.맨날 헤깔린다.)</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="계절성-검정.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(seastests)</span>
+<span id="cb51-2"><a href="계절성-검정.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="do">### 총학생수계는 년별 데이터이므로 계절성이 존재할수 없다.</span></span>
+<span id="cb51-3"><a href="계절성-검정.html#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(students.ts[,<span class="dv">2</span>]))</span></code></pre></div>
+<pre><code>## Test used:  WO 
+##  
+## Test statistic:  0 
+## P-value:  1.229555e-07 1 1 
+##  
+## The WO - test does not identify  seasonality</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="계절성-검정.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 총 취업자수는 계절성이 존재하는지 검사</span></span>
+<span id="cb53-2"><a href="계절성-검정.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(employees.ts[,<span class="dv">2</span>]))</span></code></pre></div>
+<pre><code>## Test used:  WO 
+##  
+## Test statistic:  1 
+## P-value:  0 1.199041e-14 2.346908e-06 
+##  
+## The WO - test identifies seasonality</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="계절성-검정.html#cb55-1" aria-hidden="true" tabindex="-1"></a>forecast<span class="sc">::</span><span class="fu">nsdiffs</span>(employees.ts[,<span class="dv">2</span>])   <span class="do">### seasonality를 제거하기 위해 필요한 차분수</span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="계절성-검정.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 교육서비스업 취업자 수의 계절성 검사</span></span>
+<span id="cb57-2"><a href="계절성-검정.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">wo</span>(employees.ts[,<span class="dv">3</span>]))</span></code></pre></div>
+<pre><code>## Test used:  WO 
+##  
+## Test statistic:  0 
+## P-value:  0.1976637 0.1976739 0.006082959 
+##  
+## The WO - test does not identify  seasonality</code></pre>
+<p>위에서 살펴본 계절성은 데이터의 해석에 방해되는 경우들이 있다.</p>
+<p>예를 들자면 우리는 지금 지구온난화의 시대에 살고 있다고 한다. 지구의 평균 온도가 계속 올라가고 있다고 한다. 그런데 우리의 데이터는 여름엔 기온이 올라가고 겨울엔 기온이 떨어지기를 반복한다. 이 패턴을 자세히 보면 추세를 볼수 있을테니 전반적으로 올라가거나 떨어지는 것을 확인할 수 있을 것이다. 하지만 지난 여름보다 올 여름은 얼마나 올라갔으며 지난 겨울보다 올 겨울은 얼마나 떨어진 것일까? 이러한 분석을 하기 위해서는 여름의 기온 상승과 겨울의 기온 하락 계절성은 다소 방해적 요소임에는 확실하다.</p>
+<p>또 하나의 예로 지금까지 우리가 계속 그려온 전체 취업자를 생각해보자. 취업자 plot에서 봐서 알겠지만 겨울에 떨어졌던 취업자는 3월부터 회복을 시작하여 여름 휴가철에 잠깐 떨어졌다. 겨울이 들어면서 다시 떨어졌다. 하지만 전반적인 추세는 올라가고 있는 것을 볼 수 있다. 그렇다면 월별로 얼마나 올라고 있는 것일까? 겨울에 떨어졌다가 여름에 올라가는 것을 감안한다하더라도 지속적으로 올라가는 것일까? 혹시 예외추세는 없을까? 이런 질문에 지금까지의 취업자 시계열 plot은 잘 대답할 수 있을까?</p>
+<p>답할 수 없다면 계절성을 빼고 데이터를 살펴보자. 그러면 질문의 답이 될 것이다.</p>
+<p><code>forecast</code> 패키지에서는 이렇게 계절성을 제거하는 <code>seasadj()</code>를 제공한다. <code>seasadj()</code>를 사용하면 계절성이 제거된 데이터를 산출해주고 이에 대한 plot을 그리면 계절성이 제거된 데이터를 확인하기가 편리하다.</p>
+<p>아래의 plot이 총취업자수 데이터에서 계절성을 제거한 plot을 보여준다. 2013년 이후로 우리나라의 취업자수는 전반적으로 증가하고 있는 것이 확실히 보인다. 겨울에 줄어들었다 봄부터 늘어나는 계절성을 뺀다해도 계속 증가 추세이다. 다만 plot 뒤쪽에 보이는 급격한 하락의 시작점은 2020년 2월이다. 이때가 코로나19의 시작이었다.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="계절성-검정.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb59-2"><a href="계절성-검정.html#cb59-2" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">decompose</span>() <span class="sc">%&gt;%</span> <span class="fu">seasadj</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="t_files/figure-html/seasadj-1.png" width="672" /></p>
+<p>그렇다면 반대로 계절성을 확실하게 보고싶을땐 어떻게 할까? 예를 들어 앞의 취업자수의 계절성이 정말로 매년 반복되는지 그 차이는 얼마나 되는지를 정확히 살펴보고 싶으면 어떤 plot을 그려야 할까?</p>
+<p>이 경우에도 <code>forecast</code> 패키지에서 제공하는 함수를 사용하면 간단히 해결된다.</p>
+<p><code>ggseasonplot()</code>과 <code>ggsubseriesplot()</code>을 사용할 수 있는데 <code>ggseasonplot()</code>은 시계열 데이터를 연도별로 그룹핑하여 월별 라인 plot을 그려주고 <code>ggsubseriesplot()</code>은 월별로 그룹핑하여 연도별 라인 plot을 그려준다.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="계절성-검정.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggseasonplot</span>(employees.ts[,<span class="dv">2</span>], <span class="at">main =</span> <span class="st">&#39;연도별 월간 plot&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;취업자수&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;월&#39;</span>, <span class="at">year.labels =</span> T)</span></code></pre></div>
+<p><img src="t_files/figure-html/seasonal_plot-1.png" width="672" /></p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="계절성-검정.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsubseriesplot</span>(employees.ts[,<span class="dv">2</span>], <span class="at">main =</span> <span class="st">&#39;월별 연간 plot&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;취업자수&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;월&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/seasonal_plot-2.png" width="672" /></p>
+
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="백색-잡음white-noise.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="정상성-테스트.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="정상성-테스트.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="시계열-forecasting-part-ii-시계열-예측-모델.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

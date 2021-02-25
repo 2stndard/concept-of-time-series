@@ -308,9 +308,13 @@ students %>%
 
 ```{r fitted, echo=FALSE, warning=FALSE, message=FALSE}
 library(ggplot2)
+### 학생수계 열의 선형회귀모형을 생성
 student.ts.lm <- tslm(students.ts[,2] ~ trend, data = students.ts)                   
+### 선형회귀모형에 의한 잔차를 res에 저장
 res <- as.vector(residuals(student.ts.lm))
+### 선형회귀모형에 의한 적합값을 fit에 저장
 fit <- as.vector(fitted(student.ts.lm))
+
 
 ggplot(students, aes(x = 연도, y = 학생수계)) + 
   geom_point() + 
@@ -333,9 +337,9 @@ residuals(student.ts.lm)
 
 ## 백색 잡음(White Noise)
 
-백색 잡음은 시계열적 특성 중에 추세, 계절성, 자기상관성이 제거된 데이터를 말한다. 결국 백색 잡음은 더이상 모델링으로 추상화할 수 없는 시계열 데이터로 그 값을 예측할 수 없고 랜덤하게 발생되는 값들이다. 잘 모델링된 시계열 모델에서 발생된 잔차는 백색 잡음이어야 하기 때문에 오류값이라고 여겨지기도 한다.
+백색 잡음은 시계열적 특성 중에 추세, 계절성, 자기상관성이 모두 제거된 데이터를 말한다. 결국 백색 잡음은 더이상 모델링으로 추상화할 수 없는 시계열 데이터로 그 값을 예측할 수 없고 랜덤하게 발생되는 값들이다. 잘 모델링된 시계열 모델에서 발생된 잔차는 백색 잡음이어야 하기 때문에 오류값이라고 여겨지기도 한다.
 
-백색잡음은 시간의 흐름에 따라 독립적이어야 하며 시간의 변화에 관계없이 평균은 0, 분산은 1로 일정하게 유지된다. 하지만 사실상 정확히 평균 0, 분산 1이 유지되는 것은 아니고 대략 평균 0, 분산 1에서 큰 변화가 없다는 것으로 받아들이는 것이 좋다.
+백색잡음은 시간의 흐름에 따라 영향을 받지 않는 독립적 데이터이어야 하며 시간의 변화에 관계없이 평균은 0, 분산은 1로 일정하게 유지된다. 하지만 사실상 정확히 평균 0, 분산 1이 유지되는 것은 아니고 대략 평균 0, 분산 1에서 큰 변화가 없다는 것으로 받아들이는 것이 좋다.
 
 ```{r whitenoise, echo =FALSE, warning=FALSE, message=FALSE}
 set.seed(345)
@@ -346,15 +350,15 @@ ggAcf(백색잡음)
 
 위의 ACF plot에서 보면 백색 잡음의 모든 lag의 ACF 값이 자기상관계수의 95% 신뢰구간 아래에 있기 때문에 자기 상관이 없다고 판단할 수 있다.
 
-그런데 시각적으로 백색잡음을 판단할 경우 판단하는 사람의 주관적 의견에 따라 백색 잡음 여부를 다르게 판단할 수 있다. 따라서 주어진 데이터가 백색 잡음인지를 수치적으로 판단할 수 있는 방법이 필요한데 이 방법으로 사용하는 것이 Ljung-Box test이다. Ljung-Box test는 자기상관값이 백색잡음과 다른지를 검사하는 방법이다. [^forecasting_i-7]
+하지만 주어진 데이터가 백색잡음인지 아닌지를 결정할때 눈으로 보고 판단한다면 판단하는 사람의 주관적 의견에 따라 백색 잡음 여부를 다르게 판단할 수 있다. 따라서 주어진 데이터가 백색 잡음인지를 수치적으로 판단할 수 있는 방법이 필요한데 이 방법으로 사용하는 것이 Ljung-Box test이다. Ljung-Box test는 자기상관값이 백색잡음과 다른지를 검사하는 방법이다. [^forecasting_i-7]
 
 [^forecasting_i-7]: <https://otexts.com/fpp2/residuals.html>
 
-일반적으로 Ljung-Box test의 결과로 산출되는 Q\*값이 유의미한지를 검사해야하는데 이를 위해 제공하는 값이 p-value이다. p-value가 0.05보다 작다면 우연히 Q\*값이 나올 확률이 미미하기 때문에 유의미하지만 이보다 크면 우연히 발생될 확률이 있기 때문에 유의미하지 않다고 본다. 따라서 유의미하지 않다면(0.05보다 클 때) 해당 시계열의 잔차값은 백색잡음과 다르지 않다고 판단할 수 있다.
+일반적으로 Ljung-Box test의 결과로 산출되는 Q\*값이 유의미한지를 검사해야하는데 이를 위해 제공하는 값이 p-value이다. p-value가 0.05보다 작다면 우연히 Q\*값이 나올 확률이 미미하기 때문에 유의미하지만 이보다 크면 우연히 발생될 확률이 있기 때문에 유의미하지 않다고 본다. 따라서 유의미하지 않다면(0.05보다 클 때) 해당 시계열의 잔차값은 백색잡음과 다르지 않다(백색잡음 이다)고 판단할 수 있다.
 
-Ljung-Box test는 `forecast` 패키지의 `checkresiduals()`를 이용하면 시계열 모델을 통해 산출된 잔차의 plot과 잔차에 대한 결과가 산출되어 출력된다.
+Ljung-Box test는 `forecast` 패키지의 `checkresiduals()`를 이용하면 구할수 있다. `checkresiduals()`는 시계열 모델을 통해 산출된 잔차의 plot과 잔차에 대한 결과를 보여준다.
 
-아래의 예제는 `fpp2` 패키지에서 제공하는 구글의 주식 종가 데이터를 `forecast` 패키지에서 제공하는 `naive()` 모델링한 결과의 잔차를 `checkresiduals()` 함수에 적용한 결과를 보이고 있다. 결과 plot의 잔차 ACF plot의 자기상관계수는 모두 95% 신뢰구간 아래에 위치하므로 자기상관성이 없다고 볼 수 있고 잔차의 분포도 하나의 이상치를 제외하면 백색잡음과 유사한 패턴을 보이고 있다. 마지막으로 잔차에 대한 Ljung-Box test 결과를 보면 p-value가 0.05보다 큰 0.3551이기 때문에 잔차의 분포는 백색잡음과 다르지 않다고 판단할 수 있다.
+아래의 예제는 `fpp2` 패키지에서 제공하는 구글의 주식 종가 데이터를 `forecast` 패키지에서 제공하는 `naive()` 모델링한 결과의 잔차를 `checkresiduals()` 함수에 적용한 결과를 보이고 있다. 잔차의 자기상관 plot(ACF plot)의 자기상관계수는 모두 95% 신뢰구간 아래에 위치하므로 자기상관성이 없다고 볼 수 있고 잔차의 분포도 하나의 이상치를 제외하면 백색잡음과 유사한 패턴을 보이고 있다. 마지막으로 잔차에 대한 Ljung-Box test 결과를 보면 p-value가 0.05보다 큰 0.3551이기 때문에 잔차의 분포는 백색잡음과 다르지 않다고 판단할 수 있다.
 
 ```{r checkresiduals}
 library(forecast)
@@ -364,48 +368,144 @@ checkresiduals(naive(goog200))
 
 ## 시계열 분해(Decomposition)
 
-앞에서 계속 언급했던 시계열 특성인 추세(Trend), 계절성(Seasonality), 자기상관성(Autocorelation) 중에 자기상관성은 `ACF()`, `PACF()`를 사용하여 확인할 수 있는 방법을 설명하였다. 그렇다면 추세와 계절성은 어떻게 확인할 수 있는가? 몇몇 패키지에서는 시계열 데이터에서 추세와 계절성을 분해하여 볼 함수를 제공한다. R의 기본 패키지인 `stats` 패키지에서 `decompose()`, `stl()` , `seasonal` 패키지의 `seas()` 함수를 통해 시계열을 trend, seasonality, 잔차 등으로 분리하여 ploting 할 수 있다. 각각의 함수는 시계열 decomposition 알고리즘의 차이로 인해 약간씩 결과가 다르게 나타난다.
+1장에서 시계열 데이터의 특성으로 추세(Trend), 계절성(Seasonality), 자기상관성(Autocorelation)을 설명하였다. 이 중 자기상관성을 확인하기 위해 `ACF()`, `PACF()`를 사용해서 확인했다.
 
-```{r decomposition}
-ts(employees$employees.edu, start = c(2013, 01), frequency = 12) %>%
+그렇다면 추세와 계절성은 어떻게 확인할 수 있을까?
+
+몇몇 패키지에서는 시계열 데이터에서 추세와 계절성을 추출해서 plot으로 제공하는 함수를 제공한다. 를 제공하고 `seasonal` 패키지의 `seas()` 함수를 통해 주어진 시계열 데이터의 추세, 계절성, 잔차에 관한 상세한 plot을 볼 수 있다. 각각의 함수는 시계열 데이터를 분해(decomposition)하는 알고리즘의 차이로 인해 약간씩 결과가 다르게 나타난다.
+
+시계열 데이터를 분해하는 방법은 크게 덧셈방법(additive)과 곱셈방법(multiplicative)의 두가지가 있다.
+
+덧셈방법으로 분해되는 데이터는 추세에 따라 계절성의 변화량이 비교적 일정하게 유지되는 경우이며 곱셈방법으로 분해되는 데이터는 추세에 따른 계절성의 변화량이 증가 또는 감소하는 경우이다. 아래의 예를 보면 덧셈방법의 plot은 전반적으로 증가하는 추세가 보이지만 추세에 따라 변동되는 계절성의 진폭이 거의 일정하게 유지된다. 반면 곱셈방법의 plot은 추세가 증가하면서 계절성의 진폭도 증가하는 것을 눈으로 확인할 수 있다.
+
+```{r decompose_add_multi, echo=FALSE, message=FALSE, warning=FALSE}
+library(fpp2)
+par(mfrow = c(1, 2))
+data(ausbeer)
+plot.ts(head(ausbeer, 64), main = '시계열 분해 : 덧셈방법 예', xlab = '', ylab = '')
+?plot.ts
+data("AirPassengers")
+plot(AirPassengers, main = '시계열 분해 : 곱셈방법 예', xlab = '', ylab = '')
+par(mfrow = c(1, 1))
+```
+
+덧셈방법은 특정 시점의 데이터 원본 값을 같은 시점의 추세값, 계절성값, 잔차값을 모두 더하여 계산하고 곱셈방법은 특정 시점의 데이터 원본 값을 추세값, 계절성값, 잔차값을 모두곱해서 계산한다. 아래의 plot은 월별 데이터인 전체 취업자수를 `decompose()`를 사용하여 분해한 plot인데 덧셈(additive) 방법과 곱셈(multiplicative) 방법을 각각 적용한 결과이다.
+
+![](decomadd.jpg)
+
+![](decommulti.jpg)
+
+ts 객체로 저장된 시계열 데이터의 시계열성 분해에는 R의 기본 패키지인 `stats` 패키지에서 `decompose()`, `stl()` 을 사용할 수 있다. `decompose()`는 이동평균 방법을 통해 추세(trend), 계절성(seasonality), 잔차(remainder)로 분해하는데 분해하는 방법으로
+
+아래의 코드에서 보면 연도별 학생수계의 시계열성을 분해하는 코드에서는 오류가 발생한다. 그 이유는 계절성은 연도별 데이터에서는 찾아낼 수 없기 때문이다.
+
+```{r decomposition, error=TRUE}
+### 학생수계는 년별 데이터이기 때문에 계절성을 추출할 수 없음.  
+students.ts[, 2] %>%
   decompose() %>% autoplot()
+```
 
-ts(employees$employees.edu, start = c(2013, 01), frequency = 12) %>%
+다음은 앞서 `decompse()`로 분해했던 전체 취업자수를 stl()을 사용하여 분해하는 방법이다. `stl()`은 'Seasonal and Trend decomposition using Loess'의 준말이다. Loess는 비선형에는 회귀에서 주로 사용하는 방법으로 `stl()`은 t.window와 `s.window`를 사용하여 추세의 주기와 계절성의 주기를 설정할 수 있다는 장점이 있다. `s.window`의 값은 'periodic'이나 계절 추출을 위한 홀수 숫자의 lag 갯수를 지정해야하는데 7을 넘을 수 없다는 제한이 있다.
+
+```{r decompose_stl}
+### 취업자수를 stl()을 사용하여 분해  
+employees.ts[,2] %>%
   stl(s.window = 'periodic') %>% autoplot()
+```
 
-ts(employees$employees.edu, start = c(2013, 01), frequency = 12) %>%
-  seasonal::seas() %>% autoplot()
+하지만 단점으로 곱셈방법을 지원하지 못하는 단점이 있다. 이를 해결하기 위해 원본 데이터에 log를 취하면 진폭이 일정해져서 뎃셈 방법으로 분해하고 다시 지수를 취해 원본데이터로 복귀시키는 방법을 사용할 수 있다.
 
-ts(employees$employees.edu, start = c(2013, 01), frequency = 12) %>%
-  seasonal::seas(x11 = '') %>% autoplot()
+```{r decompose_stl_log}
+par(mfrow = c(1, 2))
+plot(AirPassengers, main = '시계열 분해 : stl', xlab = '', ylab = 'data')
+plot(log(AirPassengers), main = '시계열 분해 : stl곱셈방법(log 사용)', xlab = '', ylab = 'log(data)')
+par(mfrow = c(1, 1))
 ```
 
 ## 정상성 테스트
 
+백색잡음을 설명할 때 눈으로 확인하기 어려운 백색잡음 여부를 확인하기 위해 Ljung-Box test를 시행한다고 하였다. 이와 같이 주어진 데이터가 정상성인지 비정상성인지를 검사하는 방법이 몇개 더 있는데 이 방법들을 단위근 검정(Unit Root test)이라고 한다. 단위근 검정은 차분을 통해 정상성 시계열이 가능한지 여부를 검사하는 방법이다. 단위근 검정의 방법으로 `urca` 패키지의 `ur.kpss()`를 소개한다.
+
+`ur.kpss()` 는 귀무가설을 "시계열이 정상성(stationary)이다", 대립가설을 "시계열이 비정상 시계열(non stationary)이다"로 설정하고 이를 검정하는 방법이다. 즉 검정통계량(test-statistics)이 유의수준 5%p(0.05)의 임계치보다 작으면 귀무가설을 채택하여 정상성으로 판단하고 크면 귀무가설을 기각하고 대립가설인 비정상성으로 판단할 수 있는 것이다 .
+
 ```{r stationary_test}
-library(tseries)
-Box.test (ts(employees$employees.edu, start = c(2013, 01), frequency = 12), lag = 1, type = "Ljung") #p-value가 0.05보다 작으면 비정상성
-adf.test(ts(employees$employees.edu, start = c(2013, 01), frequency = 12)) # p-value 0.05보다 작으면 정상성
-kpss.test(ts(employees$employees.edu, start = c(2013, 01), frequency = 12))
-# p-value가 0.05보다 작으면 비정상성
+library(urca)
+employees.ts[,2] %>% ur.kpss() %>% summary()
 ```
 
-## 계절성 ploting과 테스트
+::: {.comment style="color: DarkBlue;"}
+-   결과 해석
+
+    -   KPSS Unit Root Test의 검정 통계치는 1.9226임
+
+    -   유의 수준(significance level)의 임계치가 4가지 나오는데 이 중 많이 사용되는 유의수준인 5%p(p value 0.05)의 임계치가 0.463임
+
+    -   검정통계치가 유의수준 5%p보다 크기 때문에(1.9226 \> 0.463) 귀무가설인 '정상성'을 기각하고 대립가설인 '비정성성'을 채택하므로 비정상성 데이터임
+:::
+
+KPSS 검정법은 단위근 검정 방법이기 때문에 비정상 시계열이 단위근을 포함하는 것을 정상성 판단의 근거로 삼는다. 따라서 KPSS에서 판단한 비정상성 시계열 데이터를 정상성으로 만들기 위해서는 차분이 필요하다. `forecast` 패키지에서 제공하는 `nsdiffs()`는 정상성을 가지기 위해서 몇 번의 차분이 필요한지를 알려준다. 결국 KPSS에서 비정상성이라고 판단되면 `nsdiffs()`를 사용하여 몇번 차분이 필요한지 알아내고 차분을 해주면 비정상 시계열이 된다.
+
+```{r}
+### nsdiffs()로 몇번의 차분이 필요한지 검사 - 1번의 차분이 필요함
+forecast::nsdiffs(employees.ts[,2], alpha = 0.05)
+### 한번 차분한 결과에 대한 KPSS 테스트 시행
+diff(employees.ts[,2]) %>% ur.kpss() %>% summary()
+```
+
+::: {.comment style="color: DarkBlue;"}
+-   결과 해석
+
+    -   1차 차분한 데이터의 KPSS Unit Root Test의 검정 통계치는 0.1348임
+
+    -   유의 수준(significance level)의 임계치 중 유의수준인 5%p(p value 0.05)의 임계치가 0.463임
+
+    -   검정통계치가 유의수준 5%p보다 작기 때문에(0.134\<0.463) 귀무가설인 '정상성'을 채택하므로 1차 차분한 데이터는 정상성 시계열 데이터임
+:::
+
+## 계절성 검정
+
+앞에서는 정상성을 테스트하기 위한 방법을 살펴보았다. 그렇다면 계절성이 있는지 없는지는 어떻게 알수 있을까? 이에 대한 검정 방법도 존재한다.
+
+계절성 검정을 위해 많이 사용되는 방법이 WO(Webel-Ollech) 테스트이다. `seastests` 패키지에서 제공하는 함수로 QS-test와 kwman-test를 혼합하여 계절성을 판단한다. `wo()`는 `qs()`의 p value가 0.01보다 작거나 `kw()`이 결과가 0.002보다 작다면 계절성이 있다고 판단한다.
+
+`wo()`는 앞선 `ur.kpss()`나 `box.test()`와는 달리 명확하게 계절성이 있는지 없는지를 알려준다.(`ur.kpss()`나 `box.test()`도 이렇게 해주면 얼마나 좋을까.맨날 헤깔린다.)
 
 ```{r message=FALSE, warning=FALSE}
 library(seastests)
+### 총학생수계는 년별 데이터이므로 계절성이 존재할수 없다.
+summary(wo(students.ts[,2]))
+
+### 총 취업자수는 계절성이 존재하는지 검사
 summary(wo(employees.ts[,2]))
-summary(wo(employees.ts[,2]))
-nsdiffs(employees.ts[,2])   ### seasonality를 제거하기 위해 필요한 차분수
+forecast::nsdiffs(employees.ts[,2])   ### seasonality를 제거하기 위해 필요한 차분수
+### 교육서비스업 취업자 수의 계절성 검사
 summary(wo(employees.ts[,3]))
 ```
 
-```{r seasonal_plot}
-ggseasonplot(employees.ts[,2])
-ggsubseriesplot(employees.ts[,2])
-```
+위에서 살펴본 계절성은 데이터의 해석에 방해되는 경우들이 있다.
+
+예를 들자면 우리는 지금 지구온난화의 시대에 살고 있다고 한다. 지구의 평균 온도가 계속 올라가고 있다고 한다. 그런데 우리의 데이터는 여름엔 기온이 올라가고 겨울엔 기온이 떨어지기를 반복한다. 이 패턴을 자세히 보면 추세를 볼수 있을테니 전반적으로 올라가거나 떨어지는 것을 확인할 수 있을 것이다. 하지만 지난 여름보다 올 여름은 얼마나 올라갔으며 지난 겨울보다 올 겨울은 얼마나 떨어진 것일까? 이러한 분석을 하기 위해서는 여름의 기온 상승과 겨울의 기온 하락 계절성은 다소 방해적 요소임에는 확실하다.
+
+또 하나의 예로 지금까지 우리가 계속 그려온 전체 취업자를 생각해보자. 취업자 plot에서 봐서 알겠지만 겨울에 떨어졌던 취업자는 3월부터 회복을 시작하여 여름 휴가철에 잠깐 떨어졌다. 겨울이 들어면서 다시 떨어졌다. 하지만 전반적인 추세는 올라가고 있는 것을 볼 수 있다. 그렇다면 월별로 얼마나 올라고 있는 것일까? 겨울에 떨어졌다가 여름에 올라가는 것을 감안한다하더라도 지속적으로 올라가는 것일까? 혹시 예외추세는 없을까? 이런 질문에 지금까지의 취업자 시계열 plot은 잘 대답할 수 있을까?
+
+답할 수 없다면 계절성을 빼고 데이터를 살펴보자. 그러면 질문의 답이 될 것이다.
+
+`forecast` 패키지에서는 이렇게 계절성을 제거하는 `seasadj()`를 제공한다. `seasadj()`를 사용하면 계절성이 제거된 데이터를 산출해주고 이에 대한 plot을 그리면 계절성이 제거된 데이터를 확인하기가 편리하다.
+
+아래의 plot이 총취업자수 데이터에서 계절성을 제거한 plot을 보여준다. 2013년 이후로 우리나라의 취업자수는 전반적으로 증가하고 있는 것이 확실히 보인다. 겨울에 줄어들었다 봄부터 늘어나는 계절성을 뺀다해도 계속 증가 추세이다. 다만 plot 뒤쪽에 보이는 급격한 하락의 시작점은 2020년 2월이다. 이때가 코로나19의 시작이었다.
 
 ```{r seasadj}
 library(forecast)
-seasadj(decompose(employees.ts[,2])) %>% autoplot()
+employees.ts[,2] %>% decompose() %>% seasadj() %>% autoplot()
+```
+
+그렇다면 반대로 계절성을 확실하게 보고싶을땐 어떻게 할까? 예를 들어 앞의 취업자수의 계절성이 정말로 매년 반복되는지 그 차이는 얼마나 되는지를 정확히 살펴보고 싶으면 어떤 plot을 그려야 할까?
+
+이 경우에도 `forecast` 패키지에서 제공하는 함수를 사용하면 간단히 해결된다.
+
+`ggseasonplot()`과 `ggsubseriesplot()`을 사용할 수 있는데 `ggseasonplot()`은 시계열 데이터를 연도별로 그룹핑하여 월별 라인 plot을 그려주고 `ggsubseriesplot()`은 월별로 그룹핑하여 연도별 라인 plot을 그려준다.
+
+```{r seasonal_plot}
+ggseasonplot(employees.ts[,2], main = '연도별 월간 plot', ylab = '취업자수', xlab = '월', year.labels = T)
+ggsubseriesplot(employees.ts[,2], main = '월별 연간 plot', ylab = '취업자수', xlab = '월')
 ```

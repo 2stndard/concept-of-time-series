@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.2 지연(Lag)와 차분(Difference) | Untitled</title>
   <meta name="description" content="5.2 지연(Lag)와 차분(Difference) | Untitled" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.2 지연(Lag)와 차분(Difference) | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-25" />
+<meta name="date" content="2021-02-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="정상성stationary-비정상성non-stationary.html"/>
 <link rel="next" href="acf와-pacf.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -205,7 +205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
 <li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
 <li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
-<li class="chapter" data-level="5.8" data-path="계절성-ploting과-테스트.html"><a href="계절성-ploting과-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 ploting과 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-검정.html"><a href="계절성-검정.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 검정</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
 <ul>
@@ -323,12 +323,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p><code>timetk</code> 패키지에서도 <code>lag()</code> 함수와 유사한 함수인 lag_vec() 함수를 제공한다.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="지연lag와-차분difference.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(timetk)</span>
-<span id="cb3-2"><a href="지연lag와-차분difference.html#cb3-2" aria-hidden="true" tabindex="-1"></a>students <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="지연lag와-차분difference.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag1 =</span> <span class="fu">lag_vec</span>(학생수계, <span class="at">lag =</span> <span class="dv">1</span>), </span>
-<span id="cb3-4"><a href="지연lag와-차분difference.html#cb3-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">lag3 =</span> <span class="fu">lag_vec</span>(학생수계, <span class="at">lag =</span> <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="지연lag와-차분difference.html#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(연도, 학생수계, lag1, lag3) <span class="sc">%&gt;%</span></span>
-<span id="cb3-6"><a href="지연lag와-차분difference.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="지연lag와-차분difference.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(timetk)</span></code></pre></div>
+<pre><code>## Warning: package &#39;timetk&#39; was built under R version 4.0.3</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="지연lag와-차분difference.html#cb5-1" aria-hidden="true" tabindex="-1"></a>students <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="지연lag와-차분difference.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag1 =</span> <span class="fu">lag_vec</span>(학생수계, <span class="at">lag =</span> <span class="dv">1</span>), </span>
+<span id="cb5-3"><a href="지연lag와-차분difference.html#cb5-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">lag3 =</span> <span class="fu">lag_vec</span>(학생수계, <span class="at">lag =</span> <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="지연lag와-차분difference.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(연도, 학생수계, lag1, lag3) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="지연lag와-차분difference.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 4
 ##    연도       학생수계    lag1    lag3
 ##    &lt;date&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -352,7 +353,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p><code>xts</code> 클래스의 객체도 <code>lag()</code> 함수를 동일하게 적용할 수 있다.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="지연lag와-차분difference.html#cb5-1" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">lag</span>(students.xts<span class="sc">$</span>학생수계, <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="지연lag와-차분difference.html#cb7-1" aria-hidden="true" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">lag</span>(students.xts<span class="sc">$</span>학생수계, <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##            학생수계
 ## 1999-01-01       NA
 ## 2000-01-01  8658358
@@ -370,13 +371,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>차분은 연속된 관찰값들간의 차이를 말한다. 비정상성 시계열 데이터를 정상성으로 만드는데 일반적으로 사용되는 방법으로 전년대비 증감량, 전월대비 증감량과 같이 특정한 시간 간격의 데이터와의 차이값을 나타낸다.</p>
 <p><img src="diff.jpg" /></p>
 <p>차분은 <code>diff()</code> 함수를 사용하여 간단히 구할 수 있고 앞의 <code>lag()</code>함수로 산출된 lag 벡터와의 연산을 통해서도 구할 수 있다. <code>diff()</code> 함수를 사용할 때 주의해야 할 점은 <code>diff()</code> 함수 결과 벡터는 원 데이터 벡터에 비해 lag만큼 데이터가 적다는 것이다. <code>diff()</code> 함수는 lag 만큼 데이터를 shift 시켜서 shift된 자리에서부터 마지막 데이터까지 연산을 하기 때문에 데이터가 적다. 따라서 이를 원래 데이터와 붙이기 위해서는 lag로 shift된 만큼 적절한 값을 채워줘야한다. 반면 lag 함수는 lag 만큼 shift된 자리에 NA를 채워준다.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="지연lag와-차분difference.html#cb7-1" aria-hidden="true" tabindex="-1"></a>students <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="지연lag와-차분difference.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag1 =</span> <span class="fu">lag</span>(학생수계, <span class="dv">1</span>), </span>
-<span id="cb7-3"><a href="지연lag와-차분difference.html#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">lag3 =</span> <span class="fu">lag</span>(학생수계, <span class="dv">3</span>), </span>
-<span id="cb7-4"><a href="지연lag와-차분difference.html#cb7-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">diff1 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">diff</span>(학생수계, <span class="at">lag =</span> <span class="dv">1</span>)), </span>
-<span id="cb7-5"><a href="지연lag와-차분difference.html#cb7-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">diff3 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="fu">diff</span>(학생수계, <span class="at">lag =</span> <span class="dv">3</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb7-6"><a href="지연lag와-차분difference.html#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(연도, 학생수계, lag1, diff1, lag3, diff3) <span class="sc">%&gt;%</span></span>
-<span id="cb7-7"><a href="지연lag와-차분difference.html#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="지연lag와-차분difference.html#cb9-1" aria-hidden="true" tabindex="-1"></a>students <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="지연lag와-차분difference.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag1 =</span> <span class="fu">lag</span>(학생수계, <span class="dv">1</span>), </span>
+<span id="cb9-3"><a href="지연lag와-차분difference.html#cb9-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">lag3 =</span> <span class="fu">lag</span>(학생수계, <span class="dv">3</span>), </span>
+<span id="cb9-4"><a href="지연lag와-차분difference.html#cb9-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">diff1 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">diff</span>(학생수계, <span class="at">lag =</span> <span class="dv">1</span>)), </span>
+<span id="cb9-5"><a href="지연lag와-차분difference.html#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">diff3 =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="fu">diff</span>(학생수계, <span class="at">lag =</span> <span class="dv">3</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="지연lag와-차분difference.html#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(연도, 학생수계, lag1, diff1, lag3, diff3) <span class="sc">%&gt;%</span></span>
+<span id="cb9-7"><a href="지연lag와-차분difference.html#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 6
 ##    연도       학생수계    lag1   diff1    lag3   diff3
 ##    &lt;date&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -402,11 +403,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p><code>timetk</code> 패키지에서도 <code>diff()</code> 함수와 유사한 함수인 <code>diff_vec()</code> 함수를 제공한다. <code>diff_vec()</code> lag 크기만큼의 빈자리를 NA로 채워원본 데이터와 동일한 길이의 벡터를 반환한다.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="지연lag와-차분difference.html#cb9-1" aria-hidden="true" tabindex="-1"></a>students <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="지연lag와-차분difference.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff1 =</span> <span class="fu">diff_vec</span>(학생수계, <span class="at">lag =</span> <span class="dv">1</span>), </span>
-<span id="cb9-3"><a href="지연lag와-차분difference.html#cb9-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">diff3 =</span> <span class="fu">diff_vec</span>(학생수계, <span class="at">lag =</span> <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="지연lag와-차분difference.html#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(연도, 학생수계, diff1, diff3) <span class="sc">%&gt;%</span></span>
-<span id="cb9-5"><a href="지연lag와-차분difference.html#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="지연lag와-차분difference.html#cb11-1" aria-hidden="true" tabindex="-1"></a>students <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="지연lag와-차분difference.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff1 =</span> <span class="fu">diff_vec</span>(학생수계, <span class="at">lag =</span> <span class="dv">1</span>), </span>
+<span id="cb11-3"><a href="지연lag와-차분difference.html#cb11-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">diff3 =</span> <span class="fu">diff_vec</span>(학생수계, <span class="at">lag =</span> <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="지연lag와-차분difference.html#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(연도, 학생수계, diff1, diff3) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="지연lag와-차분difference.html#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 4
 ##    연도       학생수계   diff1   diff3
 ##    &lt;date&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -430,7 +431,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p><code>xts</code> 클래스 객체도 <code>diff()</code> 함수를 동일하게 적용할 수있다.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="지연lag와-차분difference.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(students.xts<span class="sc">$</span>학생수계, <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="지연lag와-차분difference.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(students.xts<span class="sc">$</span>학생수계, <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##            학생수계
 ## 1999-01-01       NA
 ## 2000-01-01  -122491

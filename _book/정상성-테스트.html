@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.7 정상성 테스트 | Untitled</title>
   <meta name="description" content="5.7 정상성 테스트 | Untitled" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.7 정상성 테스트 | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-25" />
+<meta name="date" content="2021-02-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +32,8 @@
   
   
 <link rel="prev" href="시계열-분해decomposition.html"/>
-<link rel="next" href="계절성-ploting과-테스트.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<link rel="next" href="계절성-검정.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -205,7 +205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
 <li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
 <li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
-<li class="chapter" data-level="5.8" data-path="계절성-ploting과-테스트.html"><a href="계절성-ploting과-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 ploting과 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-검정.html"><a href="계절성-검정.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 검정</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
 <ul>
@@ -289,33 +289,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="정상성-테스트" class="section level2" number="5.7">
 <h2><span class="header-section-number">5.7</span> 정상성 테스트</h2>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="정상성-테스트.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span></code></pre></div>
+<p>백색잡음을 설명할 때 눈으로 확인하기 어려운 백색잡음 여부를 확인하기 위해 Ljung-Box test를 시행한다고 하였다. 이와 같이 주어진 데이터가 정상성인지 비정상성인지를 검사하는 방법이 몇개 더 있는데 이 방법들을 단위근 검정(Unit Root test)이라고 한다. 단위근 검정은 차분을 통해 정상성 시계열이 가능한지 여부를 검사하는 방법이다. 단위근 검정의 방법으로 <code>urca</code> 패키지의 <code>ur.kpss()</code>를 소개한다.</p>
+<p><code>ur.kpss()</code> 는 귀무가설을 “시계열이 정상성(stationary)이다,” 대립가설을 “시계열이 비정상 시계열(non stationary)이다”로 설정하고 이를 검정하는 방법이다. 즉 검정통계량(test-statistics)이 유의수준 5%p(0.05)의 임계치보다 작으면 귀무가설을 채택하여 정상성으로 판단하고 크면 귀무가설을 기각하고 대립가설인 비정상성으로 판단할 수 있는 것이다 .</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="정상성-테스트.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(urca)</span>
+<span id="cb45-2"><a href="정상성-테스트.html#cb45-2" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">ur.kpss</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>## 
-##     &#39;tseries&#39; version: 0.10-47
+## ####################### 
+## # KPSS Unit Root Test # 
+## ####################### 
 ## 
-##     &#39;tseries&#39; is a package for time series analysis and computational finance.
+## Test is of type: mu with 3 lags. 
 ## 
-##     See &#39;library(help=&quot;tseries&quot;)&#39; for details.</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="정상성-테스트.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Box.test</span> (<span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>), <span class="at">lag =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;Ljung&quot;</span>) <span class="co">#p-value가 0.05보다 작으면 비정상성</span></span></code></pre></div>
+## Value of test-statistic is: 1.9226 
+## 
+## Critical value for a significance level of: 
+##                 10pct  5pct 2.5pct  1pct
+## critical values 0.347 0.463  0.574 0.739</code></pre>
+<div class="comment" style="color: DarkBlue;">
+<ul>
+<li><p>결과 해석</p>
+<ul>
+<li><p>KPSS Unit Root Test의 검정 통계치는 1.9226임</p></li>
+<li><p>유의 수준(significance level)의 임계치가 4가지 나오는데 이 중 많이 사용되는 유의수준인 5%p(p value 0.05)의 임계치가 0.463임</p></li>
+<li><p>검정통계치가 유의수준 5%p보다 크기 때문에(1.9226 &gt; 0.463) 귀무가설인 ’정상성’을 기각하고 대립가설인 ’비정성성’을 채택하므로 비정상성 데이터임</p></li>
+</ul></li>
+</ul>
+</div>
+<p>KPSS 검정법은 단위근 검정 방법이기 때문에 비정상 시계열이 단위근을 포함하는 것을 정상성 판단의 근거로 삼는다. 따라서 KPSS에서 판단한 비정상성 시계열 데이터를 정상성으로 만들기 위해서는 차분이 필요하다. <code>forecast</code> 패키지에서 제공하는 <code>nsdiffs()</code>는 정상성을 가지기 위해서 몇 번의 차분이 필요한지를 알려준다. 결국 KPSS에서 비정상성이라고 판단되면 <code>nsdiffs()</code>를 사용하여 몇번 차분이 필요한지 알아내고 차분을 해주면 비정상 시계열이 된다.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="정상성-테스트.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">### nsdiffs()로 몇번의 차분이 필요한지 검사 - 1번의 차분이 필요함</span></span>
+<span id="cb47-2"><a href="정상성-테스트.html#cb47-2" aria-hidden="true" tabindex="-1"></a>forecast<span class="sc">::</span><span class="fu">nsdiffs</span>(employees.ts[,<span class="dv">2</span>], <span class="at">alpha =</span> <span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="정상성-테스트.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 한번 차분한 결과에 대한 KPSS 테스트 시행</span></span>
+<span id="cb49-2"><a href="정상성-테스트.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(employees.ts[,<span class="dv">2</span>]) <span class="sc">%&gt;%</span> <span class="fu">ur.kpss</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>## 
-## 	Box-Ljung test
+## ####################### 
+## # KPSS Unit Root Test # 
+## ####################### 
 ## 
-## data:  ts(employees$employees.edu, start = c(2013, 1), frequency = 12)
-## X-squared = 73.43, df = 1, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="정상성-테스트.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(<span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>)) <span class="co"># p-value 0.05보다 작으면 정상성</span></span></code></pre></div>
-<pre><code>## 
-## 	Augmented Dickey-Fuller Test
+## Test is of type: mu with 3 lags. 
 ## 
-## data:  ts(employees$employees.edu, start = c(2013, 1), frequency = 12)
-## Dickey-Fuller = -1.6888, Lag order = 4, p-value = 0.7051
-## alternative hypothesis: stationary</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="정상성-테스트.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(<span class="fu">ts</span>(employees<span class="sc">$</span>employees.edu, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">01</span>), <span class="at">frequency =</span> <span class="dv">12</span>))</span></code></pre></div>
-<pre><code>## 
-## 	KPSS Test for Level Stationarity
+## Value of test-statistic is: 0.1348 
 ## 
-## data:  ts(employees$employees.edu, start = c(2013, 1), frequency = 12)
-## KPSS Level = 0.66909, Truncation lag parameter = 3, p-value = 0.01636</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="정상성-테스트.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># p-value가 0.05보다 작으면 비정상성</span></span></code></pre></div>
+## Critical value for a significance level of: 
+##                 10pct  5pct 2.5pct  1pct
+## critical values 0.347 0.463  0.574 0.739</code></pre>
+<div class="comment" style="color: DarkBlue;">
+<ul>
+<li><p>결과 해석</p>
+<ul>
+<li><p>1차 차분한 데이터의 KPSS Unit Root Test의 검정 통계치는 0.1348임</p></li>
+<li><p>유의 수준(significance level)의 임계치 중 유의수준인 5%p(p value 0.05)의 임계치가 0.463임</p></li>
+<li><p>검정통계치가 유의수준 5%p보다 작기 때문에(0.134&lt;0.463) 귀무가설인 ’정상성’을 채택하므로 1차 차분한 데이터는 정상성 시계열 데이터임</p></li>
+</ul></li>
+</ul>
+</div>
 </div>
             </section>
 
@@ -323,7 +350,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="시계열-분해decomposition.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="계절성-ploting과-테스트.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="계절성-검정.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
