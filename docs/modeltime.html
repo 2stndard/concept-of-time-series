@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7.3 modeltime | Untitled</title>
+  <meta name="description" content="7.3 modeltime | Untitled" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7.3 modeltime | Untitled" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7.3 modeltime | Untitled" />
+  
+  
+  
+
+<meta name="author" content="이기준" />
+
+
+<meta name="date" content="2021-02-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="fable-framework.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="시계열-데이터란.html"><a href="시계열-데이터란.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?</a></li>
+<li class="chapter" data-level="1.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html"><i class="fa fa-check"></i><b>1.2</b> 시계열 데이터의 특성</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
+<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.3" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 타입 및 Import</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 데이터 클래스</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#date-클래스"><i class="fa fa-check"></i><b>2.1.1</b> date 클래스</a></li>
+<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-data-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt data class</a></li>
+<li class="chapter" data-level="2.1.3" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#yearmon-yearqtr-class"><i class="fa fa-check"></i><b>2.1.3</b> yearmon, yearqtr class</a></li>
+<li class="chapter" data-level="2.1.4" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#날짜-시간-포맷"><i class="fa fa-check"></i><b>2.1.4</b> 날짜, 시간 포맷</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html"><i class="fa fa-check"></i><b>2.2</b> 시계열 데이터 객체(Object)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html#ts-r-basestats"><i class="fa fa-check"></i><b>2.2.1</b> ts : R base(stats)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html#xts"><i class="fa fa-check"></i><b>2.2.2</b> xts</a></li>
+<li class="chapter" data-level="2.2.3" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html#tsibble"><i class="fa fa-check"></i><b>2.2.3</b> tsibble</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html"><i class="fa fa-check"></i><b>2.3</b> 시계열 데이터 Import</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#엑셀-파일"><i class="fa fa-check"></i><b>2.3.1</b> 엑셀 파일</a></li>
+<li class="chapter" data-level="2.3.2" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#csv-파일"><i class="fa fa-check"></i><b>2.3.2</b> CSV 파일</a></li>
+<li class="chapter" data-level="2.3.3" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#추가-실습-데이터-생성"><i class="fa fa-check"></i><b>2.3.3</b> 추가 실습 데이터 생성</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="시계열-visualization.html"><a href="시계열-visualization.html"><i class="fa fa-check"></i><b>3</b> 시계열 Visualization</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-frame-ggplot2-패키지.html"><a href="data-frame-ggplot2-패키지.html"><i class="fa fa-check"></i><b>3.1</b> data.frame : ggplot2 패키지</a></li>
+<li class="chapter" data-level="3.2" data-path="xts-xts-패키지.html"><a href="xts-xts-패키지.html"><i class="fa fa-check"></i><b>3.2</b> xts : xts 패키지</a></li>
+<li class="chapter" data-level="3.3" data-path="ts-forecast-패키지.html"><a href="ts-forecast-패키지.html"><i class="fa fa-check"></i><b>3.3</b> ts : forecast 패키지</a></li>
+<li class="chapter" data-level="3.4" data-path="tsibble-feasts-패키지.html"><a href="tsibble-feasts-패키지.html"><i class="fa fa-check"></i><b>3.4</b> tsibble : feasts 패키지</a></li>
+<li class="chapter" data-level="3.5" data-path="data-frame-timetk-패키지.html"><a href="data-frame-timetk-패키지.html"><i class="fa fa-check"></i><b>3.5</b> data.frame : timetk 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="오늘-몇일이야-시간-정보-추출.html"><a href="오늘-몇일이야-시간-정보-추출.html"><i class="fa fa-check"></i><b>4.1</b> 오늘 몇일이야? : 시간 정보 추출</a></li>
+<li class="chapter" data-level="4.2" data-path="몇일-지났어-시간-기간-연산.html"><a href="몇일-지났어-시간-기간-연산.html"><i class="fa fa-check"></i><b>4.2</b> 몇일 지났어? : 시간 기간 연산</a></li>
+<li class="chapter" data-level="4.3" data-path="이번주-마지막날은-몇일이야-시간-반올림.html"><a href="이번주-마지막날은-몇일이야-시간-반올림.html"><i class="fa fa-check"></i><b>4.3</b> 이번주 마지막날은 몇일이야? : 시간 반올림</a></li>
+<li class="chapter" data-level="4.4" data-path="주간-월간-데이터-합계-평균은-시간-grouping.html"><a href="주간-월간-데이터-합계-평균은-시간-grouping.html"><i class="fa fa-check"></i><b>4.4</b> 주간, 월간 데이터 합계, 평균은? : 시간 Grouping</a></li>
+<li class="chapter" data-level="4.5" data-path="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC</a></li>
+<li class="chapter" data-level="4.6" data-path="일-평균-5일-합계는-시간-rolling.html"><a href="일-평균-5일-합계는-시간-rolling.html"><i class="fa fa-check"></i><b>4.6</b> 3일 평균, 5일 합계는? : 시간 Rolling</a></li>
+<li class="chapter" data-level="4.7" data-path="지난달-데이터는-시간-filteringsubsetting.html"><a href="지난달-데이터는-시간-filteringsubsetting.html"><i class="fa fa-check"></i><b>4.7</b> 지난달 데이터는? : 시간 Filtering(Subsetting)</a></li>
+<li class="chapter" data-level="4.8" data-path="월별-분기별-연별-증감량.html"><a href="월별-분기별-연별-증감량.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 증감량</a></li>
+<li class="chapter" data-level="4.9" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.9</b> 월 비중 백분율, 연 비중 백분율</a></li>
+<li class="chapter" data-level="4.10" data-path="월별-분기별-연별-누적합계.html"><a href="월별-분기별-연별-누적합계.html"><i class="fa fa-check"></i><b>4.10</b> 월별, 분기별, 연별 누적합계</a></li>
+<li class="chapter" data-level="4.11" data-path="동월별-동분기별-동년별-plot.html"><a href="동월별-동분기별-동년별-plot.html"><i class="fa fa-check"></i><b>4.11</b> 동월별, 동분기별, 동년별 Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="정상성stationary-비정상성non-stationary.html"><a href="정상성stationary-비정상성non-stationary.html"><i class="fa fa-check"></i><b>5.1</b> 정상성(Stationary), 비정상성(Non-Stationary)</a></li>
+<li class="chapter" data-level="5.2" data-path="지연lag와-차분difference.html"><a href="지연lag와-차분difference.html"><i class="fa fa-check"></i><b>5.2</b> 지연(Lag)와 차분(Difference)</a></li>
+<li class="chapter" data-level="5.3" data-path="acf와-pacf.html"><a href="acf와-pacf.html"><i class="fa fa-check"></i><b>5.3</b> ACF와 PACF</a></li>
+<li class="chapter" data-level="5.4" data-path="적합값fitted-value-와-잔차residuals.html"><a href="적합값fitted-value-와-잔차residuals.html"><i class="fa fa-check"></i><b>5.4</b> 적합값(fitted value) 와 잔차(residuals)</a></li>
+<li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
+<li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
+<li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-ploting과-테스트.html"><a href="계절성-ploting과-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 ploting과 테스트</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="simple-모델.html"><a href="simple-모델.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="simple-모델.html"><a href="simple-모델.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
+<li class="chapter" data-level="6.1.2" data-path="simple-모델.html"><a href="simple-모델.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.3" data-path="simple-모델.html"><a href="simple-모델.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.1.4" data-path="simple-모델.html"><a href="simple-모델.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
+<li class="chapter" data-level="6.1.5" data-path="simple-모델.html"><a href="simple-모델.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>6.2.1</b> tslm 함수(forecast 패키지)</a></li>
+<li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
+<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 모델</a></li>
+<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
+<li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.4.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
+<li class="chapter" data-level="6.4.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.4.2</b> 이동평균 모델(Moving Average Model)</a></li>
+<li class="chapter" data-level="6.4.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.4.3</b> ARIMA 모델 결정</a></li>
+<li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
+<li class="chapter" data-level="6.6" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.6</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.7" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.7</b> Neural Network 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html"><i class="fa fa-check"></i><b>7.1</b> 성능분석 지수</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.1</b> RMSE(Root Means Squaread Error)</a></li>
+<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mae"><i class="fa fa-check"></i><b>7.1.2</b> MAE</a></li>
+<li class="chapter" data-level="7.1.3" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mpe"><i class="fa fa-check"></i><b>7.1.3</b> MPE</a></li>
+<li class="chapter" data-level="7.1.4" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mape"><i class="fa fa-check"></i><b>7.1.4</b> MAPE</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="fable-framework.html"><a href="fable-framework.html"><i class="fa fa-check"></i><b>7.2</b> fable framework</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="fable-framework.html"><a href="fable-framework.html#미래-학생수-예측"><i class="fa fa-check"></i><b>7.2.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.2.2" data-path="fable-framework.html"><a href="fable-framework.html#미래-취업자수-예측"><i class="fa fa-check"></i><b>7.2.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.2.3" data-path="fable-framework.html"><a href="fable-framework.html#미래-코로나-확진자수-예측"><i class="fa fa-check"></i><b>7.2.3</b> 미래 코로나 확진자수 예측</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="modeltime.html"><a href="modeltime.html"><i class="fa fa-check"></i><b>7.3</b> modeltime</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="modeltime.html"><a href="modeltime.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modeltime.html"><a href="modeltime.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modeltime.html"><a href="modeltime.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a>
+<ul>
+<li class="chapter" data-level="7.4" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>7.4</b> R Markdown</a></li>
+<li class="chapter" data-level="7.5" data-path="including-plots.html"><a href="including-plots.html"><i class="fa fa-check"></i><b>7.5</b> Including Plots</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Untitled</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modeltime" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> modeltime</h2>
+<p><code>modeltime</code>은 머신러닝에서 주로 사용하는 모델, 전통적인 시계열 모델을 자동화한 통합 모델을 사용해서 시계열 모델을 빠르게 개발하고 테스트하기 위해 설계된 새로운 프레임워크이다.</p>
+<p><code>modeltime</code> 프레임워크는 미국의 Business Science에서 개발한 시계열 전용 분석 프레임워크로 <code>tidymodel</code> 생태계를 기본으로 제작되었다. tidymodel 프레임워크를 활용하기 때문에 <code>tidymodel</code>에서 포함하고 있는 <code>tidymodel</code>, <code>parship</code>, <code>rsample</code> 등의 패키지를 사용한다.</p>
+<p>modeltime은 다음같은 장점이 있다.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<ol style="list-style-type: decimal">
+<li><p>시계열 예측을 위한 시스템화된 워크플로우를 제공한다. <code>modeltime</code> 에서 제공하는 <code>modeltime_table()</code>, <code>modeltime_calibrate()</code>, <code>modeltime_refit()</code> 등의 함수들을 차례대로 실행하면 예측 모델을 쉽게 구현할 수 있다.</p></li>
+<li><p>시계열 모델에서 예측을 위해 활용되지 못했던 머신러닝 모델을 사용하기 위해 <code>Tidymodel</code>을 확장합니다. <code>tidymodel</code>에 포함된 <code>parship</code> 모델에서 제공하는 <code>boost_tree ()</code> (XGBoost, C5.0), <code>linear_reg()</code> (GLMnet, Stan, Linear Regression), <code>rand_forest()</code> (Random Forest) 등을 사용할 수 있다.</p></li>
+<li><p><code>XGBoost</code> 모델을 오류에 적용하여 정확도를 향상시킬 수있는 Boosted ARIMA (<code>arima_boost ()</code>) 및 Boosted Prophet (<code>prophet_boost()</code>)을 포함한 새로운 시계열 부스트 모델을 제공한다.</p></li>
+</ol>
+<p>modeltime을 사용하여 예측모델과 예측결과를 만드는 것은 아래의 그림과 같은 modeltime 워크플로우를 따라가면서 만들수 있다.</p>
+<p><img src="modeltime_workflow.jpg" /></p>
+<p>modeltime의 워크플로우를 정리하면 다음과 같다.</p>
+<div class="boxBorder">
+<ol style="list-style-type: decimal">
+<li><p>분석할 시계열 데이터를 트레이닝 셋과 테스트 셋으로 분리한다.</p></li>
+<li><p>생성하고자 하는 모델을 생성한다. 이 부분은 tidymodel의 예측모델 생성방식을 사용하는데 parsnip 패키지에서 제공하는 함수들을 재활용한다. 모델을 생성하기 위해서는 다음의 3단계를 거친다.</p>
+<ol style="list-style-type: lower-roman">
+<li>예측모형을 설정한다. 생성하기를 원하는 예측모형을 생성하는 함수를 호출하여 설정하는데 시계열 모델에 해당하는 예측모형 설정함수는 다음과 같다.</li>
+<li><code>set_engine()</code>을 사용하여설정된 예측모형을 생성하기 위해 사용할 엔진을 설정한다. 일반적인 머신러닝 모형의 경우 모형을 생성하기 위한 엔진이 여러개 있는 경우들이 있는데 이런 경우에 적합하다.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> 하지만 시계열 모델에는 엔진이 많지 않아 적합치는 않지만 tidymodel의 호환성을 위해 사용하는 것으로 보인다.</li>
+<li><code>fit()</code>을 사용하여 생성한 모델에 트레이닝 데이터를 피팅한다.</li>
+</ol></li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>모델명</th>
+<th>함수명</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>선형회귀</td>
+<td>linear_reg()</td>
+</tr>
+<tr class="even">
+<td>prophet</td>
+<td>prophet_reg()</td>
+</tr>
+<tr class="odd">
+<td>boosted prophet</td>
+<td>prophet_boost()</td>
+</tr>
+<tr class="even">
+<td>arima</td>
+<td>arima_reg()</td>
+</tr>
+<tr class="odd">
+<td>boosted arima</td>
+<td>arima_boost()</td>
+</tr>
+<tr class="even">
+<td>지수평활</td>
+<td>exp_smoothing()</td>
+</tr>
+<tr class="odd">
+<td>계절성 회귀(tbats, stlm)</td>
+<td>seasonal_reg()</td>
+</tr>
+<tr class="even">
+<td>신경망</td>
+<td>nnetar_reg()</td>
+</tr>
+</tbody>
+</table>
+<ol start="3" style="list-style-type: decimal">
+<li>생성된 여러 모델을 model table에 저장한다. <code>modeltime</code>에서는 모델을 생성하여 model table에 저장하는 모델을 생성하는 함수로 <code>modeltime_table()</code>를 제공한다.</li>
+<li><code>modeltime_calibrate()</code>에 테스트 셋을 사용하여 model table의 모델들을 조정(calibration)한다.</li>
+<li><code>modeltime_forecast()</code>와 <code>modeltime_accuracy()</code>를 사용하여 미래 예측치를 산출하고 미래 예측치에 대한 정확성을 측정한다.</li>
+<li>정확성 측정에 의해 선정된 모델에 대해 <code>modeltime_refit()</code>에 전체 데이터셋을 사용해 모델을 다시 피팅하고 예측치를 산출한다.</li>
+</ol>
+</div>
+<div id="미래-학생수-예측-1" class="section level3" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> 미래 학생수 예측</h3>
+<p>앞에서 설명한 방법을 사용하여 미래 학생수를 예측해 보자.</p>
+<p>앞에서 설명한 것과 같이 <code>modeltime</code>프레임워크는 <code>tidymodels</code>생태계를 확장했기 때문에 <code>tidymodels</code>패키지와 <code>modeltime</code> 패키지가 필요하다.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="modeltime.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modeltime)</span>
+<span id="cb47-2"><a href="modeltime.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span></code></pre></div>
+<p>이제 분석할 데이터를 트레이닝 셋과 테스트 셋으로 분리한다. 앞의 fable에서는 열번호를 사용하여 나누었지만 modeltime에서는 tidymodels 생태계의 rsample패키지에서 제공하는 initial_time_split()을 사용한다.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="modeltime.html#cb48-1" aria-hidden="true" tabindex="-1"></a>students<span class="sc">$</span>연월일 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">paste0</span>(students<span class="sc">$</span>연도, <span class="st">&#39;-01-01&#39;</span>))</span>
+<span id="cb48-2"><a href="modeltime.html#cb48-2" aria-hidden="true" tabindex="-1"></a>splits.students <span class="ot">&lt;-</span> <span class="fu">initial_time_split</span>(students, <span class="at">prop =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li><p><code>modeltime</code> 프레임워크의 함수들을 사용하기 위해서는 date 타입의 컬럼이 반드시 필요하기 때문에 ‘연월일’ 컬럼을 date 타입으로 생성</p></li>
+<li><p><code>initial_time_split()</code>로 데이터를 80:20으로 분리</p></li>
+</ul></li>
+</ul>
+</div>
+<p>이제 트레이닝 셋을 사용하여 몇가지 모델을 생성해본다. 먼저 arima 모델은 다음과 같이 생성할 수 있다. 아래의 예제에서도 보면 모델 생성 엔진을 ’auto-arima’로 설정했기 때문에 arima 모델의 p, d q 차수를 자동으로 결정해준다.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="modeltime.html#cb49-1" aria-hidden="true" tabindex="-1"></a>model_fit_arima <span class="ot">&lt;-</span> <span class="fu">arima_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="modeltime.html#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="at">engine =</span> <span class="st">&quot;auto_arima&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="modeltime.html#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(학생수계 <span class="sc">~</span> 연월일, <span class="at">data =</span> <span class="fu">training</span>(splits.students))</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li>arima 모델을 생성할 것이라는 것을 <code>arima_reg()</code>를 통해 선언</li>
+<li><code>set_engine()</code>을 사용하여 arima 모델을 만드는 엔진으로 ’auto-arima’를 설정</li>
+<li><code>fit()</code>을 사용하여 예측을 원하는 변수(종속변수)와 예측에 사용할 시간 변수(독립변수)를 ~기호를 사용한 식(foumula)으로 전달하고 사용할 데이터로 트레이닝 셋(<code>trainint(split.student)</code>을 전달)</li>
+<li>만약 <code>%&gt;%</code>을 사용하고 싶지 않다면 <code>fit(set_engine(arima_reg(), engine = 'auto_arima'), 학생수계 ~ 연월일, data = training(splits.students))</code></li>
+</ul></li>
+</ul>
+</div>
+<p>다음으로 지수평활 모델을 만든다. 지수평활 모델도 상태공간 모델의 선택을 엔진에서 자동적으로 선택해준다.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="modeltime.html#cb50-1" aria-hidden="true" tabindex="-1"></a>model_fit_ets <span class="ot">&lt;-</span> <span class="fu">exp_smoothing</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="modeltime.html#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="at">engine =</span> <span class="st">&quot;ets&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb50-3"><a href="modeltime.html#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(학생수계 <span class="sc">~</span> 연월일, <span class="at">data =</span> <span class="fu">training</span>(splits.students))</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li>지수평활 모델을 생성할 것이라는 것을 <code>exp_smoothing()</code>를 통해 선언</li>
+<li><code>set_engine()</code>을 사용하여 모델을 만드는 엔진으로 ’ets’를 설정</li>
+<li><code>fit()</code>을 사용하여 예측을 원하는 변수(종속변수)와 예측에 사용할 시간 변수(독립변수)를 ~기호를 사용한 식(foumula)으로 전달하고 사용할 데이터로 트레이닝 셋(<code>trainint(split.student)</code>을 전달)</li>
+</ul></li>
+</ul>
+</div>
+<p>다음으로 prophet 모델을 생성한다.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="modeltime.html#cb51-1" aria-hidden="true" tabindex="-1"></a>model_fit_prophet <span class="ot">&lt;-</span> <span class="fu">prophet_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="modeltime.html#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="at">engine =</span> <span class="st">&quot;prophet&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-3"><a href="modeltime.html#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(학생수계 <span class="sc">~</span> 연월일, <span class="at">data =</span> <span class="fu">training</span>(splits.students))</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li>prophet 모델을 생성할 것이라는 것을 <code>prophet_reg()</code>를 통해 선언</li>
+<li><code>set_engine()</code>을 사용하여 모델을 만드는 엔진으로 ‘prophet’ 설정</li>
+<li><code>fit()</code>을 사용하여 예측을 원하는 변수(종속변수)와 예측에 사용할 시간 변수(독립변수)를 ~기호를 사용한 식(foumula)으로 전달하고 사용할 데이터로 트레이닝 셋(<code>trainint(split.student)</code>을 전달)</li>
+</ul></li>
+</ul>
+</div>
+<p>다음으로 선형회귀 모델을 생성한다.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="modeltime.html#cb52-1" aria-hidden="true" tabindex="-1"></a>model_fit_lm <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="modeltime.html#cb52-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-3"><a href="modeltime.html#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(학생수계 <span class="sc">~</span> 연월일,</span>
+<span id="cb52-4"><a href="modeltime.html#cb52-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">training</span>(splits.students))</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li>선형회귀 모델을 생성할 것이라는 것을 <code>linear_reg()</code>를 통해 선언</li>
+<li><code>set_engine()</code>을 사용하여 모델을 만드는 엔진으로 ‘lm’ 설정</li>
+<li><code>fit()</code>을 사용하여 예측을 원하는 변수(종속변수)와 예측에 사용할 시간 변수(독립변수)를 ~기호를 사용한 식(foumula)으로 전달하고 사용할 데이터로 트레이닝 셋(<code>trainint(split.student)</code>을 전달)</li>
+</ul></li>
+</ul>
+</div>
+<p>다음으로 신경망 모델을 생성한다.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="modeltime.html#cb53-1" aria-hidden="true" tabindex="-1"></a>model_fit_nnetar <span class="ot">&lt;-</span> <span class="fu">nnetar_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a href="modeltime.html#cb53-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;nnetar&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a href="modeltime.html#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(학생수계 <span class="sc">~</span> 연월일, <span class="at">data =</span> <span class="fu">training</span>(splits.students))</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li>신경망 모델을 생성할 것이라는 것을 <code>nnetar_reg()</code>를 통해 선언</li>
+<li><code>set_engine()</code>을 사용하여 모델을 만드는 엔진으로 ‘nnetar’ 설정</li>
+<li><code>fit()</code>을 사용하여 예측을 원하는 변수(종속변수)와 예측에 사용할 시간 변수(독립변수)를 ~기호를 사용한 식(foumula)으로 전달하고 사용할 데이터로 트레이닝 셋(<code>trainint(split.student)</code>을 전달)</li>
+</ul></li>
+</ul>
+</div>
+<p>다음은 계절성 회귀모델인 tbats 모델을 생성한다.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="modeltime.html#cb54-1" aria-hidden="true" tabindex="-1"></a>model_fit_tbats <span class="ot">&lt;-</span> <span class="fu">seasonal_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="modeltime.html#cb54-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;tbats&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="modeltime.html#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(학생수계 <span class="sc">~</span> 연월일, <span class="at">data =</span> <span class="fu">training</span>(splits.students))</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li>신경망 모델을 생성할 것이라는 것을 <code>seasonal_reg()</code>를 통해 선언</li>
+<li><code>set_engine()</code>을 사용하여 모델을 만드는 엔진으로 ‘tbats’ 설정</li>
+<li><code>fit()</code>을 사용하여 예측을 원하는 변수(종속변수)와 예측에 사용할 시간 변수(독립변수)를 ~기호를 사용한 식(foumula)으로 전달하고 사용할 데이터로 트레이닝 셋(<code>trainint(split.student)</code>을 전달)</li>
+</ul></li>
+</ul>
+</div>
+<p>모델 생성이 완료되면 model table을 생성한다. model table은 <code>modeltime_table()</code>을 사용해서 만들수 있다.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="modeltime.html#cb55-1" aria-hidden="true" tabindex="-1"></a>(models_tbl <span class="ot">&lt;-</span> <span class="fu">modeltime_table</span>(</span>
+<span id="cb55-2"><a href="modeltime.html#cb55-2" aria-hidden="true" tabindex="-1"></a>    model_fit_arima,</span>
+<span id="cb55-3"><a href="modeltime.html#cb55-3" aria-hidden="true" tabindex="-1"></a>    model_fit_ets,</span>
+<span id="cb55-4"><a href="modeltime.html#cb55-4" aria-hidden="true" tabindex="-1"></a>    model_fit_prophet,</span>
+<span id="cb55-5"><a href="modeltime.html#cb55-5" aria-hidden="true" tabindex="-1"></a>    model_fit_lm, </span>
+<span id="cb55-6"><a href="modeltime.html#cb55-6" aria-hidden="true" tabindex="-1"></a>    model_fit_nnetar, </span>
+<span id="cb55-7"><a href="modeltime.html#cb55-7" aria-hidden="true" tabindex="-1"></a>    model_fit_tbats))</span></code></pre></div>
+<pre><code>## # Modeltime Table
+## # A tibble: 6 x 3
+##   .model_id .model   .model_desc             
+##       &lt;int&gt; &lt;list&gt;   &lt;chr&gt;                   
+## 1         1 &lt;fit[+]&gt; ARIMA(1,2,0)            
+## 2         2 &lt;fit[+]&gt; ETS(A,A,N)              
+## 3         3 &lt;fit[+]&gt; PROPHET                 
+## 4         4 &lt;fit[+]&gt; LM                      
+## 5         5 &lt;fit[+]&gt; NNAR(1,1,10)[5]         
+## 6         6 &lt;fit[+]&gt; BATS(0.732, {0,0}, 1, -)</code></pre>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li>modeltime_table()을 사용하여 model table을 생성</li>
+<li>modeltime_table()의 매개변수로 미리 만들어놓은 모델을 넣어줌</li>
+<li>model table은 models_tbl에 저장</li>
+</ul></li>
+</ul>
+</div>
+<p>생성된 model table에 저장된 모델들에 대한 조정을 실시한다. <code>modeltime_calibrate()</code>을 사용하며 조정하기 위해 사용하는 데이터는 테스트 셋을 사용한다.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="modeltime.html#cb57-1" aria-hidden="true" tabindex="-1"></a>(calibration_tbl <span class="ot">&lt;-</span> models_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="modeltime.html#cb57-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modeltime_calibrate</span>(<span class="at">new_data =</span> <span class="fu">testing</span>(splits.students)))</span></code></pre></div>
+<pre><code>## # Modeltime Table
+## # A tibble: 6 x 5
+##   .model_id .model   .model_desc              .type .calibration_data
+##       &lt;int&gt; &lt;list&gt;   &lt;chr&gt;                    &lt;chr&gt; &lt;list&gt;           
+## 1         1 &lt;fit[+]&gt; ARIMA(1,2,0)             Test  &lt;tibble [5 x 4]&gt; 
+## 2         2 &lt;fit[+]&gt; ETS(A,A,N)               Test  &lt;tibble [5 x 4]&gt; 
+## 3         3 &lt;fit[+]&gt; PROPHET                  Test  &lt;tibble [5 x 4]&gt; 
+## 4         4 &lt;fit[+]&gt; LM                       Test  &lt;tibble [5 x 4]&gt; 
+## 5         5 &lt;fit[+]&gt; NNAR(1,1,10)[5]          Test  &lt;tibble [5 x 4]&gt; 
+## 6         6 &lt;fit[+]&gt; BATS(0.732, {0,0}, 1, -) Test  &lt;tibble [5 x 4]&gt;</code></pre>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li><code>%&gt;%</code>을 이용하여 <code>modeltime_calibrate()</code>에 model table인 models_tbs을 전달</li>
+<li>조정할 데이터는 테스트 셋을 설정(<code>new_data = testing(splits.students)</code>)</li>
+<li>조정된 모델들은 calibration_tbl에 저장</li>
+</ul></li>
+</ul>
+</div>
+<p>테스트 셋을 사용하여 세부 조정된 모델 테이블과 <code>modeltime_forecast()</code>을 사용하여 미래 예측값을 산출한다. <code>modeltime_forecast()</code> 결과를 <code>plot_modeltime_forecast()</code>를 사용하여 plot 생성한다. 아래의 코드에서 예측에 사용되는 새로운 데이터를 테스트셋으로 설정한 이유는 실제 테스트 데이터 셋의 값과 모델의 예측을 통해 생성되는 값들을 비교해보기 위해 설정하였다.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="modeltime.html#cb59-1" aria-hidden="true" tabindex="-1"></a>calibration_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="modeltime.html#cb59-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modeltime_forecast</span>(</span>
+<span id="cb59-3"><a href="modeltime.html#cb59-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">new_data    =</span> <span class="fu">testing</span>(splits.students),</span>
+<span id="cb59-4"><a href="modeltime.html#cb59-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">actual_data =</span> students</span>
+<span id="cb59-5"><a href="modeltime.html#cb59-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb59-6"><a href="modeltime.html#cb59-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_modeltime_forecast</span>(</span>
+<span id="cb59-7"><a href="modeltime.html#cb59-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">.interactive      =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb59-8"><a href="modeltime.html#cb59-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">.conf_interval_show =</span> <span class="cn">FALSE</span></span>
+<span id="cb59-9"><a href="modeltime.html#cb59-9" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<p><img src="t_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li><code>%&gt;%</code>을 이용하여 <code>modeltime_forecast()</code>에 조정된 모델 테이블인 calibration_tbs을 전달</li>
+<li>model_forecast()는 예측을 위해 사용할 새로운 데이터 셋으로 테스트 데이터셋을 설정하였고(<code>new_data    = testing(splits.students)</code>) 원본데이터와 같이 보기 위해 원본데이터를 설정(<code>actual_data = students</code>)</li>
+<li><code>modeltime_forecast()</code>을 통해 생성된 예측값은 <code>plot_modeltime_forecast</code>을 사용하여 plot 생성. 대화형 기능을 제거(<code>.interactive      = FALSE</code>)하고 예측구간을 제거(.conf_interval_show = FALSE)</li>
+</ul></li>
+</ul>
+</div>
+<p>육안으로는 어느 모델이 더 우수한지 알아보기가 어렵다. accuracy()를 사용하여 조정된 모델들의 성능측정 지수를 비교해본다.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="modeltime.html#cb60-1" aria-hidden="true" tabindex="-1"></a>calibration_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="modeltime.html#cb60-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modeltime_accuracy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb60-3"><a href="modeltime.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(rmse)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 9
+##   .model_id .model_desc             .type     mae  mape  mase smape   rmse   rsq
+##       &lt;int&gt; &lt;chr&gt;                   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+## 1         2 ETS(A,A,N)              Test   16449. 0.263 0.105 0.263 1.75e4 0.998
+## 2         6 BATS(0.732, {0,0}, 1, ~ Test   18767. 0.302 0.120 0.301 2.20e4 0.998
+## 3         1 ARIMA(1,2,0)            Test   79663. 1.28  0.509 1.27  8.52e4 0.998
+## 4         3 PROPHET                 Test  101824. 1.65  0.650 1.67  1.15e5 0.996
+## 5         5 NNAR(1,1,10)[5]         Test  360330. 5.84  2.30  5.62  4.12e5 0.848
+## 6         4 LM                      Test  500003. 7.99  3.19  7.67  5.05e5 0.998</code></pre>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li><code>%&gt;%</code>을 이용하여 <code>accuracy()</code>에 조정된 모델 테이블인 calibration_tbs을 전달</li>
+<li>arrange(rmse)를 이용하여 RMSE값으로 정렬하여 어느 모델이 우수한지 평가</li>
+</ul></li>
+</ul>
+</div>
+<p>성능측정 지수를 사용하여 우수한 모델 2개를 선택하고 이번에는 트레이닝 셋이 아닌 전체 데이터 셋을 사용하여 모델을 생성한다.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="modeltime.html#cb62-1" aria-hidden="true" tabindex="-1"></a>model_fit_ets <span class="ot">&lt;-</span> <span class="fu">exp_smoothing</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb62-2"><a href="modeltime.html#cb62-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="at">engine =</span> <span class="st">&quot;ets&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a href="modeltime.html#cb62-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(학생수계 <span class="sc">~</span> 연월일, <span class="at">data =</span> students)</span>
+<span id="cb62-4"><a href="modeltime.html#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-5"><a href="modeltime.html#cb62-5" aria-hidden="true" tabindex="-1"></a>model_fit_tbats <span class="ot">&lt;-</span> <span class="fu">seasonal_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb62-6"><a href="modeltime.html#cb62-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;tbats&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-7"><a href="modeltime.html#cb62-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(학생수계 <span class="sc">~</span> 연월일, <span class="at">data =</span> students)</span>
+<span id="cb62-8"><a href="modeltime.html#cb62-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="modeltime.html#cb62-9" aria-hidden="true" tabindex="-1"></a>(models_tbl <span class="ot">&lt;-</span> <span class="fu">modeltime_table</span>(</span>
+<span id="cb62-10"><a href="modeltime.html#cb62-10" aria-hidden="true" tabindex="-1"></a>    model_fit_ets,</span>
+<span id="cb62-11"><a href="modeltime.html#cb62-11" aria-hidden="true" tabindex="-1"></a>    model_fit_tbats))</span></code></pre></div>
+<pre><code>## # Modeltime Table
+## # A tibble: 2 x 3
+##   .model_id .model   .model_desc                 
+##       &lt;int&gt; &lt;list&gt;   &lt;chr&gt;                       
+## 1         1 &lt;fit[+]&gt; ETS(A,AD,N)                 
+## 2         2 &lt;fit[+]&gt; BATS(0.641, {0,0}, 0.819, -)</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="modeltime.html#cb64-1" aria-hidden="true" tabindex="-1"></a>models_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb64-2"><a href="modeltime.html#cb64-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modeltime_forecast</span>(</span>
+<span id="cb64-3"><a href="modeltime.html#cb64-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">h    =</span> <span class="st">&#39;10 years&#39;</span>,</span>
+<span id="cb64-4"><a href="modeltime.html#cb64-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">actual_data =</span> students</span>
+<span id="cb64-5"><a href="modeltime.html#cb64-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb64-6"><a href="modeltime.html#cb64-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_modeltime_forecast</span>(</span>
+<span id="cb64-7"><a href="modeltime.html#cb64-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">.interactive      =</span> <span class="cn">FALSE</span></span>
+<span id="cb64-8"><a href="modeltime.html#cb64-8" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<p><img src="t_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li>전체 데이터 셋을 사용하여 ets 모델과 tbats모델을 생성</li>
+<li>두개의 모델을 사용하여 모델 테이들을 생성</li>
+<li>전체 데이터로 생성한 모델 테이블을 modeltime_forecast()에 %&gt;%로 전달하여 예측치 산출. 단 이번에는 테스트셋이 없기 때문에 예측 기간을 지정(h = ‘10 years’)하고 원본 데이터와 같이 예측 데이터를 생성</li>
+<li>plot_modeltime_forecast()를 사용하여 두 모델의 10년치 예측 데이터 plot을 생성</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="미래-취업자수-예측-1" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> 미래 취업자수 예측</h3>
+<p>이번에는 전체 취업자 수를 사용하여 미래 취업자수를 예측해본다. 방법은 학생수 예측과 거의 동일하다.</p>
+<p>먼저 트레이닝 셋과 테스트 셋을 분리한다.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="modeltime.html#cb65-1" aria-hidden="true" tabindex="-1"></a>splits.employees <span class="ot">&lt;-</span> <span class="fu">initial_time_split</span>(employees, <span class="at">prop =</span> <span class="fl">0.9</span>)</span></code></pre></div>
+<p>첫번째 모델은 arima모델로 auto_arima엔진을 설정하고 트레이닝 데이터 셋을 사용하여 모델을 피팅한다. 종속변수는 전체 취업자수(total)이며 독립변수는 time(시간)으로 식을 설정하였다.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="modeltime.html#cb66-1" aria-hidden="true" tabindex="-1"></a>model_fit_arima <span class="ot">&lt;-</span> <span class="fu">arima_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb66-2"><a href="modeltime.html#cb66-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="at">engine =</span> <span class="st">&quot;auto_arima&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb66-3"><a href="modeltime.html#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(total <span class="sc">~</span> time, <span class="at">data =</span> <span class="fu">training</span>(splits.employees))</span></code></pre></div>
+<p>두번째 모델은 ets모델을 생성하였다.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="modeltime.html#cb67-1" aria-hidden="true" tabindex="-1"></a>model_fit_ets <span class="ot">&lt;-</span> <span class="fu">exp_smoothing</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb67-2"><a href="modeltime.html#cb67-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="at">engine =</span> <span class="st">&quot;ets&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb67-3"><a href="modeltime.html#cb67-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(total <span class="sc">~</span> time, <span class="at">data =</span> <span class="fu">training</span>(splits.employees))</span></code></pre></div>
+<p>세번째 모델은 prophet모델을 생성하였다.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="modeltime.html#cb68-1" aria-hidden="true" tabindex="-1"></a>model_fit_prophet <span class="ot">&lt;-</span> <span class="fu">prophet_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb68-2"><a href="modeltime.html#cb68-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="at">engine =</span> <span class="st">&quot;prophet&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb68-3"><a href="modeltime.html#cb68-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(total <span class="sc">~</span> time, <span class="at">data =</span> <span class="fu">training</span>(splits.employees))</span></code></pre></div>
+<p>네번째 모델은 선형회귀 모델이다. 선형회귀 모델에서 하나 다른 점은 계절성을 추가하기 위해 월을 추가하였다.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="modeltime.html#cb69-1" aria-hidden="true" tabindex="-1"></a>model_fit_lm <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb69-2"><a href="modeltime.html#cb69-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb69-3"><a href="modeltime.html#cb69-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(total <span class="sc">~</span> time <span class="sc">+</span> <span class="fu">factor</span>(<span class="fu">month</span>(time, <span class="at">label =</span> <span class="cn">TRUE</span>), <span class="at">ordered =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb69-4"><a href="modeltime.html#cb69-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">training</span>(splits.employees))</span></code></pre></div>
+<div class="comment">
+<ul>
+<li><p>코드설명</p>
+<ul>
+<li>계절성을 추가하기 위해 시간컬럼에서 월을 추출(<code>month(time, label = TRUE)</code>)</li>
+<li>추출된 월을 factor로 설정하는데 순서는 유지하지않도록 설정(<code>ordered = FALSE</code>)</li>
+</ul></li>
+</ul>
+</div>
+<p>다섯번째 모델은 신경망 모델을 생성한다.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="modeltime.html#cb70-1" aria-hidden="true" tabindex="-1"></a>model_fit_nnetar <span class="ot">&lt;-</span> <span class="fu">nnetar_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb70-2"><a href="modeltime.html#cb70-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;nnetar&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb70-3"><a href="modeltime.html#cb70-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(total <span class="sc">~</span> time, <span class="at">data =</span> <span class="fu">training</span>(splits.employees))</span></code></pre></div>
+<p>여섯번째 모델은 tbats모델이다.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="modeltime.html#cb71-1" aria-hidden="true" tabindex="-1"></a>model_fit_tbats <span class="ot">&lt;-</span> <span class="fu">seasonal_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb71-2"><a href="modeltime.html#cb71-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;tbats&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb71-3"><a href="modeltime.html#cb71-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(total <span class="sc">~</span> time, <span class="at">data =</span> <span class="fu">training</span>(splits.employees))</span></code></pre></div>
+<p>위에서 생성한 여섯가지 모델을 사용하여 모델 테이블인 models_tbs을 생성한다.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="modeltime.html#cb72-1" aria-hidden="true" tabindex="-1"></a>(models_tbl <span class="ot">&lt;-</span> <span class="fu">modeltime_table</span>(</span>
+<span id="cb72-2"><a href="modeltime.html#cb72-2" aria-hidden="true" tabindex="-1"></a>    model_fit_arima,</span>
+<span id="cb72-3"><a href="modeltime.html#cb72-3" aria-hidden="true" tabindex="-1"></a>    model_fit_ets,</span>
+<span id="cb72-4"><a href="modeltime.html#cb72-4" aria-hidden="true" tabindex="-1"></a>    model_fit_prophet,</span>
+<span id="cb72-5"><a href="modeltime.html#cb72-5" aria-hidden="true" tabindex="-1"></a>    model_fit_lm, </span>
+<span id="cb72-6"><a href="modeltime.html#cb72-6" aria-hidden="true" tabindex="-1"></a>    model_fit_nnetar, </span>
+<span id="cb72-7"><a href="modeltime.html#cb72-7" aria-hidden="true" tabindex="-1"></a>    model_fit_tbats))</span></code></pre></div>
+<pre><code>## # Modeltime Table
+## # A tibble: 6 x 3
+##   .model_id .model   .model_desc                     
+##       &lt;int&gt; &lt;list&gt;   &lt;chr&gt;                           
+## 1         1 &lt;fit[+]&gt; ARIMA(0,1,1)(0,1,1)[12]         
+## 2         2 &lt;fit[+]&gt; ETS(A,AD,A)                     
+## 3         3 &lt;fit[+]&gt; PROPHET                         
+## 4         4 &lt;fit[+]&gt; LM                              
+## 5         5 &lt;fit[+]&gt; NNAR(1,1,10)[12]                
+## 6         6 &lt;fit[+]&gt; TBATS(1, {0,0}, 0.971, {&lt;12,3&gt;})</code></pre>
+<p>테스트 데이터 셋을 사용하여 모델들을 조정한다.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="modeltime.html#cb74-1" aria-hidden="true" tabindex="-1"></a>(calibration_tbl <span class="ot">&lt;-</span> models_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb74-2"><a href="modeltime.html#cb74-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modeltime_calibrate</span>(<span class="at">new_data =</span> <span class="fu">testing</span>(splits.employees)))</span></code></pre></div>
+<pre><code>## # Modeltime Table
+## # A tibble: 6 x 5
+##   .model_id .model   .model_desc                      .type .calibration_data
+##       &lt;int&gt; &lt;list&gt;   &lt;chr&gt;                            &lt;chr&gt; &lt;list&gt;           
+## 1         1 &lt;fit[+]&gt; ARIMA(0,1,1)(0,1,1)[12]          Test  &lt;tibble [10 x 4]&gt;
+## 2         2 &lt;fit[+]&gt; ETS(A,AD,A)                      Test  &lt;tibble [10 x 4]&gt;
+## 3         3 &lt;fit[+]&gt; PROPHET                          Test  &lt;tibble [10 x 4]&gt;
+## 4         4 &lt;fit[+]&gt; LM                               Test  &lt;tibble [10 x 4]&gt;
+## 5         5 &lt;fit[+]&gt; NNAR(1,1,10)[12]                 Test  &lt;tibble [10 x 4]&gt;
+## 6         6 &lt;fit[+]&gt; TBATS(1, {0,0}, 0.971, {&lt;12,3&gt;}) Test  &lt;tibble [10 x 4]&gt;</code></pre>
+<p>조정된 모델테이블을 사용하여 미래 예측치를 산출한다. 테스트 셋과의 차이를 살펴보기 위해 새로운 데이터 셋으로 테스트 데이터 셋을 사용하고 원본데이터와 같이 plotting 하기 위해 설정해준다. 이 예측 데이터를 <code>plot_modeltime_forecast()</code>를 사용해 plot을 생성해준다. (plot을 보면 실제 데이터와 다소 차이를 보이는데 트레이닝 셋에는 코로나 발생이전까지의 데이터이고 테스트 데이터는 코로나 발생이후 데이터이기 때문에 모델들이 이를 예측하지 못한것이다.)</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="modeltime.html#cb76-1" aria-hidden="true" tabindex="-1"></a>calibration_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb76-2"><a href="modeltime.html#cb76-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modeltime_forecast</span>(</span>
+<span id="cb76-3"><a href="modeltime.html#cb76-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">new_data    =</span> <span class="fu">testing</span>(splits.employees),</span>
+<span id="cb76-4"><a href="modeltime.html#cb76-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">actual_data =</span> employees</span>
+<span id="cb76-5"><a href="modeltime.html#cb76-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb76-6"><a href="modeltime.html#cb76-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_modeltime_forecast</span>(</span>
+<span id="cb76-7"><a href="modeltime.html#cb76-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">.interactive      =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb76-8"><a href="modeltime.html#cb76-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">.conf_interval_show =</span> <span class="cn">FALSE</span></span>
+<span id="cb76-9"><a href="modeltime.html#cb76-9" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<p><img src="t_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>육안으로 성능을 판단하기 힘드니 성능측정 지수를 확인한다.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="modeltime.html#cb77-1" aria-hidden="true" tabindex="-1"></a>calibration_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb77-2"><a href="modeltime.html#cb77-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modeltime_accuracy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb77-3"><a href="modeltime.html#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(rmse)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 9
+##   .model_id .model_desc                .type   mae  mape  mase smape  rmse   rsq
+##       &lt;int&gt; &lt;chr&gt;                      &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1         5 NNAR(1,1,10)[12]           Test   668.  2.48  3.69  2.45  732. 0.332
+## 2         4 LM                         Test   728.  2.71  4.02  2.67  738. 0.762
+## 3         2 ETS(A,AD,A)                Test   730.  2.71  4.03  2.68  740. 0.757
+## 4         3 PROPHET                    Test   824.  3.06  4.55  3.02  833. 0.760
+## 5         1 ARIMA(0,1,1)(0,1,1)[12]    Test   833.  3.10  4.60  3.05  840. 0.795
+## 6         6 TBATS(1, {0,0}, 0.971, {&lt;~ Test   903.  3.36  4.99  3.30  913. 0.724</code></pre>
+<p>성능측정 지수를 확인한 결과 신경망 모델과 선형회귀 모델이 적합한 것으로 보인다. 이에 대한 모델을 다시 생성하는데 이번에는 트레이닝 데이터 셋이 아닌 전체 데이터 셋을 사용한다.(전체 데이터 셋을 사용하니 신경망 모델은 코로나로 인한 취업자 수 감소를 다소 반영한 것으로 보인다.)</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="modeltime.html#cb79-1" aria-hidden="true" tabindex="-1"></a>model_fit_lm <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb79-2"><a href="modeltime.html#cb79-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb79-3"><a href="modeltime.html#cb79-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(total <span class="sc">~</span> time <span class="sc">+</span> <span class="fu">factor</span>(<span class="fu">month</span>(time, <span class="at">label =</span> <span class="cn">TRUE</span>), <span class="at">ordered =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb79-4"><a href="modeltime.html#cb79-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> employees)</span>
+<span id="cb79-5"><a href="modeltime.html#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="modeltime.html#cb79-6" aria-hidden="true" tabindex="-1"></a>model_fit_nnetar <span class="ot">&lt;-</span> <span class="fu">nnetar_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb79-7"><a href="modeltime.html#cb79-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;nnetar&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb79-8"><a href="modeltime.html#cb79-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(total <span class="sc">~</span> time, <span class="at">data =</span> employees)</span>
+<span id="cb79-9"><a href="modeltime.html#cb79-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-10"><a href="modeltime.html#cb79-10" aria-hidden="true" tabindex="-1"></a>(models_tbl <span class="ot">&lt;-</span> <span class="fu">modeltime_table</span>(</span>
+<span id="cb79-11"><a href="modeltime.html#cb79-11" aria-hidden="true" tabindex="-1"></a>    model_fit_lm,</span>
+<span id="cb79-12"><a href="modeltime.html#cb79-12" aria-hidden="true" tabindex="-1"></a>    model_fit_nnetar))</span></code></pre></div>
+<pre><code>## # Modeltime Table
+## # A tibble: 2 x 3
+##   .model_id .model   .model_desc     
+##       &lt;int&gt; &lt;list&gt;   &lt;chr&gt;           
+## 1         1 &lt;fit[+]&gt; LM              
+## 2         2 &lt;fit[+]&gt; NNAR(1,1,10)[12]</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="modeltime.html#cb81-1" aria-hidden="true" tabindex="-1"></a>models_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb81-2"><a href="modeltime.html#cb81-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modeltime_forecast</span>(</span>
+<span id="cb81-3"><a href="modeltime.html#cb81-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">h    =</span> <span class="st">&#39;3 years&#39;</span>,</span>
+<span id="cb81-4"><a href="modeltime.html#cb81-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">actual_data =</span> employees</span>
+<span id="cb81-5"><a href="modeltime.html#cb81-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb81-6"><a href="modeltime.html#cb81-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_modeltime_forecast</span>(</span>
+<span id="cb81-7"><a href="modeltime.html#cb81-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">.interactive      =</span> <span class="cn">FALSE</span></span>
+<span id="cb81-8"><a href="modeltime.html#cb81-8" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<p><img src="t_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+</div>
+<div id="미래-코로나-확진자수-예측-1" class="section level3" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> 미래 코로나 확진자수 예측</h3>
+<p>이번 절에서는 0-9세 코로나 확진자 수를 사용하여 코로나 확진자를 예측해본다.</p>
+<p>먼저 전체 데이터 셋을 트레이닝 셋과 테스트 셋으로 나눈다. 나누는 비율은 90:10으로 설정하였다.</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="modeltime.html#cb82-1" aria-hidden="true" tabindex="-1"></a>splits.covid19 <span class="ot">&lt;-</span> <span class="fu">initial_time_split</span>(wide.covid19.by.age, <span class="at">prop =</span> <span class="fl">0.9</span>)</span></code></pre></div>
+<p>트레이닝 셋을 사용해 arima 모델을 생성한다.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="modeltime.html#cb83-1" aria-hidden="true" tabindex="-1"></a>model_fit_arima <span class="ot">&lt;-</span> <span class="fu">arima_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb83-2"><a href="modeltime.html#cb83-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="at">engine =</span> <span class="st">&quot;auto_arima&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb83-3"><a href="modeltime.html#cb83-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="sc">~</span> date, <span class="at">data =</span> <span class="fu">training</span>(splits.covid19))</span></code></pre></div>
+<p>두번째 모델로 지수평활 모델을 생성한다.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="modeltime.html#cb84-1" aria-hidden="true" tabindex="-1"></a>model_fit_ets <span class="ot">&lt;-</span> <span class="fu">exp_smoothing</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb84-2"><a href="modeltime.html#cb84-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="at">engine =</span> <span class="st">&quot;ets&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb84-3"><a href="modeltime.html#cb84-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="sc">~</span> date, <span class="at">data =</span> <span class="fu">training</span>(splits.covid19))</span></code></pre></div>
+<p>세번째 모델로 prophet모델을 생성한다.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="modeltime.html#cb85-1" aria-hidden="true" tabindex="-1"></a>model_fit_prophet <span class="ot">&lt;-</span> <span class="fu">prophet_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb85-2"><a href="modeltime.html#cb85-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="at">engine =</span> <span class="st">&quot;prophet&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb85-3"><a href="modeltime.html#cb85-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="sc">~</span> date, <span class="at">data =</span> <span class="fu">training</span>(splits.covid19))</span></code></pre></div>
+<p>네번째 모델로 선형 회귀 모델을 생성한다.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="modeltime.html#cb86-1" aria-hidden="true" tabindex="-1"></a>model_fit_lm <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="modeltime.html#cb86-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb86-3"><a href="modeltime.html#cb86-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="sc">~</span> date,</span>
+<span id="cb86-4"><a href="modeltime.html#cb86-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">training</span>(splits.covid19))</span></code></pre></div>
+<p>다섯번째로 신경망 모델을 생성한다.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="modeltime.html#cb87-1" aria-hidden="true" tabindex="-1"></a>model_fit_nnetar <span class="ot">&lt;-</span> <span class="fu">nnetar_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb87-2"><a href="modeltime.html#cb87-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;nnetar&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb87-3"><a href="modeltime.html#cb87-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="sc">~</span> date, <span class="at">data =</span> <span class="fu">training</span>(splits.covid19))</span></code></pre></div>
+<p>여섯번째 모델로 tbats 모델을 생성한다.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="modeltime.html#cb88-1" aria-hidden="true" tabindex="-1"></a>model_fit_tbats <span class="ot">&lt;-</span> <span class="fu">seasonal_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="modeltime.html#cb88-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;tbats&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb88-3"><a href="modeltime.html#cb88-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="sc">~</span> date, <span class="at">data =</span> <span class="fu">training</span>(splits.covid19))</span></code></pre></div>
+<p>생성한 여섯가지 모델을 사용하여 모델 테이블인 models_tbl을 생성한다.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="modeltime.html#cb89-1" aria-hidden="true" tabindex="-1"></a>(models_tbl <span class="ot">&lt;-</span> <span class="fu">modeltime_table</span>(</span>
+<span id="cb89-2"><a href="modeltime.html#cb89-2" aria-hidden="true" tabindex="-1"></a>    model_fit_arima,</span>
+<span id="cb89-3"><a href="modeltime.html#cb89-3" aria-hidden="true" tabindex="-1"></a>    model_fit_ets,</span>
+<span id="cb89-4"><a href="modeltime.html#cb89-4" aria-hidden="true" tabindex="-1"></a>    model_fit_prophet,</span>
+<span id="cb89-5"><a href="modeltime.html#cb89-5" aria-hidden="true" tabindex="-1"></a>    model_fit_lm, </span>
+<span id="cb89-6"><a href="modeltime.html#cb89-6" aria-hidden="true" tabindex="-1"></a>    model_fit_nnetar, </span>
+<span id="cb89-7"><a href="modeltime.html#cb89-7" aria-hidden="true" tabindex="-1"></a>    model_fit_tbats))</span></code></pre></div>
+<pre><code>## # Modeltime Table
+## # A tibble: 6 x 3
+##   .model_id .model   .model_desc         
+##       &lt;int&gt; &lt;list&gt;   &lt;chr&gt;               
+## 1         1 &lt;fit[+]&gt; ARIMA(3,1,1)        
+## 2         2 &lt;fit[+]&gt; ETS(A,N,N)          
+## 3         3 &lt;fit[+]&gt; PROPHET             
+## 4         4 &lt;fit[+]&gt; LM                  
+## 5         5 &lt;fit[+]&gt; NNAR(1,1,10)[7]     
+## 6         6 &lt;fit[+]&gt; BATS(1, {2,2}, -, -)</code></pre>
+<p><code>modeltime_calibrate()</code>에 테스트 데이터를 사용하여 모델을 조정한다.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="modeltime.html#cb91-1" aria-hidden="true" tabindex="-1"></a>(calibration_tbl <span class="ot">&lt;-</span> models_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb91-2"><a href="modeltime.html#cb91-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modeltime_calibrate</span>(<span class="at">new_data =</span> <span class="fu">testing</span>(splits.covid19)))</span></code></pre></div>
+<pre><code>## # Modeltime Table
+## # A tibble: 6 x 5
+##   .model_id .model   .model_desc          .type .calibration_data
+##       &lt;int&gt; &lt;list&gt;   &lt;chr&gt;                &lt;chr&gt; &lt;list&gt;           
+## 1         1 &lt;fit[+]&gt; ARIMA(3,1,1)         Test  &lt;tibble [31 x 4]&gt;
+## 2         2 &lt;fit[+]&gt; ETS(A,N,N)           Test  &lt;tibble [31 x 4]&gt;
+## 3         3 &lt;fit[+]&gt; PROPHET              Test  &lt;tibble [31 x 4]&gt;
+## 4         4 &lt;fit[+]&gt; LM                   Test  &lt;tibble [31 x 4]&gt;
+## 5         5 &lt;fit[+]&gt; NNAR(1,1,10)[7]      Test  &lt;tibble [31 x 4]&gt;
+## 6         6 &lt;fit[+]&gt; BATS(1, {2,2}, -, -) Test  &lt;tibble [31 x 4]&gt;</code></pre>
+<p>조정된 모델이 저장된 모델 테이블을 <code>modeltime_forecast()</code>에 전달하고 테스트 데이터 셋을 사용하여 예측 데이터를 생성한다. 이 결과를 <code>plot_modeltime_forecast()</code>을 사용하여 plot을 생성한다.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="modeltime.html#cb93-1" aria-hidden="true" tabindex="-1"></a>calibration_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb93-2"><a href="modeltime.html#cb93-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modeltime_forecast</span>(</span>
+<span id="cb93-3"><a href="modeltime.html#cb93-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">new_data    =</span> <span class="fu">testing</span>(splits.covid19),</span>
+<span id="cb93-4"><a href="modeltime.html#cb93-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">actual_data =</span> wide.covid19.by.age</span>
+<span id="cb93-5"><a href="modeltime.html#cb93-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb93-6"><a href="modeltime.html#cb93-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_modeltime_forecast</span>(</span>
+<span id="cb93-7"><a href="modeltime.html#cb93-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">.interactive      =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb93-8"><a href="modeltime.html#cb93-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">.conf_interval_show =</span> <span class="cn">FALSE</span></span>
+<span id="cb93-9"><a href="modeltime.html#cb93-9" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<p><img src="t_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p>성능측정 지수를 사용하여 모델 중에 가장 오류가 적은 모델이 어떤건지 확인해본다.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="modeltime.html#cb94-1" aria-hidden="true" tabindex="-1"></a>calibration_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb94-2"><a href="modeltime.html#cb94-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modeltime_accuracy</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb94-3"><a href="modeltime.html#cb94-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(rmse)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 9
+##   .model_id .model_desc          .type   mae  mape  mase smape  rmse     rsq
+##       &lt;int&gt; &lt;chr&gt;                &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1         4 LM                   Test   6.81  34.8 0.909  28.9  8.25  0.0947
+## 2         2 ETS(A,N,N)           Test  13.8   76.2 1.84   49.1 15.4  NA     
+## 3         1 ARIMA(3,1,1)         Test  13.9   76.8 1.86   49.4 15.5   0.0227
+## 4         6 BATS(1, {2,2}, -, -) Test  13.9   76.9 1.86   49.4 15.5   0.0365
+## 5         5 NNAR(1,1,10)[7]      Test  16.8   91.5 2.24   56.2 18.4   0.104 
+## 6         3 PROPHET              Test  27.2  143.  3.63   75.2 29.0   0.0780</code></pre>
+<p>오류가 가장 적은 모델인 선형회귀 모델과 ets모델을 전체 데이터 셋을 사용하여 다시 구축한다. 모델 테이블을 만들고 3개월치 데이터를 예측한 후 plot을 생성한다.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="modeltime.html#cb96-1" aria-hidden="true" tabindex="-1"></a>model_fit_lm <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb96-2"><a href="modeltime.html#cb96-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb96-3"><a href="modeltime.html#cb96-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="sc">~</span> date,</span>
+<span id="cb96-4"><a href="modeltime.html#cb96-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> wide.covid19.by.age)</span>
+<span id="cb96-5"><a href="modeltime.html#cb96-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-6"><a href="modeltime.html#cb96-6" aria-hidden="true" tabindex="-1"></a>model_fit_ets <span class="ot">&lt;-</span> <span class="fu">exp_smoothing</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb96-7"><a href="modeltime.html#cb96-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="at">engine =</span> <span class="st">&quot;ets&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb96-8"><a href="modeltime.html#cb96-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="sc">~</span> date, <span class="at">data =</span> wide.covid19.by.age)</span>
+<span id="cb96-9"><a href="modeltime.html#cb96-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-10"><a href="modeltime.html#cb96-10" aria-hidden="true" tabindex="-1"></a>(models_tbl <span class="ot">&lt;-</span> <span class="fu">modeltime_table</span>(</span>
+<span id="cb96-11"><a href="modeltime.html#cb96-11" aria-hidden="true" tabindex="-1"></a>    model_fit_lm,</span>
+<span id="cb96-12"><a href="modeltime.html#cb96-12" aria-hidden="true" tabindex="-1"></a>    model_fit_ets))</span></code></pre></div>
+<pre><code>## # Modeltime Table
+## # A tibble: 2 x 3
+##   .model_id .model   .model_desc
+##       &lt;int&gt; &lt;list&gt;   &lt;chr&gt;      
+## 1         1 &lt;fit[+]&gt; LM         
+## 2         2 &lt;fit[+]&gt; ETS(A,N,N)</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="modeltime.html#cb98-1" aria-hidden="true" tabindex="-1"></a>models_tbl <span class="sc">%&gt;%</span></span>
+<span id="cb98-2"><a href="modeltime.html#cb98-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">modeltime_forecast</span>(</span>
+<span id="cb98-3"><a href="modeltime.html#cb98-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">h    =</span> <span class="st">&#39;3 months&#39;</span>,</span>
+<span id="cb98-4"><a href="modeltime.html#cb98-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">actual_data =</span> wide.covid19.by.age</span>
+<span id="cb98-5"><a href="modeltime.html#cb98-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb98-6"><a href="modeltime.html#cb98-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_modeltime_forecast</span>(</span>
+<span id="cb98-7"><a href="modeltime.html#cb98-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">.interactive      =</span> <span class="cn">FALSE</span></span>
+<span id="cb98-8"><a href="modeltime.html#cb98-8" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<p><img src="t_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+
+</div>
+</div>
+<!-- </div> -->
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p><a href="https://www.r-bloggers.com/2020/06/introducing-modeltime-tidy-time-series-forecasting-using-tidymodels/" class="uri">https://www.r-bloggers.com/2020/06/introducing-modeltime-tidy-time-series-forecasting-using-tidymodels/</a><a href="modeltime.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>예를 들어 회귀에서 많이 사용되는 logistic 모델을 위한 엔진은 glm, glmnet, stan 등 여러가지가 있다.<a href="modeltime.html#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="fable-framework.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["t.pdf", "t.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
