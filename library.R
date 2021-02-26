@@ -24,5 +24,5 @@ library(numbers)
 library(fable.prophet)
 library(fable)
 library(tibbletime)
-install.packages('prophet')
+
 library(prophet)
