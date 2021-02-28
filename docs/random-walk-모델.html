@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.4 Random Walk 모델 | Untitled</title>
+  <meta name="description" content="6.4 Random Walk 모델 | Untitled" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.4 Random Walk 모델 | Untitled" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.4 Random Walk 모델 | Untitled" />
+  
+  
+  
+
+<meta name="author" content="이기준" />
+
+
+<meta name="date" content="2021-02-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="계절성-단순seasonal-naive-모델.html"/>
+<link rel="next" href="regression-모델.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">교육, 고용, 코로나 데이터를 활용한 시계열 데이터 분석 in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="시계열-데이터란.html"><a href="시계열-데이터란.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?</a></li>
+<li class="chapter" data-level="1.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html"><i class="fa fa-check"></i><b>1.2</b> 시계열 데이터의 특성</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
+<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.3" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
+<li class="chapter" data-level="1.2.4" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="시계열-데이터-타입-및-import.html"><a href="시계열-데이터-타입-및-import.html"><i class="fa fa-check"></i><b>2</b> 시계열 데이터 타입 및 Import</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 데이터 클래스</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#date-클래스"><i class="fa fa-check"></i><b>2.1.1</b> date 클래스</a></li>
+<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-data-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt data class</a></li>
+<li class="chapter" data-level="2.1.3" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#yearmon-yearqtr-class"><i class="fa fa-check"></i><b>2.1.3</b> yearmon, yearqtr class</a></li>
+<li class="chapter" data-level="2.1.4" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#날짜-시간-포맷"><i class="fa fa-check"></i><b>2.1.4</b> 날짜, 시간 포맷</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html"><i class="fa fa-check"></i><b>2.2</b> 시계열 데이터 객체(Object)</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html#ts-r-basestats"><i class="fa fa-check"></i><b>2.2.1</b> ts : R base(stats)</a></li>
+<li class="chapter" data-level="2.2.2" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html#xts"><i class="fa fa-check"></i><b>2.2.2</b> xts</a></li>
+<li class="chapter" data-level="2.2.3" data-path="시계열-데이터-객체object.html"><a href="시계열-데이터-객체object.html#tsibble"><i class="fa fa-check"></i><b>2.2.3</b> tsibble</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html"><i class="fa fa-check"></i><b>2.3</b> 시계열 데이터 Import</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#엑셀-파일"><i class="fa fa-check"></i><b>2.3.1</b> 엑셀 파일</a></li>
+<li class="chapter" data-level="2.3.2" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#csv-파일"><i class="fa fa-check"></i><b>2.3.2</b> CSV 파일</a></li>
+<li class="chapter" data-level="2.3.3" data-path="시계열-데이터-import.html"><a href="시계열-데이터-import.html#추가-실습-데이터-생성"><i class="fa fa-check"></i><b>2.3.3</b> 추가 실습 데이터 생성</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="시계열-visualization.html"><a href="시계열-visualization.html"><i class="fa fa-check"></i><b>3</b> 시계열 Visualization</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-frame-ggplot2-패키지.html"><a href="data-frame-ggplot2-패키지.html"><i class="fa fa-check"></i><b>3.1</b> data.frame : ggplot2 패키지</a></li>
+<li class="chapter" data-level="3.2" data-path="xts-xts-패키지.html"><a href="xts-xts-패키지.html"><i class="fa fa-check"></i><b>3.2</b> xts : xts 패키지</a></li>
+<li class="chapter" data-level="3.3" data-path="ts-forecast-패키지.html"><a href="ts-forecast-패키지.html"><i class="fa fa-check"></i><b>3.3</b> ts : forecast 패키지</a></li>
+<li class="chapter" data-level="3.4" data-path="tsibble-feasts-패키지.html"><a href="tsibble-feasts-패키지.html"><i class="fa fa-check"></i><b>3.4</b> tsibble : feasts 패키지</a></li>
+<li class="chapter" data-level="3.5" data-path="data-frame-timetk-패키지.html"><a href="data-frame-timetk-패키지.html"><i class="fa fa-check"></i><b>3.5</b> data.frame : timetk 패키지</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="오늘-몇일이야-시간-정보-추출.html"><a href="오늘-몇일이야-시간-정보-추출.html"><i class="fa fa-check"></i><b>4.1</b> 오늘 몇일이야? : 시간 정보 추출</a></li>
+<li class="chapter" data-level="4.2" data-path="몇일-지났어-시간-기간-연산.html"><a href="몇일-지났어-시간-기간-연산.html"><i class="fa fa-check"></i><b>4.2</b> 몇일 지났어? : 시간 기간 연산</a></li>
+<li class="chapter" data-level="4.3" data-path="이번주-마지막날은-몇일이야-시간-반올림.html"><a href="이번주-마지막날은-몇일이야-시간-반올림.html"><i class="fa fa-check"></i><b>4.3</b> 이번주 마지막날은 몇일이야? : 시간 반올림</a></li>
+<li class="chapter" data-level="4.4" data-path="주간-월간-데이터-합계-평균은-시간-grouping.html"><a href="주간-월간-데이터-합계-평균은-시간-grouping.html"><i class="fa fa-check"></i><b>4.4</b> 주간, 월간 데이터 합계, 평균은? : 시간 Grouping</a></li>
+<li class="chapter" data-level="4.5" data-path="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC</a></li>
+<li class="chapter" data-level="4.6" data-path="일-평균-5일-합계는-시간-rolling.html"><a href="일-평균-5일-합계는-시간-rolling.html"><i class="fa fa-check"></i><b>4.6</b> 3일 평균, 5일 합계는? : 시간 Rolling</a></li>
+<li class="chapter" data-level="4.7" data-path="지난달-데이터는-시간-filteringsubsetting.html"><a href="지난달-데이터는-시간-filteringsubsetting.html"><i class="fa fa-check"></i><b>4.7</b> 지난달 데이터는? : 시간 Filtering(Subsetting)</a></li>
+<li class="chapter" data-level="4.8" data-path="월별-분기별-연별-증감량.html"><a href="월별-분기별-연별-증감량.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 증감량</a></li>
+<li class="chapter" data-level="4.9" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.9</b> 월 비중 백분율, 연 비중 백분율</a></li>
+<li class="chapter" data-level="4.10" data-path="월별-분기별-연별-누적합계.html"><a href="월별-분기별-연별-누적합계.html"><i class="fa fa-check"></i><b>4.10</b> 월별, 분기별, 연별 누적합계</a></li>
+<li class="chapter" data-level="4.11" data-path="동월별-동분기별-동년별-plot.html"><a href="동월별-동분기별-동년별-plot.html"><i class="fa fa-check"></i><b>4.11</b> 동월별, 동분기별, 동년별 Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="정상성stationary-비정상성non-stationary.html"><a href="정상성stationary-비정상성non-stationary.html"><i class="fa fa-check"></i><b>5.1</b> 정상성(Stationary), 비정상성(Non-Stationary)</a></li>
+<li class="chapter" data-level="5.2" data-path="지연lag와-차분difference.html"><a href="지연lag와-차분difference.html"><i class="fa fa-check"></i><b>5.2</b> 지연(Lag)와 차분(Difference)</a></li>
+<li class="chapter" data-level="5.3" data-path="acf와-pacf.html"><a href="acf와-pacf.html"><i class="fa fa-check"></i><b>5.3</b> ACF와 PACF</a></li>
+<li class="chapter" data-level="5.4" data-path="적합값fitted-value-와-잔차residuals.html"><a href="적합값fitted-value-와-잔차residuals.html"><i class="fa fa-check"></i><b>5.4</b> 적합값(fitted value) 와 잔차(residuals)</a></li>
+<li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
+<li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
+<li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-검정.html"><a href="계절성-검정.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 검정</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="평균-모델.html"><a href="평균-모델.html"><i class="fa fa-check"></i><b>6.1</b> 평균 모델</a></li>
+<li class="chapter" data-level="6.2" data-path="단순naive-모델.html"><a href="단순naive-모델.html"><i class="fa fa-check"></i><b>6.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.3" data-path="계절성-단순seasonal-naive-모델.html"><a href="계절성-단순seasonal-naive-모델.html"><i class="fa fa-check"></i><b>6.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.4" data-path="random-walk-모델.html"><a href="random-walk-모델.html"><i class="fa fa-check"></i><b>6.4</b> Random Walk 모델</a></li>
+<li class="chapter" data-level="6.5" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.5</b> Regression 모델</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="regression-모델.html"><a href="regression-모델.html#forecasttslm"><i class="fa fa-check"></i><b>6.5.1</b> forecast::tslm()</a></li>
+<li class="chapter" data-level="6.5.2" data-path="regression-모델.html"><a href="regression-모델.html#timetkplot_time_series_regression"><i class="fa fa-check"></i><b>6.5.2</b> timetk::plot_time_series_regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.6</b> 지수 평활(Exponential Smoothing) 모델</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.6.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
+<li class="chapter" data-level="6.6.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.6.2</b> 홀트(Holt) 모델</a></li>
+<li class="chapter" data-level="6.6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.6.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
+<li class="chapter" data-level="6.6.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.6.4</b> ETS 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.7</b> ARIMA 모델</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.7.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
+<li class="chapter" data-level="6.7.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.7.2</b> 이동평균 모델(Moving Average Model)</a></li>
+<li class="chapter" data-level="6.7.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.7.3</b> ARIMA 모델 결정</a></li>
+<li class="chapter" data-level="6.7.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.7.4</b> Seasonal ARIMA 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.8</b> TBATS 모델</a></li>
+<li class="chapter" data-level="6.9" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.9</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.10" data-path="신경망neural-network-모델.html"><a href="신경망neural-network-모델.html"><i class="fa fa-check"></i><b>6.10</b> 신경망(Neural Network) 모델</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html"><i class="fa fa-check"></i><b>7.1</b> 성능분석 지수</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#maemeans-absolute-error"><i class="fa fa-check"></i><b>7.1.1</b> MAE(Means Absolute Error)</a></li>
+<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.2</b> RMSE(Root Means Squaread Error)</a></li>
+<li class="chapter" data-level="7.1.3" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mpe"><i class="fa fa-check"></i><b>7.1.3</b> MPE</a></li>
+<li class="chapter" data-level="7.1.4" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mape"><i class="fa fa-check"></i><b>7.1.4</b> MAPE</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="fable-framework.html"><a href="fable-framework.html"><i class="fa fa-check"></i><b>7.2</b> fable framework</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="fable-framework.html"><a href="fable-framework.html#미래-학생수-예측"><i class="fa fa-check"></i><b>7.2.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.2.2" data-path="fable-framework.html"><a href="fable-framework.html#미래-취업자수-예측"><i class="fa fa-check"></i><b>7.2.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.2.3" data-path="fable-framework.html"><a href="fable-framework.html#미래-코로나-확진자수-예측"><i class="fa fa-check"></i><b>7.2.3</b> 미래 코로나 확진자수 예측</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="modeltime-framework.html"><a href="modeltime-framework.html"><i class="fa fa-check"></i><b>7.3</b> modeltime framework</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a>
+<ul>
+<li class="chapter" data-level="7.4" data-path="r-markdown.html"><a href="r-markdown.html"><i class="fa fa-check"></i><b>7.4</b> R Markdown</a></li>
+<li class="chapter" data-level="7.5" data-path="including-plots.html"><a href="including-plots.html"><i class="fa fa-check"></i><b>7.5</b> Including Plots</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Untitled</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="random-walk-모델" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Random Walk 모델</h2>
+<p>랜덤 워크는 시간적으로 다음값이 시간적으로 현재값의 영향을 받는다는 모델이다. 앞선 Naive모델과 유사한 형태이지만 마지막 데이터에 예측이 어려운 랜덤 값의 변동이 추가된다는 점에서 차이가 있다. 주식의 예에서 보면 내일의 종가는 오늘의 종가에 오늘의 주가 변동이 반영된 값이다. 오늘의 주가 변동은 사전에 알기 어렵고 예측도 어렵기 때문에 랜덤 값으로 간주한다면 이 경우가 랜덤 워크 모델이다. 랜덤 워크에는 어제값 이외에 의미있는 정보가 없기 때문에 예측이 복잡하지 않다<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</p>
+<p>랜덤 워크 모델은 드리프트가 없는 모델과 드리프트가 존재하는 모델의 두가지 종류가 있다. 드리프트가 존재하는 모델은 랜덤워크 모델을 기반으로 하지만 예측값이 시간의 흐름에 따라 증가하거나 감소하는 모델이다.</p>
+<p>랜덤 워크 모델은 <code>forecast</code> 패키지의 <code>rwf()</code>를 이용하여 생성할 수 있다. 앞서 설명한 드리프트의 유무는 <code>drift</code> 매개변수를 통해 설정할 수 있다.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="random-walk-모델.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 학생수계 열에 대한 random walk 모델의 상세 정보와 plot</span></span>
+<span id="cb25-2"><a href="random-walk-모델.html#cb25-2" aria-hidden="true" tabindex="-1"></a>students.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">rwf</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>## 
+## Forecast method: Random walk
+## 
+## Model Information:
+## Call: rwf(y = .) 
+## 
+## Residual sd: 77849.7308 
+## 
+## Error measures:
+##                     ME     RMSE      MAE       MPE     MAPE MASE      ACF1
+## Training set -126815.2 147831.2 128514.4 -1.771615 1.791893    1 0.8922526
+## 
+## Forecasts:
+##      Point Forecast   Lo 80   Hi 80   Lo 95   Hi 95
+## 2021        5995239 5805786 6184692 5705495 6284983
+## 2022        5995239 5727312 6263166 5585479 6404999
+## 2023        5995239 5667096 6323382 5493388 6497090
+## 2024        5995239 5616332 6374146 5415751 6574727
+## 2025        5995239 5571608 6418870 5347352 6643126
+## 2026        5995239 5531175 6459303 5285514 6704964
+## 2027        5995239 5493993 6496485 5228649 6761829
+## 2028        5995239 5459384 6531094 5175720 6814758
+## 2029        5995239 5426879 6563599 5126007 6864471
+## 2030        5995239 5396135 6594343 5078988 6911490</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="random-walk-모델.html#cb27-1" aria-hidden="true" tabindex="-1"></a>students.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">rwf</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;학생수 random walk 모델 plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/randomwalk-1.png" width="672" /></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="random-walk-모델.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 학생수계 열에 대한 드리프르가 있는 random walk 모델의 상세 정보와 plot</span></span>
+<span id="cb28-2"><a href="random-walk-모델.html#cb28-2" aria-hidden="true" tabindex="-1"></a>students.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">rwf</span>(<span class="at">drift =</span> T) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>## 
+## Forecast method: Random walk with drift
+## 
+## Model Information:
+## Call: rwf(y = ., drift = T) 
+## 
+## Drift: -126815.1905  (se 16988.204)
+## Residual sd: 77849.7308 
+## 
+## Error measures:
+##                         ME     RMSE      MAE         MPE      MAPE      MASE
+## Training set -1.773887e-10 75973.56 63881.97 -0.06808499 0.8320398 0.4970802
+##                   ACF1
+## Training set 0.8922526
+## 
+## Forecasts:
+##      Point Forecast   Lo 80   Hi 80   Lo 95   Hi 95
+## 2021        5868424 5768655 5968192 5715841 6021006
+## 2022        5741609 5597194 5886023 5520746 5962471
+## 2023        5614793 5433948 5795639 5338214 5891373
+## 2024        5487978 5274664 5701292 5161743 5814214
+## 2025        5361163 5117753 5604573 4988899 5733427
+## 2026        5234348 4962425 5506271 4818478 5650218
+## 2027        5107533 4808227 5406838 4649785 5565281
+## 2028        4980717 4654875 5306560 4482385 5479050
+## 2029        4853902 4502177 5205628 4315985 5391820
+## 2030        4727087 4349998 5104176 4150379 5303795</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="random-walk-모델.html#cb30-1" aria-hidden="true" tabindex="-1"></a>students.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">rwf</span>(<span class="at">drift =</span> T) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;학생수 random walk 모델 plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/randomwalk-2.png" width="672" /></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="random-walk-모델.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 취업자수 열에 대한 random walk 모델의 상세 정보와 plot</span></span>
+<span id="cb31-2"><a href="random-walk-모델.html#cb31-2" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">rwf</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>## 
+## Forecast method: Random walk
+## 
+## Model Information:
+## Call: rwf(y = .) 
+## 
+## Residual sd: 261.7975 
+## 
+## Error measures:
+##                    ME     RMSE      MAE        MPE      MAPE      MASE      ACF1
+## Training set 23.56842 261.4803 194.5579 0.08782727 0.7411892 0.6138395 0.4208691
+## 
+## Forecasts:
+##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+## Jan 2021          26526 26190.90 26861.10 26013.51 27038.49
+## Feb 2021          26526 26052.10 26999.90 25801.23 27250.77
+## Mar 2021          26526 25945.59 27106.41 25638.34 27413.66
+## Apr 2021          26526 25855.80 27196.20 25501.02 27550.98
+## May 2021          26526 25776.69 27275.31 25380.03 27671.97
+## Jun 2021          26526 25705.17 27346.83 25270.66 27781.34
+## Jul 2021          26526 25639.41 27412.59 25170.07 27881.93
+## Aug 2021          26526 25578.19 27473.81 25076.45 27975.55
+## Sep 2021          26526 25520.70 27531.30 24988.52 28063.48
+## Oct 2021          26526 25466.32 27585.68 24905.36 28146.64</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="random-walk-모델.html#cb33-1" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">rwf</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;취업자수 random walk 모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/randomwalk-3.png" width="672" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="random-walk-모델.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 취업자수 열에 대한 드리프르가 있는 random walk 모델의 상세 정보와 plot</span></span>
+<span id="cb34-2"><a href="random-walk-모델.html#cb34-2" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">rwf</span>(<span class="at">drift =</span> T) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>## 
+## Forecast method: Random walk with drift
+## 
+## Model Information:
+## Call: rwf(y = ., drift = T) 
+## 
+## Drift: 23.5684  (se 26.8599)
+## Residual sd: 261.7975 
+## 
+## Error measures:
+##                        ME    RMSE      MAE        MPE      MAPE      MASE      ACF1
+## Training set 9.956667e-13 260.416 190.0696 -0.0013627 0.7245059 0.5996787 0.4208691
+## 
+## Forecasts:
+##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+## Jan 2021       26549.57 26214.06 26885.08 26036.45 27062.68
+## Feb 2021       26573.14 26096.17 27050.11 25843.68 27302.60
+## Mar 2021       26596.71 26009.50 27183.91 25698.66 27494.75
+## Apr 2021       26620.27 25938.75 27301.80 25577.97 27662.58
+## May 2021       26643.84 25877.99 27409.69 25472.58 27815.10
+## Jun 2021       26667.41 25824.24 27510.58 25377.89 27956.93
+## Jul 2021       26690.98 25775.71 27606.25 25291.19 28090.76
+## Aug 2021       26714.55 25731.25 27697.84 25210.72 28218.37
+## Sep 2021       26738.12 25690.07 27786.16 25135.27 28340.96
+## Oct 2021       26761.68 25651.60 27871.77 25063.95 28459.41</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="random-walk-모델.html#cb36-1" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">rwf</span>(<span class="at">drift =</span> T) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;취업자수 random walk 모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/randomwalk-4.png" width="672" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="random-walk-모델.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 0-9세 코로나 확진자수에 대한 계절성 Naive 모델의 상세 정보와 plot</span></span>
+<span id="cb37-2"><a href="random-walk-모델.html#cb37-2" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">rwf</span>(<span class="dv">30</span>) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>## 
+## Forecast method: Random walk
+## 
+## Model Information:
+## Call: rwf(y = ., h = 30) 
+## 
+## Residual sd: 6.0029 
+## 
+## Error measures:
+##                      ME     RMSE      MAE MPE MAPE MASE       ACF1
+## Training set 0.04318937 5.993075 3.465116 NaN  Inf  NaN -0.3127329
+## 
+## Forecasts:
+##          Point Forecast       Lo 80    Hi 80      Lo 95    Hi 95
+## 1.827397             15   7.3195658 22.68043   3.253790 26.74621
+## 1.830137             15   4.1382258 25.86177  -1.611650 31.61165
+## 1.832877             15   1.6970978 28.30290  -5.345033 35.34503
+## 1.835616             15  -0.3608683 30.36087  -8.492421 38.49242
+## 1.838356             15  -2.1739729 32.17397 -11.265325 41.26533
+## 1.841096             15  -3.8131447 33.81314 -13.772222 43.77222
+## 1.843836             15  -5.3205188 35.32052 -16.077552 46.07755
+## 1.846575             15  -6.7235483 36.72355 -18.223300 48.22330
+## 1.849315             15  -8.0413025 38.04130 -20.238631 50.23863
+## 1.852055             15  -9.2876654 39.28767 -22.144779 52.14478
+## 1.854795             15 -10.4731184 40.47312 -23.957773 53.95777
+## 1.857534             15 -11.6058044 41.60580 -25.690067 55.69007
+## 1.860274             15 -12.6921992 42.69220 -27.351564 57.35156
+## 1.863014             15 -13.7375533 43.73755 -28.950295 58.95030
+## 1.865753             15 -14.7461936 44.74619 -30.492877 60.49288
+## 1.868493             15 -15.7217367 45.72174 -31.984842 61.98484
+## 1.871233             15 -16.6672414 46.66724 -33.430866 63.43087
+## 1.873973             15 -17.5853225 47.58532 -34.834950 64.83495
+## 1.876712             15 -18.4782364 48.47824 -36.200544 66.20054
+## 1.879452             15 -19.3479458 49.34795 -37.530650 67.53065
+## 1.882192             15 -20.1961710 50.19617 -38.827898 68.82790
+## 1.884932             15 -21.0244295 51.02443 -40.094611 70.09461
+## 1.887671             15 -21.8340683 51.83407 -41.332846 71.33285
+## 1.890411             15 -22.6262895 52.62629 -42.544444 72.54444
+## 1.893151             15 -23.4021709 53.40217 -43.731052 73.73105
+## 1.895890             15 -24.1626837 54.16268 -44.894156 74.89416
+## 1.898630             15 -24.9087066 54.90871 -46.035100 76.03510
+## 1.901370             15 -25.6410376 55.64104 -47.155103 77.15510
+## 1.904110             15 -26.3604038 56.36040 -48.255279 78.25528
+## 1.906849             15 -27.0674705 57.06747 -49.336644 79.33664</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="random-walk-모델.html#cb39-1" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">rwf</span>(<span class="dv">30</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;0-9세 코로나19 확진자의 random walk 모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;기간&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/randomwalk-5.png" width="672" /></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="random-walk-모델.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 취업자수 열에 대한 드리프르가 있는 random walk 모델의 상세 정보와 plot</span></span>
+<span id="cb40-2"><a href="random-walk-모델.html#cb40-2" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">rwf</span>(<span class="dv">30</span>, <span class="at">drift =</span> T) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<pre><code>## 
+## Forecast method: Random walk with drift
+## 
+## Model Information:
+## Call: rwf(y = ., h = 30, drift = T) 
+## 
+## Drift: 0.0432  (se 0.346)
+## Residual sd: 6.0029 
+## 
+## Error measures:
+##                        ME     RMSE      MAE MPE MAPE MASE       ACF1
+## Training set 1.142727e-16 5.992919 3.475017 NaN  Inf  NaN -0.3127329
+## 
+## Forecasts:
+##          Point Forecast      Lo 80    Hi 80      Lo 95    Hi 95
+## 1.827397       15.04319   7.350165 22.73621   3.277724 26.80866
+## 1.830137       15.08638   4.188742 25.98402  -1.580119 31.75288
+## 1.832877       15.12957   1.760664 28.49847  -5.316406 35.57554
+## 1.835616       15.17276  -0.289776 30.63529  -8.475147 38.82066
+## 1.838356       15.21595  -2.100101 32.53200 -11.266664 41.69856
+## 1.841096       15.25914  -3.740715 34.25899 -13.798629 44.31690
+## 1.843836       15.30233  -5.253365 35.85802 -16.134890 46.73954
+## 1.846575       15.34551  -6.665203 37.35623 -18.316974 49.00800
+## 1.849315       15.38870  -7.995057 38.77247 -20.373672 51.15108
+## 1.852055       15.43189  -9.256607 40.12039 -22.325910 53.18970
+## 1.854795       15.47508 -10.460165 41.41033 -24.189456 55.13962
+## 1.857534       15.51827 -11.613726 42.65027 -25.976539 57.01308
+## 1.860274       15.56146 -12.723638 43.84656 -27.696865 58.81979
+## 1.863014       15.60465 -13.795036 45.00434 -29.358290 60.56759
+## 1.865753       15.64784 -14.832146 46.12783 -30.967276 62.26296
+## 1.868493       15.69103 -15.838493 47.22055 -32.529214 63.91127
+## 1.871233       15.73422 -16.817052 48.28549 -34.048655 65.51709
+## 1.873973       15.77741 -17.770363 49.32518 -35.529481 67.08430
+## 1.876712       15.82060 -18.700612 50.34181 -36.975037 68.61623
+## 1.879452       15.86379 -19.609697 51.33727 -38.388226 70.11580
+## 1.882192       15.90698 -20.499280 52.31323 -39.771588 71.58554
+## 1.884932       15.95017 -21.370823 53.27115 -41.127361 73.02769
+## 1.887671       15.99336 -22.225620 54.21233 -42.457524 74.44424
+## 1.890411       16.03654 -23.064827 55.13792 -43.763843 75.83693
+## 1.893151       16.07973 -23.889475 56.04894 -45.047896 77.20736
+## 1.895890       16.12292 -24.700492 56.94634 -46.311103 78.55695
+## 1.898630       16.16611 -25.498718 57.83094 -47.554747 79.88697
+## 1.901370       16.20930 -26.284912 58.70352 -48.779990 81.19859
+## 1.904110       16.25249 -27.059765 59.56475 -49.987889 82.49287
+## 1.906849       16.29568 -27.823909 60.41527 -51.179408 83.77077</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="random-walk-모델.html#cb42-1" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">rwf</span>(<span class="dv">30</span>, <span class="at">drift =</span> T) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;0-9세 코로나19 확진자의 random walk 모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;기간&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/randomwalk-6.png" width="672" /></p>
+<p>랜덤 워크는 시간적으로 하나 앞선 값과 현재값을 뺀 1차 차분값들이 백색잡음이 되어야한다는 조건이 있다. 따라서 랜덤 워크 모델은 차분을 하면 백색잡음이 되고 백색잡음은 누적합계를 하면 랜덤 워크가 된다.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="random-walk-모델.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">345</span>)</span>
+<span id="cb43-2"><a href="random-walk-모델.html#cb43-2" aria-hidden="true" tabindex="-1"></a>whitenoise <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>), <span class="at">start =</span> <span class="dv">1</span>)  <span class="do">###  white noise simulation 데이터 생성</span></span>
+<span id="cb43-3"><a href="random-walk-모델.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ts.plot</span>(whitenoise)</span></code></pre></div>
+<p><img src="t_files/figure-html/randomwalk_noise-1.png" width="672" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="random-walk-모델.html#cb44-1" aria-hidden="true" tabindex="-1"></a>whitenoise.to.randomwalk <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(whitenoise) <span class="do">### white noise 데이터로 random walk 생성</span></span>
+<span id="cb44-2"><a href="random-walk-모델.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ts.plot</span>(whitenoise.to.randomwalk)</span></code></pre></div>
+<p><img src="t_files/figure-html/randomwalk_noise-2.png" width="672" /></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="random-walk-모델.html#cb45-1" aria-hidden="true" tabindex="-1"></a>randomwalk.to.whitenoise <span class="ot">&lt;-</span> <span class="fu">diff</span>(whitenoise.to.randomwalk) <span class="do">### random walk에서 white noise 생성</span></span>
+<span id="cb45-2"><a href="random-walk-모델.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ts.plot</span>(randomwalk.to.whitenoise)</span></code></pre></div>
+<p><img src="t_files/figure-html/randomwalk_noise-3.png" width="672" /></p>
+<p>위에서 설명한 평균, Naive, 계절성 Naive, 랜덤 워크 모델들을 하나의 plot으로 그려보면 모델 간의 차이를 살펴볼 수 있다.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="random-walk-모델.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 학생수계의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측값 plot</span></span>
+<span id="cb46-2"><a href="random-walk-모델.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">meanf</span>(students.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">10</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;Mean&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb46-3"><a href="random-walk-모델.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">naive</span>(students.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">10</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;Naive&#39;</span>) <span class="sc">+</span></span>
+<span id="cb46-4"><a href="random-walk-모델.html#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">snaive</span>(students.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">10</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;Snaive&#39;</span>) <span class="sc">+</span></span>
+<span id="cb46-5"><a href="random-walk-모델.html#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">rwf</span>(students.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">10</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;RW&#39;</span>) <span class="sc">+</span></span>
+<span id="cb46-6"><a href="random-walk-모델.html#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">rwf</span>(students.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">10</span>, <span class="at">drift =</span> <span class="cn">TRUE</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;RW with drift&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb46-7"><a href="random-walk-모델.html#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;학생수계의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">y =</span> <span class="st">&#39;학생수&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/simple_total-1.png" width="672" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="random-walk-모델.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 취업자수의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측값 plot</span></span>
+<span id="cb47-2"><a href="random-walk-모델.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">meanf</span>(employees.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">10</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;Mean&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb47-3"><a href="random-walk-모델.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">naive</span>(employees.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">10</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;Naive&#39;</span>) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="random-walk-모델.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">snaive</span>(employees.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">10</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;Snaive&#39;</span>) <span class="sc">+</span></span>
+<span id="cb47-5"><a href="random-walk-모델.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">rwf</span>(employees.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">10</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;RW&#39;</span>) <span class="sc">+</span></span>
+<span id="cb47-6"><a href="random-walk-모델.html#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">rwf</span>(employees.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">10</span>, <span class="at">drift =</span> <span class="cn">TRUE</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;RW with drift&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb47-7"><a href="random-walk-모델.html#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;취업자수의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측&#39;</span>, <span class="at">x =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/simple_total-2.png" width="672" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="random-walk-모델.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 0-9세 코로나 확진자의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측값 plot</span></span>
+<span id="cb48-2"><a href="random-walk-모델.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">meanf</span>(covid19.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">30</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;Mean&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb48-3"><a href="random-walk-모델.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">naive</span>(covid19.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">30</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;Naive&#39;</span>) <span class="sc">+</span></span>
+<span id="cb48-4"><a href="random-walk-모델.html#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">snaive</span>(covid19.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">30</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;Snaive&#39;</span>) <span class="sc">+</span></span>
+<span id="cb48-5"><a href="random-walk-모델.html#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">rwf</span>(covid19.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">30</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;RW&#39;</span>) <span class="sc">+</span></span>
+<span id="cb48-6"><a href="random-walk-모델.html#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">rwf</span>(covid19.ts[,<span class="dv">2</span>], <span class="at">h =</span> <span class="dv">30</span>, <span class="at">drift =</span> <span class="cn">TRUE</span>), <span class="at">PI =</span> <span class="cn">FALSE</span>, <span class="at">series =</span> <span class="st">&#39;RW with drift&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb48-7"><a href="random-walk-모델.html#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;0-9세 코로나 확진자의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측&#39;</span>, <span class="at">x =</span> <span class="st">&#39;시간&#39;</span>, <span class="at">y =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
+<p><img src="t_files/figure-html/simple_total-3.png" width="672" /></p>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p><a href="https://robjhyndman.com/files/solutions.pdf" class="uri">https://robjhyndman.com/files/solutions.pdf</a><a href="random-walk-모델.html#fnref4" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="계절성-단순seasonal-naive-모델.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regression-모델.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["t.pdf", "t.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

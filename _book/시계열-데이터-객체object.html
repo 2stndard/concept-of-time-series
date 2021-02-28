@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2.2 시계열 데이터 객체(Object) | Untitled</title>
   <meta name="description" content="2.2 시계열 데이터 객체(Object) | Untitled" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2.2 시계열 데이터 객체(Object) | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-25" />
+<meta name="date" content="2021-02-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="날짜시간-데이터-클래스.html"/>
 <link rel="next" href="시계열-데이터-import.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -198,47 +198,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
 <li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
 <li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
-<li class="chapter" data-level="5.8" data-path="계절성-ploting과-테스트.html"><a href="계절성-ploting과-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 ploting과 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-검정.html"><a href="계절성-검정.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 검정</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="simple-모델.html"><a href="simple-모델.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델</a>
+<li class="chapter" data-level="6.1" data-path="평균-모델.html"><a href="평균-모델.html"><i class="fa fa-check"></i><b>6.1</b> 평균 모델</a></li>
+<li class="chapter" data-level="6.2" data-path="단순naive-모델.html"><a href="단순naive-모델.html"><i class="fa fa-check"></i><b>6.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.3" data-path="계절성-단순seasonal-naive-모델.html"><a href="계절성-단순seasonal-naive-모델.html"><i class="fa fa-check"></i><b>6.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.4" data-path="random-walk-모델.html"><a href="random-walk-모델.html"><i class="fa fa-check"></i><b>6.4</b> Random Walk 모델</a></li>
+<li class="chapter" data-level="6.5" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.5</b> Regression 모델</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="simple-모델.html"><a href="simple-모델.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
-<li class="chapter" data-level="6.1.2" data-path="simple-모델.html"><a href="simple-모델.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
-<li class="chapter" data-level="6.1.3" data-path="simple-모델.html"><a href="simple-모델.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
-<li class="chapter" data-level="6.1.4" data-path="simple-모델.html"><a href="simple-모델.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
-<li class="chapter" data-level="6.1.5" data-path="simple-모델.html"><a href="simple-모델.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+<li class="chapter" data-level="6.5.1" data-path="regression-모델.html"><a href="regression-모델.html#forecasttslm"><i class="fa fa-check"></i><b>6.5.1</b> forecast::tslm()</a></li>
+<li class="chapter" data-level="6.5.2" data-path="regression-모델.html"><a href="regression-모델.html#timetkplot_time_series_regression"><i class="fa fa-check"></i><b>6.5.2</b> timetk::plot_time_series_regression</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<li class="chapter" data-level="6.6" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.6</b> 지수 평활(Exponential Smoothing) 모델</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>6.2.1</b> tslm 함수(forecast 패키지)</a></li>
-<li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
+<li class="chapter" data-level="6.6.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.6.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
+<li class="chapter" data-level="6.6.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.6.2</b> 홀트(Holt) 모델</a></li>
+<li class="chapter" data-level="6.6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.6.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
+<li class="chapter" data-level="6.6.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.6.4</b> ETS 모델</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
+<li class="chapter" data-level="6.7" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.7</b> ARIMA 모델</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
-<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 모델</a></li>
-<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
-<li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
+<li class="chapter" data-level="6.7.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.7.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
+<li class="chapter" data-level="6.7.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.7.2</b> 이동평균 모델(Moving Average Model)</a></li>
+<li class="chapter" data-level="6.7.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.7.3</b> ARIMA 모델 결정</a></li>
+<li class="chapter" data-level="6.7.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.7.4</b> Seasonal ARIMA 모델</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a>
-<ul>
-<li class="chapter" data-level="6.4.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.4.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
-<li class="chapter" data-level="6.4.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.4.2</b> 이동평균 모델(Moving Average Model)</a></li>
-<li class="chapter" data-level="6.4.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.4.3</b> ARIMA 모델 결정</a></li>
-<li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
-<li class="chapter" data-level="6.6" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.6</b> prophet 모델</a></li>
-<li class="chapter" data-level="6.7" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.7</b> Neural Network 모델</a></li>
+<li class="chapter" data-level="6.8" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.8</b> TBATS 모델</a></li>
+<li class="chapter" data-level="6.9" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.9</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.10" data-path="신경망neural-network-모델.html"><a href="신경망neural-network-모델.html"><i class="fa fa-check"></i><b>6.10</b> 신경망(Neural Network) 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html"><i class="fa fa-check"></i><b>7.1</b> 성능분석 지수</a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.1</b> RMSE(Root Means Squaread Error)</a></li>
-<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mae"><i class="fa fa-check"></i><b>7.1.2</b> MAE</a></li>
+<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#maemeans-absolute-error"><i class="fa fa-check"></i><b>7.1.1</b> MAE(Means Absolute Error)</a></li>
+<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.2</b> RMSE(Root Means Squaread Error)</a></li>
 <li class="chapter" data-level="7.1.3" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mpe"><i class="fa fa-check"></i><b>7.1.3</b> MPE</a></li>
 <li class="chapter" data-level="7.1.4" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mape"><i class="fa fa-check"></i><b>7.1.4</b> MAPE</a></li>
 </ul></li>
@@ -248,11 +244,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.2" data-path="fable-framework.html"><a href="fable-framework.html#미래-취업자수-예측"><i class="fa fa-check"></i><b>7.2.2</b> 미래 취업자수 예측</a></li>
 <li class="chapter" data-level="7.2.3" data-path="fable-framework.html"><a href="fable-framework.html#미래-코로나-확진자수-예측"><i class="fa fa-check"></i><b>7.2.3</b> 미래 코로나 확진자수 예측</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="modeltime.html"><a href="modeltime.html"><i class="fa fa-check"></i><b>7.3</b> modeltime</a>
+<li class="chapter" data-level="7.3" data-path="modeltime-framework.html"><a href="modeltime-framework.html"><i class="fa fa-check"></i><b>7.3</b> modeltime framework</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="modeltime.html"><a href="modeltime.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
-<li class="chapter" data-level="7.3.2" data-path="modeltime.html"><a href="modeltime.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
-<li class="chapter" data-level="7.3.3" data-path="modeltime.html"><a href="modeltime.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
+<li class="chapter" data-level="7.3.1" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a>
@@ -322,19 +318,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>xts 데이터 객체 생성은 다음과 같이 생성할 수 있다.</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="시계열-데이터-객체object.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) </span></code></pre></div>
-<pre><code>##                   [,1]
-## 2008-08-01 -0.11394348
-## 2008-08-02  0.60975475
-## 2008-08-03  0.77768792
-## 2008-08-04  0.32386534
-## 2008-08-05  0.08713245</code></pre>
+<pre><code>##                  [,1]
+## 2008-08-01 -0.6386020
+## 2008-08-02  2.1647918
+## 2008-08-03  0.3289062
+## 2008-08-04  0.6860236
+## 2008-08-05  1.4305995</code></pre>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="시계열-데이터-객체object.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)  </span></code></pre></div>
 <pre><code>##                  [,1]
-## 2008-08-01 -0.6463440
-## 2008-08-02  1.2375669
-## 2008-08-03  0.7035522
-## 2008-08-04 -0.1933234
-## 2008-08-05  0.3922856</code></pre>
+## 2008-08-01  0.1584838
+## 2008-08-02  1.4494835
+## 2008-08-03 -0.8475249
+## 2008-08-04  0.8766909
+## 2008-08-05 -0.8504320</code></pre>
 <div class="comment">
 <ul>
 <li><p>코드 설명</p>
@@ -394,39 +390,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb55-2"><a href="시계열-데이터-객체object.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;tsibble&#39;</span>)</span>
 <span id="cb55-3"><a href="시계열-데이터-객체object.html#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tsibble)</span>
 <span id="cb55-4"><a href="시계열-데이터-객체object.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
-<pre><code>## Warning: package &#39;tsibble&#39; was built under R version 4.0.2</code></pre>
 <p><code>tsibble</code> 패키지를 로딩한 후에 <code>tsibble</code> 객체를 생성할 수 있다. <code>tsibble</code> 객체를 생성하는 방법은 <code>tsibble()</code> 을 사용해서 직접 <code>tsibble</code> 객체를 생성할 수도 있고 데이터 프레임으로 생성된 객체를 <code>as.tsibble()</code>를 사용해 <code>tsibble</code> 객체로 변환하는 방법이 있다. 이 중 데이터 프레임을 <code>tsibble</code> 객체로 변환하는 방법은 다음과 같다.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="시계열-데이터-객체object.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb57-2"><a href="시계열-데이터-객체object.html#cb57-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(<span class="st">&#39;2008-01-01&#39;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">x1 =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="at">x2=</span> <span class="fu">rep</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">10</span>))</span>
-<span id="cb57-3"><a href="시계열-데이터-객체object.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tsibble</span>(x, <span class="at">key =</span> id, <span class="at">index =</span> date)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="시계열-데이터-객체object.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb56-2"><a href="시계열-데이터-객체object.html#cb56-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(<span class="st">&#39;2008-01-01&#39;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">x1 =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="at">x2=</span> <span class="fu">rep</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">10</span>))</span>
+<span id="cb56-3"><a href="시계열-데이터-객체object.html#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tsibble</span>(x, <span class="at">key =</span> id, <span class="at">index =</span> date)</span></code></pre></div>
 <pre><code>## # A tsibble: 10 x 4 [1D]
 ## # Key:       id [10]
-##    date          id     x1 x2   
-##    &lt;date&gt;     &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;
-##  1 2008-01-01     1 -0.634 a    
-##  2 2008-01-02     2 -0.637 a    
-##  3 2008-01-03     3 -0.312 a    
-##  4 2008-01-04     4  0.348 a    
-##  5 2008-01-05     5  0.936 a    
-##  6 2008-01-06     6  0.313 a    
-##  7 2008-01-07     7  0.495 a    
-##  8 2008-01-08     8  1.07  a    
-##  9 2008-01-09     9 -0.484 a    
-## 10 2008-01-10    10  0.743 a</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="시계열-데이터-객체object.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tsibble</span>(x, <span class="at">index =</span> date)</span></code></pre></div>
+##    date          id      x1 x2   
+##    &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;
+##  1 2008-01-01     1 -0.305  a    
+##  2 2008-01-02     2  0.290  a    
+##  3 2008-01-03     3 -0.781  a    
+##  4 2008-01-04     4 -0.565  a    
+##  5 2008-01-05     5  1.85   a    
+##  6 2008-01-06     6  0.510  a    
+##  7 2008-01-07     7  0.990  a    
+##  8 2008-01-08     8 -0.297  a    
+##  9 2008-01-09     9 -0.806  a    
+## 10 2008-01-10    10 -0.0981 a</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="시계열-데이터-객체object.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tsibble</span>(x, <span class="at">index =</span> date)</span></code></pre></div>
 <pre><code>## # A tsibble: 10 x 4 [1D]
-##    date          id     x1 x2   
-##    &lt;date&gt;     &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;
-##  1 2008-01-01     1 -0.634 a    
-##  2 2008-01-02     2 -0.637 a    
-##  3 2008-01-03     3 -0.312 a    
-##  4 2008-01-04     4  0.348 a    
-##  5 2008-01-05     5  0.936 a    
-##  6 2008-01-06     6  0.313 a    
-##  7 2008-01-07     7  0.495 a    
-##  8 2008-01-08     8  1.07  a    
-##  9 2008-01-09     9 -0.484 a    
-## 10 2008-01-10    10  0.743 a</code></pre>
+##    date          id      x1 x2   
+##    &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;
+##  1 2008-01-01     1 -0.305  a    
+##  2 2008-01-02     2  0.290  a    
+##  3 2008-01-03     3 -0.781  a    
+##  4 2008-01-04     4 -0.565  a    
+##  5 2008-01-05     5  1.85   a    
+##  6 2008-01-06     6  0.510  a    
+##  7 2008-01-07     7  0.990  a    
+##  8 2008-01-08     8 -0.297  a    
+##  9 2008-01-09     9 -0.806  a    
+## 10 2008-01-10    10 -0.0981 a</code></pre>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>

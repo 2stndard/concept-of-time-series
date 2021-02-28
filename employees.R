@@ -425,3 +425,56 @@ employees %>%
   ggthemes::theme_economist()
 
 ?scale_x_date
+
+
+
+
+hw_grid_shallow <- ts_grid(ts.obj = employees.ts[,2],
+                           periods = 6,
+                           model = "HoltWinters",
+                           optim = "MAPE",
+                           window_space = 6,
+                           window_test = 12,
+                           hyper_params = list(alpha = seq(0.01, 1,0.1),
+                                               beta =  seq(0.01, 1,0.1),
+                                               gamma = seq(0.01, 1,0.1)),
+                           parallel = TRUE,
+                           n.cores = 8)
+
+a_min <- min(hw_grid_shallow$grid_df$alpha[1:20])
+a_max <- max(hw_grid_shallow$grid_df$alpha[1:20])
+
+b_min <- min(hw_grid_shallow$grid_df$beta[1:20])
+b_max <- max(hw_grid_shallow$grid_df$beta[1:20])
+
+g_min <- min(hw_grid_shallow$grid_df$gamma[1:20])
+g_max <- max(hw_grid_shallow$grid_df$gamma[1:20])
+
+hw_grid_second <- ts_grid(ts.obj = employees.ts[,2],
+                          periods = 6,
+                          model = "HoltWinters",
+                          optim = "MAPE",
+                          window_space = 6,
+                          window_test = 12,
+                          hyper_params = list(alpha = seq(a_min, a_max,0.05),
+                                              beta =  seq(b_min, b_max,0.05),
+                                              gamma = seq(g_min, g_max,0.05)),
+                          parallel = TRUE,
+                          n.cores = 8)
+
+md <- HoltWinters(employees.ts[,2], 
+                  alpha = hw_grid_second$alpha,
+                  beta = hw_grid_second$beta,
+                  gamma = hw_grid_second$gamma)
+
+
+
+employees %>% mutate(year = lubridate::year(time), 
+                     qtr = lubridate::quarter(time)) %>%
+  group_by(year, qtr) %>%
+  summarise(sum = sum(total)) %>% ts(frequency = 4, start = c(2013,1))
+qtr.employees.ts <- ts(qtr.employees, frequency = 4, start = c(2013,1))
+auto.arima(qtr.employees.ts[,3])
+qtr.employees.ts[,3] %>% tsdisplay()
+qtr.employees.ts[,3] %>% ndiffs()
+qtr.employees.ts[,3] %>% diff() %>% tsdisplay()

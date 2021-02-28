@@ -342,7 +342,9 @@ students$연도 <- as.Date(paste0(students$연도, '-01-01'))
 ```{r}
 students.ts <- ts(students, frequency = 1, start = 1999)
 students.xts <- as.xts(students[,-1], order.by = students$연도)
-students.tsibble <- as_tsibble(students, index = 연도)
+students.tsibble <- students %>% 
+  mutate(연도 = yearmonth(paste0(students$연도, '-01-01')))
+students.tsibble <- as_tsibble(students.tsibble, index = 연도)
 ```
 
 ::: {.comment}
@@ -352,7 +354,9 @@ students.tsibble <- as_tsibble(students, index = 연도)
 
     -   as.xts()로 student.from.excel 데이터 프레임의 데이터를 xts 객체로 변환하는데 시간 인덱스를 student.from.excel\$연도로 설정(`order.by = student.from.excel$연도`)
 
-    -   as_tsibble()을 사용하여
+    -   `tsibble`로 변환할 데이터프레임을 미리 만들어두는데 시간인덱스로 사용할 컬럼을 `yearmonth` 클래스로 변환해둠
+
+    -   `as_tsibble()`을 사용하여 students.tsibble 객체를 `tsibble` 객체로 변환
 :::
 
 ### CSV 파일

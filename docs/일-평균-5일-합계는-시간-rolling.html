@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.6 3일 평균, 5일 합계는? : 시간 Rolling | Untitled</title>
   <meta name="description" content="4.6 3일 평균, 5일 합계는? : 시간 Rolling | Untitled" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.6 3일 평균, 5일 합계는? : 시간 Rolling | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-25" />
+<meta name="date" content="2021-02-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"/>
 <link rel="next" href="지난달-데이터는-시간-filteringsubsetting.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -205,47 +205,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
 <li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
 <li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
-<li class="chapter" data-level="5.8" data-path="계절성-ploting과-테스트.html"><a href="계절성-ploting과-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 ploting과 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-검정.html"><a href="계절성-검정.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 검정</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="simple-모델.html"><a href="simple-모델.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델</a>
+<li class="chapter" data-level="6.1" data-path="평균-모델.html"><a href="평균-모델.html"><i class="fa fa-check"></i><b>6.1</b> 평균 모델</a></li>
+<li class="chapter" data-level="6.2" data-path="단순naive-모델.html"><a href="단순naive-모델.html"><i class="fa fa-check"></i><b>6.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.3" data-path="계절성-단순seasonal-naive-모델.html"><a href="계절성-단순seasonal-naive-모델.html"><i class="fa fa-check"></i><b>6.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.4" data-path="random-walk-모델.html"><a href="random-walk-모델.html"><i class="fa fa-check"></i><b>6.4</b> Random Walk 모델</a></li>
+<li class="chapter" data-level="6.5" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.5</b> Regression 모델</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="simple-모델.html"><a href="simple-모델.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
-<li class="chapter" data-level="6.1.2" data-path="simple-모델.html"><a href="simple-모델.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
-<li class="chapter" data-level="6.1.3" data-path="simple-모델.html"><a href="simple-모델.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
-<li class="chapter" data-level="6.1.4" data-path="simple-모델.html"><a href="simple-모델.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
-<li class="chapter" data-level="6.1.5" data-path="simple-모델.html"><a href="simple-모델.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+<li class="chapter" data-level="6.5.1" data-path="regression-모델.html"><a href="regression-모델.html#forecasttslm"><i class="fa fa-check"></i><b>6.5.1</b> forecast::tslm()</a></li>
+<li class="chapter" data-level="6.5.2" data-path="regression-모델.html"><a href="regression-모델.html#timetkplot_time_series_regression"><i class="fa fa-check"></i><b>6.5.2</b> timetk::plot_time_series_regression</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<li class="chapter" data-level="6.6" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.6</b> 지수 평활(Exponential Smoothing) 모델</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>6.2.1</b> tslm 함수(forecast 패키지)</a></li>
-<li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
+<li class="chapter" data-level="6.6.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.6.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
+<li class="chapter" data-level="6.6.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.6.2</b> 홀트(Holt) 모델</a></li>
+<li class="chapter" data-level="6.6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.6.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
+<li class="chapter" data-level="6.6.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.6.4</b> ETS 모델</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
+<li class="chapter" data-level="6.7" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.7</b> ARIMA 모델</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
-<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 모델</a></li>
-<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
-<li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
+<li class="chapter" data-level="6.7.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.7.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
+<li class="chapter" data-level="6.7.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.7.2</b> 이동평균 모델(Moving Average Model)</a></li>
+<li class="chapter" data-level="6.7.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.7.3</b> ARIMA 모델 결정</a></li>
+<li class="chapter" data-level="6.7.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.7.4</b> Seasonal ARIMA 모델</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a>
-<ul>
-<li class="chapter" data-level="6.4.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.4.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
-<li class="chapter" data-level="6.4.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.4.2</b> 이동평균 모델(Moving Average Model)</a></li>
-<li class="chapter" data-level="6.4.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.4.3</b> ARIMA 모델 결정</a></li>
-<li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
-<li class="chapter" data-level="6.6" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.6</b> prophet 모델</a></li>
-<li class="chapter" data-level="6.7" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.7</b> Neural Network 모델</a></li>
+<li class="chapter" data-level="6.8" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.8</b> TBATS 모델</a></li>
+<li class="chapter" data-level="6.9" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.9</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.10" data-path="신경망neural-network-모델.html"><a href="신경망neural-network-모델.html"><i class="fa fa-check"></i><b>6.10</b> 신경망(Neural Network) 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html"><i class="fa fa-check"></i><b>7.1</b> 성능분석 지수</a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.1</b> RMSE(Root Means Squaread Error)</a></li>
-<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mae"><i class="fa fa-check"></i><b>7.1.2</b> MAE</a></li>
+<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#maemeans-absolute-error"><i class="fa fa-check"></i><b>7.1.1</b> MAE(Means Absolute Error)</a></li>
+<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.2</b> RMSE(Root Means Squaread Error)</a></li>
 <li class="chapter" data-level="7.1.3" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mpe"><i class="fa fa-check"></i><b>7.1.3</b> MPE</a></li>
 <li class="chapter" data-level="7.1.4" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mape"><i class="fa fa-check"></i><b>7.1.4</b> MAPE</a></li>
 </ul></li>
@@ -255,11 +251,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.2" data-path="fable-framework.html"><a href="fable-framework.html#미래-취업자수-예측"><i class="fa fa-check"></i><b>7.2.2</b> 미래 취업자수 예측</a></li>
 <li class="chapter" data-level="7.2.3" data-path="fable-framework.html"><a href="fable-framework.html#미래-코로나-확진자수-예측"><i class="fa fa-check"></i><b>7.2.3</b> 미래 코로나 확진자수 예측</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="modeltime.html"><a href="modeltime.html"><i class="fa fa-check"></i><b>7.3</b> modeltime</a>
+<li class="chapter" data-level="7.3" data-path="modeltime-framework.html"><a href="modeltime-framework.html"><i class="fa fa-check"></i><b>7.3</b> modeltime framework</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="modeltime.html"><a href="modeltime.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
-<li class="chapter" data-level="7.3.2" data-path="modeltime.html"><a href="modeltime.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
-<li class="chapter" data-level="7.3.3" data-path="modeltime.html"><a href="modeltime.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
+<li class="chapter" data-level="7.3.1" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a>
@@ -298,15 +294,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>데이터프레임으로 저장된 시계열 객체에 대한 rolling은 zoo 패키지에서 제공하는 roll* 함수를 사용하면 비교적 쉽게 rolling을 수행할 수있다.</p>
 <p>roll* 함수는 <code>rollapply()</code>와 <code>rollmean()</code>의 두가지를 제공하는데 <code>rollapply()</code>는 <code>apply()</code>를 rolling용으로 수정한 버전이다. <code>rollmean()</code>은 <code>rollapply()</code>에 평균(<code>mean()</code>)을 적용하는 함수로 rolling에는 평균을 사용하는 경우가 많기 때문에 이를 위해서 특별히 <code>rollmean()</code>을 제공한다.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
-<span id="cb92-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-2" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span></span>
-<span id="cb92-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ma3 =</span> <span class="fu">rollmean</span>(total, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
-<span id="cb92-4"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">sum3 =</span> <span class="fu">rollapply</span>(total, <span class="dv">3</span>, sum, <span class="at">fill =</span> <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb92-5"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, ma3, sum3) <span class="sc">%&gt;%</span></span>
-<span id="cb92-6"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time)) <span class="sc">+</span> </span>
-<span id="cb92-7"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> total, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;total&#39;</span>)) <span class="sc">+</span></span>
-<span id="cb92-8"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma3, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;ma3&#39;</span>)) <span class="sc">+</span> </span>
-<span id="cb92-9"><a href="일-평균-5일-합계는-시간-rolling.html#cb92-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;total&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;ma3&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb90-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-2" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span></span>
+<span id="cb90-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ma3 =</span> <span class="fu">rollmean</span>(total, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>),</span>
+<span id="cb90-4"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">sum3 =</span> <span class="fu">rollapply</span>(total, <span class="dv">3</span>, sum, <span class="at">fill =</span> <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb90-5"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, ma3, sum3) <span class="sc">%&gt;%</span></span>
+<span id="cb90-6"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time)) <span class="sc">+</span> </span>
+<span id="cb90-7"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> total, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;total&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb90-8"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma3, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;ma3&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb90-9"><a href="일-평균-5일-합계는-시간-rolling.html#cb90-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;total&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;ma3&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/rollapply-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -326,19 +322,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>timetk</code> 패키지에서는 rolling 기능을 위해 <code>slidify()</code> 함수를 제공한다. <code>slidify()</code> 함수가 타 함수와 다른점은 그 반환값이 함수의 실행 결과값이 아니고 함수자체를 반환한다는 것이다.</p>
 <p>즉 rolling window 기간에 특정 함수를 적용하는 함수를 제공하기 때문에 이후 함수의 형태로 사용해야 한다.</p>
 <p>아래의 예에 ma3와 sum3는 data.frame이나 숫자값이 아니고 함수 객체이다. 이 함수 객체는 <code>mutate()</code> 안에서 함수처럼 작용하는데 그 매개변수로 rolling을 해야할 컬럼을 전달하면 그 결과 벡터가 전달되는 형태로 실행된다.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb93-1" aria-hidden="true" tabindex="-1"></a>ma3 <span class="ot">&lt;-</span> <span class="fu">slidify</span>(mean, <span class="at">.period =</span> <span class="dv">3</span>, <span class="at">.align =</span> <span class="st">&quot;center&quot;</span>)</span>
-<span id="cb93-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb93-2" aria-hidden="true" tabindex="-1"></a>sum3 <span class="ot">&lt;-</span> <span class="fu">slidify</span>(sum, <span class="at">.period =</span> <span class="dv">3</span>, <span class="at">.align =</span> <span class="st">&quot;center&quot;</span>)</span>
-<span id="cb93-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ma3)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb91-1" aria-hidden="true" tabindex="-1"></a>ma3 <span class="ot">&lt;-</span> <span class="fu">slidify</span>(mean, <span class="at">.period =</span> <span class="dv">3</span>, <span class="at">.align =</span> <span class="st">&quot;center&quot;</span>)</span>
+<span id="cb91-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb91-2" aria-hidden="true" tabindex="-1"></a>sum3 <span class="ot">&lt;-</span> <span class="fu">slidify</span>(sum, <span class="at">.period =</span> <span class="dv">3</span>, <span class="at">.align =</span> <span class="st">&quot;center&quot;</span>)</span>
+<span id="cb91-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ma3)</span></code></pre></div>
 <pre><code>## [1] &quot;function&quot;</code></pre>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sum3)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sum3)</span></code></pre></div>
 <pre><code>## [1] &quot;function&quot;</code></pre>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span></span>
-<span id="cb97-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ma3 =</span> <span class="fu">ma3</span>(total), <span class="at">sum3 =</span> <span class="fu">sum3</span>(total)) <span class="sc">%&gt;%</span></span>
-<span id="cb97-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, ma3, sum3) <span class="sc">%&gt;%</span></span>
-<span id="cb97-4"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time)) <span class="sc">+</span> </span>
-<span id="cb97-5"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> total, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;total&#39;</span>)) <span class="sc">+</span></span>
-<span id="cb97-6"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma3, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;ma3&#39;</span>)) <span class="sc">+</span> </span>
-<span id="cb97-7"><a href="일-평균-5일-합계는-시간-rolling.html#cb97-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;total&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;ma3&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-1" aria-hidden="true" tabindex="-1"></a>employees <span class="sc">%&gt;%</span></span>
+<span id="cb95-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ma3 =</span> <span class="fu">ma3</span>(total), <span class="at">sum3 =</span> <span class="fu">sum3</span>(total)) <span class="sc">%&gt;%</span></span>
+<span id="cb95-3"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(time, total, ma3, sum3) <span class="sc">%&gt;%</span></span>
+<span id="cb95-4"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> time)) <span class="sc">+</span> </span>
+<span id="cb95-5"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> total, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;total&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb95-6"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> ma3, <span class="at">group =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&#39;ma3&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb95-7"><a href="일-평균-5일-합계는-시간-rolling.html#cb95-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&#39;total&#39;</span> <span class="ot">=</span> <span class="st">&#39;red&#39;</span>, <span class="st">&#39;ma3&#39;</span> <span class="ot">=</span> <span class="st">&#39;blue&#39;</span>))</span></code></pre></div>
 <p><img src="t_files/figure-html/slidify-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -357,8 +353,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>xts</code></li>
 </ul>
 <p><code>xts</code> 패키지에서는 rolling을 위한 간단한 함수를 제공한다. <code>rollapply()</code>로 <code>xts</code> 객체와 rolling window 기간, 적용할 함수를 전달하면 rolling을 간단히 구할수 있다.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rollapply</span>(employees.xts, <span class="at">width =</span> <span class="dv">3</span>, <span class="at">FUN =</span> mean) <span class="sc">%&gt;%</span></span>
-<span id="cb98-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="일-평균-5일-합계는-시간-rolling.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rollapply</span>(employees.xts, <span class="at">width =</span> <span class="dv">3</span>, <span class="at">FUN =</span> mean) <span class="sc">%&gt;%</span></span>
+<span id="cb96-2"><a href="일-평균-5일-합계는-시간-rolling.html#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##               total employees.edu
 ## 2013-01-01       NA            NA
 ## 2013-02-01       NA            NA

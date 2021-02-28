@@ -256,8 +256,10 @@ students.tsibble.계 %>%
 students.total.xts$증감 <- diff(students.total.xts[,2]) 
 students.total.xts$증감율 <- round((students.total.xts$증감/students.total.xts$학생수계), 3) * 100
 students.total.xts[, c('학생수계', '증감', '증감율')]
+students.total <- students
 
-students.prophet <- data.frame(ds = as.Date(paste0(students.total$연도, '-01-01')), y = students.total$학생수계) 
+
+students.prophet <- data.frame(ds = as.Date(paste0(students$연도, '-01-01')), y = students$학생수계) 
 model.prophet.students <- prophet(students.prophet)
 future.students <- make_future_dataframe(model.prophet.students, periods = 10, freq = 'year')
 forecast.students <- predict(model.prophet.students, future.students)
@@ -269,7 +271,7 @@ prophet_plot_components(model.prophet.students, forecast.students)
 
 
 
-students.total$연도 <- yearmonth(paste0(students.total$연도, '-01-01'))
+students$연도 <- yearmonth(paste0(students$연도, '-01-01'))
 students.tsibble <- as_tsibble(students.total, index = 연도)
 students.tsibble %>% model(ets = ETS(학생수계))
 students.tsibble %>% model(ets = ETS(학생수계)) %>% glance
@@ -306,8 +308,8 @@ model.fable.studetns <- students.tsibble %>% model(ets = ETS(학생수계),
                                                    tslm = TSLM(학생수계),
                                                    rw = RW(학생수계),
                                                    mean = MEAN(학생수계),
-                                                   nnetar = NNETAR(학생수계),
-                                                   prophet = prophet(학생수계)
+                                                   nnetar = NNETAR(학생수계)
+#                                                   prophet = prophet(학생수계)
                                                    )
 
 forecast.fable.students <- model.fable.studetns %>% forecast(h = 10)
@@ -447,3 +449,54 @@ ggplot(students, aes(x = 연도, y = 학생수계)) +
   scale_color_continuous(low = "black", high = "red") +
   scale_y_continuous(labels = scales::number_format(big.mark = ',')) + 
   guides(size = F)
+
+install.packages('TSstudio')
+library(TSstudio)
+hw_grid_shallow <- ts_grid(ts.obj = students.ts[,2],
+                           periods = 6,
+                           model = "HoltWinters",
+                           optim = "MAPE",
+                           window_space = 6,
+                           window_test = 12,
+                           hyper_params = list(alpha = seq(0.01, 1,0.1),
+                                               beta =  seq(0.01, 1,0.1)),
+                           parallel = TRUE,
+                           n.cores = 8)
+
+a_min <- min(hw_grid_shallow$grid_df$alpha[1:20])
+a_max <- max(hw_grid_shallow$grid_df$alpha[1:20])
+
+b_min <- min(hw_grid_shallow$grid_df$beta[1:20])
+b_max <- max(hw_grid_shallow$grid_df$beta[1:20])
+
+g_min <- min(hw_grid_shallow$grid_df$gamma[1:20])
+g_max <- max(hw_grid_shallow$grid_df$gamma[1:20])
+
+hw_grid_second <- ts_grid(ts.obj = employees.ts[,2],
+                          periods = 6,
+                          model = "HoltWinters",
+                          optim = "MAPE",
+                          window_space = 6,
+                          window_test = 12,
+                          hyper_params = list(alpha = seq(a_min, a_max,0.05),
+                                              beta =  seq(b_min, b_max,0.05)),
+                          parallel = TRUE,
+                          n.cores = 8)
+
+md <- HoltWinters(employees.ts[,2], 
+                  alpha = hw_grid_second$alpha,
+                  beta = hw_grid_second$beta,
+                  gamma = hw_grid_second$gamma)
+origin <- students[,2]
+lag1 <- lag(students[,2], 1)
+lag2 <- lag(students[,2], 2)
+lag3 <- lag(students[,2], 3)
+
+cor(origin, lag1, use = 'pairwise.complete.obs', method = 'spearman')
+cor(students[,2], lag2, use = 'complete.obs')
+cor(students[,2], lag3, use = 'complete.obs')
+cor(lag1, lag2, use = 'complete.obs')
+acf(students[,2], plot=F, na.action = na.pass)
+?cor
+?acf
+sd(origin)

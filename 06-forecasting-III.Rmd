@@ -1,5 +1,4 @@
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-library(tidyverse)
 library(dplyr)
 library(xts)
 library(tsibble)
@@ -10,7 +9,9 @@ students <- students.all %>%
 students$연도 <- as.Date(paste0(students$연도, '-01-01'))
 students.ts <- ts(students, frequency = 1, start = 1999)
 students.xts <- as.xts(students[,-1], order.by = students$연도)
-students.tsibble <- as_tsibble(students, index = 연도)
+students.tsibble <- students %>% 
+  mutate(연도 = yearmonth(paste0(students$연도, '-01-01')))
+students.tsibble <- as_tsibble(students.tsibble, index = 연도)
 
 
 employees <- read.csv('./산업별_취업자_20210206234505.csv', header = TRUE, na = '-', strip.white = TRUE, stringsAsFactors = TRUE)
@@ -37,37 +38,52 @@ covid19.tsibble <- as_tsibble(covid19, index = date)
 
 # 시계열 forecasting Part III - 시계열 분석 Framework
 
-얼마전까지만 해도 시계열 분석을 위해서 다수의 모델을 비교하기 위해서는 각각의 모델을 따로 구축한 후 성능분석 지수들을 비교하여 가장 좋은 모델을 선택하는 것이 일반적이었다. 다행히 forecast 패키지에서 시계열 분석을 위한 많은 모델을 지원하지만 모델을 생성하기 위한 사용법이 다 달라서 모델을 하나하나 만들고 분석해야한다.
+얼마전까지만 해도 시계열 분석을 위해서 다수의 모델을 비교하기 위해서는 각각의 모델을 따로 구축한 후 성능분석 지수들을 비교하여 가장 좋은 모델을 선택하는 것이 일반적이었다. 다행히 `forecast` 패키지에서 시계열 분석을 위한 많은 모델을 지원하지만 모델을 생성하기 위한 사용법이 다 달라서 모델을 하나하나 만들고 분석해야한다.
 
 하지만 최근의 머신러닝 모델 선택의 추세는 머신러닝 프레임워크 위에서 동일한 인터페이스로 여러 모델을 동시에 만들고 이에 대한 성능분석 테이블을 만들어서 제공하는 방법을 사용한다.
 
-최근의 시계열 모델링에서도 이러한 흐름이 적용되는데 시계열 분석 전용 프레임워크들이 속속 소개되고 있다. 이번 장에서는 시계열 분석 전용 프레임워크인 fable과 modeltime으로 여러 시계열 모델을 생성하고 분석하는 방법을 소개하고자 한다.
+이러한 흐름은 시계열 모델링에서도 해당되는데 시계열 분석 전용 프레임워크들이 속속 소개되고 있다. 이번 장에서는 시계열 분석 전용 프레임워크인 `fable`과 `modeltime`으로 여러 시계열 모델을 생성하고 분석하는 방법을 소개하고자 한다.
 
 ## 성능분석 지수
 
-시계열 분석 모델간의 성능을 분석하기 위해서는 예측 정확도 평가 판단용 지수들을 사용하여야 한다. 대부분의 예측 정확도 평가 지수는 시계열 모델을 통해 생성된 모델의 적합값과 실제값의 차이인 오차항을 평가하여 산출된다. forecast 패키지에서 제공하는 accuracy() 함수를 사용하면 간단히 여러 성능지수를 간단히 구할 수 있다.
+시계열 분석 모델간의 성능을 분석하기 위해서는 예측 정확도 평가 판단용 지수들을 사용하여야 한다. 대부분의 예측 정확도 평가 지수는 시계열 모델을 통해 생성된 모델의 적합값과 실제값의 차이인 오차항을 평가하여 산출된다. `forecast` 패키지에서 제공하는 `accuracy()` 함수를 사용하면 간단히 여러 성능지수를 간단히 구할 수 있다.
+
+### MAE(Means Absolute Error)
+
+MAE는 가장 계산이 편리한 성능평가 지수이다. 실제값에서 적합값을 뺀 오차는 양의 오차일 수 도 있고 음의 오차일 수 도있다. 이를 단순히 더하면 오차의 합계가 0에 가까울수 있지만 이것이 모델의 성능이 좋은건지 오차들이 상쇄된 것인지 알수가 없다. 이런 경우를 방지하기 위해 각각 오차의 절대값 평균으로 모델의 성능을 평가하기도 한다.
+
+아래의 그림은 앞서 적합값과 잔차를 설명할 때 참조했던 그림이다. 아래의 그림에서 빨간색 선의 거리에 대한 평균값이 MAE값이 된다.
+
+```{r MAE, echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+
+### 학생수계 열의 선형회귀모형을 생성
+
+student.ts.lm <- forecast::tslm(students.ts[,2] ~ trend, data = students.ts)                   
+### 선형회귀모형에 의한 잔차를 res에 저장
+res <- as.vector(residuals(student.ts.lm))
+### 선형회귀모형에 의한 적합값을 fit에 저장
+fit <- as.vector(fitted(student.ts.lm))
+
+
+ggplot(students, aes(x = 연도, y = 학생수계)) + 
+  geom_point() + 
+  geom_line(aes(y = fit, group = 1), color = 'blue', size = 1) +
+  geom_segment(aes(xend = 연도, yend = fit), color = 'red') + 
+  scale_color_continuous(low = "black", high = "red") +
+  scale_y_continuous(labels = scales::number_format(big.mark = ','))
+
+```
+
+오차들의 평균값이기 때문에 MAE값이 작을수록 좋은 모델로 평가된다.
 
 ### RMSE(Root Means Squaread Error)
 
-RMSE는 성능평가에 대표적으로 쓰이는 지수이다. 오차항(Error)을 제곱(Squared)한 값들의 평균(Mean)을 제곱근(Root)한 값이다. 오차항을 제곱하기 때문에 큰 오차는 더욱 크게 계산되는 패널티가 존재한다. 산출 방법은 RMSE의 뒤에서부터 차근히 계산해 나가면 구할 수 있다. 오차항을 대상으로 산출한 지수이기 때문에 이 수치가 작을수록 더 좋은 모델로 볼 수 있다.
+RMSE는 성능평가에 대표적으로 쓰이는 지수이다. 오차항(Error)을 제곱(Squared)한 값들의 평균(Mean)을 제곱근(Root)한 값이다. RMSE를 시각적으로 표현하면 아래의 그림과 같이 표현된다. 앞선 MAE는 단순히 길이의 평균이지만 RMSE는 길이를 제곱한 것이기 때문에 아래의 그림과 같이 한변이 오차의 길이인 정사각형의 넓이가 된다. 결국 RMSE는 이 넓이들의 평균값에 다시 루트를 씌워 넓이를 다시 길이값으로 변환한 값이다.
 
-```{r RMSE, message=FALSE, warning=FALSE}
-ets <- ets(students.total.ts[,1])
-arima <- auto.arima(students.total.ts[,1])
-(students.total.ts[,1] - fitted(ets))^2 %>% mean() %>% sqrt()
-forecast::accuracy(ets)
-(students.total.ts[,1] - fitted(arima))^2 %>% mean() %>% sqrt()
-forecast::accuracy(arima)
-```
+![](RMSE.jpg)
 
-### MAE
-
-MAE는 오차항(Error)의 절대값(Absolute)들의 평균(Mean)값이다. 오차항들은 양수 또는 음수로 나타나기 때문에 부호를 뗀 절대값의 평균으로 실제값과 모델에 의해 산출된 값의 평균으로 이해하면 쉽게 이해된다. 오차항을 대상으로 산출한 지수이기 때문에 작을수록 더 좋은 모델로 볼 수 있다
-
-```{r MAE, message=FALSE, warning=FALSE}
-(students.total.ts[,1] - fitted(ets)) %>% abs() %>% mean()
-(students.total.ts[,1] - fitted(arima)) %>% abs() %>% mean()
-```
+오차항을 제곱하기 때문에 큰 오차는 더욱 크게 계산되는 패널티가 존재한다. 산출 방법은 RMSE의 뒤에서부터 차근히 계산해 나가면 구할 수 있다. 오차항을 대상으로 산출한 지수이기 때문에 이 수치가 작을수록 더
 
 ### MPE
 
@@ -77,33 +93,23 @@ MPE는 오차항(Error)의 백분률(Precentage)의 평균(Mean)을 의미한다
 
 [^forecasting-iii-1]: <https://www.dataquest.io/blog/understanding-regression-error-metrics/>
 
-![](kTIYRBX.jpg "https://www.dataquest.io/blog/understanding-regression-error-metrics/")
-
-```{r MPE, message=FALSE, warning=FALSE}
-((students.total.ts[,1] - fitted(ets)) / students.total.ts[,1] * 100) %>% mean()
-((students.total.ts[,1] - fitted(arima)) / students.total.ts[,1] * 100) %>% mean()
-```
+![](mpe.jpg)
 
 ### MAPE
 
-MAPE는 오차항(Error)의 백분률(Precentage)의 절대값의 평균(Mean)을 의미한다. 앞의 MPE값과 유사하게 산출되는 값이지만 이 값은 MAE값과 더 관계가 있다. MAE 값은 오차항의 절대값 평균이지만 MAPE는 오차항 백분률의 절대값 평균이기 때문이다. 예를 들자면 두개의 오차항이 모두 1이라하더라도 실제값이 10일때 오차항 1과 실제값이 100일때 오차항 1은 다르기 때문이다. MAE를 구할때는 실제값에 관련없이 1이라는 값은 동일하게 계산되지만 MAPE에서는 동일한 1값이라도 실제값에 따라 다르게 계산된다.
+MAPE는 오차항(Error)의 백분률(Precentage)의 절대값의 평균(Mean)을 의미한다. 앞의 MPE값과 유사하게 산출되는 값이지만 이 값은 MAE값을 백분률로 산출한 값이다. 예를 들자면 두개의 오차항이 모두 1이라하더라도 실제값이 10일때 오차항 1과 실제값이 100일때 오차항 1은 다르기 때문이다. MAE를 구할때는 실제값에 관련없이 1이라는 값은 동일하게 계산되지만 MAPE에서는 동일한 1값이라도 실제값에 따라 다르게 계산된다.
 
-이 값은 앞의 RMSE와 MAE와 가장 다른 점은 백분율을 사용하기 때문에 결과값들이 Y축 값에 의존적이지 않다는 점이다. 실제값과 적합값이 같으면(정확하게 예측하면) 분자가 0이 되기 때문에 MPE값은 0이다. 결국 0과 가까운 값일 수록 예측 성능이 우수하다고 평가할 수 있다.
+이 값이 RMSE와 MAE와 가장 다른 점은 백분율을 사용하기 때문에 결과값들이 Y축 의 실제값과 큰 관계가 없다는 것이다. 실제값과 적합값이 같으면(정확하게 예측하면) 분자로 작용하는 오차가 0이 되기 때문에 MPE값은 0이다. 결국 0과 가까운 값일 수록 예측 성능이 우수하다고 평가할 수 있다.
 
-다만 MPE나 MAPE 모두 치명적인 약점을 지니는데 실제값이 0인 경우 산출이 어렵다는 점(오차항을 실제값으로 나눠야하는데 분모가 0이 되면 값을 구할수 없으니까)과 실제값이 매우 작은 경우에는 MAPE값이 매우 커질 수 있다는 점이다.
+다만 MPE나 MAPE 모두 치명적인 약점을 지니는데 실제값이 0인 경우 산출이 어렵다는 점(분모가 0)과 실제값이 매우 작은 경우(분모가 매우 작은 값)에는 MAPE값이 매우 커질 수 있다는 점이다.
 
-```{r MAPE, message=FALSE, warning=FALSE}
-((students.total.ts[,1] - fitted(ets)) / students.total.ts[,1] * 100) %>% abs() %>% mean()
-((students.total.ts[,1] - fitted(arima)) / students.total.ts[,1] * 100) %>% abs() %>% mean()
-```
+![](mape.jpg)
 
 ## fable framework
 
 `fable` 프레임워크는 패키지로 제공되는데 시계열 데이터 분석을 위한 프레임워크로 평균모델, 랜덤워크 모델 등 심플 모델부터 지수 평활 모델, 자기 회귀 모델과 같이 전통적으로 오랫동안 사용되어 온 모델, 신경망 모델, prophet 모델 등 최근에 개발된 모델까지 생성하여 비교해서 최적의 모델을 선택할 수 있는 종합적인 방법을 제공한다.
 
 `fable` 프레임워크는 지수 평활 모델, 자기 회귀 모델 등을 사용하기 위해 선택해야하는 모델 계수들을 자동적으로 선택해주고 일변량과 다변량을 모두 지원하기 때문에 사용하기 쉽다. 이 프레임워크는 `fabletools`패키지를 기반으로 작동하고 `tidyverse` 생태계(echosystem)에서 사용하는 워크 플로우(work flow)를 준용하여 모델을 평가, 시각화 및 결합하는 도구를 제공한다.
-
-![tidyverse 워크플로우](tidyverse_workflow.png "tidyverse 워크플로우")
 
 `fable` 프레임워크는 `forecast` 패키지를 tidy한 데이터[^forecasting-iii-2]를 사용하는 방법을 활용하여 모델링하고 사용할 수있는 다양한 함수들을 제공한다.
 
@@ -167,7 +173,9 @@ students.tsibble.test <- students.tsibble[(split+1):nrow(students.tsibble), ]
     -   students.tsibble의 split+1열부터 마지막 열까지를 studets.tsibble.test로 저장
 :::
 
-`model()`함수에 앞에서 생성한 트레이닝 데이터 셋과 만들고 싶은 모델 함수를 사용하여 모델 데이터프레임를 만든다. 아래에서는 ets, arima, naive, tslm, rw, mean, nnetar, prophet의 8가지 모델을 만들었다.
+`model()`함수에 앞에서 생성한 트레이닝 데이터 셋과 만들고 싶은 모델 함수를 사용하여 모델 데이터프레임를 만든다. 아래에서는 ets, arima, naive, tslm, rw, mean, nnetar, prophet의 8가지 모델을 만들었다.[^forecasting-iii-3]
+
+[^forecasting-iii-3]: 아래의 코드 실행시 `prophet()`에서 해당 컬럼을 찾을 수 없다는 오류가 나는 경우가 있음. 이 경우는 `fable.prophet` 패키지의 `prophet()`을 호출하지 않고 `prophet` 패키지의 `prophet()`을 호출하여 발생됨. 해결하려면 `prophet` 패키지를 detatch()를 통해 unloading 해주거나 `prophet` 패키지 로딩후 `fable.prophet` 패키지를 로딩해야함.
 
 ```{r fable_students1, message=FALSE, warning=FALSE}
  library(fable)  
@@ -180,7 +188,7 @@ model.fable.students <- model(students.tsibble.tr,
         rw = RW(학생수계),
         mean = MEAN(학생수계),
         nnetar = NNETAR(학생수계),
-        prophet = prophet(학생수계)
+        prophet = fable.prophet::prophet(학생수계)
          )
 ```
 
@@ -246,8 +254,7 @@ best.model.fable.students <- model.fable.students %>%
 ```{r fable_students6, message=FALSE, warning=FALSE}
 best.model.fable.students %>% forecast(h = 10) %>%
   autoplot(students.tsibble, alpha = 0.6) +
-  autolayer(fitted(best.model.fable.students)) +
-  geom_point(aes(x = index, y = 학생수계))
+  autolayer(fitted(best.model.fable.students))
 ```
 
 ::: {.comment}
@@ -326,7 +333,9 @@ forecast.fable.employees <- model.fable.employees %>% forecast(h = 24)
 예측된 데이터를 사용하여 plot을 만들고 각각의 모델에서 산출한 미래 예측치를 살펴본다.
 
 ```{r fable_employees3, message=FALSE, warning=FALSE}
-forecast.fable.employees %>% autoplot(employees.tsibble, level = NULL)
+forecast.fable.employees %>% 
+  autoplot(employees.tsibble, level = NULL) +
+  labs(title = 'fable로 생성한 8가지 모델 예측 plot', x = '년월', y = '취업자수')
 ```
 
 ::: {.comment}
@@ -369,7 +378,7 @@ best.model.fable.employees %>%
   autoplot(employees.tsibble, level = NULL, lwd = 1) +
   autolayer(fitted(best.model.fable.employees), lwd = 1) +
   geom_point(aes(x = yearmonth, y = total)) +
-  labs(title = '전체 취업자수 예측', x = '년월', y = '취업자수')
+  labs(title = '전체 취업자수 예측 모델', x = '년월', y = '취업자수')
 ```
 
 ::: {.comment}
@@ -386,7 +395,7 @@ best.model.fable.employees %>%
 0\~9세의 코로나 확진자수를 사용하여 미래 코로나 확진자 수를 예측해본다. 앞의 두 예제와 달리 코로나 확진자수는 일별데이터인데 중간중간 데이터가 빠진 날이 있다. 예측을 위해서는 빠진 날짜의 데이터를 채워주어야 하는데 여기서는 빠진 날짜의 데이터를 0으로 채워 넣었다.
 
 ```{r fable_covid1, message=FALSE, warning=FALSE}
-fill.covid19.by.age.tsibble <- fill_gaps(wide.covid19.by.age.tsibble, `0-9세` = 0)
+fill.covid19.tsibble <- fill_gaps(covid19.tsibble, `0-9세` = 0)
 ```
 
 ::: {.comment}
@@ -399,16 +408,16 @@ fill.covid19.by.age.tsibble <- fill_gaps(wide.covid19.by.age.tsibble, `0-9세` =
 fill.covid19.by.age.tsibble을 트레이닝 셋과 테스트 셋으로 분리한다. 분리비율은 9:1로 설정하였다. 분리비율은 정해진 값은 없기 때문에 분석자가 데이터를 분석하기 위한 적절한 비율을 선택한다.
 
 ```{r fable_covid2, message=FALSE, warning=FALSE}
-split <- floor(nrow(fill.covid19.by.age.tsibble) * 0.9)
-n <- nrow(fill.covid19.by.age.tsibble)
-fill.covid19.by.age.tsibble.tr <- fill.covid19.by.age.tsibble[1:split, ]
-fill.covid19.by.age.tsibble.test <- fill.covid19.by.age.tsibble[(split+1):n, ]
+split <- floor(nrow(fill.covid19.tsibble) * 0.9)
+n <- nrow(fill.covid19.tsibble)
+fill.covid19.tsibble.tr <- fill.covid19.tsibble[1:split, ]
+fill.covid19.tsibble.test <- fill.covid19.tsibble[(split+1):n, ]
 ```
 
 앞선 예제들과 같이 8개의 모델을 생성한다.
 
 ```{r fable_covid3, message=FALSE, warning=FALSE}
-model.covid19.by.age.tsibble <- fill.covid19.by.age.tsibble.tr %>%
+model.covid19.tsibble <- fill.covid19.tsibble.tr %>%
   model(ets = ETS(`0-9세`),
         arima = ARIMA(`0-9세`),
         naive = NAIVE(`0-9세`),
@@ -429,7 +438,7 @@ model.covid19.by.age.tsibble <- fill.covid19.by.age.tsibble.tr %>%
 생성된 모델을 사용하여 `forecast()`를 사용하여 예측 결과를 산출한다.
 
 ```{r fable_covid4, message=FALSE, warning=FALSE}
-forecast.covid19.by.age.tsibble <- model.covid19.by.age.tsibble %>%
+forecast.covid19.tsibble <- model.covid19.tsibble %>%
   forecast(h = 120)
 ```
 
@@ -443,7 +452,7 @@ forecast.covid19.by.age.tsibble <- model.covid19.by.age.tsibble %>%
 예측결과를 확인하기 위해 plot을 생성한다. 여러 plot이 겹치기 때문에 다소 보기는 힘들다.
 
 ```{r fable_covid5, message=FALSE, warning=FALSE}
-forecast.covid19.by.age.tsibble %>% autoplot(fill.covid19.by.age.tsibble, level = NULL)
+forecast.covid19.tsibble %>% autoplot(fill.covid19.tsibble, level = NULL)
 ```
 
 ::: {.comment}
@@ -456,7 +465,7 @@ forecast.covid19.by.age.tsibble %>% autoplot(fill.covid19.by.age.tsibble, level 
 육안으로는 가장 좋은 모델 선정이 어렵기 때문에 성능측정 지수를 확인한다.
 
 ```{r fable_covid6, message=FALSE, warning=FALSE}
-forecast.covid19.by.age.tsibble %>% accuracy(fill.covid19.by.age.tsibble.test) %>% arrange(RMSE)
+forecast.covid19.tsibble %>% accuracy(fill.covid19.tsibble.test) %>% arrange(RMSE)
 ```
 
 ::: {.comment}
@@ -469,7 +478,7 @@ forecast.covid19.by.age.tsibble %>% accuracy(fill.covid19.by.age.tsibble.test) %
 성능측정 지수가 가장 좋은 모델을 선택한다.
 
 ```{r fable_covid7, message=FALSE, warning=FALSE}
-best.model.covid19.by.age.tsibble <- model.covid19.by.age.tsibble %>% select(prophet)
+best.model.covid19.tsibble <- model.covid19.tsibble %>% select(prophet)
 ```
 
 ::: {.comment}
@@ -481,10 +490,10 @@ best.model.covid19.by.age.tsibble <- model.covid19.by.age.tsibble %>% select(pro
 선정된 베스트 모델의 예측 plot을 생성하여 전체 데이터와 예측데이터를 살펴본다.
 
 ```{r fable_covid8, message=FALSE, warning=FALSE}
-best.model.covid19.by.age.tsibble %>%
+best.model.covid19.tsibble %>%
   forecast(h = 120) %>%
-  autoplot(fill.covid19.by.age.tsibble, lwd = 1, alpha = 0.6) +
-  autolayer(fitted(best.model.covid19.by.age.tsibble), lwd = 1) +
+  autoplot(fill.covid19.tsibble, lwd = 1, alpha = 0.6) +
+  autolayer(fitted(best.model.covid19.tsibble), lwd = 1) +
   geom_point(aes(x = date, y = `0-9세`)) +
   labs(title = '코로나 확진자수 예측', x = '년월일', y = '확진자수')
 ```
@@ -499,15 +508,15 @@ best.model.covid19.by.age.tsibble %>%
     -   `labs()`를 사용하여 plot 제목과 축제목을 설정.
 :::
 
-## modeltime
+## modeltime framework
 
 `modeltime`은 머신러닝에서 주로 사용하는 모델, 전통적인 시계열 모델을 자동화한 통합 모델을 사용해서 시계열 모델을 빠르게 개발하고 테스트하기 위해 설계된 새로운 프레임워크이다.
 
 `modeltime` 프레임워크는 미국의 Business Science에서 개발한 시계열 전용 분석 프레임워크로 `tidymodel` 생태계를 기본으로 제작되었다. tidymodel 프레임워크를 활용하기 때문에 `tidymodel`에서 포함하고 있는 `tidymodel`, `parship`, `rsample` 등의 패키지를 사용한다.
 
-modeltime은 다음같은 장점이 있다.[^forecasting-iii-3]
+modeltime은 다음같은 장점이 있다.[^forecasting-iii-4]
 
-[^forecasting-iii-3]: <https://www.r-bloggers.com/2020/06/introducing-modeltime-tidy-time-series-forecasting-using-tidymodels/>
+[^forecasting-iii-4]: <https://www.r-bloggers.com/2020/06/introducing-modeltime-tidy-time-series-forecasting-using-tidymodels/>
 
 1.  시계열 예측을 위한 시스템화된 워크플로우를 제공한다. `modeltime` 에서 제공하는 `modeltime_table()`, `modeltime_calibrate()`, `modeltime_refit()` 등의 함수들을 차례대로 실행하면 예측 모델을 쉽게 구현할 수 있다.
 
@@ -519,7 +528,7 @@ modeltime을 사용하여 예측모델과 예측결과를 만드는 것은 아�
 
 ![](modeltime_workflow.jpg)
 
-modeltime의 워크플로우를 정리하면 다음과 같다.
+`modeltime`의 워크플로우를 정리하면 다음과 같다.
 
 ::: {.boxBorder}
 1.  분석할 시계열 데이터를 트레이닝 셋과 테스트 셋으로 분리한다.
@@ -527,7 +536,7 @@ modeltime의 워크플로우를 정리하면 다음과 같다.
 2.  생성하고자 하는 모델을 생성한다. 이 부분은 tidymodel의 예측모델 생성방식을 사용하는데 parsnip 패키지에서 제공하는 함수들을 재활용한다. 모델을 생성하기 위해서는 다음의 3단계를 거친다.
 
     i.  예측모형을 설정한다. 생성하기를 원하는 예측모형을 생성하는 함수를 호출하여 설정하는데 시계열 모델에 해당하는 예측모형 설정함수는 다음과 같다.
-    ii. `set_engine()`을 사용하여설정된 예측모형을 생성하기 위해 사용할 엔진을 설정한다. 일반적인 머신러닝 모형의 경우 모형을 생성하기 위한 엔진이 여러개 있는 경우들이 있는데 이런 경우에 적합하다.[^forecasting-iii-4] 하지만 시계열 모델에는 엔진이 많지 않아 적합치는 않지만 tidymodel의 호환성을 위해 사용하는 것으로 보인다.
+    ii. `set_engine()`을 사용하여설정된 예측모형을 생성하기 위해 사용할 엔진을 설정한다. 일반적인 머신러닝 모형의 경우 모형을 생성하기 위한 엔진이 여러개 있는 경우들이 있는데 이런 경우에 적합하다.[^forecasting-iii-5] 하지만 시계열 모델에는 엔진이 많지 않아 적합치는 않지만 tidymodel의 호환성을 위해 사용하는 것으로 보인다.
     iii. `fit()`을 사용하여 생성한 모델에 트레이닝 데이터를 피팅한다.
 
 | 모델명                   | 함수명          |
@@ -547,7 +556,7 @@ modeltime의 워크플로우를 정리하면 다음과 같다.
 6.  정확성 측정에 의해 선정된 모델에 대해 `modeltime_refit()`에 전체 데이터셋을 사용해 모델을 다시 피팅하고 예측치를 산출한다.
 :::
 
-[^forecasting-iii-4]: 예를 들어 회귀에서 많이 사용되는 logistic 모델을 위한 엔진은 glm, glmnet, stan 등 여러가지가 있다.
+[^forecasting-iii-5]: 예를 들어 회귀에서 많이 사용되는 logistic 모델을 위한 엔진은 glm, glmnet, stan 등 여러가지가 있다.
 
 ### 미래 학생수 예측
 
@@ -563,14 +572,11 @@ library(tidymodels)
 이제 분석할 데이터를 트레이닝 셋과 테스트 셋으로 분리한다. 앞의 fable에서는 열번호를 사용하여 나누었지만 modeltime에서는 tidymodels 생태계의 rsample패키지에서 제공하는 initial_time_split()을 사용한다.
 
 ```{r message=FALSE, warning=FALSE}
-students$연월일 <- as.Date(paste0(students$연도, '-01-01'))
 splits.students <- initial_time_split(students, prop = 0.8)
 ```
 
 ::: {.comment}
 -   코드설명
-
-    -   `modeltime` 프레임워크의 함수들을 사용하기 위해서는 date 타입의 컬럼이 반드시 필요하기 때문에 '연월일' 컬럼을 date 타입으로 생성
 
     -   `initial_time_split()`로 데이터를 80:20으로 분리
 :::
@@ -580,7 +586,7 @@ splits.students <- initial_time_split(students, prop = 0.8)
 ```{r message=FALSE, warning=FALSE}
 model_fit_arima <- arima_reg() %>%
     set_engine(engine = "auto_arima") %>%
-    fit(학생수계 ~ 연월일, data = training(splits.students))
+    fit(학생수계 ~ 연도, data = training(splits.students))
 ```
 
 ::: {.comment}
@@ -597,7 +603,7 @@ model_fit_arima <- arima_reg() %>%
 ```{r message=FALSE, warning=FALSE}
 model_fit_ets <- exp_smoothing() %>%
     set_engine(engine = "ets") %>%
-    fit(학생수계 ~ 연월일, data = training(splits.students))
+    fit(학생수계 ~ 연도, data = training(splits.students))
 ```
 
 ::: {.comment}
@@ -613,7 +619,7 @@ model_fit_ets <- exp_smoothing() %>%
 ```{r message=FALSE, warning=FALSE}
 model_fit_prophet <- prophet_reg() %>%
     set_engine(engine = "prophet") %>%
-    fit(학생수계 ~ 연월일, data = training(splits.students))
+    fit(학생수계 ~ 연도, data = training(splits.students))
 ```
 
 ::: {.comment}
@@ -629,7 +635,7 @@ model_fit_prophet <- prophet_reg() %>%
 ```{r message=FALSE, warning=FALSE}
 model_fit_lm <- linear_reg() %>%
     set_engine("lm") %>%
-    fit(학생수계 ~ 연월일,
+    fit(학생수계 ~ 연도,
         data = training(splits.students))
 ```
 
@@ -646,7 +652,7 @@ model_fit_lm <- linear_reg() %>%
 ```{r message=FALSE, warning=FALSE}
 model_fit_nnetar <- nnetar_reg() %>%
     set_engine("nnetar") %>%
-    fit(학생수계 ~ 연월일, data = training(splits.students))
+    fit(학생수계 ~ 연도, data = training(splits.students))
 ```
 
 ::: {.comment}
@@ -657,12 +663,12 @@ model_fit_nnetar <- nnetar_reg() %>%
     -   `fit()`을 사용하여 예측을 원하는 변수(종속변수)와 예측에 사용할 시간 변수(독립변수)를 \~기호를 사용한 식(foumula)으로 전달하고 사용할 데이터로 트레이닝 셋(`trainint(split.student)`을 전달)
 :::
 
-다음은 계절성 회귀모델인 tbats 모델을 생성한다.
+다음은 계절성 회귀모델인 TBATS 모델을 생성한다.
 
 ```{r message=FALSE, warning=FALSE}
 model_fit_tbats <- seasonal_reg() %>%
     set_engine("tbats") %>%
-    fit(학생수계 ~ 연월일, data = training(splits.students))
+    fit(학생수계 ~ 연도, data = training(splits.students))
 ```
 
 ::: {.comment}
@@ -750,11 +756,11 @@ calibration_tbl %>%
 ```{r message=FALSE, warning=FALSE}
 model_fit_ets <- exp_smoothing() %>%
     set_engine(engine = "ets") %>%
-    fit(학생수계 ~ 연월일, data = students)
+    fit(학생수계 ~ 연도, data = students)
 
 model_fit_tbats <- seasonal_reg() %>%
     set_engine("tbats") %>%
-    fit(학생수계 ~ 연월일, data = students)
+    fit(학생수계 ~ 연도, data = students)
 
 (models_tbl <- modeltime_table(
     model_fit_ets,
@@ -818,7 +824,7 @@ model_fit_prophet <- prophet_reg() %>%
 ```{r message=FALSE, warning=FALSE}
 model_fit_lm <- linear_reg() %>%
     set_engine("lm") %>%
-    fit(total ~ time + factor(month(time, label = TRUE), ordered = FALSE),
+    fit(total ~ time + factor(lubridate::month(time, label = TRUE), ordered = FALSE),
         data = training(splits.employees))
 ```
 
@@ -919,7 +925,7 @@ models_tbl %>%
 먼저 전체 데이터 셋을 트레이닝 셋과 테스트 셋으로 나눈다. 나누는 비율은 90:10으로 설정하였다.
 
 ```{r message=FALSE, warning=FALSE}
-splits.covid19 <- initial_time_split(wide.covid19.by.age, prop = 0.9)
+splits.covid19 <- initial_time_split(covid19, prop = 0.9)
 ```
 
 트레이닝 셋을 사용해 arima 모델을 생성한다.
@@ -996,7 +1002,7 @@ model_fit_tbats <- seasonal_reg() %>%
 calibration_tbl %>%
     modeltime_forecast(
         new_data    = testing(splits.covid19),
-        actual_data = wide.covid19.by.age
+        actual_data = covid19
     ) %>%
     plot_modeltime_forecast(
       .interactive      = FALSE, 
@@ -1018,11 +1024,11 @@ calibration_tbl %>%
 model_fit_lm <- linear_reg() %>%
     set_engine("lm") %>%
     fit(`0-9세` ~ date,
-        data = wide.covid19.by.age)
+        data = covid19)
 
 model_fit_ets <- exp_smoothing() %>%
     set_engine(engine = "ets") %>%
-    fit(`0-9세` ~ date, data = wide.covid19.by.age)
+    fit(`0-9세` ~ date, data = covid19)
 
 (models_tbl <- modeltime_table(
     model_fit_lm,
@@ -1031,7 +1037,7 @@ model_fit_ets <- exp_smoothing() %>%
 models_tbl %>%
     modeltime_forecast(
         h    = '3 months',
-        actual_data = wide.covid19.by.age
+        actual_data = covid19
     ) %>%
     plot_modeltime_forecast(
       .interactive      = FALSE

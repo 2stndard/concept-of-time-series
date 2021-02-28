@@ -233,3 +233,15 @@ ohlc-주식-시가-고가-저가-종가는-어떻게-구해
 주간-월간-데이터-합계-평균은-시간-grouping
 지난달-데이터는-시간-filteringsubsetting
 계절성-검정
+평균-모델
+random-walk-모델
+forecasttslm
+timetkplot_time_series_regression
+forecastholt
+차분을-통한-정상화
+acf-pacf-확인
+잔차-확인
+arima-모델-실습
+신경망neural-network-모델
+maemeans-absolute-error
+modeltime-framework

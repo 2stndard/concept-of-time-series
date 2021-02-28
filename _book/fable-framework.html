@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-25" />
+<meta name="date" content="2021-02-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="성능분석-지수.html"/>
-<link rel="next" href="modeltime.html"/>
+<link rel="next" href="modeltime-framework.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -198,47 +198,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
 <li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
 <li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
-<li class="chapter" data-level="5.8" data-path="계절성-ploting과-테스트.html"><a href="계절성-ploting과-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 ploting과 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-검정.html"><a href="계절성-검정.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 검정</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="simple-모델.html"><a href="simple-모델.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델</a>
+<li class="chapter" data-level="6.1" data-path="평균-모델.html"><a href="평균-모델.html"><i class="fa fa-check"></i><b>6.1</b> 평균 모델</a></li>
+<li class="chapter" data-level="6.2" data-path="단순naive-모델.html"><a href="단순naive-모델.html"><i class="fa fa-check"></i><b>6.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.3" data-path="계절성-단순seasonal-naive-모델.html"><a href="계절성-단순seasonal-naive-모델.html"><i class="fa fa-check"></i><b>6.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.4" data-path="random-walk-모델.html"><a href="random-walk-모델.html"><i class="fa fa-check"></i><b>6.4</b> Random Walk 모델</a></li>
+<li class="chapter" data-level="6.5" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.5</b> Regression 모델</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="simple-모델.html"><a href="simple-모델.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
-<li class="chapter" data-level="6.1.2" data-path="simple-모델.html"><a href="simple-모델.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
-<li class="chapter" data-level="6.1.3" data-path="simple-모델.html"><a href="simple-모델.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
-<li class="chapter" data-level="6.1.4" data-path="simple-모델.html"><a href="simple-모델.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
-<li class="chapter" data-level="6.1.5" data-path="simple-모델.html"><a href="simple-모델.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+<li class="chapter" data-level="6.5.1" data-path="regression-모델.html"><a href="regression-모델.html#forecasttslm"><i class="fa fa-check"></i><b>6.5.1</b> forecast::tslm()</a></li>
+<li class="chapter" data-level="6.5.2" data-path="regression-모델.html"><a href="regression-모델.html#timetkplot_time_series_regression"><i class="fa fa-check"></i><b>6.5.2</b> timetk::plot_time_series_regression</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<li class="chapter" data-level="6.6" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.6</b> 지수 평활(Exponential Smoothing) 모델</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>6.2.1</b> tslm 함수(forecast 패키지)</a></li>
-<li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
+<li class="chapter" data-level="6.6.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.6.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
+<li class="chapter" data-level="6.6.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.6.2</b> 홀트(Holt) 모델</a></li>
+<li class="chapter" data-level="6.6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.6.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
+<li class="chapter" data-level="6.6.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.6.4</b> ETS 모델</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
+<li class="chapter" data-level="6.7" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.7</b> ARIMA 모델</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
-<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 모델</a></li>
-<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
-<li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
+<li class="chapter" data-level="6.7.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.7.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
+<li class="chapter" data-level="6.7.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.7.2</b> 이동평균 모델(Moving Average Model)</a></li>
+<li class="chapter" data-level="6.7.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.7.3</b> ARIMA 모델 결정</a></li>
+<li class="chapter" data-level="6.7.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.7.4</b> Seasonal ARIMA 모델</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a>
-<ul>
-<li class="chapter" data-level="6.4.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.4.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
-<li class="chapter" data-level="6.4.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.4.2</b> 이동평균 모델(Moving Average Model)</a></li>
-<li class="chapter" data-level="6.4.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.4.3</b> ARIMA 모델 결정</a></li>
-<li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
-<li class="chapter" data-level="6.6" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.6</b> prophet 모델</a></li>
-<li class="chapter" data-level="6.7" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.7</b> Neural Network 모델</a></li>
+<li class="chapter" data-level="6.8" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.8</b> TBATS 모델</a></li>
+<li class="chapter" data-level="6.9" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.9</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.10" data-path="신경망neural-network-모델.html"><a href="신경망neural-network-모델.html"><i class="fa fa-check"></i><b>6.10</b> 신경망(Neural Network) 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html"><i class="fa fa-check"></i><b>7.1</b> 성능분석 지수</a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.1</b> RMSE(Root Means Squaread Error)</a></li>
-<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mae"><i class="fa fa-check"></i><b>7.1.2</b> MAE</a></li>
+<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#maemeans-absolute-error"><i class="fa fa-check"></i><b>7.1.1</b> MAE(Means Absolute Error)</a></li>
+<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.2</b> RMSE(Root Means Squaread Error)</a></li>
 <li class="chapter" data-level="7.1.3" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mpe"><i class="fa fa-check"></i><b>7.1.3</b> MPE</a></li>
 <li class="chapter" data-level="7.1.4" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mape"><i class="fa fa-check"></i><b>7.1.4</b> MAPE</a></li>
 </ul></li>
@@ -248,11 +244,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.2" data-path="fable-framework.html"><a href="fable-framework.html#미래-취업자수-예측"><i class="fa fa-check"></i><b>7.2.2</b> 미래 취업자수 예측</a></li>
 <li class="chapter" data-level="7.2.3" data-path="fable-framework.html"><a href="fable-framework.html#미래-코로나-확진자수-예측"><i class="fa fa-check"></i><b>7.2.3</b> 미래 코로나 확진자수 예측</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="modeltime.html"><a href="modeltime.html"><i class="fa fa-check"></i><b>7.3</b> modeltime</a>
+<li class="chapter" data-level="7.3" data-path="modeltime-framework.html"><a href="modeltime-framework.html"><i class="fa fa-check"></i><b>7.3</b> modeltime framework</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="modeltime.html"><a href="modeltime.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
-<li class="chapter" data-level="7.3.2" data-path="modeltime.html"><a href="modeltime.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
-<li class="chapter" data-level="7.3.3" data-path="modeltime.html"><a href="modeltime.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
+<li class="chapter" data-level="7.3.1" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a>
@@ -284,10 +280,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.2</span> fable framework</h2>
 <p><code>fable</code> 프레임워크는 패키지로 제공되는데 시계열 데이터 분석을 위한 프레임워크로 평균모델, 랜덤워크 모델 등 심플 모델부터 지수 평활 모델, 자기 회귀 모델과 같이 전통적으로 오랫동안 사용되어 온 모델, 신경망 모델, prophet 모델 등 최근에 개발된 모델까지 생성하여 비교해서 최적의 모델을 선택할 수 있는 종합적인 방법을 제공한다.</p>
 <p><code>fable</code> 프레임워크는 지수 평활 모델, 자기 회귀 모델 등을 사용하기 위해 선택해야하는 모델 계수들을 자동적으로 선택해주고 일변량과 다변량을 모두 지원하기 때문에 사용하기 쉽다. 이 프레임워크는 <code>fabletools</code>패키지를 기반으로 작동하고 <code>tidyverse</code> 생태계(echosystem)에서 사용하는 워크 플로우(work flow)를 준용하여 모델을 평가, 시각화 및 결합하는 도구를 제공한다.</p>
-<div class="figure">
-<img src="tidyverse_workflow.png" title="tidyverse 워크플로우" alt="" />
-<p class="caption">tidyverse 워크플로우</p>
-</div>
 <p><code>fable</code> 프레임워크는 <code>forecast</code> 패키지를 tidy한 데이터<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>를 사용하는 방법을 활용하여 모델링하고 사용할 수있는 다양한 함수들을 제공한다.</p>
 <p><code>forecast</code> 패키지는 <code>ts</code> 객체를 활용하기 때문에 tidy 생태계의 방법을 사용하는데 한계가 있었다. fable은 이를 극복하기 위해 tidy 생태계의 기본 데이터 객체인 <code>tibble</code> 객체를 기반으로한 <code>tsibble</code>을 사용한다.</p>
 <p><code>forecast</code>와 <code>fable</code>의 차이는 다음과 같다.</p>
@@ -396,9 +388,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.2.1</span> 미래 학생수 예측</h3>
 <p>앞에서 설명한 방법을 사용하여 미래 학생수를 예측해 보자.</p>
 <p>먼저 트레이닝 셋과 테스트셋을 나눈다. 트레이닝 데이터 셋과 테스트 데이터 셋은 80:20으로 나눈다.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="fable-framework.html#cb21-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(students.tsibble) <span class="sc">*</span> <span class="fl">0.8</span>)</span>
-<span id="cb21-2"><a href="fable-framework.html#cb21-2" aria-hidden="true" tabindex="-1"></a>students.tsibble.tr <span class="ot">&lt;-</span> students.tsibble[<span class="dv">1</span><span class="sc">:</span>split, ]  </span>
-<span id="cb21-3"><a href="fable-framework.html#cb21-3" aria-hidden="true" tabindex="-1"></a>students.tsibble.test <span class="ot">&lt;-</span> students.tsibble[(split<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span><span class="fu">nrow</span>(students.tsibble), ]  </span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="fable-framework.html#cb1-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(students.tsibble) <span class="sc">*</span> <span class="fl">0.8</span>)</span>
+<span id="cb1-2"><a href="fable-framework.html#cb1-2" aria-hidden="true" tabindex="-1"></a>students.tsibble.tr <span class="ot">&lt;-</span> students.tsibble[<span class="dv">1</span><span class="sc">:</span>split, ]  </span>
+<span id="cb1-3"><a href="fable-framework.html#cb1-3" aria-hidden="true" tabindex="-1"></a>students.tsibble.test <span class="ot">&lt;-</span> students.tsibble[(split<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span><span class="fu">nrow</span>(students.tsibble), ]  </span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -409,19 +401,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<p><code>model()</code>함수에 앞에서 생성한 트레이닝 데이터 셋과 만들고 싶은 모델 함수를 사용하여 모델 데이터프레임를 만든다. 아래에서는 ets, arima, naive, tslm, rw, mean, nnetar, prophet의 8가지 모델을 만들었다.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="fable-framework.html#cb22-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(fable)  </span>
-<span id="cb22-2"><a href="fable-framework.html#cb22-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(fable.prophet)  </span>
-<span id="cb22-3"><a href="fable-framework.html#cb22-3" aria-hidden="true" tabindex="-1"></a>model.fable.students <span class="ot">&lt;-</span> <span class="fu">model</span>(students.tsibble.tr,    </span>
-<span id="cb22-4"><a href="fable-framework.html#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ets =</span> <span class="fu">ETS</span>(학생수계),</span>
-<span id="cb22-5"><a href="fable-framework.html#cb22-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">arima =</span> <span class="fu">ARIMA</span>(학생수계),</span>
-<span id="cb22-6"><a href="fable-framework.html#cb22-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">naive =</span> <span class="fu">NAIVE</span>(학생수계),</span>
-<span id="cb22-7"><a href="fable-framework.html#cb22-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">tslm =</span> <span class="fu">TSLM</span>(학생수계 <span class="sc">~</span> <span class="fu">trend</span>()),</span>
-<span id="cb22-8"><a href="fable-framework.html#cb22-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">rw =</span> <span class="fu">RW</span>(학생수계),</span>
-<span id="cb22-9"><a href="fable-framework.html#cb22-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> <span class="fu">MEAN</span>(학생수계),</span>
-<span id="cb22-10"><a href="fable-framework.html#cb22-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">nnetar =</span> <span class="fu">NNETAR</span>(학생수계),</span>
-<span id="cb22-11"><a href="fable-framework.html#cb22-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">prophet =</span> <span class="fu">prophet</span>(학생수계)</span>
-<span id="cb22-12"><a href="fable-framework.html#cb22-12" aria-hidden="true" tabindex="-1"></a>         )</span></code></pre></div>
+<p><code>model()</code>함수에 앞에서 생성한 트레이닝 데이터 셋과 만들고 싶은 모델 함수를 사용하여 모델 데이터프레임를 만든다. 아래에서는 ets, arima, naive, tslm, rw, mean, nnetar, prophet의 8가지 모델을 만들었다.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="fable-framework.html#cb2-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(fable)  </span>
+<span id="cb2-2"><a href="fable-framework.html#cb2-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(fable.prophet)  </span>
+<span id="cb2-3"><a href="fable-framework.html#cb2-3" aria-hidden="true" tabindex="-1"></a>model.fable.students <span class="ot">&lt;-</span> <span class="fu">model</span>(students.tsibble.tr,    </span>
+<span id="cb2-4"><a href="fable-framework.html#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ets =</span> <span class="fu">ETS</span>(학생수계),</span>
+<span id="cb2-5"><a href="fable-framework.html#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">arima =</span> <span class="fu">ARIMA</span>(학생수계),</span>
+<span id="cb2-6"><a href="fable-framework.html#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">naive =</span> <span class="fu">NAIVE</span>(학생수계),</span>
+<span id="cb2-7"><a href="fable-framework.html#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">tslm =</span> <span class="fu">TSLM</span>(학생수계 <span class="sc">~</span> <span class="fu">trend</span>()),</span>
+<span id="cb2-8"><a href="fable-framework.html#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">rw =</span> <span class="fu">RW</span>(학생수계),</span>
+<span id="cb2-9"><a href="fable-framework.html#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> <span class="fu">MEAN</span>(학생수계),</span>
+<span id="cb2-10"><a href="fable-framework.html#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">nnetar =</span> <span class="fu">NNETAR</span>(학생수계),</span>
+<span id="cb2-11"><a href="fable-framework.html#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">prophet =</span> fable.prophet<span class="sc">::</span><span class="fu">prophet</span>(학생수계)</span>
+<span id="cb2-12"><a href="fable-framework.html#cb2-12" aria-hidden="true" tabindex="-1"></a>         )</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -432,7 +424,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>위에서 생성한 model.fable.students 객체를 <code>forecast()</code> 함수에 전달하여 예측 결과를 생성한다. <code>h</code> 매개변수로 예측기간을 설정한다.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="fable-framework.html#cb23-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.students <span class="ot">&lt;-</span> <span class="fu">forecast</span>(model.fable.students, <span class="at">h =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="fable-framework.html#cb3-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.students <span class="ot">&lt;-</span> <span class="fu">forecast</span>(model.fable.students, <span class="at">h =</span> <span class="dv">10</span>)</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -442,7 +434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p><code>autoplot()</code>에 <code>forecast()</code> 결과, 원본 데이터, 레벨 매개변수를 사용하여 plot을 생성한다.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="fable-framework.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(forecast.fable.students, students.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="fable-framework.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(forecast.fable.students, students.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/fable_students3-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -453,15 +445,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>생성한 모델들의 성능측정 지수를 확인하기 위해 forecast 결과를 accuracy() 매개변수로 전달한다. 성능측정에 사용하기 위해 생성해놓았던 전체 데이터의 20% 테스트 데이터 셋을 사용하여 성능측정 지수를 산출한다.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="fable-framework.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(forecast.fable.students, students.tsibble.test) <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a href="fable-framework.html#cb25-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="fable-framework.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(forecast.fable.students, students.tsibble.test) <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="fable-framework.html#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
 <pre><code>## # A tibble: 8 x 10
 ##   .model  .type        ME     RMSE      MAE      MPE   MAPE  MASE RMSSE    ACF1
 ##   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 ets     Test     -5862.   17477.   16449.  -0.0862  0.263   NaN   NaN -0.0726
-## 2 prophet Test    102129.  121700.  102129.   1.66    1.66    NaN   NaN  0.294 
+## 2 prophet Test    102539.  122134.  102539.   1.67    1.67    NaN   NaN  0.298 
 ## 3 arima   Test   -155457.  173482.  155457.  -2.51    2.51    NaN   NaN  0.443 
-## 4 nnetar  Test   -449544.  498844.  449544.  -7.27    7.27    NaN   NaN  0.416 
+## 4 nnetar  Test   -450154.  499336.  450154.  -7.28    7.28    NaN   NaN  0.417 
 ## 5 tslm    Test   -499968.  505229.  499968.  -7.99    7.99    NaN   NaN  0.427 
 ## 6 naive   Test   -508685.  555965.  508685.  -8.21    8.21    NaN   NaN  0.413 
 ## 7 rw      Test   -508685.  555965.  508685.  -8.21    8.21    NaN   NaN  0.413 
@@ -475,8 +467,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>성능측정 지수들 중에 가장 성능이 좋은 모델 2개를 선택하여 베스트 모델 데이터프레임을 생성한다.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="fable-framework.html#cb27-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.students <span class="ot">&lt;-</span> model.fable.students <span class="sc">%&gt;%</span></span>
-<span id="cb27-2"><a href="fable-framework.html#cb27-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">select</span>(ets, prophet)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="fable-framework.html#cb7-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.students <span class="ot">&lt;-</span> model.fable.students <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="fable-framework.html#cb7-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">select</span>(ets, prophet)</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -486,10 +478,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>가장 좋은 모델로 평가된 모델의 예측치를 다시 산출하고 이 결과를 사용하여 plot을 생성한다. 생성할 때는 원본 데이터를 같이 넣어주어야 데이터의 흐름을 파악하기 쉽고 모델에 의해 생성되는 적합값을 같이 plotting해주면 전반적인 모델의 예측력을 눈으로 확인할 수 있다. plot을 보다 보기편하게 하기 위해 plot 제목과 축 제목들을 설정해 주는 것이 좋겠다. autoplot()는 ggplot2를 기반으로 생성된 plot이기 때문에 ggplot2의 plot 생성방법을 사용하면 plot을 원하는 대로 꾸밀 수 있다.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="fable-framework.html#cb28-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.students <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb28-2"><a href="fable-framework.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(students.tsibble, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb28-3"><a href="fable-framework.html#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(best.model.fable.students)) <span class="sc">+</span></span>
-<span id="cb28-4"><a href="fable-framework.html#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> index, <span class="at">y =</span> 학생수계))</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="fable-framework.html#cb8-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.students <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="fable-framework.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(students.tsibble, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="fable-framework.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(best.model.fable.students))</span></code></pre></div>
 <p><img src="t_files/figure-html/fable_students6-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -505,13 +496,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="미래-취업자수-예측" class="section level3" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> 미래 취업자수 예측</h3>
 <p>fable 프레임워크를 사용하여 전체 취업자 수를 예측해보자.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="fable-framework.html#cb29-1" aria-hidden="true" tabindex="-1"></a>employees<span class="sc">$</span>yearmonth <span class="ot">&lt;-</span> <span class="fu">yearmonth</span>(employees<span class="sc">$</span>time)</span>
-<span id="cb29-2"><a href="fable-framework.html#cb29-2" aria-hidden="true" tabindex="-1"></a>employees.tsibble <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(employees, <span class="at">index =</span> yearmonth)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="fable-framework.html#cb9-1" aria-hidden="true" tabindex="-1"></a>employees<span class="sc">$</span>yearmonth <span class="ot">&lt;-</span> <span class="fu">yearmonth</span>(employees<span class="sc">$</span>time)</span>
+<span id="cb9-2"><a href="fable-framework.html#cb9-2" aria-hidden="true" tabindex="-1"></a>employees.tsibble <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(employees, <span class="at">index =</span> yearmonth)</span></code></pre></div>
 <p>순서에 따라 먼저 트레이닝 데이터 셋과 테스트 데이터 셋을 나눈다. 나누는 비율은 90:10의 비율로 나누었다.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="fable-framework.html#cb30-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(employees.tsibble) <span class="sc">*</span> <span class="fl">0.9</span>)</span>
-<span id="cb30-2"><a href="fable-framework.html#cb30-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(employees.tsibble)</span>
-<span id="cb30-3"><a href="fable-framework.html#cb30-3" aria-hidden="true" tabindex="-1"></a>employees.tsibble.tr <span class="ot">&lt;-</span> employees.tsibble[<span class="dv">1</span><span class="sc">:</span>split, ]</span>
-<span id="cb30-4"><a href="fable-framework.html#cb30-4" aria-hidden="true" tabindex="-1"></a>employees.tsibble.test <span class="ot">&lt;-</span> employees.tsibble[(split<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n, ]</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="fable-framework.html#cb10-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(employees.tsibble) <span class="sc">*</span> <span class="fl">0.9</span>)</span>
+<span id="cb10-2"><a href="fable-framework.html#cb10-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(employees.tsibble)</span>
+<span id="cb10-3"><a href="fable-framework.html#cb10-3" aria-hidden="true" tabindex="-1"></a>employees.tsibble.tr <span class="ot">&lt;-</span> employees.tsibble[<span class="dv">1</span><span class="sc">:</span>split, ]</span>
+<span id="cb10-4"><a href="fable-framework.html#cb10-4" aria-hidden="true" tabindex="-1"></a>employees.tsibble.test <span class="ot">&lt;-</span> employees.tsibble[(split<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n, ]</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -523,16 +514,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p><code>model()</code>에 앞에서 생성한 트레이닝 데이터 셋과 만들고 싶은 모델 함수를 사용하여 모델 데이터프레임를 만든다. 아래에서는 ets, arima, naive, tslm, rw, mean, nnetar, prophet의 8가지 모델을 만들었는데 아래의 코드는 tidy 데이터 객체의 특성을 활용하기 위해 파이프라인(<code>%&gt;%</code>)을 사용하였다. 그리고 취업자 데이터는 계절성이 존재하기 때문에 선형 모델에 추세와 계절성을 추가하였다.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="fable-framework.html#cb31-1" aria-hidden="true" tabindex="-1"></a> model.fable.employees <span class="ot">&lt;-</span> employees.tsibble.tr <span class="sc">%&gt;%</span> </span>
-<span id="cb31-2"><a href="fable-framework.html#cb31-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(total),</span>
-<span id="cb31-3"><a href="fable-framework.html#cb31-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">arima =</span> <span class="fu">ARIMA</span>(total),</span>
-<span id="cb31-4"><a href="fable-framework.html#cb31-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">naive =</span> <span class="fu">NAIVE</span>(total),</span>
-<span id="cb31-5"><a href="fable-framework.html#cb31-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">tslm =</span> <span class="fu">TSLM</span>(total<span class="sc">~</span><span class="fu">trend</span>() <span class="sc">+</span> <span class="fu">season</span>(<span class="dv">12</span>)),</span>
-<span id="cb31-6"><a href="fable-framework.html#cb31-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">rw =</span> <span class="fu">RW</span>(total),</span>
-<span id="cb31-7"><a href="fable-framework.html#cb31-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">mean =</span> <span class="fu">MEAN</span>(total),</span>
-<span id="cb31-8"><a href="fable-framework.html#cb31-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">nnetar =</span> <span class="fu">NNETAR</span>(total),</span>
-<span id="cb31-9"><a href="fable-framework.html#cb31-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">prophet =</span> <span class="fu">prophet</span>(total)</span>
-<span id="cb31-10"><a href="fable-framework.html#cb31-10" aria-hidden="true" tabindex="-1"></a>         )</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="fable-framework.html#cb11-1" aria-hidden="true" tabindex="-1"></a> model.fable.employees <span class="ot">&lt;-</span> employees.tsibble.tr <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="fable-framework.html#cb11-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(total),</span>
+<span id="cb11-3"><a href="fable-framework.html#cb11-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">arima =</span> <span class="fu">ARIMA</span>(total),</span>
+<span id="cb11-4"><a href="fable-framework.html#cb11-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">naive =</span> <span class="fu">NAIVE</span>(total),</span>
+<span id="cb11-5"><a href="fable-framework.html#cb11-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">tslm =</span> <span class="fu">TSLM</span>(total<span class="sc">~</span><span class="fu">trend</span>() <span class="sc">+</span> <span class="fu">season</span>(<span class="dv">12</span>)),</span>
+<span id="cb11-6"><a href="fable-framework.html#cb11-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">rw =</span> <span class="fu">RW</span>(total),</span>
+<span id="cb11-7"><a href="fable-framework.html#cb11-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">mean =</span> <span class="fu">MEAN</span>(total),</span>
+<span id="cb11-8"><a href="fable-framework.html#cb11-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">nnetar =</span> <span class="fu">NNETAR</span>(total),</span>
+<span id="cb11-9"><a href="fable-framework.html#cb11-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">prophet =</span> <span class="fu">prophet</span>(total)</span>
+<span id="cb11-10"><a href="fable-framework.html#cb11-10" aria-hidden="true" tabindex="-1"></a>         )</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -543,7 +534,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>앞에서 생성한 model.fable.employees을 <code>forecast()</code>를 사용하여 24개월 미래 데이터를 예측한다.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="fable-framework.html#cb32-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="ot">&lt;-</span> model.fable.employees <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">24</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="fable-framework.html#cb12-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="ot">&lt;-</span> model.fable.employees <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">24</span>)</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -554,7 +545,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>예측된 데이터를 사용하여 plot을 만들고 각각의 모델에서 산출한 미래 예측치를 살펴본다.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="fable-framework.html#cb33-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(employees.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="fable-framework.html#cb13-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="fable-framework.html#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(employees.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="fable-framework.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;fable로 생성한 8가지 모델 예측 plot&#39;</span>, <span class="at">x =</span> <span class="st">&#39;년월&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/fable_employees3-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -565,7 +558,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>육안으로는 어느 모델이 우수한지 알아보기가 힘들다. 따라서 성능측정 지수를 확인해서 가장 성능이 좋은 모델을 선택한다</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="fable-framework.html#cb34-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>(employees.tsibble.test) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="fable-framework.html#cb14-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>(employees.tsibble.test) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
 <pre><code>## # A tibble: 8 x 10
 ##   .model  .type     ME  RMSE   MAE    MPE  MAPE  MASE RMSSE    ACF1
 ##   &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
@@ -574,9 +567,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 mean    Test   560.   611.  560.  2.07  2.07    NaN   NaN  0.203 
 ## 4 tslm    Test  -728.   738.  728. -2.70  2.70    NaN   NaN -0.366 
 ## 5 ets     Test  -730.   740.  730. -2.71  2.71    NaN   NaN -0.0628
-## 6 prophet Test  -827.   839.  827. -3.07  3.07    NaN   NaN -0.396 
+## 6 prophet Test  -827.   840.  827. -3.07  3.07    NaN   NaN -0.397 
 ## 7 arima   Test  -833.   840.  833. -3.10  3.10    NaN   NaN -0.289 
-## 8 nnetar  Test  -831.   912.  831. -3.09  3.09    NaN   NaN  0.497</code></pre>
+## 8 nnetar  Test  -873.   965.  873. -3.24  3.24    NaN   NaN  0.523</code></pre>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -587,8 +580,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>화면에 출력된 성능측정 지수를 확인하여 가장 좋은 모델 2가지를 가지는 데이터프레임을 만들어준다.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="fable-framework.html#cb36-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.employees <span class="ot">&lt;-</span> model.fable.employees <span class="sc">%&gt;%</span></span>
-<span id="cb36-2"><a href="fable-framework.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(naive, rw)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="fable-framework.html#cb16-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.employees <span class="ot">&lt;-</span> model.fable.employees <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="fable-framework.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(naive, rw)</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -598,12 +591,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>가장 좋은 모델로 평가된 모델의 예측치를 다시 산출하고 이 결과를 사용하여 plot을 생성한다. 앞에서 설명했 듯이 plot 생성시에는 원본 데이터와 모델의 적합값을 를 같이 넣어주는 게 좋고 plot을 보다 보기편하게 하기 위해 plot 제목과 축 제목들을 설정해 주는 것이 좋다.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="fable-framework.html#cb37-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.employees <span class="sc">%&gt;%</span></span>
-<span id="cb37-2"><a href="fable-framework.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb37-3"><a href="fable-framework.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(employees.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>, <span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb37-4"><a href="fable-framework.html#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(best.model.fable.employees), <span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb37-5"><a href="fable-framework.html#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> yearmonth, <span class="at">y =</span> total)) <span class="sc">+</span></span>
-<span id="cb37-6"><a href="fable-framework.html#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;전체 취업자수 예측&#39;</span>, <span class="at">x =</span> <span class="st">&#39;년월&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="fable-framework.html#cb17-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.employees <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="fable-framework.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="fable-framework.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(employees.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>, <span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="fable-framework.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(best.model.fable.employees), <span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="fable-framework.html#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> yearmonth, <span class="at">y =</span> total)) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="fable-framework.html#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;전체 취업자수 예측 모델&#39;</span>, <span class="at">x =</span> <span class="st">&#39;년월&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/fable_employees6-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -620,7 +613,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="미래-코로나-확진자수-예측" class="section level3" number="7.2.3">
 <h3><span class="header-section-number">7.2.3</span> 미래 코로나 확진자수 예측</h3>
 <p>0~9세의 코로나 확진자수를 사용하여 미래 코로나 확진자 수를 예측해본다. 앞의 두 예제와 달리 코로나 확진자수는 일별데이터인데 중간중간 데이터가 빠진 날이 있다. 예측을 위해서는 빠진 날짜의 데이터를 채워주어야 하는데 여기서는 빠진 날짜의 데이터를 0으로 채워 넣었다.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="fable-framework.html#cb38-1" aria-hidden="true" tabindex="-1"></a>fill.covid19.by.age.tsibble <span class="ot">&lt;-</span> <span class="fu">fill_gaps</span>(wide.covid19.by.age.tsibble, <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="fable-framework.html#cb18-1" aria-hidden="true" tabindex="-1"></a>fill.covid19.tsibble <span class="ot">&lt;-</span> <span class="fu">fill_gaps</span>(covid19.tsibble, <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">0</span>)</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -631,21 +624,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>fill.covid19.by.age.tsibble을 트레이닝 셋과 테스트 셋으로 분리한다. 분리비율은 9:1로 설정하였다. 분리비율은 정해진 값은 없기 때문에 분석자가 데이터를 분석하기 위한 적절한 비율을 선택한다.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="fable-framework.html#cb39-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(fill.covid19.by.age.tsibble) <span class="sc">*</span> <span class="fl">0.9</span>)</span>
-<span id="cb39-2"><a href="fable-framework.html#cb39-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(fill.covid19.by.age.tsibble)</span>
-<span id="cb39-3"><a href="fable-framework.html#cb39-3" aria-hidden="true" tabindex="-1"></a>fill.covid19.by.age.tsibble.tr <span class="ot">&lt;-</span> fill.covid19.by.age.tsibble[<span class="dv">1</span><span class="sc">:</span>split, ]</span>
-<span id="cb39-4"><a href="fable-framework.html#cb39-4" aria-hidden="true" tabindex="-1"></a>fill.covid19.by.age.tsibble.test <span class="ot">&lt;-</span> fill.covid19.by.age.tsibble[(split<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n, ]</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="fable-framework.html#cb19-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(fill.covid19.tsibble) <span class="sc">*</span> <span class="fl">0.9</span>)</span>
+<span id="cb19-2"><a href="fable-framework.html#cb19-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(fill.covid19.tsibble)</span>
+<span id="cb19-3"><a href="fable-framework.html#cb19-3" aria-hidden="true" tabindex="-1"></a>fill.covid19.tsibble.tr <span class="ot">&lt;-</span> fill.covid19.tsibble[<span class="dv">1</span><span class="sc">:</span>split, ]</span>
+<span id="cb19-4"><a href="fable-framework.html#cb19-4" aria-hidden="true" tabindex="-1"></a>fill.covid19.tsibble.test <span class="ot">&lt;-</span> fill.covid19.tsibble[(split<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n, ]</span></code></pre></div>
 <p>앞선 예제들과 같이 8개의 모델을 생성한다.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="fable-framework.html#cb40-1" aria-hidden="true" tabindex="-1"></a>model.covid19.by.age.tsibble <span class="ot">&lt;-</span> fill.covid19.by.age.tsibble.tr <span class="sc">%&gt;%</span></span>
-<span id="cb40-2"><a href="fable-framework.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
-<span id="cb40-3"><a href="fable-framework.html#cb40-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">arima =</span> <span class="fu">ARIMA</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
-<span id="cb40-4"><a href="fable-framework.html#cb40-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">naive =</span> <span class="fu">NAIVE</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
-<span id="cb40-5"><a href="fable-framework.html#cb40-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">tslm =</span> <span class="fu">TSLM</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
-<span id="cb40-6"><a href="fable-framework.html#cb40-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">rw =</span> <span class="fu">RW</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
-<span id="cb40-7"><a href="fable-framework.html#cb40-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> <span class="fu">MEAN</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
-<span id="cb40-8"><a href="fable-framework.html#cb40-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">nnetar =</span> <span class="fu">NNETAR</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
-<span id="cb40-9"><a href="fable-framework.html#cb40-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">prophet =</span> <span class="fu">prophet</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)</span>
-<span id="cb40-10"><a href="fable-framework.html#cb40-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="fable-framework.html#cb20-1" aria-hidden="true" tabindex="-1"></a>model.covid19.tsibble <span class="ot">&lt;-</span> fill.covid19.tsibble.tr <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="fable-framework.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb20-3"><a href="fable-framework.html#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">arima =</span> <span class="fu">ARIMA</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb20-4"><a href="fable-framework.html#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">naive =</span> <span class="fu">NAIVE</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb20-5"><a href="fable-framework.html#cb20-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">tslm =</span> <span class="fu">TSLM</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb20-6"><a href="fable-framework.html#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">rw =</span> <span class="fu">RW</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb20-7"><a href="fable-framework.html#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> <span class="fu">MEAN</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb20-8"><a href="fable-framework.html#cb20-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">nnetar =</span> <span class="fu">NNETAR</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
+<span id="cb20-9"><a href="fable-framework.html#cb20-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">prophet =</span> <span class="fu">prophet</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)</span>
+<span id="cb20-10"><a href="fable-framework.html#cb20-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -655,8 +648,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>생성된 모델을 사용하여 <code>forecast()</code>를 사용하여 예측 결과를 산출한다.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="fable-framework.html#cb41-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.by.age.tsibble <span class="ot">&lt;-</span> model.covid19.by.age.tsibble <span class="sc">%&gt;%</span></span>
-<span id="cb41-2"><a href="fable-framework.html#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">120</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="fable-framework.html#cb21-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.tsibble <span class="ot">&lt;-</span> model.covid19.tsibble <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="fable-framework.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">120</span>)</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -667,7 +660,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>예측결과를 확인하기 위해 plot을 생성한다. 여러 plot이 겹치기 때문에 다소 보기는 힘들다.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="fable-framework.html#cb42-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.by.age.tsibble <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(fill.covid19.by.age.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="fable-framework.html#cb22-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.tsibble <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(fill.covid19.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/fable_covid5-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -679,18 +672,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>육안으로는 가장 좋은 모델 선정이 어렵기 때문에 성능측정 지수를 확인한다.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="fable-framework.html#cb43-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.by.age.tsibble <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>(fill.covid19.by.age.tsibble.test) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="fable-framework.html#cb23-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.tsibble <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>(fill.covid19.tsibble.test) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
 <pre><code>## # A tibble: 8 x 10
 ##   .model  .type     ME  RMSE   MAE    MPE  MAPE  MASE RMSSE  ACF1
 ##   &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 prophet Test   -6.33  10.5  8.89  -39.0  46.6   NaN   NaN 0.371
+## 1 prophet Test   -6.34  10.5  8.90  -39.1  46.7   NaN   NaN 0.369
 ## 2 naive   Test   -8.39  11.4 10     -51.7  55.8   NaN   NaN 0.234
 ## 3 rw      Test   -8.39  11.4 10     -51.7  55.8   NaN   NaN 0.234
 ## 4 ets     Test  -12.4   14.6 13.1   -70.9  72.4   NaN   NaN 0.234
 ## 5 mean    Test   15.6   17.4 15.6    61.8  61.8   NaN   NaN 0.234
 ## 6 tslm    Test   15.6   17.4 15.6    61.8  61.8   NaN   NaN 0.234
 ## 7 arima   Test  -16.8   18.7 16.9   -92.1  92.5   NaN   NaN 0.281
-## 8 nnetar  Test  -22.0   23.7 22.0  -118.  118.    NaN   NaN 0.340</code></pre>
+## 8 nnetar  Test  -20.9   22.7 20.9  -111.  111.    NaN   NaN 0.395</code></pre>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -701,7 +694,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>성능측정 지수가 가장 좋은 모델을 선택한다.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="fable-framework.html#cb45-1" aria-hidden="true" tabindex="-1"></a>best.model.covid19.by.age.tsibble <span class="ot">&lt;-</span> model.covid19.by.age.tsibble <span class="sc">%&gt;%</span> <span class="fu">select</span>(prophet)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="fable-framework.html#cb25-1" aria-hidden="true" tabindex="-1"></a>best.model.covid19.tsibble <span class="ot">&lt;-</span> model.covid19.tsibble <span class="sc">%&gt;%</span> <span class="fu">select</span>(prophet)</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -711,12 +704,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>선정된 베스트 모델의 예측 plot을 생성하여 전체 데이터와 예측데이터를 살펴본다.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="fable-framework.html#cb46-1" aria-hidden="true" tabindex="-1"></a>best.model.covid19.by.age.tsibble <span class="sc">%&gt;%</span></span>
-<span id="cb46-2"><a href="fable-framework.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">120</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb46-3"><a href="fable-framework.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(fill.covid19.by.age.tsibble, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb46-4"><a href="fable-framework.html#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(best.model.covid19.by.age.tsibble), <span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb46-5"><a href="fable-framework.html#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb46-6"><a href="fable-framework.html#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;코로나 확진자수 예측&#39;</span>, <span class="at">x =</span> <span class="st">&#39;년월일&#39;</span>, <span class="at">y =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="fable-framework.html#cb26-1" aria-hidden="true" tabindex="-1"></a>best.model.covid19.tsibble <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="fable-framework.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">120</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="fable-framework.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(fill.covid19.tsibble, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="fable-framework.html#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(best.model.covid19.tsibble), <span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="fable-framework.html#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="fable-framework.html#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;코로나 확진자수 예측&#39;</span>, <span class="at">x =</span> <span class="st">&#39;년월일&#39;</span>, <span class="at">y =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/fable_covid8-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -736,6 +729,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <hr />
 <ol start="3">
 <li id="fn3"><p>tidy 데이터의 특징과 활용방법은 <a href="https://statkclee.github.io/data-science/data-handling-tidyr.html">[https://statkclee.github.io/data-science/data-handling-tidyr.html](https://statkclee.github.io/data-science/data-handling-tidyr.htmldmf)</a>을 참조하라<a href="fable-framework.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>아래의 코드 실행시 <code>prophet()</code>에서 해당 컬럼을 찾을 수 없다는 오류가 나는 경우가 있음. 이 경우는 <code>fable.prophet</code> 패키지의 <code>prophet()</code>을 호출하지 않고 <code>prophet</code> 패키지의 <code>prophet()</code>을 호출하여 발생됨. 해결하려면 <code>prophet</code> 패키지를 detatch()를 통해 unloading 해주거나 <code>prophet</code> 패키지 로딩후 <code>fable.prophet</code> 패키지를 로딩해야함.<a href="fable-framework.html#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -744,7 +738,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="성능분석-지수.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="modeltime.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="modeltime-framework.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.2 xts : xts 패키지 | Untitled</title>
   <meta name="description" content="3.2 xts : xts 패키지 | Untitled" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.2 xts : xts 패키지 | Untitled" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-25" />
+<meta name="date" content="2021-02-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="data-frame-ggplot2-패키지.html"/>
 <link rel="next" href="ts-forecast-패키지.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -205,47 +205,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="백색-잡음white-noise.html"><a href="백색-잡음white-noise.html"><i class="fa fa-check"></i><b>5.5</b> 백색 잡음(White Noise)</a></li>
 <li class="chapter" data-level="5.6" data-path="시계열-분해decomposition.html"><a href="시계열-분해decomposition.html"><i class="fa fa-check"></i><b>5.6</b> 시계열 분해(Decomposition)</a></li>
 <li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
-<li class="chapter" data-level="5.8" data-path="계절성-ploting과-테스트.html"><a href="계절성-ploting과-테스트.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 ploting과 테스트</a></li>
+<li class="chapter" data-level="5.8" data-path="계절성-검정.html"><a href="계절성-검정.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 검정</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="simple-모델.html"><a href="simple-모델.html"><i class="fa fa-check"></i><b>6.1</b> Simple 모델</a>
+<li class="chapter" data-level="6.1" data-path="평균-모델.html"><a href="평균-모델.html"><i class="fa fa-check"></i><b>6.1</b> 평균 모델</a></li>
+<li class="chapter" data-level="6.2" data-path="단순naive-모델.html"><a href="단순naive-모델.html"><i class="fa fa-check"></i><b>6.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.3" data-path="계절성-단순seasonal-naive-모델.html"><a href="계절성-단순seasonal-naive-모델.html"><i class="fa fa-check"></i><b>6.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
+<li class="chapter" data-level="6.4" data-path="random-walk-모델.html"><a href="random-walk-모델.html"><i class="fa fa-check"></i><b>6.4</b> Random Walk 모델</a></li>
+<li class="chapter" data-level="6.5" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.5</b> Regression 모델</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="simple-모델.html"><a href="simple-모델.html#평균-모델forecastmeanf"><i class="fa fa-check"></i><b>6.1.1</b> 평균 모델(forecast::meanf)</a></li>
-<li class="chapter" data-level="6.1.2" data-path="simple-모델.html"><a href="simple-모델.html#단순naive-모델"><i class="fa fa-check"></i><b>6.1.2</b> 단순(Naive) 모델</a></li>
-<li class="chapter" data-level="6.1.3" data-path="simple-모델.html"><a href="simple-모델.html#계절성-단순seasonal-naive-모델"><i class="fa fa-check"></i><b>6.1.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
-<li class="chapter" data-level="6.1.4" data-path="simple-모델.html"><a href="simple-모델.html#random-work-모델"><i class="fa fa-check"></i><b>6.1.4</b> Random Work 모델</a></li>
-<li class="chapter" data-level="6.1.5" data-path="simple-모델.html"><a href="simple-모델.html#simple-모델-비교"><i class="fa fa-check"></i><b>6.1.5</b> Simple 모델 비교</a></li>
+<li class="chapter" data-level="6.5.1" data-path="regression-모델.html"><a href="regression-모델.html#forecasttslm"><i class="fa fa-check"></i><b>6.5.1</b> forecast::tslm()</a></li>
+<li class="chapter" data-level="6.5.2" data-path="regression-모델.html"><a href="regression-모델.html#timetkplot_time_series_regression"><i class="fa fa-check"></i><b>6.5.2</b> timetk::plot_time_series_regression</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.2</b> Regression 모델</a>
+<li class="chapter" data-level="6.6" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.6</b> 지수 평활(Exponential Smoothing) 모델</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="regression-모델.html"><a href="regression-모델.html#tslm-함수forecast-패키지"><i class="fa fa-check"></i><b>6.2.1</b> tslm 함수(forecast 패키지)</a></li>
-<li class="chapter" data-level="6.2.2" data-path="regression-모델.html"><a href="regression-모델.html#plot_time_series_regression-함수timetk-패키지"><i class="fa fa-check"></i><b>6.2.2</b> plot_time_series_regression 함수(timetk 패키지)</a></li>
+<li class="chapter" data-level="6.6.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.6.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
+<li class="chapter" data-level="6.6.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.6.2</b> 홀트(Holt) 모델</a></li>
+<li class="chapter" data-level="6.6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.6.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
+<li class="chapter" data-level="6.6.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.6.4</b> ETS 모델</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.3</b> 지수 평활(Exponential Smoothing) 모델</a>
+<li class="chapter" data-level="6.7" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.7</b> ARIMA 모델</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#단순-지수-평활-모델simple-exponentail-smoothing-model"><i class="fa fa-check"></i><b>6.3.1</b> 단순 지수 평활 모델(Simple Exponentail Smoothing Model)</a></li>
-<li class="chapter" data-level="6.3.2" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트holt-모델"><i class="fa fa-check"></i><b>6.3.2</b> 홀트(Holt) 모델</a></li>
-<li class="chapter" data-level="6.3.3" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#홀트-윈터holt-winter-모델"><i class="fa fa-check"></i><b>6.3.3</b> 홀트-윈터(Holt-Winter) 모델</a></li>
-<li class="chapter" data-level="6.3.4" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html#ets-모델"><i class="fa fa-check"></i><b>6.3.4</b> ETS 모델</a></li>
+<li class="chapter" data-level="6.7.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.7.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
+<li class="chapter" data-level="6.7.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.7.2</b> 이동평균 모델(Moving Average Model)</a></li>
+<li class="chapter" data-level="6.7.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.7.3</b> ARIMA 모델 결정</a></li>
+<li class="chapter" data-level="6.7.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.7.4</b> Seasonal ARIMA 모델</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="arima-모델.html"><a href="arima-모델.html"><i class="fa fa-check"></i><b>6.4</b> ARIMA 모델</a>
-<ul>
-<li class="chapter" data-level="6.4.1" data-path="arima-모델.html"><a href="arima-모델.html#자기회귀모델autoregressive-model"><i class="fa fa-check"></i><b>6.4.1</b> 자기회귀모델(AutoRegressive Model)</a></li>
-<li class="chapter" data-level="6.4.2" data-path="arima-모델.html"><a href="arima-모델.html#이동평균-모델moving-average-model"><i class="fa fa-check"></i><b>6.4.2</b> 이동평균 모델(Moving Average Model)</a></li>
-<li class="chapter" data-level="6.4.3" data-path="arima-모델.html"><a href="arima-모델.html#arima-모델-결정"><i class="fa fa-check"></i><b>6.4.3</b> ARIMA 모델 결정</a></li>
-<li class="chapter" data-level="6.4.4" data-path="arima-모델.html"><a href="arima-모델.html#seasonal-arima-모델"><i class="fa fa-check"></i><b>6.4.4</b> Seasonal ARIMA 모델</a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.5</b> TBATs 모델</a></li>
-<li class="chapter" data-level="6.6" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.6</b> prophet 모델</a></li>
-<li class="chapter" data-level="6.7" data-path="neural-network-모델.html"><a href="neural-network-모델.html"><i class="fa fa-check"></i><b>6.7</b> Neural Network 모델</a></li>
+<li class="chapter" data-level="6.8" data-path="tbats-모델.html"><a href="tbats-모델.html"><i class="fa fa-check"></i><b>6.8</b> TBATS 모델</a></li>
+<li class="chapter" data-level="6.9" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.9</b> prophet 모델</a></li>
+<li class="chapter" data-level="6.10" data-path="신경망neural-network-모델.html"><a href="신경망neural-network-모델.html"><i class="fa fa-check"></i><b>6.10</b> 신경망(Neural Network) 모델</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html"><i class="fa fa-check"></i><b>7.1</b> 성능분석 지수</a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.1</b> RMSE(Root Means Squaread Error)</a></li>
-<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mae"><i class="fa fa-check"></i><b>7.1.2</b> MAE</a></li>
+<li class="chapter" data-level="7.1.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html#maemeans-absolute-error"><i class="fa fa-check"></i><b>7.1.1</b> MAE(Means Absolute Error)</a></li>
+<li class="chapter" data-level="7.1.2" data-path="성능분석-지수.html"><a href="성능분석-지수.html#rmseroot-means-squaread-error"><i class="fa fa-check"></i><b>7.1.2</b> RMSE(Root Means Squaread Error)</a></li>
 <li class="chapter" data-level="7.1.3" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mpe"><i class="fa fa-check"></i><b>7.1.3</b> MPE</a></li>
 <li class="chapter" data-level="7.1.4" data-path="성능분석-지수.html"><a href="성능분석-지수.html#mape"><i class="fa fa-check"></i><b>7.1.4</b> MAPE</a></li>
 </ul></li>
@@ -255,11 +251,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.2" data-path="fable-framework.html"><a href="fable-framework.html#미래-취업자수-예측"><i class="fa fa-check"></i><b>7.2.2</b> 미래 취업자수 예측</a></li>
 <li class="chapter" data-level="7.2.3" data-path="fable-framework.html"><a href="fable-framework.html#미래-코로나-확진자수-예측"><i class="fa fa-check"></i><b>7.2.3</b> 미래 코로나 확진자수 예측</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="modeltime.html"><a href="modeltime.html"><i class="fa fa-check"></i><b>7.3</b> modeltime</a>
+<li class="chapter" data-level="7.3" data-path="modeltime-framework.html"><a href="modeltime-framework.html"><i class="fa fa-check"></i><b>7.3</b> modeltime framework</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="modeltime.html"><a href="modeltime.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
-<li class="chapter" data-level="7.3.2" data-path="modeltime.html"><a href="modeltime.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
-<li class="chapter" data-level="7.3.3" data-path="modeltime.html"><a href="modeltime.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
+<li class="chapter" data-level="7.3.1" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-학생수-예측-1"><i class="fa fa-check"></i><b>7.3.1</b> 미래 학생수 예측</a></li>
+<li class="chapter" data-level="7.3.2" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-취업자수-예측-1"><i class="fa fa-check"></i><b>7.3.2</b> 미래 취업자수 예측</a></li>
+<li class="chapter" data-level="7.3.3" data-path="modeltime-framework.html"><a href="modeltime-framework.html#미래-코로나-확진자수-예측-1"><i class="fa fa-check"></i><b>7.3.3</b> 미래 코로나 확진자수 예측</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a>
@@ -292,8 +288,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code>xts</code>는 시계열 데이터를 다루는 데이터 클래스로 <code>xts</code> 패키지를 로딩해야 사용할 수 있다. xts 패키지에서는 데이터 핸들링 함수, 데이터 ploting 함수 등을 제공한다. 따라서 <code>xts</code> 패키지에서 제공하는 함수는 <code>xts</code> class의 데이터 객체를 대상으로 작동한다.</p>
 <p><code>xts</code> 패키지를 사용하여 plot을 작성하려면 <code>plot.xts()</code>함수를 사용한다. <code>plot.xts()</code>을 활용해 작성한 plot에 추가적으로 line, legend 등을 추가할 수 있다.</p>
 <p><code>xts</code> 패키지의 <code>plot.xts()</code>를 활용하는 것은 디자인적 측면에서 <code>ggplot</code>보다 못미치지만 시계열 데이터의 흐름을 빠르고 쉽게 파악하는 사용이 간편한 plot 함수를 제공한다는 점에서 큰 장점이 있다.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="xts-xts-패키지.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
-<span id="cb15-2"><a href="xts-xts-패키지.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(employees.xts<span class="sc">$</span>total, <span class="at">main =</span> <span class="st">&#39;월별 취업자수 추세&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;월, 년&#39;</span>,  <span class="at">ylab =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="xts-xts-패키지.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb11-2"><a href="xts-xts-패키지.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(employees.xts<span class="sc">$</span>total, <span class="at">main =</span> <span class="st">&#39;월별 취업자수 추세&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;월, 년&#39;</span>,  <span class="at">ylab =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/plot_xts_uni-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -306,9 +302,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>위에서 본 것과 같이 <code>xts</code> 클래스 데이터의 단변량 plot은 <code>plot.xts()</code>로 간단히 그릴수 있다. 그렇다면 다변량 plot은 어떻게 그릴 수 있을까? 같은 xts 클래스 데이터에 여러 컬럼으로 저장된 다변량 plot은 단지 <code>plot.xts()</code>에 <code>xts</code> 객체를 전달할 때 그리고자 하는 컬럼을 전달해주면 같이 그려진다.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="xts-xts-패키지.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(employees.xts, <span class="at">main =</span> <span class="st">&#39;연도별 학생수 추세&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;년&#39;</span>,  <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>, <span class="at">yaxis.right=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="xts-xts-패키지.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(employees.xts, <span class="at">main =</span> <span class="st">&#39;연도별 학생수 추세&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;년&#39;</span>,  <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>, <span class="at">yaxis.right=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/plot_xts_multi-1.png" width="672" /></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="xts-xts-패키지.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addLegend</span>(<span class="st">&#39;bottomleft&#39;</span>, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">bg =</span> <span class="st">&#39;white&#39;</span>, <span class="at">lty=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">12</span>)), <span class="at">lwd=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">12</span>)), <span class="at">bty=</span><span class="st">&quot;o&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="xts-xts-패키지.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addLegend</span>(<span class="st">&#39;bottomleft&#39;</span>, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">bg =</span> <span class="st">&#39;white&#39;</span>, <span class="at">lty=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">12</span>)), <span class="at">lwd=</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">12</span>)), <span class="at">bty=</span><span class="st">&quot;o&quot;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/plot_xts_multi-2.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -319,13 +315,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>만약 같이 그리고자 하는 다변량 데이터가 다른 데이터 프레임에 있거나 컬럼을 같이 전달하기가 어려울 경우에는 다음과 같이 <code>lines()</code>를 사용하여 겹쳐서 그릴 수 있다.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="xts-xts-패키지.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(students.xts<span class="sc">$</span>초등학교, <span class="at">main =</span> <span class="st">&#39;연도별 학생수 추세&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;년&#39;</span>,  <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>, <span class="at">yaxis.right=</span><span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(students.xts<span class="sc">$</span>초등학교)), <span class="at">col =</span> <span class="st">&#39;black&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="xts-xts-패키지.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(students.xts<span class="sc">$</span>초등학교, <span class="at">main =</span> <span class="st">&#39;연도별 학생수 추세&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;년&#39;</span>,  <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>, <span class="at">yaxis.right=</span><span class="cn">FALSE</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(students.xts<span class="sc">$</span>초등학교)), <span class="at">col =</span> <span class="st">&#39;black&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/plot_xts_multi_line-1.png" width="672" /></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="xts-xts-패키지.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(students.xts<span class="sc">$</span>유치원, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&#39;red&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="xts-xts-패키지.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(students.xts<span class="sc">$</span>유치원, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&#39;red&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/plot_xts_multi_line-2.png" width="672" /></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="xts-xts-패키지.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(students.xts<span class="sc">$</span>중학교, <span class="at">lty =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="xts-xts-패키지.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(students.xts<span class="sc">$</span>중학교, <span class="at">lty =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/plot_xts_multi_line-3.png" width="672" /></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="xts-xts-패키지.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addLegend</span>(<span class="st">&#39;topright&#39;</span>, <span class="at">ncol =</span> <span class="dv">1</span>, , <span class="at">legend.names =</span> <span class="fu">c</span>(<span class="st">&#39;초등학교&#39;</span>, <span class="st">&#39;유치원&#39;</span>, <span class="st">&#39;중학교&#39;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&#39;black&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;blue&#39;</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">bg =</span> <span class="st">&#39;white&#39;</span>, <span class="at">bty=</span><span class="st">&quot;o&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="xts-xts-패키지.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addLegend</span>(<span class="st">&#39;topright&#39;</span>, <span class="at">ncol =</span> <span class="dv">1</span>, , <span class="at">legend.names =</span> <span class="fu">c</span>(<span class="st">&#39;초등학교&#39;</span>, <span class="st">&#39;유치원&#39;</span>, <span class="st">&#39;중학교&#39;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&#39;black&#39;</span>, <span class="st">&#39;red&#39;</span>, <span class="st">&#39;blue&#39;</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">bg =</span> <span class="st">&#39;white&#39;</span>, <span class="at">bty=</span><span class="st">&quot;o&quot;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/plot_xts_multi_line-4.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -339,9 +335,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>plot.xts()를 사용하여 코로나 확진자에 대한 plot은 다음과 같이 그릴 수 있다.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="xts-xts-패키지.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(covid19.xts, <span class="at">main =</span> <span class="st">&#39;일별 확진자수&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;날짜&#39;</span>,  <span class="at">ylab =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="xts-xts-패키지.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(covid19.xts, <span class="at">main =</span> <span class="st">&#39;일별 확진자수&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;날짜&#39;</span>,  <span class="at">ylab =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/xts_covid19-1.png" width="672" /></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="xts-xts-패키지.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addLegend</span>(<span class="st">&#39;topleft&#39;</span>, <span class="at">ncol =</span> <span class="dv">2</span>, , <span class="at">legend.names =</span> <span class="fu">c</span>(<span class="st">&#39;0-9세&#39;</span>, <span class="st">&#39;10-19세&#39;</span>, <span class="st">&#39;20-29세&#39;</span>, <span class="st">&#39;30-39세&#39;</span>, <span class="st">&#39;40-49세&#39;</span>, <span class="st">&#39;50-59세&#39;</span>, <span class="st">&#39;60-69세&#39;</span>, <span class="st">&#39;70-79세&#39;</span>, <span class="st">&#39;80세 이상&#39;</span>), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">bg =</span> <span class="st">&#39;white&#39;</span>, <span class="at">bty=</span><span class="st">&quot;o&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="xts-xts-패키지.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">addLegend</span>(<span class="st">&#39;topleft&#39;</span>, <span class="at">ncol =</span> <span class="dv">2</span>, , <span class="at">legend.names =</span> <span class="fu">c</span>(<span class="st">&#39;0-9세&#39;</span>, <span class="st">&#39;10-19세&#39;</span>, <span class="st">&#39;20-29세&#39;</span>, <span class="st">&#39;30-39세&#39;</span>, <span class="st">&#39;40-49세&#39;</span>, <span class="st">&#39;50-59세&#39;</span>, <span class="st">&#39;60-69세&#39;</span>, <span class="st">&#39;70-79세&#39;</span>, <span class="st">&#39;80세 이상&#39;</span>), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">bg =</span> <span class="st">&#39;white&#39;</span>, <span class="at">bty=</span><span class="st">&quot;o&quot;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/xts_covid19-2.png" width="672" /></p>
 </div>
             </section>
