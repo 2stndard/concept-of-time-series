@@ -32,6 +32,7 @@ covid19 <- tidyr::spread(covid19, category, value)
 covid19.ts <- ts(covid19[, 2:10], frequency = 365)
 covid19.xts <- as.xts(covid19[, 3:10], order.by = covid19$date)
 covid19.tsibble <- as_tsibble(covid19, index = date)
+knitr::opts_chunk$set(class.source = "watch-out", comment='')
 ```
 
 # 시계열 forecasting Part I - 기초컨셉
@@ -226,24 +227,24 @@ acf(students$학생수계)
 ![](acfall.jpg)
 
 ```{r acf_stat1}
-###   stats 패키지의 acf 수치 산출
+#   stats 패키지의 acf 수치 산출
 acf(students$학생수계, plot = FALSE)
 ```
 
 ```{r acf_forecast}
-###   forecast 패키지의 Acf plot
+#   forecast 패키지의 Acf plot
 students %>%
   select(학생수계) %>%
   forecast::Acf()
-###   forecast 패키지의 Acf 수치
+#   forecast 패키지의 Acf 수치
 students %>%
   select(학생수계) %>%
   forecast::Acf(plot = FALSE)
-###   forecast 패키지의 ggAcf plot
+#   forecast 패키지의 ggAcf plot
 students %>%
   select(학생수계) %>%
   forecast::ggAcf()
-###   forecast 패키지의 ggAcf 수치
+#   forecast 패키지의 ggAcf 수치
 students %>%
   select(학생수계) %>%
   forecast::ggAcf(plot = FALSE)
@@ -269,30 +270,30 @@ students %>%
 PACF 함수도 ACF 함수의 제공과 거의 유사한 형태로 각각의 패키지에서 제공한다. `stats` 패키지의 `pacf()`, `forecast` 패키지의 `Pacf()` 함수와 `ggPacf()` 함수, `timetk` 패키지에는`plot_acf_diagnostics()` 함수, `ts` 패키지의 `ts.acf()` 함수가 제공된다.
 
 ```{r pacf_stats}
-###   stats 패키지의 pacf plot
+#   stats 패키지의 pacf plot
 students %>%
   select(학생수계) %>%
   stats::pacf()
-###   stats 패키지의 pacf 수치
+#   stats 패키지의 pacf 수치
 students %>%
   select(학생수계) %>%
   stats::pacf(plot = FALSE)
 ```
 
 ```{r pacf_forecast}
-###   forecast 패키지의 Pacf plot
+#   forecast 패키지의 Pacf plot
 students %>%
   select(학생수계) %>%
   forecast::Pacf()
-###   forecast 패키지의 Pacf 수치
+#   forecast 패키지의 Pacf 수치
 students %>%
   select(학생수계) %>%
   forecast::Pacf(plot = FALSE)
-###   forecast 패키지의 ggPacf plot
+#   forecast 패키지의 ggPacf plot
 students %>%
   select(학생수계) %>%
   forecast::ggPacf()
-###   forecast 패키지의 ggPacf 수치
+#   forecast 패키지의 ggPacf 수치
 students %>%
   select(학생수계) %>%
   forecast::ggPacf(plot = FALSE)
@@ -308,14 +309,11 @@ students %>%
 
 ```{r fitted, echo=FALSE, warning=FALSE, message=FALSE}
 library(ggplot2)
-### 학생수계 열의 선형회귀모형을 생성
-student.ts.lm <- tslm(students.ts[,2] ~ trend, data = students.ts)                   
-### 선형회귀모형에 의한 잔차를 res에 저장
+# 학생수계 열의 선형회귀모형을 생성
+student.ts.lm <- tslm(students.ts[,2] ~ trend, data = students.ts)    # 선형회귀모형에 의한 잔차를 res에 저장
 res <- as.vector(residuals(student.ts.lm))
-### 선형회귀모형에 의한 적합값을 fit에 저장
+# 선형회귀모형에 의한 적합값을 fit에 저장
 fit <- as.vector(fitted(student.ts.lm))
-
-
 ggplot(students, aes(x = 연도, y = 학생수계)) + 
   geom_point() + 
   geom_line(aes(y = fit, group = 1), color = 'blue', size = 1) +
@@ -327,11 +325,11 @@ ggplot(students, aes(x = 연도, y = 학생수계)) +
 적합값과 잔차를 확인하기 위해서는 먼저 모델을 생성해야 한다. 생성된 모델에 대한 적합값은 `fitted()`를 사용하여 산출가능하고 잔차는 `residuals()`을 사용하여 산출 가능하다.
 
 ```{r}
-### 전체 학생수계의 선형회귀 모델 생성(다음장에서 설명)
+# 전체 학생수계의 선형회귀 모델 생성(다음장에서 설명)
 student.ts.lm <- forecast::tslm(students.ts[,2] ~ trend, data = students.ts)
-###  전체 학생수 선형회귀 모델의 적합값 산출
+#  전체 학생수 선형회귀 모델의 적합값 산출
 fitted(student.ts.lm)               
-###  전체 학생수 선형회귀 모델의 잔차 산출
+#  전체 학생수 선형회귀 모델의 잔차 산출
 residuals(student.ts.lm)
 ```
 
@@ -400,7 +398,7 @@ ts 객체로 저장된 시계열 데이터의 시계열성 분해에는 R의 기
 아래의 코드에서 보면 연도별 학생수계의 시계열성을 분해하는 코드에서는 오류가 발생한다. 그 이유는 계절성은 연도별 데이터에서는 찾아낼 수 없기 때문이다.
 
 ```{r decomposition, error=TRUE}
-### 학생수계는 년별 데이터이기 때문에 계절성을 추출할 수 없음.  
+# 학생수계는 년별 데이터이기 때문에 계절성을 추출할 수 없음.  
 students.ts[, 2] %>%
   decompose() %>% autoplot()
 ```
@@ -408,7 +406,7 @@ students.ts[, 2] %>%
 다음은 앞서 `decompse()`로 분해했던 전체 취업자수를 stl()을 사용하여 분해하는 방법이다. `stl()`은 'Seasonal and Trend decomposition using Loess'의 준말이다. Loess는 비선형에는 회귀에서 주로 사용하는 방법으로 `stl()`은 t.window와 `s.window`를 사용하여 추세의 주기와 계절성의 주기를 설정할 수 있다는 장점이 있다. `s.window`의 값은 'periodic'이나 계절 추출을 위한 홀수 숫자의 lag 갯수를 지정해야하는데 7을 넘을 수 없다는 제한이 있다.
 
 ```{r decompose_stl}
-### 취업자수를 stl()을 사용하여 분해  
+# 취업자수를 stl()을 사용하여 분해  
 employees.ts[,2] %>%
   stl(s.window = 'periodic') %>% autoplot()
 ```
@@ -446,9 +444,9 @@ employees.ts[,2] %>% ur.kpss() %>% summary()
 KPSS 검정법은 단위근 검정 방법이기 때문에 비정상 시계열이 단위근을 포함하는 것을 정상성 판단의 근거로 삼는다. 따라서 KPSS에서 판단한 비정상성 시계열 데이터를 정상성으로 만들기 위해서는 차분이 필요하다. `forecast` 패키지에서 제공하는 `nsdiffs()`는 정상성을 가지기 위해서 몇 번의 차분이 필요한지를 알려준다. 결국 KPSS에서 비정상성이라고 판단되면 `nsdiffs()`를 사용하여 몇번 차분이 필요한지 알아내고 차분을 해주면 비정상 시계열이 된다.
 
 ```{r}
-### nsdiffs()로 몇번의 차분이 필요한지 검사 - 1번의 차분이 필요함
+# nsdiffs()로 몇번의 차분이 필요한지 검사 - 1번의 차분이 필요함
 forecast::nsdiffs(employees.ts[,2], alpha = 0.05)
-### 한번 차분한 결과에 대한 KPSS 테스트 시행
+# 한번 차분한 결과에 대한 KPSS 테스트 시행
 diff(employees.ts[,2]) %>% ur.kpss() %>% summary()
 ```
 
@@ -472,13 +470,13 @@ diff(employees.ts[,2]) %>% ur.kpss() %>% summary()
 
 ```{r message=FALSE, warning=FALSE}
 library(seastests)
-### 총학생수계는 년별 데이터이므로 계절성이 존재할수 없다.
+# 총학생수계는 년별 데이터이므로 계절성이 존재할수 없다.
 summary(wo(students.ts[,2]))
 
-### 총 취업자수는 계절성이 존재하는지 검사
+# 총 취업자수는 계절성이 존재하는지 검사
 summary(wo(employees.ts[,2]))
 forecast::nsdiffs(employees.ts[,2])   ### seasonality를 제거하기 위해 필요한 차분수
-### 교육서비스업 취업자 수의 계절성 검사
+# 교육서비스업 취업자 수의 계절성 검사
 summary(wo(employees.ts[,3]))
 ```
 

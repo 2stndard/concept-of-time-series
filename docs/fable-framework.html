@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-28" />
+<meta name="date" content="2021-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -388,7 +388,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.2.1</span> 미래 학생수 예측</h3>
 <p>앞에서 설명한 방법을 사용하여 미래 학생수를 예측해 보자.</p>
 <p>먼저 트레이닝 셋과 테스트셋을 나눈다. 트레이닝 데이터 셋과 테스트 데이터 셋은 80:20으로 나눈다.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="fable-framework.html#cb1-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(students.tsibble) <span class="sc">*</span> <span class="fl">0.8</span>)</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb1-1"><a href="fable-framework.html#cb1-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(students.tsibble) <span class="sc">*</span> <span class="fl">0.8</span>)</span>
 <span id="cb1-2"><a href="fable-framework.html#cb1-2" aria-hidden="true" tabindex="-1"></a>students.tsibble.tr <span class="ot">&lt;-</span> students.tsibble[<span class="dv">1</span><span class="sc">:</span>split, ]  </span>
 <span id="cb1-3"><a href="fable-framework.html#cb1-3" aria-hidden="true" tabindex="-1"></a>students.tsibble.test <span class="ot">&lt;-</span> students.tsibble[(split<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span><span class="fu">nrow</span>(students.tsibble), ]  </span></code></pre></div>
 <div class="comment">
@@ -402,7 +402,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p><code>model()</code>함수에 앞에서 생성한 트레이닝 데이터 셋과 만들고 싶은 모델 함수를 사용하여 모델 데이터프레임를 만든다. 아래에서는 ets, arima, naive, tslm, rw, mean, nnetar, prophet의 8가지 모델을 만들었다.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="fable-framework.html#cb2-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(fable)  </span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb2-1"><a href="fable-framework.html#cb2-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(fable)  </span>
 <span id="cb2-2"><a href="fable-framework.html#cb2-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(fable.prophet)  </span>
 <span id="cb2-3"><a href="fable-framework.html#cb2-3" aria-hidden="true" tabindex="-1"></a>model.fable.students <span class="ot">&lt;-</span> <span class="fu">model</span>(students.tsibble.tr,    </span>
 <span id="cb2-4"><a href="fable-framework.html#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ets =</span> <span class="fu">ETS</span>(학생수계),</span>
@@ -424,7 +424,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>위에서 생성한 model.fable.students 객체를 <code>forecast()</code> 함수에 전달하여 예측 결과를 생성한다. <code>h</code> 매개변수로 예측기간을 설정한다.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="fable-framework.html#cb3-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.students <span class="ot">&lt;-</span> <span class="fu">forecast</span>(model.fable.students, <span class="at">h =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb3-1"><a href="fable-framework.html#cb3-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.students <span class="ot">&lt;-</span> <span class="fu">forecast</span>(model.fable.students, <span class="at">h =</span> <span class="dv">10</span>)</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -434,7 +434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p><code>autoplot()</code>에 <code>forecast()</code> 결과, 원본 데이터, 레벨 매개변수를 사용하여 plot을 생성한다.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="fable-framework.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(forecast.fable.students, students.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb4-1"><a href="fable-framework.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(forecast.fable.students, students.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/fable_students3-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -445,19 +445,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>생성한 모델들의 성능측정 지수를 확인하기 위해 forecast 결과를 accuracy() 매개변수로 전달한다. 성능측정에 사용하기 위해 생성해놓았던 전체 데이터의 20% 테스트 데이터 셋을 사용하여 성능측정 지수를 산출한다.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="fable-framework.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(forecast.fable.students, students.tsibble.test) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb5-1"><a href="fable-framework.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(forecast.fable.students, students.tsibble.test) <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="fable-framework.html#cb5-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
-<pre><code>## # A tibble: 8 x 10
-##   .model  .type        ME     RMSE      MAE      MPE   MAPE  MASE RMSSE    ACF1
-##   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-## 1 ets     Test     -5862.   17477.   16449.  -0.0862  0.263   NaN   NaN -0.0726
-## 2 prophet Test    102539.  122134.  102539.   1.67    1.67    NaN   NaN  0.298 
-## 3 arima   Test   -155457.  173482.  155457.  -2.51    2.51    NaN   NaN  0.443 
-## 4 nnetar  Test   -450154.  499336.  450154.  -7.28    7.28    NaN   NaN  0.417 
-## 5 tslm    Test   -499968.  505229.  499968.  -7.99    7.99    NaN   NaN  0.427 
-## 6 naive   Test   -508685.  555965.  508685.  -8.21    8.21    NaN   NaN  0.413 
-## 7 rw      Test   -508685.  555965.  508685.  -8.21    8.21    NaN   NaN  0.413 
-## 8 mean    Test  -1683488. 1698372. 1683488. -26.9    26.9     NaN   NaN  0.413</code></pre>
+<pre><code># A tibble: 8 x 10
+  .model  .type        ME     RMSE      MAE      MPE   MAPE  MASE RMSSE    ACF1
+  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1 ets     Test     -5862.   17477.   16449.  -0.0862  0.263   NaN   NaN -0.0726
+2 prophet Test    104180.  124124.  104180.   1.69    1.69    NaN   NaN  0.301 
+3 arima   Test   -155457.  173482.  155457.  -2.51    2.51    NaN   NaN  0.443 
+4 nnetar  Test   -449317.  498779.  449317.  -7.27    7.27    NaN   NaN  0.416 
+5 tslm    Test   -499968.  505229.  499968.  -7.99    7.99    NaN   NaN  0.427 
+6 naive   Test   -508685.  555965.  508685.  -8.21    8.21    NaN   NaN  0.413 
+7 rw      Test   -508685.  555965.  508685.  -8.21    8.21    NaN   NaN  0.413 
+8 mean    Test  -1683488. 1698372. 1683488. -26.9    26.9     NaN   NaN  0.413 </code></pre>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -467,7 +467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>성능측정 지수들 중에 가장 성능이 좋은 모델 2개를 선택하여 베스트 모델 데이터프레임을 생성한다.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="fable-framework.html#cb7-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.students <span class="ot">&lt;-</span> model.fable.students <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb7-1"><a href="fable-framework.html#cb7-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.students <span class="ot">&lt;-</span> model.fable.students <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="fable-framework.html#cb7-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">select</span>(ets, prophet)</span></code></pre></div>
 <div class="comment">
 <ul>
@@ -478,7 +478,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>가장 좋은 모델로 평가된 모델의 예측치를 다시 산출하고 이 결과를 사용하여 plot을 생성한다. 생성할 때는 원본 데이터를 같이 넣어주어야 데이터의 흐름을 파악하기 쉽고 모델에 의해 생성되는 적합값을 같이 plotting해주면 전반적인 모델의 예측력을 눈으로 확인할 수 있다. plot을 보다 보기편하게 하기 위해 plot 제목과 축 제목들을 설정해 주는 것이 좋겠다. autoplot()는 ggplot2를 기반으로 생성된 plot이기 때문에 ggplot2의 plot 생성방법을 사용하면 plot을 원하는 대로 꾸밀 수 있다.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="fable-framework.html#cb8-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.students <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb8-1"><a href="fable-framework.html#cb8-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.students <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="fable-framework.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(students.tsibble, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
 <span id="cb8-3"><a href="fable-framework.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(best.model.fable.students))</span></code></pre></div>
 <p><img src="t_files/figure-html/fable_students6-1.png" width="672" /></p>
@@ -496,10 +496,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="미래-취업자수-예측" class="section level3" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> 미래 취업자수 예측</h3>
 <p>fable 프레임워크를 사용하여 전체 취업자 수를 예측해보자.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="fable-framework.html#cb9-1" aria-hidden="true" tabindex="-1"></a>employees<span class="sc">$</span>yearmonth <span class="ot">&lt;-</span> <span class="fu">yearmonth</span>(employees<span class="sc">$</span>time)</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb9-1"><a href="fable-framework.html#cb9-1" aria-hidden="true" tabindex="-1"></a>employees<span class="sc">$</span>yearmonth <span class="ot">&lt;-</span> <span class="fu">yearmonth</span>(employees<span class="sc">$</span>time)</span>
 <span id="cb9-2"><a href="fable-framework.html#cb9-2" aria-hidden="true" tabindex="-1"></a>employees.tsibble <span class="ot">&lt;-</span> <span class="fu">as_tsibble</span>(employees, <span class="at">index =</span> yearmonth)</span></code></pre></div>
 <p>순서에 따라 먼저 트레이닝 데이터 셋과 테스트 데이터 셋을 나눈다. 나누는 비율은 90:10의 비율로 나누었다.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="fable-framework.html#cb10-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(employees.tsibble) <span class="sc">*</span> <span class="fl">0.9</span>)</span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb10-1"><a href="fable-framework.html#cb10-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(employees.tsibble) <span class="sc">*</span> <span class="fl">0.9</span>)</span>
 <span id="cb10-2"><a href="fable-framework.html#cb10-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(employees.tsibble)</span>
 <span id="cb10-3"><a href="fable-framework.html#cb10-3" aria-hidden="true" tabindex="-1"></a>employees.tsibble.tr <span class="ot">&lt;-</span> employees.tsibble[<span class="dv">1</span><span class="sc">:</span>split, ]</span>
 <span id="cb10-4"><a href="fable-framework.html#cb10-4" aria-hidden="true" tabindex="-1"></a>employees.tsibble.test <span class="ot">&lt;-</span> employees.tsibble[(split<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n, ]</span></code></pre></div>
@@ -514,7 +514,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p><code>model()</code>에 앞에서 생성한 트레이닝 데이터 셋과 만들고 싶은 모델 함수를 사용하여 모델 데이터프레임를 만든다. 아래에서는 ets, arima, naive, tslm, rw, mean, nnetar, prophet의 8가지 모델을 만들었는데 아래의 코드는 tidy 데이터 객체의 특성을 활용하기 위해 파이프라인(<code>%&gt;%</code>)을 사용하였다. 그리고 취업자 데이터는 계절성이 존재하기 때문에 선형 모델에 추세와 계절성을 추가하였다.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="fable-framework.html#cb11-1" aria-hidden="true" tabindex="-1"></a> model.fable.employees <span class="ot">&lt;-</span> employees.tsibble.tr <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb11-1"><a href="fable-framework.html#cb11-1" aria-hidden="true" tabindex="-1"></a> model.fable.employees <span class="ot">&lt;-</span> employees.tsibble.tr <span class="sc">%&gt;%</span> </span>
 <span id="cb11-2"><a href="fable-framework.html#cb11-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(total),</span>
 <span id="cb11-3"><a href="fable-framework.html#cb11-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">arima =</span> <span class="fu">ARIMA</span>(total),</span>
 <span id="cb11-4"><a href="fable-framework.html#cb11-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">naive =</span> <span class="fu">NAIVE</span>(total),</span>
@@ -534,7 +534,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>앞에서 생성한 model.fable.employees을 <code>forecast()</code>를 사용하여 24개월 미래 데이터를 예측한다.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="fable-framework.html#cb12-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="ot">&lt;-</span> model.fable.employees <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">24</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb12-1"><a href="fable-framework.html#cb12-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="ot">&lt;-</span> model.fable.employees <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">24</span>)</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -545,7 +545,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>예측된 데이터를 사용하여 plot을 만들고 각각의 모델에서 산출한 미래 예측치를 살펴본다.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="fable-framework.html#cb13-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb13-1"><a href="fable-framework.html#cb13-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="sc">%&gt;%</span> </span>
 <span id="cb13-2"><a href="fable-framework.html#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(employees.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb13-3"><a href="fable-framework.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;fable로 생성한 8가지 모델 예측 plot&#39;</span>, <span class="at">x =</span> <span class="st">&#39;년월&#39;</span>, <span class="at">y =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/fable_employees3-1.png" width="672" /></p>
@@ -558,18 +558,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>육안으로는 어느 모델이 우수한지 알아보기가 힘들다. 따라서 성능측정 지수를 확인해서 가장 성능이 좋은 모델을 선택한다</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="fable-framework.html#cb14-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>(employees.tsibble.test) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
-<pre><code>## # A tibble: 8 x 10
-##   .model  .type     ME  RMSE   MAE    MPE  MAPE  MASE RMSSE    ACF1
-##   &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-## 1 naive   Test    83.4  259.  247.  0.301 0.917   NaN   NaN  0.203 
-## 2 rw      Test    83.4  259.  247.  0.301 0.917   NaN   NaN  0.203 
-## 3 mean    Test   560.   611.  560.  2.07  2.07    NaN   NaN  0.203 
-## 4 tslm    Test  -728.   738.  728. -2.70  2.70    NaN   NaN -0.366 
-## 5 ets     Test  -730.   740.  730. -2.71  2.71    NaN   NaN -0.0628
-## 6 prophet Test  -827.   840.  827. -3.07  3.07    NaN   NaN -0.397 
-## 7 arima   Test  -833.   840.  833. -3.10  3.10    NaN   NaN -0.289 
-## 8 nnetar  Test  -873.   965.  873. -3.24  3.24    NaN   NaN  0.523</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb14-1"><a href="fable-framework.html#cb14-1" aria-hidden="true" tabindex="-1"></a>forecast.fable.employees <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>(employees.tsibble.test) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
+<pre><code># A tibble: 8 x 10
+  .model  .type     ME  RMSE   MAE    MPE  MAPE  MASE RMSSE    ACF1
+  &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1 naive   Test    83.4  259.  247.  0.301 0.917   NaN   NaN  0.203 
+2 rw      Test    83.4  259.  247.  0.301 0.917   NaN   NaN  0.203 
+3 mean    Test   560.   611.  560.  2.07  2.07    NaN   NaN  0.203 
+4 tslm    Test  -728.   738.  728. -2.70  2.70    NaN   NaN -0.366 
+5 ets     Test  -730.   740.  730. -2.71  2.71    NaN   NaN -0.0628
+6 arima   Test  -833.   840.  833. -3.10  3.10    NaN   NaN -0.289 
+7 prophet Test  -828.   841.  828. -3.08  3.08    NaN   NaN -0.395 
+8 nnetar  Test  -982.  1109.  982. -3.65  3.65    NaN   NaN  0.573 </code></pre>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -580,7 +580,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>화면에 출력된 성능측정 지수를 확인하여 가장 좋은 모델 2가지를 가지는 데이터프레임을 만들어준다.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="fable-framework.html#cb16-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.employees <span class="ot">&lt;-</span> model.fable.employees <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb16-1"><a href="fable-framework.html#cb16-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.employees <span class="ot">&lt;-</span> model.fable.employees <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="fable-framework.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(naive, rw)</span></code></pre></div>
 <div class="comment">
 <ul>
@@ -591,7 +591,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>가장 좋은 모델로 평가된 모델의 예측치를 다시 산출하고 이 결과를 사용하여 plot을 생성한다. 앞에서 설명했 듯이 plot 생성시에는 원본 데이터와 모델의 적합값을 를 같이 넣어주는 게 좋고 plot을 보다 보기편하게 하기 위해 plot 제목과 축 제목들을 설정해 주는 것이 좋다.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="fable-framework.html#cb17-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.employees <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb17-1"><a href="fable-framework.html#cb17-1" aria-hidden="true" tabindex="-1"></a>best.model.fable.employees <span class="sc">%&gt;%</span></span>
 <span id="cb17-2"><a href="fable-framework.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb17-3"><a href="fable-framework.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(employees.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>, <span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb17-4"><a href="fable-framework.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(best.model.fable.employees), <span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
@@ -613,7 +613,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="미래-코로나-확진자수-예측" class="section level3" number="7.2.3">
 <h3><span class="header-section-number">7.2.3</span> 미래 코로나 확진자수 예측</h3>
 <p>0~9세의 코로나 확진자수를 사용하여 미래 코로나 확진자 수를 예측해본다. 앞의 두 예제와 달리 코로나 확진자수는 일별데이터인데 중간중간 데이터가 빠진 날이 있다. 예측을 위해서는 빠진 날짜의 데이터를 채워주어야 하는데 여기서는 빠진 날짜의 데이터를 0으로 채워 넣었다.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="fable-framework.html#cb18-1" aria-hidden="true" tabindex="-1"></a>fill.covid19.tsibble <span class="ot">&lt;-</span> <span class="fu">fill_gaps</span>(covid19.tsibble, <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb18-1"><a href="fable-framework.html#cb18-1" aria-hidden="true" tabindex="-1"></a>fill.covid19.tsibble <span class="ot">&lt;-</span> <span class="fu">fill_gaps</span>(covid19.tsibble, <span class="st">`</span><span class="at">0-9세</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">0</span>)</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -624,12 +624,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>fill.covid19.by.age.tsibble을 트레이닝 셋과 테스트 셋으로 분리한다. 분리비율은 9:1로 설정하였다. 분리비율은 정해진 값은 없기 때문에 분석자가 데이터를 분석하기 위한 적절한 비율을 선택한다.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="fable-framework.html#cb19-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(fill.covid19.tsibble) <span class="sc">*</span> <span class="fl">0.9</span>)</span>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb19-1"><a href="fable-framework.html#cb19-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(fill.covid19.tsibble) <span class="sc">*</span> <span class="fl">0.9</span>)</span>
 <span id="cb19-2"><a href="fable-framework.html#cb19-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(fill.covid19.tsibble)</span>
 <span id="cb19-3"><a href="fable-framework.html#cb19-3" aria-hidden="true" tabindex="-1"></a>fill.covid19.tsibble.tr <span class="ot">&lt;-</span> fill.covid19.tsibble[<span class="dv">1</span><span class="sc">:</span>split, ]</span>
 <span id="cb19-4"><a href="fable-framework.html#cb19-4" aria-hidden="true" tabindex="-1"></a>fill.covid19.tsibble.test <span class="ot">&lt;-</span> fill.covid19.tsibble[(split<span class="sc">+</span><span class="dv">1</span>)<span class="sc">:</span>n, ]</span></code></pre></div>
 <p>앞선 예제들과 같이 8개의 모델을 생성한다.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="fable-framework.html#cb20-1" aria-hidden="true" tabindex="-1"></a>model.covid19.tsibble <span class="ot">&lt;-</span> fill.covid19.tsibble.tr <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb20-1"><a href="fable-framework.html#cb20-1" aria-hidden="true" tabindex="-1"></a>model.covid19.tsibble <span class="ot">&lt;-</span> fill.covid19.tsibble.tr <span class="sc">%&gt;%</span></span>
 <span id="cb20-2"><a href="fable-framework.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>(<span class="at">ets =</span> <span class="fu">ETS</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
 <span id="cb20-3"><a href="fable-framework.html#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">arima =</span> <span class="fu">ARIMA</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
 <span id="cb20-4"><a href="fable-framework.html#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">naive =</span> <span class="fu">NAIVE</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>),</span>
@@ -648,7 +648,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>생성된 모델을 사용하여 <code>forecast()</code>를 사용하여 예측 결과를 산출한다.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="fable-framework.html#cb21-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.tsibble <span class="ot">&lt;-</span> model.covid19.tsibble <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb21-1"><a href="fable-framework.html#cb21-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.tsibble <span class="ot">&lt;-</span> model.covid19.tsibble <span class="sc">%&gt;%</span></span>
 <span id="cb21-2"><a href="fable-framework.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">120</span>)</span></code></pre></div>
 <div class="comment">
 <ul>
@@ -660,7 +660,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>예측결과를 확인하기 위해 plot을 생성한다. 여러 plot이 겹치기 때문에 다소 보기는 힘들다.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="fable-framework.html#cb22-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.tsibble <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(fill.covid19.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb22-1"><a href="fable-framework.html#cb22-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.tsibble <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(fill.covid19.tsibble, <span class="at">level =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/fable_covid5-1.png" width="672" /></p>
 <div class="comment">
 <ul>
@@ -672,18 +672,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>육안으로는 가장 좋은 모델 선정이 어렵기 때문에 성능측정 지수를 확인한다.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="fable-framework.html#cb23-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.tsibble <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>(fill.covid19.tsibble.test) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
-<pre><code>## # A tibble: 8 x 10
-##   .model  .type     ME  RMSE   MAE    MPE  MAPE  MASE RMSSE  ACF1
-##   &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 prophet Test   -6.34  10.5  8.90  -39.1  46.7   NaN   NaN 0.369
-## 2 naive   Test   -8.39  11.4 10     -51.7  55.8   NaN   NaN 0.234
-## 3 rw      Test   -8.39  11.4 10     -51.7  55.8   NaN   NaN 0.234
-## 4 ets     Test  -12.4   14.6 13.1   -70.9  72.4   NaN   NaN 0.234
-## 5 mean    Test   15.6   17.4 15.6    61.8  61.8   NaN   NaN 0.234
-## 6 tslm    Test   15.6   17.4 15.6    61.8  61.8   NaN   NaN 0.234
-## 7 arima   Test  -16.8   18.7 16.9   -92.1  92.5   NaN   NaN 0.281
-## 8 nnetar  Test  -20.9   22.7 20.9  -111.  111.    NaN   NaN 0.395</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb23-1"><a href="fable-framework.html#cb23-1" aria-hidden="true" tabindex="-1"></a>forecast.covid19.tsibble <span class="sc">%&gt;%</span> <span class="fu">accuracy</span>(fill.covid19.tsibble.test) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(RMSE)</span></code></pre></div>
+<pre><code># A tibble: 8 x 10
+  .model  .type     ME  RMSE   MAE    MPE  MAPE  MASE RMSSE  ACF1
+  &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 prophet Test   -6.32  10.5  8.88  -38.9  46.6   NaN   NaN 0.366
+2 naive   Test   -8.39  11.4 10     -51.7  55.8   NaN   NaN 0.234
+3 rw      Test   -8.39  11.4 10     -51.7  55.8   NaN   NaN 0.234
+4 ets     Test  -12.4   14.6 13.1   -70.9  72.4   NaN   NaN 0.234
+5 mean    Test   15.6   17.4 15.6    61.8  61.8   NaN   NaN 0.234
+6 tslm    Test   15.6   17.4 15.6    61.8  61.8   NaN   NaN 0.234
+7 arima   Test  -16.8   18.7 16.9   -92.1  92.5   NaN   NaN 0.281
+8 nnetar  Test  -20.9   22.6 20.9  -112.  112.    NaN   NaN 0.336</code></pre>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -694,7 +694,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>성능측정 지수가 가장 좋은 모델을 선택한다.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="fable-framework.html#cb25-1" aria-hidden="true" tabindex="-1"></a>best.model.covid19.tsibble <span class="ot">&lt;-</span> model.covid19.tsibble <span class="sc">%&gt;%</span> <span class="fu">select</span>(prophet)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb25-1"><a href="fable-framework.html#cb25-1" aria-hidden="true" tabindex="-1"></a>best.model.covid19.tsibble <span class="ot">&lt;-</span> model.covid19.tsibble <span class="sc">%&gt;%</span> <span class="fu">select</span>(prophet)</span></code></pre></div>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
@@ -704,7 +704,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p>선정된 베스트 모델의 예측 plot을 생성하여 전체 데이터와 예측데이터를 살펴본다.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="fable-framework.html#cb26-1" aria-hidden="true" tabindex="-1"></a>best.model.covid19.tsibble <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb26-1"><a href="fable-framework.html#cb26-1" aria-hidden="true" tabindex="-1"></a>best.model.covid19.tsibble <span class="sc">%&gt;%</span></span>
 <span id="cb26-2"><a href="fable-framework.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">120</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb26-3"><a href="fable-framework.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(fill.covid19.tsibble, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
 <span id="cb26-4"><a href="fable-framework.html#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autolayer</span>(<span class="fu">fitted</span>(best.model.covid19.tsibble), <span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>

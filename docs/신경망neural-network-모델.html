@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-28" />
+<meta name="date" content="2021-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -282,15 +282,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>시계열 데이터에 대한 신경망 모델은 <code>forecast</code> 패키지에서 제공하는 <code>nnetar()</code> 함수를 사용하여 구축할 수 있다. <code>nnetar()</code>로 구축되는 모델은 싱글 히든 레이어을 사용한 신경망 모델이다. 따라서 딥러닝이라고까지는 언급할 수 없으나 시계열 데이터를 신경망 이론에 적합하여 만들수 있는 모델이라는데 의미가 있다.</p>
 <p><code>nnetar()</code> 함수에 구축된 모델은 계절성이 없는 경우는 NNAR(p, k)이며 계절성이 없는 경우는 NNAR(p, P, k)[m]으로 표현된다. p값은 히든 레이어에서 예측값을 산출하기 위해 사용하는 과거 데이터의 갯수이고 k값은 히든 레이어에 존재하는 신경세포의 갯수이다. P는 계절성에 대한 lag 값이다. <code>nnetar()</code> 함수는 p와 P 값을 자동으로 산정하고 k 값은 (p + P +1)/2 값으로 설정한다.<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a></p>
 <p>NNAR모델의 단점중에 하나는 예측구간의 계산이 원활하지 못하다는 점이다. <code>forecast(</code>) 함수에서 ‘PI = TRUE’ 매개변수를 설정하면 예측구간이 계산되지만 계산량이 많아 시간이 걸린다.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="신경망neural-network-모델.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 학생수에 대한 NNAR 모델은 NNAR(1, 1)모델</span></span>
-<span id="cb190-2"><a href="신경망neural-network-모델.html#cb190-2" aria-hidden="true" tabindex="-1"></a>students.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">nnetar</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb184-1"><a href="신경망neural-network-모델.html#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 학생수에 대한 NNAR 모델은 NNAR(1, 1)모델</span></span>
+<span id="cb184-2"><a href="신경망neural-network-모델.html#cb184-2" aria-hidden="true" tabindex="-1"></a>students.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">nnetar</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/nnetar-1.png" width="672" /></p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="신경망neural-network-모델.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 전체 취업자수에 대한 모델은 NNAR(1, 1, 2)[12] 모델</span></span>
-<span id="cb191-2"><a href="신경망neural-network-모델.html#cb191-2" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">nnetar</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb185-1"><a href="신경망neural-network-모델.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 전체 취업자수에 대한 모델은 NNAR(1, 1, 2)[12] 모델</span></span>
+<span id="cb185-2"><a href="신경망neural-network-모델.html#cb185-2" aria-hidden="true" tabindex="-1"></a>employees.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">nnetar</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
 <p><img src="t_files/figure-html/nnetar-2.png" width="672" /></p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="신경망neural-network-모델.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 코로나 확진자수에 대한 모델은 NNAR(22, 12) 모델(예측값을 위해 22개의 과거 데이터를 활용했고 히든레이어에 12개의 신경세포를 생성 )</span></span>
-<span id="cb192-2"><a href="신경망neural-network-모델.html#cb192-2" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">nnetar</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">100</span>, <span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
-<pre><code>## Warning in nnetar(.): Series too short for seasonal lags</code></pre>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb186-1"><a href="신경망neural-network-모델.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 코로나 확진자수에 대한 모델은 NNAR(22, 12) 모델(예측값을 위해 22개의 과거 데이터를 활용했고 히든레이어에 12개의 신경세포를 생성 )</span></span>
+<span id="cb186-2"><a href="신경망neural-network-모델.html#cb186-2" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">nnetar</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">100</span>, <span class="at">PI =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()</span></code></pre></div>
+<pre><code>Warning in nnetar(.): Series too short for seasonal lags</code></pre>
 <p><img src="t_files/figure-html/nnetar-3.png" width="672" /></p>
 
 </div>

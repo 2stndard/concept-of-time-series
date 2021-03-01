@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-28" />
+<meta name="date" content="2021-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -280,89 +280,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.2</span> 단순(Naive) 모델</h2>
 <p>단순(Naive) 모델은 시계열 측정값의 마지막 값이 지속될 것이라는 가정하에 향후 데이터값을 예측하는 모델이다. 이 모델은 경제 금융 시계열 모델에서 많이 사용된다.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> 앞선 평균 모델의 예측구간은 시간에 따라 일정한 반면 과 달리 Naive 모델의 예측구간은 예측 시간이 늘어날수록 범위가 늘어난다. 아주 가까운 미래의 데이터는 지금 데이터에서 크게 벗어나지 않을것이라는 가정이 깔려있지만 이 가정은 시간이 지날수록 확실치 않다는 모델이다. 일반적으로 다른 시계열 모델들의 예측구간도 Naive 모델 과 같이 예측기간이 늘어날 수록 범위가 넓어지는 경향을 지닌다.</p>
 <p><code>forecast</code> 패키지에서는 Naive 모델을 생성하는 함수로 <code>naive()</code>를 제공한다. <code>naive()</code>의 실행 결과는 <code>ts</code> 객체로 전달된 데이터에 대한 시차 10의 미래 데이터까지 예측치와 80%, 95% 예측구간의 데이터를 산출해준다. 앞선 평균모델의 <code>meanf()</code>와 같이 <code>autoplot()</code>을 사용하여 plot을 만들 수 있다.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="단순naive-모델.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 학생수계 열에 대한 Naive 모델의 상세 정보와 plot</span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb7-1"><a href="단순naive-모델.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 학생수계 열에 대한 Naive 모델의 상세 정보와 plot</span></span>
 <span id="cb7-2"><a href="단순naive-모델.html#cb7-2" aria-hidden="true" tabindex="-1"></a>students.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
-<pre><code>## 
-## Forecast method: Naive method
-## 
-## Model Information:
-## Call: naive(y = .) 
-## 
-## Residual sd: 77849.7308 
-## 
-## Error measures:
-##                     ME     RMSE      MAE       MPE     MAPE MASE      ACF1
-## Training set -126815.2 147831.2 128514.4 -1.771615 1.791893    1 0.8922526
-## 
-## Forecasts:
-##      Point Forecast   Lo 80   Hi 80   Lo 95   Hi 95
-## 2021        5995239 5805786 6184692 5705495 6284983
-## 2022        5995239 5727312 6263166 5585479 6404999
-## 2023        5995239 5667096 6323382 5493388 6497090
-## 2024        5995239 5616332 6374146 5415751 6574727
-## 2025        5995239 5571608 6418870 5347352 6643126
-## 2026        5995239 5531175 6459303 5285514 6704964
-## 2027        5995239 5493993 6496485 5228649 6761829
-## 2028        5995239 5459384 6531094 5175720 6814758
-## 2029        5995239 5426879 6563599 5126007 6864471
-## 2030        5995239 5396135 6594343 5078988 6911490</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="단순naive-모델.html#cb9-1" aria-hidden="true" tabindex="-1"></a>students.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;학생수 Naive 모델 plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>)</span></code></pre></div>
+<pre><code>
+Forecast method: Naive method
+
+Model Information:
+Call: naive(y = .) 
+
+Residual sd: 77849.7308 
+
+Error measures:
+                    ME     RMSE      MAE       MPE     MAPE MASE      ACF1
+Training set -126815.2 147831.2 128514.4 -1.771615 1.791893    1 0.8922526
+
+Forecasts:
+     Point Forecast   Lo 80   Hi 80   Lo 95   Hi 95
+2021        5995239 5805786 6184692 5705495 6284983
+2022        5995239 5727312 6263166 5585479 6404999
+2023        5995239 5667096 6323382 5493388 6497090
+2024        5995239 5616332 6374146 5415751 6574727
+2025        5995239 5571608 6418870 5347352 6643126
+2026        5995239 5531175 6459303 5285514 6704964
+2027        5995239 5493993 6496485 5228649 6761829
+2028        5995239 5459384 6531094 5175720 6814758
+2029        5995239 5426879 6563599 5126007 6864471
+2030        5995239 5396135 6594343 5078988 6911490</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb9-1"><a href="단순naive-모델.html#cb9-1" aria-hidden="true" tabindex="-1"></a>students.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;학생수 Naive 모델 plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/naive-1.png" width="672" /></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="단순naive-모델.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 취업자수 열에 대한 Naive 모델의 상세 정보와 plot</span></span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb10-1"><a href="단순naive-모델.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 취업자수 열에 대한 Naive 모델의 상세 정보와 plot</span></span>
 <span id="cb10-2"><a href="단순naive-모델.html#cb10-2" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
-<pre><code>## 
-## Forecast method: Naive method
-## 
-## Model Information:
-## Call: naive(y = .) 
-## 
-## Residual sd: 261.7975 
-## 
-## Error measures:
-##                    ME     RMSE      MAE        MPE      MAPE      MASE      ACF1
-## Training set 23.56842 261.4803 194.5579 0.08782727 0.7411892 0.6138395 0.4208691
-## 
-## Forecasts:
-##          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
-## Jan 2021          26526 26190.90 26861.10 26013.51 27038.49
-## Feb 2021          26526 26052.10 26999.90 25801.23 27250.77
-## Mar 2021          26526 25945.59 27106.41 25638.34 27413.66
-## Apr 2021          26526 25855.80 27196.20 25501.02 27550.98
-## May 2021          26526 25776.69 27275.31 25380.03 27671.97
-## Jun 2021          26526 25705.17 27346.83 25270.66 27781.34
-## Jul 2021          26526 25639.41 27412.59 25170.07 27881.93
-## Aug 2021          26526 25578.19 27473.81 25076.45 27975.55
-## Sep 2021          26526 25520.70 27531.30 24988.52 28063.48
-## Oct 2021          26526 25466.32 27585.68 24905.36 28146.64</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="단순naive-모델.html#cb12-1" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;취업자수 Naive모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
+<pre><code>
+Forecast method: Naive method
+
+Model Information:
+Call: naive(y = .) 
+
+Residual sd: 261.7975 
+
+Error measures:
+                   ME     RMSE      MAE        MPE      MAPE      MASE
+Training set 23.56842 261.4803 194.5579 0.08782727 0.7411892 0.6138395
+                  ACF1
+Training set 0.4208691
+
+Forecasts:
+         Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+Jan 2021          26526 26190.90 26861.10 26013.51 27038.49
+Feb 2021          26526 26052.10 26999.90 25801.23 27250.77
+Mar 2021          26526 25945.59 27106.41 25638.34 27413.66
+Apr 2021          26526 25855.80 27196.20 25501.02 27550.98
+May 2021          26526 25776.69 27275.31 25380.03 27671.97
+Jun 2021          26526 25705.17 27346.83 25270.66 27781.34
+Jul 2021          26526 25639.41 27412.59 25170.07 27881.93
+Aug 2021          26526 25578.19 27473.81 25076.45 27975.55
+Sep 2021          26526 25520.70 27531.30 24988.52 28063.48
+Oct 2021          26526 25466.32 27585.68 24905.36 28146.64</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb12-1"><a href="단순naive-모델.html#cb12-1" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;취업자수 Naive모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/naive-2.png" width="672" /></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="단순naive-모델.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 0-9세 코로나 확진자수에 대한 Naive 모델의 상세 정보와 plot</span></span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb13-1"><a href="단순naive-모델.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0-9세 코로나 확진자수에 대한 Naive 모델의 상세 정보와 plot</span></span>
 <span id="cb13-2"><a href="단순naive-모델.html#cb13-2" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
-<pre><code>## 
-## Forecast method: Naive method
-## 
-## Model Information:
-## Call: naive(y = .) 
-## 
-## Residual sd: 6.0029 
-## 
-## Error measures:
-##                      ME     RMSE      MAE MPE MAPE MASE       ACF1
-## Training set 0.04318937 5.993075 3.465116 NaN  Inf  NaN -0.3127329
-## 
-## Forecasts:
-##          Point Forecast      Lo 80    Hi 80      Lo 95    Hi 95
-## 1.827397             15  7.3195658 22.68043   3.253790 26.74621
-## 1.830137             15  4.1382258 25.86177  -1.611650 31.61165
-## 1.832877             15  1.6970978 28.30290  -5.345033 35.34503
-## 1.835616             15 -0.3608683 30.36087  -8.492421 38.49242
-## 1.838356             15 -2.1739729 32.17397 -11.265325 41.26533
-## 1.841096             15 -3.8131447 33.81314 -13.772222 43.77222
-## 1.843836             15 -5.3205188 35.32052 -16.077552 46.07755
-## 1.846575             15 -6.7235483 36.72355 -18.223300 48.22330
-## 1.849315             15 -8.0413025 38.04130 -20.238631 50.23863
-## 1.852055             15 -9.2876654 39.28767 -22.144779 52.14478</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="단순naive-모델.html#cb15-1" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;0-9세 코로나19 확진자의 Naive 모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;기간&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
+<pre><code>
+Forecast method: Naive method
+
+Model Information:
+Call: naive(y = .) 
+
+Residual sd: 6.0029 
+
+Error measures:
+                     ME     RMSE      MAE MPE MAPE MASE       ACF1
+Training set 0.04318937 5.993075 3.465116 NaN  Inf  NaN -0.3127329
+
+Forecasts:
+         Point Forecast      Lo 80    Hi 80      Lo 95    Hi 95
+1.827397             15  7.3195658 22.68043   3.253790 26.74621
+1.830137             15  4.1382258 25.86177  -1.611650 31.61165
+1.832877             15  1.6970978 28.30290  -5.345033 35.34503
+1.835616             15 -0.3608683 30.36087  -8.492421 38.49242
+1.838356             15 -2.1739729 32.17397 -11.265325 41.26533
+1.841096             15 -3.8131447 33.81314 -13.772222 43.77222
+1.843836             15 -5.3205188 35.32052 -16.077552 46.07755
+1.846575             15 -6.7235483 36.72355 -18.223300 48.22330
+1.849315             15 -8.0413025 38.04130 -20.238631 50.23863
+1.852055             15 -9.2876654 39.28767 -22.144779 52.14478</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb15-1"><a href="단순naive-모델.html#cb15-1" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;0-9세 코로나19 확진자의 Naive 모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;기간&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/naive-3.png" width="672" /></p>
 </div>
 <div class="footnotes">

@@ -34,6 +34,7 @@ covid19 <- tidyr::spread(covid19, category, value)
 covid19.ts <- ts(covid19[, 2:10], frequency = 365)
 covid19.xts <- as.xts(covid19[, 3:10], order.by = covid19$date)
 covid19.tsibble <- as_tsibble(covid19, index = date)
+knitr::opts_chunk$set(class.source = "watch-out", comment='')
 ```
 
 # 시계열 forecasting Part III - 시계열 분석 Framework
@@ -56,23 +57,18 @@ MAE는 가장 계산이 편리한 성능평가 지수이다. 실제값에서 적
 
 ```{r MAE, echo=FALSE, warning=FALSE, message=FALSE}
 library(ggplot2)
-
 ### 학생수계 열의 선형회귀모형을 생성
-
 student.ts.lm <- forecast::tslm(students.ts[,2] ~ trend, data = students.ts)                   
 ### 선형회귀모형에 의한 잔차를 res에 저장
 res <- as.vector(residuals(student.ts.lm))
 ### 선형회귀모형에 의한 적합값을 fit에 저장
 fit <- as.vector(fitted(student.ts.lm))
-
-
 ggplot(students, aes(x = 연도, y = 학생수계)) + 
   geom_point() + 
   geom_line(aes(y = fit, group = 1), color = 'blue', size = 1) +
   geom_segment(aes(xend = 연도, yend = fit), color = 'red') + 
   scale_color_continuous(low = "black", high = "red") +
   scale_y_continuous(labels = scales::number_format(big.mark = ','))
-
 ```
 
 오차들의 평균값이기 때문에 MAE값이 작을수록 좋은 모델로 평가된다.
@@ -157,7 +153,7 @@ MAPE는 오차항(Error)의 백분률(Precentage)의 절대값의 평균(Mean)�
 
 먼저 트레이닝 셋과 테스트셋을 나눈다. 트레이닝 데이터 셋과 테스트 데이터 셋은 80:20으로 나눈다.
 
-```{r fable_students, message=FALSE, warning=FALSE, background = '#303030'}
+```{r fable_students, message=FALSE, warning=FALSE}
 split <- floor(nrow(students.tsibble) * 0.8)
 students.tsibble.tr <- students.tsibble[1:split, ]  
 students.tsibble.test <- students.tsibble[(split+1):nrow(students.tsibble), ]  
@@ -897,7 +893,7 @@ calibration_tbl %>%
 ```{r message=FALSE, warning=FALSE}
 model_fit_lm <- linear_reg() %>%
     set_engine("lm") %>%
-    fit(total ~ time + factor(month(time, label = TRUE), ordered = FALSE),
+    fit(total ~ time + factor(lubridate::month(time, label = TRUE), ordered = FALSE),
         data = employees)
 
 model_fit_nnetar <- nnetar_reg() %>%

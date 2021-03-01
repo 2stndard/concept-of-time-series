@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-28" />
+<meta name="date" content="2021-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -290,45 +290,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>데이터프레임 : <code>lubridate</code>, <code>tibbletime</code>, <code>dplyr</code> 패키지</li>
 </ul>
 <p>앞서 소개한 <code>collapse_by()</code> 함수를 사용하면 OHLC 정보를 간단히 산출할 수 있다. <code>collapse_by()</code>를 이용해 그룹핑할 시간 주기를 설정하고 <code>group_by()</code>함수를 사용하여 data.frame을 그룹핑한 후 <code>lubridate</code> 패키지의 <code>first()</code>, <code>max()</code>, <code>min()</code>, <code>last()</code> 함수를 사용하면 산출이 가능하다.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tbl_time</span>(covid19, <span class="at">index =</span> date) <span class="sc">%&gt;%</span></span>
-<span id="cb86-2"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collapse_by</span>(<span class="st">&#39;weekly&#39;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb86-3"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span> </span>
-<span id="cb86-4"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Open =</span> <span class="fu">first</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
-<span id="cb86-5"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">High =</span> <span class="fu">max</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
-<span id="cb86-6"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">Low =</span> <span class="fu">min</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
-<span id="cb86-7"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">Close =</span> <span class="fu">last</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb86-8"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb86-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## # A time tibble: 10 x 5
-## # Index: date
-##    date        Open  High   Low Close
-##    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 2020-04-11     2     2     1     1
-##  2 2020-04-18     0     3     0     2
-##  3 2020-04-25     0     1     0     1
-##  4 2020-05-02     2     2    -1     0
-##  5 2020-05-09     0     1     0     0
-##  6 2020-05-16     0     2     0     2
-##  7 2020-05-23     0     1     0     0
-##  8 2020-05-30     0     3     0     1
-##  9 2020-06-06     0     3     0     3
-## 10 2020-06-13     1     1     0     0</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb57-1"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">as_tbl_time</span>(covid19, <span class="at">index =</span> date) <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">collapse_by</span>(<span class="st">&#39;weekly&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb57-3"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-4"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">summarise</span>(<span class="at">Open =</span> <span class="fu">first</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
+<span id="cb57-5"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>             <span class="at">High =</span> <span class="fu">max</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
+<span id="cb57-6"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>             <span class="at">Low =</span> <span class="fu">min</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>), </span>
+<span id="cb57-7"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>             <span class="at">Close =</span> <span class="fu">last</span>(<span class="st">`</span><span class="at">0-9세</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb57-8"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code># A time tibble: 10 x 5
+# Index: date
+   date        Open  High   Low Close
+   &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 2020-04-11     2     2     1     1
+ 2 2020-04-18     0     3     0     2
+ 3 2020-04-25     0     1     0     1
+ 4 2020-05-02     2     2    -1     0
+ 5 2020-05-09     0     1     0     0
+ 6 2020-05-16     0     2     0     2
+ 7 2020-05-23     0     1     0     0
+ 8 2020-05-30     0     3     0     1
+ 9 2020-06-06     0     3     0     3
+10 2020-06-13     1     1     0     0</code></pre>
 <ul>
 <li><code>xts</code></li>
 </ul>
 <p><code>xts</code> 패키지에서는 OHLC 정보를 확인할 수 있는 함수를 직접 제공한다. <code>to.period()</code>인데 OHLC를 제공하는데 <code>to.period()</code> 함수의 매개변수인 <code>method</code>에 ‘months,’ ‘quarters’ 등 적절한 시간 간격을 설정해주면 해당 기간동안의 OHCL를 자동으로 출력해준다.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">to.period</span>(covid19.xts, <span class="at">method =</span> <span class="st">&#39;months&#39;</span>, <span class="at">OLHC =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>##            covid19.xts.Open covid19.xts.High covid19.xts.Low covid19.xts.Close
-## 2020-04-30                2                5               1                 2
-## 2020-05-31                0               11               0                 7
-## 2020-06-30                0                6               0                 6
-## 2020-07-31                0               10              -4                13
-## 2020-08-31                1               35               0                15
-## 2020-09-30               14               17               0                20
-## 2020-10-31                6               11               0                22
-## 2020-11-30                5               57               9                32
-## 2020-12-31               15               86               0               132
-## 2021-01-31               41              138              44                49
-## 2021-02-08               20               41              30                31</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb59-1"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">to.period</span>(covid19.xts, <span class="at">method =</span> <span class="st">&#39;months&#39;</span>, <span class="at">OLHC =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>           covid19.xts.Open covid19.xts.High covid19.xts.Low covid19.xts.Close
+2020-04-30                2                5               1                 2
+2020-05-31                0               11               0                 7
+2020-06-30                0                6               0                 6
+2020-07-31                0               10              -4                13
+2020-08-31                1               35               0                15
+2020-09-30               14               17               0                20
+2020-10-31                6               11               0                22
+2020-11-30                5               57               9                32
+2020-12-31               15               86               0               132
+2021-01-31               41              138              44                49
+2021-02-08               20               41              30                31</code></pre>
 </div>
             </section>
 

@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-28" />
+<meta name="date" content="2021-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -282,7 +282,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>또한 계절성이 동적으로 변동되는 경우는 ETS, ARIMA 모델이 지원하지 못한다. 따라서 이렇게 긴 주기의 계절성을 찾아내는 모델이나 변동성을 지니는 계절성 데이터에 대한 모델을 구축해야 할 때 사용하는 모델이 TBATS모델이다. TBATS 모델은 계절성의 삼각함수(<strong>T</strong>rigonometric), <strong>B</strong>ox-Cox 변환<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>, <strong>A</strong>RMA 에러, 추세(<strong>T</strong>rend)와 계절성 컴포넌트(<strong>S</strong>easonal Components)의 다섯가지 요소를 사용한 지수평활 상태공간 모델이다.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p>
 <p>코로나 확진자 데이터의 경우 2020년 9월 경 한차례 증가가 있었다가 2020년 12월 또 한차례 증가가 발생했다. 이것을 이중 계절성으로 파악한다면 ETS나 ARIMA모형으로는 모델링이 불가하다. 하지만 TBATS 모델은 다음과 같이 모델이 가능하다.</p>
 <p>TBATS모델은 <code>forecast()</code> 패키지의 <code>tbats()</code>를 통해 생성할 수 있다. 생성된 모델은 <code>forecast()</code>를 통해 예측치를 산출할 수 있다.</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="tbats-모델.html#cb183-1" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">tbats</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()   <span class="do">### 코로나 확진자 데이터에 대한 tBats 모델</span></span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb177-1"><a href="tbats-모델.html#cb177-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 코로나 확진자 데이터에 대한 tBats 모델</span></span>
+<span id="cb177-2"><a href="tbats-모델.html#cb177-2" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">tbats</span>() <span class="sc">%&gt;%</span> <span class="fu">forecast</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>()   </span></code></pre></div>
 <p><img src="t_files/figure-html/TBATS-1.png" width="672" /></p>
 </div>
 <div class="footnotes">

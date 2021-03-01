@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-28" />
+<meta name="date" content="2021-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -280,110 +280,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.3</span> 계절성 단순(Seasonal Naive) 모델</h2>
 <p>계절성 단순(Seasonal Naive) 모델은 단순(Naive) 모델에서 계절성을 추가한 모델이다. 1장에서 설명했듯이 계절성(Seasonal Pattern)은 주기성(Cyclic Pattern)은 일정한 주기를 갖는가에 따라 다른데 계절성 단순 모델에서 적용하는 것은 일정한 주기를 가지는 계절성에 한정된다. 아래의 예에서 보면 년별 데이터인 전체 학생수계는 계절성을 가지지 않기 때문에 앞선 Naive 모델과 다르지 않다. 하지만 전체 취업자 수는 명확한 계절성을 지니기 때문에 Naive모델과는 달리 곡선형태의 예측 결과를 나타내게 된다.</p>
 <p>계절성 단순 모델을 생성하는 함수는 <code>forecast</code> 패키지의 <code>snaive()</code>를 아래와 같이 사용할 수 있다. <code>meanf()</code>와 <code>naive()</code>와 다른 점은 <code>meanf()</code>와 <code>naive()</code>는 기본적으로 10 lag 미래의 데이터를 산출해주지만 <code>snaive()</code>는 기본적으로 2 lag 미래 데이터를 산출해주기 때문에 예측 산출 주기를 다시 설정해 줄 필요가 있다.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="계절성-단순seasonal-naive-모델.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 학생수계 열에 대한 계절성 Naive 모델의 상세 정보와 plot</span></span>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb16-1"><a href="계절성-단순seasonal-naive-모델.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 학생수계 열에 대한 계절성 Naive 모델의 상세 정보와 plot</span></span>
 <span id="cb16-2"><a href="계절성-단순seasonal-naive-모델.html#cb16-2" aria-hidden="true" tabindex="-1"></a>students.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">snaive</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
-<pre><code>## 
-## Forecast method: Seasonal naive method
-## 
-## Model Information:
-## Call: snaive(y = ., h = 10) 
-## 
-## Residual sd: 77849.7308 
-## 
-## Error measures:
-##                     ME     RMSE      MAE       MPE     MAPE MASE      ACF1
-## Training set -126815.2 147831.2 128514.4 -1.771615 1.791893    1 0.8922526
-## 
-## Forecasts:
-##      Point Forecast   Lo 80   Hi 80   Lo 95   Hi 95
-## 2021        5995239 5805786 6184692 5705495 6284983
-## 2022        5995239 5727312 6263166 5585479 6404999
-## 2023        5995239 5667096 6323382 5493388 6497090
-## 2024        5995239 5616332 6374146 5415751 6574727
-## 2025        5995239 5571608 6418870 5347352 6643126
-## 2026        5995239 5531175 6459303 5285514 6704964
-## 2027        5995239 5493993 6496485 5228649 6761829
-## 2028        5995239 5459384 6531094 5175720 6814758
-## 2029        5995239 5426879 6563599 5126007 6864471
-## 2030        5995239 5396135 6594343 5078988 6911490</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="계절성-단순seasonal-naive-모델.html#cb18-1" aria-hidden="true" tabindex="-1"></a>students.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">snaive</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;학생수 계절성 Naive 모델 plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>)</span></code></pre></div>
+<pre><code>
+Forecast method: Seasonal naive method
+
+Model Information:
+Call: snaive(y = ., h = 10) 
+
+Residual sd: 77849.7308 
+
+Error measures:
+                    ME     RMSE      MAE       MPE     MAPE MASE      ACF1
+Training set -126815.2 147831.2 128514.4 -1.771615 1.791893    1 0.8922526
+
+Forecasts:
+     Point Forecast   Lo 80   Hi 80   Lo 95   Hi 95
+2021        5995239 5805786 6184692 5705495 6284983
+2022        5995239 5727312 6263166 5585479 6404999
+2023        5995239 5667096 6323382 5493388 6497090
+2024        5995239 5616332 6374146 5415751 6574727
+2025        5995239 5571608 6418870 5347352 6643126
+2026        5995239 5531175 6459303 5285514 6704964
+2027        5995239 5493993 6496485 5228649 6761829
+2028        5995239 5459384 6531094 5175720 6814758
+2029        5995239 5426879 6563599 5126007 6864471
+2030        5995239 5396135 6594343 5078988 6911490</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb18-1"><a href="계절성-단순seasonal-naive-모델.html#cb18-1" aria-hidden="true" tabindex="-1"></a>students.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">snaive</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;학생수 계절성 Naive 모델 plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/snaive-1.png" width="672" /></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="계절성-단순seasonal-naive-모델.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 취업자수 열에 대한 계절성 Naive 모델의 상세 정보와 plot</span></span>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb19-1"><a href="계절성-단순seasonal-naive-모델.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 취업자수 열에 대한 계절성 Naive 모델의 상세 정보와 plot</span></span>
 <span id="cb19-2"><a href="계절성-단순seasonal-naive-모델.html#cb19-2" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">snaive</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
-<pre><code>## 
-## Forecast method: Seasonal naive method
-## 
-## Model Information:
-## Call: snaive(y = ., h = 10) 
-## 
-## Residual sd: 281.6863 
-## 
-## Error measures:
-##                    ME    RMSE      MAE       MPE    MAPE MASE      ACF1
-## Training set 229.2857 361.904 316.9524 0.8720369 1.19817    1 0.8173272
-## 
-## Forecasts:
-##          Point Forecast   Lo 80   Hi 80    Lo 95    Hi 95
-## Jan 2021          26800 26336.2 27263.8 26090.68 27509.32
-## Feb 2021          26838 26374.2 27301.8 26128.68 27547.32
-## Mar 2021          26609 26145.2 27072.8 25899.68 27318.32
-## Apr 2021          26562 26098.2 27025.8 25852.68 27271.32
-## May 2021          26930 26466.2 27393.8 26220.68 27639.32
-## Jun 2021          27055 26591.2 27518.8 26345.68 27764.32
-## Jul 2021          27106 26642.2 27569.8 26396.68 27815.32
-## Aug 2021          27085 26621.2 27548.8 26375.68 27794.32
-## Sep 2021          27012 26548.2 27475.8 26302.68 27721.32
-## Oct 2021          27088 26624.2 27551.8 26378.68 27797.32</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="계절성-단순seasonal-naive-모델.html#cb21-1" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">snaive</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;취업자수 계절성 Naive모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
+<pre><code>
+Forecast method: Seasonal naive method
+
+Model Information:
+Call: snaive(y = ., h = 10) 
+
+Residual sd: 281.6863 
+
+Error measures:
+                   ME    RMSE      MAE       MPE    MAPE MASE      ACF1
+Training set 229.2857 361.904 316.9524 0.8720369 1.19817    1 0.8173272
+
+Forecasts:
+         Point Forecast   Lo 80   Hi 80    Lo 95    Hi 95
+Jan 2021          26800 26336.2 27263.8 26090.68 27509.32
+Feb 2021          26838 26374.2 27301.8 26128.68 27547.32
+Mar 2021          26609 26145.2 27072.8 25899.68 27318.32
+Apr 2021          26562 26098.2 27025.8 25852.68 27271.32
+May 2021          26930 26466.2 27393.8 26220.68 27639.32
+Jun 2021          27055 26591.2 27518.8 26345.68 27764.32
+Jul 2021          27106 26642.2 27569.8 26396.68 27815.32
+Aug 2021          27085 26621.2 27548.8 26375.68 27794.32
+Sep 2021          27012 26548.2 27475.8 26302.68 27721.32
+Oct 2021          27088 26624.2 27551.8 26378.68 27797.32</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb21-1"><a href="계절성-단순seasonal-naive-모델.html#cb21-1" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">snaive</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;취업자수 계절성 Naive모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/snaive-2.png" width="672" /></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="계절성-단순seasonal-naive-모델.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 0-9세 코로나 확진자수에 대한 계절성 Naive 모델의 상세 정보와 plot</span></span>
-<span id="cb22-2"><a href="계절성-단순seasonal-naive-모델.html#cb22-2" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">snaive</span>(<span class="dv">30</span>) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
-<pre><code>## 
-## Forecast method: Seasonal naive method
-## 
-## Model Information:
-## Call: snaive(y = ., h = 30) 
-## 
-## Residual sd: NA 
-## 
-## Error measures:
-##               ME RMSE MAE MPE MAPE MASE ACF1
-## Training set NaN  NaN NaN NaN  NaN  NaN   NA
-## 
-## Forecasts:
-##          Point Forecast Lo 80 Hi 80 Lo 95 Hi 95
-## 1.827397              2   NaN   NaN   NaN   NaN
-## 1.830137              1   NaN   NaN   NaN   NaN
-## 1.832877              1   NaN   NaN   NaN   NaN
-## 1.835616              0   NaN   NaN   NaN   NaN
-## 1.838356              2   NaN   NaN   NaN   NaN
-## 1.841096              0   NaN   NaN   NaN   NaN
-## 1.843836              0   NaN   NaN   NaN   NaN
-## 1.846575              3   NaN   NaN   NaN   NaN
-## 1.849315              1   NaN   NaN   NaN   NaN
-## 1.852055              2   NaN   NaN   NaN   NaN
-## 1.854795              0   NaN   NaN   NaN   NaN
-## 1.857534              0   NaN   NaN   NaN   NaN
-## 1.860274              0   NaN   NaN   NaN   NaN
-## 1.863014              0   NaN   NaN   NaN   NaN
-## 1.865753              0   NaN   NaN   NaN   NaN
-## 1.868493              0   NaN   NaN   NaN   NaN
-## 1.871233              1   NaN   NaN   NaN   NaN
-## 1.873973              2   NaN   NaN   NaN   NaN
-## 1.876712             -1   NaN   NaN   NaN   NaN
-## 1.879452              0   NaN   NaN   NaN   NaN
-## 1.882192              0   NaN   NaN   NaN   NaN
-## 1.884932              0   NaN   NaN   NaN   NaN
-## 1.887671              0   NaN   NaN   NaN   NaN
-## 1.890411              0   NaN   NaN   NaN   NaN
-## 1.893151              0   NaN   NaN   NaN   NaN
-## 1.895890              0   NaN   NaN   NaN   NaN
-## 1.898630              0   NaN   NaN   NaN   NaN
-## 1.901370              0   NaN   NaN   NaN   NaN
-## 1.904110              0   NaN   NaN   NaN   NaN
-## 1.906849              1   NaN   NaN   NaN   NaN</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="계절성-단순seasonal-naive-모델.html#cb24-1" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">snaive</span>(<span class="dv">30</span>) <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;0-9세 코로나19 확진자의 계절성 Naive 모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;기간&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
-<p><img src="t_files/figure-html/snaive-3.png" width="672" /></p>
 </div>
             </section>
 

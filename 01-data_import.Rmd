@@ -1,26 +1,6 @@
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(dplyr)
-library(knitr)
-hook_output <- knit_hooks$get("output")
-knit_hooks$set(output = function(x, options) {
-   lines <- options$output.lines
-   if (is.null(lines)) {
-     return(hook_output(x, options))  # pass to default hook
-   }
-   x <- unlist(strsplit(x, "\n"))
-   more <- "..."
-   if (length(lines)==1) {        # first n lines
-     if (length(x) > lines) {
-       # truncate the output, but add ....
-       x <- c(head(x, lines), more)
-     }
-   } else {
-     x <- c(more, x[lines], more)
-   }
-   # paste these lines together
-   x <- paste(c(x, ""), collapse = "\n")
-   hook_output(x, options)
- })
+knitr::opts_chunk$set(class.source = "watch-out", comment='')
 ```
 
 # 시계열 데이터 타입 및 Import
@@ -60,11 +40,16 @@ unclass(date)
 Date 클래스는 1970년 이후 날짜를 기록하는 데이터 클래스이지만 `POSIXct` 와 `POSIXlt` 클래스는 1970년 이후 시간을 초단위로 기록하는 데이터 클래스이다. `POSIXct`는 date 클래스와 같이 1970년이후의 시간을 초단위의 정수로 기록하는 클래스이고 `POSIXlt`는 년, 월, 일, 시, 분, 초의 정보를 리스트형태로 기록하는 데이터 클래스이다. `POSIXlt`는 1900년 이후로 계산되어 리스트가 만들어 진다.
 
 ```{r}
-as.POSIXct('2021-01-31 12:34:56')  ### character를 POSIXct class 로 변환
-unclass(as.POSIXct('2021-01-31 12:34:55'))  ### POSIXct를 해제하면 정수
-as.POSIXlt('2021-01-31 12:34:56')  ### character를 POSIXlt class 로 변환
-unclass(as.POSIXlt('2021-12-31 12:34:56'))  ### POSIXlt를 해제하면 list
-as.POSIXlt('2021-12-31 12:34:56')$year  ### POSIXlt에서 1900년 이후 연도를 추출
+# character를 POSIXct class 로 변환
+as.POSIXct('2021-01-31 12:34:56')  
+# POSIXct를 해제하면 정수
+unclass(as.POSIXct('2021-01-31 12:34:55'))
+# character를 POSIXlt class 로 변환
+as.POSIXlt('2021-01-31 12:34:56')  
+# POSIXlt를 해제하면 list
+unclass(as.POSIXlt('2021-12-31 12:34:56')
+# POSIXlt에서 1900년 이후 연도를 추출
+as.POSIXlt('2021-12-31 12:34:56')$year  
 ```
 
 ::: {.comment}
@@ -81,13 +66,21 @@ as.POSIXlt('2021-12-31 12:34:56')$year  ### POSIXlt에서 1900년 이후 연도�
 
 `yearmon`과 `yearqtr` 클래스는 모두 `zoo` 패키지에서 제공하는 클래스이다. 간혹 년월밖에 없거나 년, 분기로 표현된 시간 데이터가 있을때 사용한다. `yearmon` 클래스는 월별 데이터를 표현하는 클래스이고 `yearqtr`는 분기 데이터를 표현하는 클래스이다. `yearmon` 클래스는 1월을 0으로 2월을 1/12 = 0.083, 12월을 11/12 = 0.917 으로 표기하고 `yearqtr` 클래스는 각 분기마다 0.25씩 더해서 저장되지만 표현될 때는 보기좋은 시간형태로 표현된다.
 
-```{r}
-library(zoo)
-as.yearmon("2007-02")  ### character를 yearmon class로 변환
-unclass(as.yearmon("2007-02"))  ### yearmon class를 해제하면 double
-as.yearmon("2007-02-01")  ### 날짜가 있어도 yearmon은 년, 월까지만 인식
-as.yearqtr("2007-01")  ### character를 yearqtr class로 변환(1분기)
-unclass(as.yearqtr("2007-04"))  ### yearqtr class를 해제하면 double
+```{r message=FALSE, warning=FALSE}
+if(!require(zoo)) {
+  install.packages('zoo')
+  library(zoo)
+}
+# character를 yearmon class로 변환
+as.yearmon("2007-02")  
+# yearmon class를 해제하면 double
+unclass(as.yearmon("2007-02"))
+# 날짜가 있어도 yearmon은 년, 월까지만 인식
+as.yearmon("2007-02-01")
+# character를 yearqtr class로 변환(1분기)
+as.yearqtr("2007-01")  
+# yearqtr class를 해제하면 double
+unclass(as.yearqtr("2007-04"))  
 ```
 
 ::: {.comment}
@@ -215,8 +208,8 @@ as.xts(rnorm(5), as.Date("2008-08-01") + 0:4)
 
 ```{r message=TRUE, error=TRUE}
 ts <- ts(1:10, frequency = 4, start = c(1959, 2))
-xts(ts)  ### xts를 생성해야하나 인덱스가 정해지지 않아 에러
-as.xts(ts)  ### ts object의 특성을 해석하여 xts로 변환
+xts(ts)
+as.xts(ts)
 ```
 
 ::: {.comment}
@@ -232,8 +225,10 @@ as.xts(ts)  ### ts object의 특성을 해석하여 xts로 변환
 [^data_import-4]: <https://cran.r-project.org/web/packages/xts/xts.pdf>
 
 ```{r}
-head(ts)  # 시계열 데이터 형태로 보이지 않음
-head(as.xts(ts))  # 시계열 형태로 보임
+ # 시계열 데이터 형태로 보이지 않음
+head(ts) 
+# 시계열 형태로 보임
+head(as.xts(ts))  
 ```
 
 ### tsibble
@@ -263,7 +258,7 @@ if(!require(tsibble)) {
 
 `tsibble` 패키지를 로딩한 후에 `tsibble` 객체를 생성할 수 있다. `tsibble` 객체를 생성하는 방법은 `tsibble()` 을 사용해서 직접 `tsibble` 객체를 생성할 수도 있고 데이터 프레임으로 생성된 객체를 `as.tsibble()`를 사용해 `tsibble` 객체로 변환하는 방법이 있다. 이 중 데이터 프레임을 `tsibble` 객체로 변환하는 방법은 다음과 같다.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(dplyr)
 x <- data.frame(date = as.Date('2008-01-01') + 0:9, id = 1:10, x1 = rnorm(10), x2= rep('a', 10))
 as_tsibble(x, key = id, index = date)

@@ -32,6 +32,7 @@ covid19$value <- ifelse(is.na(covid19$value), 0, covid19$value)
 covid19 <- tidyr::spread(covid19, category, value)
 covid19.ts <- ts(covid19[, 2:10], frequency = 365)
 covid19.xts <- as.xts(covid19[, 3:10], order.by = covid19$date)
+knitr::opts_chunk$set(class.source = "watch-out", comment='')
 ```
 
 # 시계열 forecasting Part II - 시계열 예측 모델
@@ -56,15 +57,15 @@ covid19.xts <- as.xts(covid19[, 3:10], order.by = covid19$date)
 
 ```{r meanf, warning=FALSE, message=FALSE}
 library(forecast)
-### meanf()를 사용하여 ts 객체의 학생수계 열에 대한 평균모델을 생성하고 summary()로 상세내용을 출력
+# meanf()를 사용하여 ts 객체의 학생수계 열에 대한 평균모델을 생성하고 summary()로 상세내용을 출력
 summary(meanf(students.ts[,2]))
-### autoplot()을 사용하여 ts 객체의 학생수계 열에 대한 평균모델을 plotting
+# autoplot()을 사용하여 ts 객체의 학생수계 열에 대한 평균모델을 plotting
 autoplot(meanf(students.ts[,2]), main = '학생수 평균모델 Plot', xlab = '연도', ylab = '학생수')
-### autoplot()을 사용하여 ts 객체의 학생수계 열에 대한 평균모델(예측구간 산출에 boosted 방법을 사용)을 plotting
+# autoplot()을 사용하여 ts 객체의 학생수계 열에 대한 평균모델(예측구간 산출에 boosted 방법을 사용)을 plotting
 autoplot(meanf(students.ts[,2], bootstrap = TRUE), main = '학생수의 평균모델 Plot(bootstrap)', xlab = '연도', ylab = '학생수')
-### 전체 취업자수에 대한 평균모델 plotting
+# 전체 취업자수에 대한 평균모델 plotting
 autoplot(meanf(employees.ts[,2]), main = '취업자수의 평균모델 Plot', xlab = '연도', ylab = '취업자수')
-### 코로나 19 확진자에 대한 평균모델(예측구간 산출에 boosted 방법을 사용) plotting
+# 코로나 19 확진자에 대한 평균모델(예측구간 산출에 boosted 방법을 사용) plotting
 autoplot(meanf(covid19.ts[,2], bootstrap = TRUE), main = '0-9세 코로나19 확진자의 평균모델 Plot', xlab = '기간', ylab = '확진자수')
 ```
 
@@ -77,15 +78,13 @@ autoplot(meanf(covid19.ts[,2], bootstrap = TRUE), main = '0-9세 코로나19 확
 `forecast` 패키지에서는 Naive 모델을 생성하는 함수로 `naive()`를 제공한다. `naive()`의 실행 결과는 `ts` 객체로 전달된 데이터에 대한 시차 10의 미래 데이터까지 예측치와 80%, 95% 예측구간의 데이터를 산출해준다. 앞선 평균모델의 `meanf()`와 같이 `autoplot()`을 사용하여 plot을 만들 수 있다.
 
 ```{r naive}
-### 학생수계 열에 대한 Naive 모델의 상세 정보와 plot
+# 학생수계 열에 대한 Naive 모델의 상세 정보와 plot
 students.ts[, 2] %>% naive() %>% summary()
 students.ts[, 2] %>% naive() %>% autoplot(main = '학생수 Naive 모델 plot', xlab = '연도', ylab = '학생수')
-
-### 취업자수 열에 대한 Naive 모델의 상세 정보와 plot
+# 취업자수 열에 대한 Naive 모델의 상세 정보와 plot
 employees.ts[,2] %>% naive() %>% summary()
 employees.ts[,2] %>% naive() %>% autoplot(main = '취업자수 Naive모델 Plot', xlab = '연도', ylab = '취업자수')
-
-### 0-9세 코로나 확진자수에 대한 Naive 모델의 상세 정보와 plot
+# 0-9세 코로나 확진자수에 대한 Naive 모델의 상세 정보와 plot
 covid19.ts[,2] %>% naive() %>% summary()
 covid19.ts[,2] %>% naive() %>% autoplot(main = '0-9세 코로나19 확진자의 Naive 모델 Plot', xlab = '기간', ylab = '확진자수')
 ```
@@ -97,17 +96,12 @@ covid19.ts[,2] %>% naive() %>% autoplot(main = '0-9세 코로나19 확진자의 
 계절성 단순 모델을 생성하는 함수는 `forecast` 패키지의 `snaive()`를 아래와 같이 사용할 수 있다. `meanf()`와 `naive()`와 다른 점은 `meanf()`와 `naive()`는 기본적으로 10 lag 미래의 데이터를 산출해주지만 `snaive()`는 기본적으로 2 lag 미래 데이터를 산출해주기 때문에 예측 산출 주기를 다시 설정해 줄 필요가 있다.
 
 ```{r snaive}
-### 학생수계 열에 대한 계절성 Naive 모델의 상세 정보와 plot
+# 학생수계 열에 대한 계절성 Naive 모델의 상세 정보와 plot
 students.ts[,2] %>% snaive(10) %>% summary()
 students.ts[,2] %>% snaive(10) %>% autoplot(main = '학생수 계절성 Naive 모델 plot', xlab = '연도', ylab = '학생수')
-
-### 취업자수 열에 대한 계절성 Naive 모델의 상세 정보와 plot
+# 취업자수 열에 대한 계절성 Naive 모델의 상세 정보와 plot
 employees.ts[,2] %>% snaive(10) %>% summary()
 employees.ts[,2] %>% snaive(10) %>% autoplot(main = '취업자수 계절성 Naive모델 Plot', xlab = '연도', ylab = '취업자수')
-
-### 0-9세 코로나 확진자수에 대한 계절성 Naive 모델의 상세 정보와 plot
-covid19.ts[,2] %>% snaive(30) %>% summary()
-covid19.ts[,2] %>% snaive(30) %>% autoplot(main = '0-9세 코로나19 확진자의 계절성 Naive 모델 Plot', xlab = '기간', ylab = '확진자수')
 ```
 
 ## Random Walk 모델
@@ -121,26 +115,22 @@ covid19.ts[,2] %>% snaive(30) %>% autoplot(main = '0-9세 코로나19 확진자�
 랜덤 워크 모델은 `forecast` 패키지의 `rwf()`를 이용하여 생성할 수 있다. 앞서 설명한 드리프트의 유무는 `drift` 매개변수를 통해 설정할 수 있다.
 
 ```{r randomwalk}
-### 학생수계 열에 대한 random walk 모델의 상세 정보와 plot
+# 학생수계 열에 대한 random walk 모델의 상세 정보와 plot
 students.ts[,2] %>% rwf() %>% summary()
 students.ts[,2] %>% rwf() %>% autoplot(main = '학생수 random walk 모델 plot', xlab = '연도', ylab = '학생수')
-### 학생수계 열에 대한 드리프르가 있는 random walk 모델의 상세 정보와 plot
+# 학생수계 열에 대한 드리프르가 있는 random walk 모델의 상세 정보와 plot
 students.ts[,2] %>% rwf(drift = T) %>% summary()
 students.ts[,2] %>% rwf(drift = T) %>% autoplot(main = '학생수 random walk 모델 plot', xlab = '연도', ylab = '학생수')
-
-
-### 취업자수 열에 대한 random walk 모델의 상세 정보와 plot
+# 취업자수 열에 대한 random walk 모델의 상세 정보와 plot
 employees.ts[,2] %>% rwf() %>% summary()
 employees.ts[,2] %>% rwf() %>% autoplot(main = '취업자수 random walk 모델 Plot', xlab = '연도', ylab = '취업자수')
-### 취업자수 열에 대한 드리프르가 있는 random walk 모델의 상세 정보와 plot
+# 취업자수 열에 대한 드리프르가 있는 random walk 모델의 상세 정보와 plot
 employees.ts[,2] %>% rwf(drift = T) %>% summary()
 employees.ts[,2] %>% rwf(drift = T) %>% autoplot(main = '취업자수 random walk 모델 Plot', xlab = '연도', ylab = '취업자수')
-
-
-### 0-9세 코로나 확진자수에 대한 계절성 Naive 모델의 상세 정보와 plot
+# 0-9세 코로나 확진자수에 대한 계절성 Naive 모델의 상세 정보와 plot
 covid19.ts[,2] %>% rwf(30) %>% summary()
 covid19.ts[,2] %>% rwf(30) %>% autoplot(main = '0-9세 코로나19 확진자의 random walk 모델 Plot', xlab = '기간', ylab = '확진자수')
-### 취업자수 열에 대한 드리프르가 있는 random walk 모델의 상세 정보와 plot
+# 취업자수 열에 대한 드리프르가 있는 random walk 모델의 상세 정보와 plot
 covid19.ts[,2] %>% rwf(30, drift = T) %>% summary()
 covid19.ts[,2] %>% rwf(30, drift = T) %>% autoplot(main = '0-9세 코로나19 확진자의 random walk 모델 Plot', xlab = '기간', ylab = '확진자수')
 ```
@@ -149,35 +139,35 @@ covid19.ts[,2] %>% rwf(30, drift = T) %>% autoplot(main = '0-9세 코로나19 �
 
 ```{r randomwalk_noise}
 set.seed(345)
-whitenoise <- ts(rnorm(100), start = 1)  ###  white noise simulation 데이터 생성
+#  white noise simulation 데이터 생성
+whitenoise <- ts(rnorm(100), start = 1)  
 ts.plot(whitenoise)
-whitenoise.to.randomwalk <- cumsum(whitenoise) ### white noise 데이터로 random walk 생성
+# white noise 데이터로 random walk 생성
+whitenoise.to.randomwalk <- cumsum(whitenoise) 
 ts.plot(whitenoise.to.randomwalk)
-randomwalk.to.whitenoise <- diff(whitenoise.to.randomwalk) ### random walk에서 white noise 생성
+# random walk에서 white noise 생성
+randomwalk.to.whitenoise <- diff(whitenoise.to.randomwalk) 
 ts.plot(randomwalk.to.whitenoise)
 ```
 
 위에서 설명한 평균, Naive, 계절성 Naive, 랜덤 워크 모델들을 하나의 plot으로 그려보면 모델 간의 차이를 살펴볼 수 있다.
 
 ```{r simple_total}
-
-### 학생수계의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측값 plot
+# 학생수계의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측값 plot
 autoplot(meanf(students.ts[,2], h = 10), PI = FALSE, series = 'Mean') + 
   autolayer(naive(students.ts[,2], h = 10), PI = FALSE, series = 'Naive') +
   autolayer(snaive(students.ts[,2], h = 10), PI = FALSE, series = 'Snaive') +
   autolayer(rwf(students.ts[,2], h = 10), PI = FALSE, series = 'RW') +
   autolayer(rwf(students.ts[,2], h = 10, drift = TRUE), PI = FALSE, series = 'RW with drift') + 
   labs(title = '학생수계의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측', x = '연도', y = '학생수')
-
-### 취업자수의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측값 plot
+# 취업자수의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측값 plot
 autoplot(meanf(employees.ts[,2], h = 10), PI = FALSE, series = 'Mean') + 
   autolayer(naive(employees.ts[,2], h = 10), PI = FALSE, series = 'Naive') +
   autolayer(snaive(employees.ts[,2], h = 10), PI = FALSE, series = 'Snaive') +
   autolayer(rwf(employees.ts[,2], h = 10), PI = FALSE, series = 'RW') +
   autolayer(rwf(employees.ts[,2], h = 10, drift = TRUE), PI = FALSE, series = 'RW with drift') + 
   labs(title = '취업자수의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측', x = '연도', y = '취업자수')
-
-### 0-9세 코로나 확진자의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측값 plot
+# 0-9세 코로나 확진자의 평균, Naive, 계절성 Naive, 랜덤워크 모델의 예측값 plot
 autoplot(meanf(covid19.ts[,2], h = 30), PI = FALSE, series = 'Mean') + 
   autolayer(naive(covid19.ts[,2], h = 30), PI = FALSE, series = 'Naive') +
   autolayer(snaive(covid19.ts[,2], h = 30), PI = FALSE, series = 'Snaive') +
@@ -205,10 +195,9 @@ autoplot(meanf(covid19.ts[,2], h = 30), PI = FALSE, series = 'Mean') +
 앞선 모델들과 달리 앞으로 설명할 모델들은 모델 자체에서 미래 예측치를 생성하지 않는다. 따라서 모델에 따른 미래 예측치를 산출하기 위해서는 `forecast` 패키지에서 제공하는 `forecast()`를 사용해야하고 이 결과값으로 plot을 생성해야 한다.
 
 ```{r tslm1}
-### 전체 학생수 예측 모델을 추세를 반영하여 생성
+# 전체 학생수 예측 모델을 추세를 반영하여 생성
 student.ts.lm <- tslm(students.ts[,2] ~ trend, data = students.ts)
 summary(student.ts.lm)
-
 ```
 
 ::: {.comment style="color: DarkBlue;"}
@@ -224,16 +213,16 @@ summary(student.ts.lm)
 :::
 
 ```{r tslm2}
-### 전체 학생수 예측 모델을 forecast()를 사용해 예측치를 산출하고 autoplot()으로 plot 생성
-student.ts.lm %>% forecast() %>% autoplot()
+# 전체 학생수 예측 모델을 forecast()를 사용해 예측치를 산출하고 autoplot()으로 plot 생성
+student.ts.lm %>% forecast() %>% autoplot() + labs(x = '학생수')
 ```
 
 아래의 모델은 초등학교 학생수 예측모델을 만드는데 트랜드와 유치원 학생수를 독립변수로 하는 모델을 만드는 예이다.
 
 ```{r tslm3}
-### 초등학생 학생수의 예측모델을 생성하는데 유치원 학생수와 트랜드를 사용하는 선형 모델을 생성
+# 초등학생 학생수의 예측모델을 생성하는데 유치원 학생수와 트랜드를 사용하는 선형 모델을 생성
 student.ts.lm <- tslm(students.ts[,4] ~ students.ts[,3] + trend, data = students.ts) 
-### forecast()로 생성된 모델에 대한 미래 예측 데이터를 만들고 autoplot()으로 plot 생성
+# forecast()로 생성된 모델에 대한 미래 예측 데이터를 만들고 autoplot()으로 plot 생성
 student.ts.lm %>% forecast(h = 22) %>% autoplot(main = '유치원 학생수와 추세를 활용한 초등학생수 예측 모델', xlab = '연도', ylab = '학생수')
 ```
 
@@ -246,18 +235,18 @@ student.ts.lm <- tslm(students.ts[,2] ~ trend + season, data = students.ts)
 전체 취업자수와 교육서비스업 취업자수에 대한 선형회귀분석 모델과 plot은 다음과 같다.
 
 ```{r tslm4}
-### 전체 취업자수를 추세(trend)만으로 선형 회귀분석
+# 전체 취업자수를 추세(trend)만으로 선형 회귀분석
 employee.total.ts.lm <- tslm(employees.ts[,2] ~ trend, data = employees.ts)
-### y절편이 25430, 기울기가 20.39인 선형 회귀모델 생성
+# y절편이 25430, 기울기가 20.39인 선형 회귀모델 생성
 summary(employee.total.ts.lm)
-### 전체 취업자수에 대한 선형회귀 모델의 예측치에 대한 plot 생성
+# 전체 취업자수에 대한 선형회귀 모델의 예측치에 대한 plot 생성
 employee.total.ts.lm %>% forecast() %>% autoplot()
 ```
 
 아래의 예는 시계열 선형 회귀 모델에 추세와 계절성까지 반영한 모델을 사용한 경우이다. 계절성을 포함시키기 위해서는 `tslm()`의 `~`의 오른쪽 수식에 season 키워드를 넣어줌으로써 계절성을 반영한 시계열 모델을 생성할 수 있다. 계절성 선형 모델을 `summary()`를 통해 상세 정보를 보면 앞서 봤던 추세만으로 생성한 모델과는 조금 다른 점이 있다. season2부터 season12까지의 변수가 추가되는데 이를 더미변수(dummy variable)이라고 한다. 2월부터 12월까지에 각각 대응되는 변수인데 이 변수는 1과 0의 값만 가질수 있다. 예를 들어 2월의 데이터를 예측하기 위해서는 season2의 값만 1이고 나머지 season3부터 season12까지는 0으로 설정된다. 따라서 2월의 회귀계수만이 영향을 미치게 되므로 계수값은 많이 나오지만 각각의 예측치를 만들때에는 season2부터 season12중에 하나의 계수값만 더해지게 된다.
 
 ```{r tslm5}
-### 전체 취업자수를 추세(trend)와 계절성(season)으로 선형 회귀분석
+# 전체 취업자수를 추세(trend)와 계절성(season)으로 선형 회귀분석
 employee.total.ts.lm <- tslm(employees.ts[,2] ~ trend + season, data = employees.ts)
 summary(employee.total.ts.lm)
 employee.total.ts.lm %>% forecast() %>% autoplot()
@@ -279,7 +268,7 @@ checkresiduals(tslm(students.ts[,2] ~ trend, data = students.ts))
 
 `timetk` 패키지는 시계열 데이터를 핸들링하고 plotting 하는 데 주로 활용하는 패키지이다. 그래서 모델링을 위한 함수를 바로 제공하지는 않고 plotting 함수에서 회귀 모델을 호출하여 회귀 결과를 plotting 하는 함수를 제공한다. `plot_time_series_regression()` 함수에서 사용하는 선형회귀 함수에서도 trend, season 을 적용할 수 없다. 다만 ts 객체가 아닌 data.frame 객체를 사용할 수있다는 장점이 있다.
 
-```{r lm_timetk}
+```{r lm_timetk, message=FALSE, warning=FALSE}
 library(timetk)
 library(lubridate)
 plot_time_series_regression(.data = students, 
@@ -288,14 +277,14 @@ plot_time_series_regression(.data = students,
                             .interactive = FALSE, 
                             .show_summary = TRUE) 
 
-### 계절성 반영을 위해 
+# 계절성 반영을 위해 
 employees$date <- as.yearmon(employees$time, "%Y. %m")
-### plot_time_series_regression에 trend만 반영시
+# plot_time_series_regression에 trend만 반영시
 plot_time_series_regression(.data = employees, 
                             .date_var = time, 
                             .formula = total ~ as.numeric(yearmonth(date)), 
                             .interactive = FALSE) 
-### plot_time_series_regression에 trend, season(월)까지 반영시
+# plot_time_series_regression에 trend, season(월)까지 반영시
 plot_time_series_regression(.data = employees, 
                             .date_var = time, 
                             .formula = total ~ year(date) +
@@ -340,7 +329,7 @@ plot_time_series_regression(.data = employees,
 아래의 총학생수에 대한 ses()의 alpha 계수는 0.999로 계산되었다. 이는 거의 1과 가깝기 때문에 바로 이전 데이터에 거의 모든 가중치를 다 준 것이고 이로 인해 결국 Naive 모델과 거의 같은 모델이 생성되었다. 만약 alpha값을 강제로 낮추어 준다면 어떻게 될까? 아래의 코드를 잘 살펴보길 바란다.
 
 ```{r ses0}
-### 전체 학생수에 대한 Simple Exponential Smoothing
+# 전체 학생수에 대한 Simple Exponential Smoothing
 ses(students.ts[,2]) %>% summary()
 
 ```
@@ -358,7 +347,6 @@ autoplot(students.ts[,2]) +
   autolayer(fitted(ses(students.ts[,2])), series = '적합값') +
   autolayer(ses(students.ts[,2]))  + 
   labs(title = '단순지수평활모델', x = '연도', y = '학생수')
-
 autoplot(students.ts[,2]) + 
   autolayer(fitted(ses(students.ts[,2])), series = '적합값') +
   autolayer(ses(students.ts[,2]), PI = F, series = '0.99') + 
@@ -368,7 +356,7 @@ autoplot(students.ts[,2]) +
 ```
 
 ```{r ses1}
-### 전체  취업자수에 대한 Simple Exponential Smoothing
+# 전체  취업자수에 대한 Simple Exponential Smoothing
 autoplot(employees.ts[,2]) + 
   autolayer(fitted(ses(employees.ts[,2])), series = '적합값') +
   autolayer(ses(employees.ts[,2]), series = 'auto', PI = F) + 
@@ -376,8 +364,7 @@ autoplot(employees.ts[,2]) +
   autolayer(ses(employees.ts[,2], alpha = 0.5), series = '0.5', PI = F) + 
   autolayer(ses(employees.ts[,2], alpha = 0.7), series = '0.7', PI = F) + 
   labs(title = 'alpha값에 따른 단순지수평활모델', x = '연도', y = '취업자수', color = 'alpha')
-
-### 코로나 신규확진자수(0-9세)에 대한 Simple Exponential Smoothing
+# 코로나 신규확진자수(0-9세)에 대한 Simple Exponential Smoothing
 autoplot(covid19.ts[,2]) + 
   autolayer(fitted(ses(covid19.ts[,2])), series = '적합값') +
   autolayer(ses(covid19.ts[,2], h = 30), series = 'auto', PI = F) + 
@@ -392,7 +379,7 @@ autoplot(covid19.ts[,2]) +
 [^forecasting-ii-8]: <https://m.blog.naver.com/PostView.nhn?blogId=sigmagil&logNo=221502514892&proxyReferer=https:%2F%2Fwww.google.com%2F>
 
 ```{r ses_alpha, message=FALSE, warning=FALSE}
-### 전체 학생수의 alpha 값에 따른 적합치와 예측치의 변화
+# 전체 학생수의 alpha 값에 따른 적합치와 예측치의 변화
 autoplot(students.ts[,2], color = 'black') +
   autolayer(fitted(ses(students.ts[,2], alpha = 0.1)), series = '0.1') +
   autolayer(ses(students.ts[,2], alpha = 0.1, PI = FALSE), series = '0.1') +
@@ -425,7 +412,7 @@ autoplot(students.ts[,2], color = 'black') +
 홀트 모델은 앞선 단순 지수 평활 모델에 사용했던 `ses()` 함수에 추세 기울기 값인 beta 값을 추가하여 사용할 수도 있고 `forecast` 패키지에서 제공하는 `holt()` 함수를 사용하여 모델을 생성할 수도 있다. 다만 `alpha`, `beta` 등의 매개변수를 지정하지 않으면 자동 계산되어 적절한 값이 사용된다.
 
 ```{r holt0}
-### 전체 학생수에 대한 Holt modeling
+# 전체 학생수에 대한 Holt modeling
 summary(holt(students.ts[,2]))
 ```
 
@@ -438,19 +425,17 @@ summary(holt(students.ts[,2]))
 :::
 
 ```{r holt}
-### 전체  학생수에 대한 Holt modeling
+# 전체  학생수에 대한 Holt modeling
 autoplot(students.ts[,2]) + 
   autolayer(fitted(holt(students.ts[,2])), series = '적합값') +
   autolayer(holt(students.ts[,2]), series = '예측값') + 
   labs(title = '학생수 holt 지수평활모델', x = '연도', y = '학생수')
-
-### 전체  취업자수에 대한 Holt modeling
+# 전체  취업자수에 대한 Holt modeling
 autoplot(employees.ts[,2]) + 
   autolayer(fitted(holt(employees.ts[,2])), series = '적합값') +
   autolayer(holt(employees.ts[,2]), series = '예측값') + 
   labs(title = '취업자수 holt 지수평활모델', x = '연도', y = '취업자수')
-
-### 코로나 신규확진자수(0-9세)에 대한 Holt modeling
+# 코로나 신규확진자수(0-9세)에 대한 Holt modeling
 autoplot(covid19.ts[,2]) + 
   autolayer(fitted(holt(covid19.ts[,2])), series = '적합값') +
   autolayer(holt(covid19.ts[,2], h = 30), series = '예측값') + 
@@ -460,23 +445,21 @@ autoplot(covid19.ts[,2]) +
 홀트 모델은 위와 같이 일정한 증가, 감소가 나타난다. 추세가 증가 추세이면 예측값이 계속 증가하게 되고 감소추세이면 계속 감소하게 된다. 특히 감소추세 일때 계속 감소하면 어느 순간 음수값을 가질수도 있다. 따라서 감소 추세가 있는 경우 어느정도에서 감소추세를 지연시킬 필요가 있다. `holt()` 함수에서는 `damped` 매개변수를 통해 감소추세를 지연시킬 수 있다.
 
 ```{r holt_damped}
-### 전체 학생수에 대한 Holt modeling 비교
+# 전체 학생수에 대한 Holt modeling 비교
 autoplot(students.ts[,2]) + 
   autolayer(fitted(holt(students.ts[,2])), series = 'holt 적합') +
   autolayer(fitted(holt(students.ts[,2], damped = TRUE)), series = ' damped 적합') +
   autolayer(holt(students.ts[,2]), series = 'holt 예측', PI = FALSE) + 
   autolayer(holt(students.ts[,2], damped = TRUE), series = 'damped 예측', PI = FALSE) + 
   labs(title = '학생수 damped holt 지수평활모델', x = '연도', y = '학생수')
-
-### 전체  취업자수에 대한 Holt modeling 비교
+# 전체  취업자수에 대한 Holt modeling 비교
 autoplot(employees.ts[,2]) + 
   autolayer(fitted(holt(employees.ts[,2])), series = 'holt 적합') +
   autolayer(fitted(holt(employees.ts[,2], damped = TRUE)), series = 'damped 적합') +
   autolayer(holt(employees.ts[,2]), series = 'holt 예측', PI = FALSE) + 
   autolayer(holt(employees.ts[,2], damped = TRUE), series = 'damped 예측', PI = FALSE) + 
   labs(title = '취업자수 damped holt 지수평활모델', x = '연도', y = '취업자수')
-
-### 코로나 신규확진자수(0-9세)에 대한 Holt modeling 비교
+# 코로나 신규확진자수(0-9세)에 대한 Holt modeling 비교
 autoplot(covid19.ts[,2]) + 
   autolayer(fitted(holt(covid19.ts[,2])), series = 'holt 적합') +
   autolayer(fitted(holt(covid19.ts[,2], damped = TRUE)), series = 'damped 적합') +
@@ -572,7 +555,7 @@ ETS 모델은 모델을 구성하는 방법에 따라 여러가지 모델로 구
 `forecast` 패키지의 `ets()` 함수에는 상태공간모델을 지정할 수 있지만 `ets()` 함수에서 자동적으로 선정해준다. ets 모델을 `autoplot()`에 적용시키면 각각의 성분별로 plot을 확인할 수 있다.
 
 ```{r ets1}
-### 총학생수에 대한 ets 모델
+# 총학생수에 대한 ets 모델
 ets(students.ts[,2]) %>% summary
 ```
 
@@ -587,18 +570,20 @@ ets(students.ts[,2]) %>% summary
 :::
 
 ```{r ets2}
-ets(students.ts[,2]) %>% autoplot()  ### 전체 학생수에 대한 ets 모델 ploting
+# 전체 학생수에 대한 ets 모델 ploting
+ets(students.ts[,2]) %>% autoplot()  
 ```
 
 ```{r ets3}
-### 전체 학생수에 대한 예측치 ploting
+# 전체 학생수에 대한 예측치 ploting
 ets(students.ts[,2]) %>% forecast() %>% 
   autoplot() + 
   labs(x = '연도', y = '학생수')
 ```
 
 ```{r ets4}
-ets(employees.ts[,2])  ### ETS(M,Ad,A)로 모델 선정
+# ETS(M,Ad,A)로 모델 선정
+ets(employees.ts[,2])  
 ```
 
 ::: {.comment style="color: DarkBlue;"}
@@ -722,10 +707,13 @@ ARIMA 모델에서 이동 평균을 사용할 때 주의해야 할점은 이동 
 
 ```{r MAmodel}
 set.seed(345) 
-arima001 <- arima.sim(model = list(order = c(0, 0, 1), ma = 0.9), n = 200)   ### ARIMA(1,0,0)에 AR(1)의 회귀계수가 0.9인 데이터 200개 생성
+# ARIMA(1,0,0)에 AR(1)의 회귀계수가 0.9인 데이터 200개 생성
+arima001 <- arima.sim(model = list(order = c(0, 0, 1), ma = 0.9), n = 200)   
 arima001 %>% autoplot(main = 'MA(1) model')
-urca::ur.kpss(arima001) %>% urca::summary()   ### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 크므로 정상성, 차분 불필요
-ndiffs(arima001, test = 'kpss') ### 비정상 제거를 위한 차분수 - 0이 나오므로 차분 불필요
+# kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 크므로 정상성, 차분 불필요
+urca::ur.kpss(arima001) %>% urca::summary()   
+# 비정상 제거를 위한 차분수 - 0이 나오므로 차분 불필요
+ndiffs(arima001, test = 'kpss') 
 ```
 
 ::: {.comment}
@@ -746,8 +734,10 @@ ndiffs(arima001, test = 'kpss') ### 비정상 제거를 위한 차분수 - 0이 
 set.seed(345)
 arima011 <- arima.sim(model = list(order = c(0, 1, 1), ma = 0.9), n = 200) 
 arima011 %>% autoplot(main = 'MA(1), 차분 1 model')
-urca::ur.kpss(arima011) %>% urca::summary()    ### kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 정상성, 차분 필요
-ndiffs(arima011, test = 'kpss')   ### 비정상성을 제거하기 위해 필요한 차분수
+# kpss 테스트를 통해 생성된 데이터가 정상성인지 테스트 - 0.05보다 작으므로 정상성, 차분 필요
+urca::ur.kpss(arima011) %>% urca::summary()   
+# 비정상성을 제거하기 위해 필요한 차분수
+ndiffs(arima011, test = 'kpss')   
 urca::ur.kpss(diff(arima011)) %>% urca::summary()
 ndiffs(diff(arima011), test = 'kpss')
 ```
@@ -818,9 +808,9 @@ ARIMA 모델을 사용하기 위해서는 p, d, q의 차수를 결정하는 것�
 위의 표에서 보듯이 AR모델은 ACF plot이 점차 감소하며 PACF plot의 절단 차수가 p일때 AR(p)모델로 결정되고, MA 모델은 PACF plot이 점차 감소하며 ACF plot의 절단 차수가 q일때 MA(q)로 결정한다. 만약 AR과 MA가 동시에 나타나는 모델의 경우는 다음의 예에서 보듯이 ACF와 PACF가 모두 점차 감소하는 형태를 보인다.
 
 ```{r ARMAmodel}
-set.seed(345) 
-arima101 <- arima.sim(model = list(order = c(1, 0, 1), ar = 0.9, ma = 0.9), n = 200)   ### ARIMA(1,0,0)에 AR(1)의 회귀계수가 0.9인 데이터 200개 생성
-
+set.seed(345)
+# ARIMA(1,0,0)에 AR(1)의 회귀계수가 0.9인 데이터 200개 생성
+arima101 <- arima.sim(model = list(order = c(1, 0, 1), ar = 0.9, ma = 0.9), n = 200)  
 arima101 %>% autoplot(main = 'AR(1), MA(1) model')
 arima101 %>% ggtsdisplay()
 ```
@@ -835,10 +825,9 @@ ARIMA 모형에 적용할 차수를 모두 결정한 후에는 결정한 모델�
 
 백색 잡음인지를 검사하는 방법으로 자기상관관계를 사용한 Ljung-box test와 단위근 검정을 통한 KPSS test를 소개하였다. ARIMA모델을 결정하기 위해 가장 먼저 했던 작업이 KPSS test를 통한 단위근 검정이었기 때문에 이미 단위근 검정은 시행했다. 따라서 모델이 생성한 잔차가 백색잡음인지를 검사하기 위해서는 자기 상관관계를 활용해 백색잡음 여부를 판단하는 Ljung-box test를 추가로 시행한다. ARIMA 모델의 잔차를 검사할 때는 `astsa` 패키지에서 제공하는 `sarima()`를 사용하면 편리하다.
 
-```{r sarima, message=FALSE, warning=FALSE}
+```{r sarima, message=FALSE, warning=FALSE, results='hide'}
 library(astsa)
 sarima(arima101, p = 1, d = 0, q = 1)
-
 ```
 
 위 plot의 가장 위의 표준화 잔차 plot(Standardized Residuals)은 잔차의 분포를 보여준다. 전반적으로 평균 0의 레벨에서 분산이 크게 벗어나고 있지 않음을 볼 수 있다.
@@ -853,11 +842,28 @@ ARIMA 모델을 학생수 시계열 데이터, 취업자수 시계열 데이터,
 
 학생수 데이터를 ARIMA 모델에 적용하면 ACF와 PACF로 비교적 확실하게 확인이 가능한 모델을 선정할 수 있다.
 
-```{r ARIMA_students}
+```{r ARIMA_students1}
 students.ts[,2] %>% ggtsdisplay()
 urca::ur.kpss(students.ts[,2]) %>% urca::summary()
 ndiffs(students.ts[,2], test = 'kpss')
+```
+
+```{r ARIMA_students2, results='hide'}
 sarima(students.ts[,2], p = 1, d = 2, q = 0)
+```
+
+```{r ARIMA_students3}
+auto.arima(students.ts[,2])
+auto.arima(students.ts[,2]) %>% forecast() %>% 
+  autoplot() + 
+  labs(x = '연도', y = '학생수')
+```
+
+```{r ARIMA_students4, results='hide'}
+sarima(students.ts[,2], p = 1, d = 2, q = 0)
+```
+
+```{r ARIMA_students5}
 auto.arima(students.ts[,2])
 auto.arima(students.ts[,2]) %>% forecast() %>% 
   autoplot() + 
@@ -886,9 +892,15 @@ auto.arima(students.ts[,2]) %>% forecast() %>%
 
 ```{r ARIMA_covid}
 urca::ur.kpss(covid19.ts[,2]) %>% urca::summary()
-ndiffs(covid19.ts[,2], test = 'kpss')   ### 비정상성을 제거하기 위해 필요한 차분수가 1
-diff(covid19.ts[,2]) %>% ggtsdisplay()  ### ACF, PACF 모두 절단(Cut off)이므로 ARMA(p, q) 모델 
-auto.arima(covid19.ts[,2]) ### 0-9세 코로나 확진자수의 ARIMA모형은 ARIMA(2, 1, 1)으로 선정됨
+# 비정상성을 제거하기 위해 필요한 차분수가 1
+ndiffs(covid19.ts[,2], test = 'kpss')   
+# ACF, PACF 모두 절단(Cut off)이므로 ARMA(p, q) 모델 
+diff(covid19.ts[,2]) %>% ggtsdisplay()  
+# 0-9세 코로나 확진자수의 ARIMA모형은 ARIMA(2, 1, 1)으로 선정됨
+auto.arima(covid19.ts[,2]) 
+```
+
+```{r ARIMA_covid1, results='hide'}
 sarima(covid19.ts[,2], 2, 1, 1)
 ```
 
@@ -897,29 +909,29 @@ sarima(covid19.ts[,2], 2, 1, 1)
 위에서 살펴본 모델은 비계절성 ARIMA 모델이었다. 계절성을 지니는 데이터는 ARIMA 모델로는 적절히 모델링이 어렵기 때문에 계절성 ARIMA 모델에 적합시켜야 한다. 계절성 ARIMA는 비계절성 ARIMA의 p, d, q 차수 외에 계절성 차수인 P, D, Q와 관측주기 m을 추가적으로 결정해야 하고 ARIMA(p, d, q)(P, D, Q)m으로 표기한다. 아래의 코드는 전체 취업자수 주기별 합계의 계절성 ARIMA 모델을 산출하는 코드이다. 계절성의 주기가 클수록 ACF와 PACF로 계절성 ARIMA차수를 찾아내는게 어려워지기 때문에 좀 간단한 예로 연습해보자.
 
 ```{r ARIMA_seasonal1}
-### 전체 취업자수 데이터를 분기별 합계제이터로 변환
+# 전체 취업자수 데이터를 분기별 합계제이터로 변환
 employees %>% mutate(year = lubridate::year(time), 
                      qtr = lubridate::quarter(time)) %>%
   group_by(year, qtr) %>%
   summarise(sum = sum(total)) %>% 
   ts(frequency = 4, start = c(2013,1)) -> qtr.employees.ts
 
-### auto.arima로 일단 ARIMA모형을 검토 - ARIMA(0,1,0)(0,1,0)[4]로 제안됨
+# auto.arima로 일단 ARIMA모형을 검토 - ARIMA(0,1,0)(0,1,0)[4]로 제안됨
 auto.arima(qtr.employees.ts[,3]) %>% summary()
-### ggtsdisplay()로 ACF plot을 볼때 4주기마다 계절성이 있는듯 보임
+# ggtsdisplay()로 ACF plot을 볼때 4주기마다 계절성이 있는듯 보임
 qtr.employees.ts[,3] %>% tsdisplay()
-### KPSS 검정결과 단위근이 존재하는 비정상성 데이터
+# KPSS 검정결과 단위근이 존재하는 비정상성 데이터
 qtr.employees.ts[,3] %>% urca::ur.kpss() %>% urca::summary()
-### ndiffs()에 의하면 1차 차분 필요
+# ndiffs()에 의하면 1차 차분 필요
 qtr.employees.ts[,3] %>% ndiffs()
-### 1차 차분 결과 plot()
+# 1차 차분 결과 plot()
 qtr.employees.ts[,3] %>% diff() %>% tsdisplay(lag.max = 36)
 ```
 
 1차 차분된 데이터의 ACF와 PACF를 확인해보면 비계절성 lag(1, 2, 3 등)는 대부분 임계치 아래로 내려가 있기 때문에 ARMA(0,0)으로 결정이 가능하다. 그런데 위의 ACF와 PACF는 앞에서 본 plot과는 좀 다른 점이 있는데 ACF의 선이 4주기별로 점차 감소하는 형태를 보이고 있다는 점이다. 이것을 보고 계절성 ARIMA모형을 결정할 수 있는데 위에서는 ACF에서 4주기별로 점차 감소하고 PACF에서는 lag 4에서 절단 되기때문에 ARMA(1, 0)[4]로 볼 수 있다. 따라서 ACF, PACF를 보고 결정할 수 있는 계절성 ARIMA 모형은 ARIMA(0,1,0)(1,1,0)[4]이다.
 
-```{r ARIMA_seasonal2}
-### 잔차의 분포, ACF, Q-Q plot, Ljung-box test 모두 백색잡음으로 나타남
+```{r ARIMA_seasonal2, results='hide'}
+# 잔차의 분포, ACF, Q-Q plot, Ljung-box test 모두 백색잡음으로 나타남
 sarima(qtr.employees.ts[,3], p = 0, d = 1, q = 0, P = 1, D = 1, Q = 0, S = 4)
 sarima(qtr.employees.ts[,3], p = 0, d = 1, q = 0, P = 0, D = 1, Q = 0, S = 4)
 ```
@@ -933,19 +945,16 @@ sarima(qtr.employees.ts[,3], p = 0, d = 1, q = 0, P = 0, D = 1, Q = 0, S = 4)
 수작업으로 선택한 ARIMA(0,1,0)(1,1,0)[4] 모델의 RMSE는 441.4946이고 auto.arima()로 선택된 ARIMA(0,1,0)(0,1,0)[4] 모델의 RMSE는 450.3206으로 산출되었다. RMSE상으로는 수작업으로 선택한 모델이 `auto.arima()` 선택 모델보다 우수해보인다. 아래 plot으로 두 모델을 확인해보자. 이제 선택은 여러분의 몫이다.
 
 ```{r ARIMA_seasonal3}
-### ARIMA(0,1,0)(0,1,1)[12] 모델 생성
+# ARIMA(0,1,0)(0,1,1)[12] 모델 생성
 arima010110 <- Arima(qtr.employees.ts[,3], order = c(0,1,0), seasonal = c(1,1,0))
 arima010010 <- Arima(qtr.employees.ts[,3], order = c(0,1,0), seasonal = c(0,1,0))
-
-### ARIMA(0,1,0)(0,1,0)[12]모델의 회귀계수 및 다양한 정보
+# ARIMA(0,1,0)(0,1,0)[12]모델의 회귀계수 및 다양한 정보
 summary(arima010110) 
 summary(arima010010) 
-
-### ARIMA(0,1,0)(0,1,1)[12] 모델의 예측치 산출
+# ARIMA(0,1,0)(0,1,1)[12] 모델의 예측치 산출
 forecast010110 <- arima010110 %>% forecast()
 forecast010010 <- arima010010 %>% forecast()
-
-### ARIMA(0,1,0)(0,1,1)[12]의 plot
+# ARIMA(0,1,0)(0,1,1)[12]의 plot
 autoplot(qtr.employees.ts[,3]) + 
   autolayer(forecast010110, PI = F, series = '010110') +
   autolayer(forecast010010, PI = F, series = '010010') +
@@ -956,35 +965,32 @@ autoplot(qtr.employees.ts[,3]) +
 그러면 이제 좀 취업자수의 월별 데이터로 확인해보자.
 
 ```{r ARIMA_seasonal4}
-### auto.arima()는 ARIMA(0,1,0)(0,1,1)[12] 모델 제안
+# auto.arima()는 ARIMA(0,1,0)(0,1,1)[12] 모델 제안
 employees.ts[,2] %>% auto.arima()
-### ggtsdisplay()로 ACF plot을 볼때 12주기마다 계절성이 있는듯 보임
+# ggtsdisplay()로 ACF plot을 볼때 12주기마다 계절성이 있는듯 보임
 employees.ts[,2] %>% tsdisplay()
-### KPSS 검정결과 단위근이 존재하는 비정상성 데이터
+# KPSS 검정결과 단위근이 존재하는 비정상성 데이터
 employees.ts[,2] %>% urca::ur.kpss() %>% urca::summary()
-### ndiffs()에 의하면 1차 차분 필요
+# ndiffs()에 의하면 1차 차분 필요
 employees.ts[,2] %>% ndiffs()
-### 1차 차분 결과 plot()
-### ACF, PACF를 확인해서 비계절성 모델은 (0,1,1) 계절성 모델은 (1,1,0)으로 결정 
+# 1차 차분 결과 plot()
+# ACF, PACF를 확인해서 비계절성 모델은 (0,1,1) 계절성 모델은 (1,1,0)으로 결정 
 employees.ts[,2] %>% diff() %>% tsdisplay(lag.max = 36)
-### ARIMA(0,1,1)(1,1,0)[12]모델 생성
+# ARIMA(0,1,1)(1,1,0)[12]모델 생성
 arima011110 <- employees.ts[,2] %>% Arima(order = c(0,1,1), seasonal = c(1,1,0))
-### auto.arima()가 제안한 ARIMA(0,1,0)(0,1,1)[12]모델 생성
+# auto.arima()가 제안한 ARIMA(0,1,0)(0,1,1)[12]모델 생성
 arima010011 <- employees.ts[,2] %>% Arima(order = c(0,1,0), seasonal = c(0,1,1))
-### 각 모델의 정보 확인
+# 각 모델의 정보 확인
 summary(arima011110) 
 summary(arima010011) 
-
-### 두 모델의 예측치 산출
+# 두 모델의 예측치 산출
 forecast011110 <- arima011110 %>% forecast()
 forecast010011 <- arima010011 %>% forecast()
-
-### 두 모델의 plot
+# 두 모델의 plot
 autoplot(employees.ts[,2]) + 
   autolayer(forecast011110, PI = F, series = '011110') +
   autolayer(forecast010011, PI = F, series = '010011') +
   labs(title = '월별 취업자수에 대한 ARIMA(0,1,1)(1,1,0)[12]와 ARIMA(0,1,0)(0,1,1)[12]', x = '연도', y = '취업자수', color = '모델')
-
 ```
 
 위의 `auto.arima()`가 결정한 ARIMA(0,1,0)(0,1,1)[12]모델과 수작업으로 결정한 ARIMA(0,1,1)(1,1,0)을 비교해보자. `auto.plot()`의 ARIMA(0,1,0)(0,1,1)[12]모델의 RMSE값은 114.39이고 수작업으로 결정한 ARIMA(0,1,1)(1,1,0)의 RMSE값은 114.97이다. 일반적으로 RMSE값이 작은 모델이 성능이 좋은 모델인데 이 두 모델의 중에 성능이 좋은 모델은 `auto.arima()`의 ARIMA(0,1,0)(0,1,1)[12]모델이다. 또 아래의 표는 ARIMA(0,1,0)(0,1,1)모델 부근의 모델들의 RMSE값이다.
@@ -1037,7 +1043,8 @@ autoplot(employees.ts[, 2]) +
 TBATS모델은 `forecast()` 패키지의 `tbats()`를 통해 생성할 수 있다. 생성된 모델은 `forecast()`를 통해 예측치를 산출할 수 있다.
 
 ```{r TBATS}
-covid19.ts[,2] %>% tbats() %>% forecast() %>% autoplot()   ### 코로나 확진자 데이터에 대한 tBats 모델
+# 코로나 확진자 데이터에 대한 tBats 모델
+covid19.ts[,2] %>% tbats() %>% forecast() %>% autoplot()   
 ```
 
 ## prophet 모델
@@ -1094,9 +1101,6 @@ plot(model.prophet.employees, forecast.employees) +
   labs(title = '월별 전체 취업자수 추세(prophet model)', x = '연월', y = '취업자수') + 
   scale_y_continuous(labels = scales::number_format(big.mark = ','))
 prophet_plot_components(model.prophet.employees, forecast.employees)
-
-
-
 covid.prophet <- data.frame(ds = covid19$date, y = covid19$`0-9세`)
 model.prophet.covid <- prophet(covid.prophet, yearly.seasonality=TRUE, daily.seasonality=TRUE, weekly.seasonality=TRUE)
 future.covid <- make_future_dataframe(model.prophet.covid, periods = 100, freq = 'day')
@@ -1121,10 +1125,10 @@ prophet_plot_components(model.prophet.covid, forecast.covid)
 NNAR모델의 단점중에 하나는 예측구간의 계산이 원활하지 못하다는 점이다. `forecast(`) 함수에서 'PI = TRUE' 매개변수를 설정하면 예측구간이 계산되지만 계산량이 많아 시간이 걸린다.
 
 ```{r nnetar}
-### 학생수에 대한 NNAR 모델은 NNAR(1, 1)모델
+# 학생수에 대한 NNAR 모델은 NNAR(1, 1)모델
 students.ts[,2] %>% nnetar() %>% forecast(PI = TRUE) %>% autoplot()
-### 전체 취업자수에 대한 모델은 NNAR(1, 1, 2)[12] 모델
+# 전체 취업자수에 대한 모델은 NNAR(1, 1, 2)[12] 모델
 employees.ts[, 2] %>% nnetar() %>% forecast(PI = TRUE) %>% autoplot()
-### 코로나 확진자수에 대한 모델은 NNAR(22, 12) 모델(예측값을 위해 22개의 과거 데이터를 활용했고 히든레이어에 12개의 신경세포를 생성 )
+# 코로나 확진자수에 대한 모델은 NNAR(22, 12) 모델(예측값을 위해 22개의 과거 데이터를 활용했고 히든레이어에 12개의 신경세포를 생성 )
 covid19.ts[,2] %>% nnetar() %>% forecast(h = 100, PI = TRUE) %>% autoplot()
 ```

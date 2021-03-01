@@ -33,6 +33,7 @@ covid19 <- tidyr::spread(covid19, category, value)
 covid19.ts <- ts(covid19[, 2:10], frequency = 365)
 covid19.xts <- as.xts(covid19[, 3:10], order.by = covid19$date)
 covid19.tsibble <- as_tsibble(covid19, index = date)
+knitr::opts_chunk$set(class.source = "watch-out", comment='')
 ```
 
 # 시계열 Visualization

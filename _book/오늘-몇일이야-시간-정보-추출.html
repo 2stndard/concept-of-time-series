@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-02-28" />
+<meta name="date" content="2021-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -332,28 +332,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)   <span class="do">### lubridate 패키지 로딩</span></span>
-<span id="cb1-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb1-2" aria-hidden="true" tabindex="-1"></a>now.date <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()  <span class="do">### 현재 시간을 now.date에 저장(date 클래스)</span></span>
-<span id="cb1-3"><a href="오늘-몇일이야-시간-정보-추출.html#cb1-3" aria-hidden="true" tabindex="-1"></a>now.char <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">Sys.time</span>())  <span class="do">### 현재 시간을 now.char에 저장(character 클래스)</span></span>
-<span id="cb1-4"><a href="오늘-몇일이야-시간-정보-추출.html#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="오늘-몇일이야-시간-정보-추출.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">### year(), month(), day()를 시용하여 날짜를 표기하는 문자열 생성</span></span>
-<span id="cb1-6"><a href="오늘-몇일이야-시간-정보-추출.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&#39;오늘은 &#39;</span>, <span class="fu">year</span>(now.date), <span class="st">&#39;년 &#39;</span>, <span class="fu">month</span>(now.char), <span class="st">&#39;월 &#39;</span>, <span class="fu">day</span>(now.date), <span class="st">&#39;일 입니다&#39;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;오늘은 2021년 2월 28일 입니다&quot;</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">### ydya()를 사용하여 1월 1일부터 오늘까지의 날자수 계산</span></span>
-<span id="cb3-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&#39;1월 1일부터 오늘까지 &#39;</span>, <span class="fu">yday</span>(now.date), <span class="st">&#39;일 지났습니다&#39;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;1월 1일부터 오늘까지 59일 지났습니다&quot;</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">### qday()를 사용하여 분기시작일로부터 오늘까지의 날자수 계산</span></span>
-<span id="cb5-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&#39;이번 분기 시작일부터 오늘까지 &#39;</span>, <span class="fu">qday</span>(now.date), <span class="st">&#39;일 지났습니다&#39;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;이번 분기 시작일부터 오늘까지 59일 지났습니다&quot;</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">### wday()를 사용하여 오늘의 요일 표기</span></span>
-<span id="cb7-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&#39;오늘은 &#39;</span>, <span class="fu">wday</span>(now.date, <span class="at">label =</span> T, <span class="at">abbr =</span> T), <span class="st">&#39;요일입니다&#39;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;오늘은 일요일입니다&quot;</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">### hour(), minute(), second()를 사용하여 시간을 표시</span></span>
-<span id="cb9-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&#39;지금은 &#39;</span>, <span class="fu">hour</span>(now.date), <span class="st">&#39;시 &#39;</span>, <span class="fu">minute</span>(now.char), <span class="st">&#39;분 &#39;</span>,  <span class="fu">second</span>(now.date), <span class="st">&#39;초 입니다&#39;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;지금은 21시 25분 38.4495189189911초 입니다&quot;</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">### week()를 사용하여 올해 몇번째 주인지 계산</span></span>
-<span id="cb11-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&#39;이번주는 올해의 &#39;</span>, <span class="fu">week</span>(now.date), <span class="st">&#39;번째 주입니다&#39;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;이번주는 올해의 9번째 주입니다&quot;</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb1-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># lubridate 패키지 로딩</span></span>
+<span id="cb1-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">library</span>(lubridate)</span>
+<span id="cb1-3"><a href="오늘-몇일이야-시간-정보-추출.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># 현재 시간을 now.date에 저장(date 클래스)</span></span>
+<span id="cb1-4"><a href="오늘-몇일이야-시간-정보-추출.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> (now.date <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>())  </span>
+<span id="cb1-5"><a href="오늘-몇일이야-시간-정보-추출.html#cb1-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2021-03-01 11:32:35 KST&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb2-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># 현재 시간을 now.char에 저장(character 클래스)</span></span>
+<span id="cb2-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> (now.char <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="fu">Sys.time</span>()))  </span>
+<span id="cb2-3"><a href="오늘-몇일이야-시간-정보-추출.html#cb2-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;2021-03-01 11:32:35&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb3-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># year(), month(), day()를 시용하여 날짜를 표기하는 문자열 생성</span></span>
+<span id="cb3-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">paste0</span>(<span class="st">&#39;오늘은 &#39;</span>, <span class="fu">year</span>(now.date), <span class="st">&#39;년 &#39;</span>, <span class="fu">month</span>(now.char), <span class="st">&#39;월 &#39;</span>, <span class="fu">day</span>(now.date), <span class="st">&#39;일 입니다&#39;</span>)</span>
+<span id="cb3-3"><a href="오늘-몇일이야-시간-정보-추출.html#cb3-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;오늘은 2021년 3월 1일 입니다&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb4-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># ydya()를 사용하여 1월 1일부터 오늘까지의 날자수 계산</span></span>
+<span id="cb4-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">paste0</span>(<span class="st">&#39;1월 1일부터 오늘까지 &#39;</span>, <span class="fu">yday</span>(now.date), <span class="st">&#39;일 지났습니다&#39;</span>)</span>
+<span id="cb4-3"><a href="오늘-몇일이야-시간-정보-추출.html#cb4-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;1월 1일부터 오늘까지 60일 지났습니다&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb5-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># qday()를 사용하여 분기시작일로부터 오늘까지의 날자수 계산</span></span>
+<span id="cb5-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">paste0</span>(<span class="st">&#39;이번 분기 시작일부터 오늘까지 &#39;</span>, <span class="fu">qday</span>(now.date), <span class="st">&#39;일 지났습니다&#39;</span>)</span>
+<span id="cb5-3"><a href="오늘-몇일이야-시간-정보-추출.html#cb5-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;이번 분기 시작일부터 오늘까지 60일 지났습니다&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb6-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># wday()를 사용하여 오늘의 요일 표기</span></span>
+<span id="cb6-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">paste0</span>(<span class="st">&#39;오늘은 &#39;</span>, <span class="fu">wday</span>(now.date, <span class="at">label =</span> T, <span class="at">abbr =</span> T), <span class="st">&#39;요일입니다&#39;</span>)</span>
+<span id="cb6-3"><a href="오늘-몇일이야-시간-정보-추출.html#cb6-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;오늘은 월요일입니다&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb7-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># hour(), minute(), second()를 사용하여 시간을 표시</span></span>
+<span id="cb7-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">paste0</span>(<span class="st">&#39;지금은 &#39;</span>, <span class="fu">hour</span>(now.date), <span class="st">&#39;시 &#39;</span>, <span class="fu">minute</span>(now.char), <span class="st">&#39;분 &#39;</span>,  <span class="fu">second</span>(now.date), <span class="st">&#39;초 입니다&#39;</span>)</span>
+<span id="cb7-3"><a href="오늘-몇일이야-시간-정보-추출.html#cb7-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;지금은 11시 32분 35.6214890480042초 입니다&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb8-1"><a href="오늘-몇일이야-시간-정보-추출.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># week()를 사용하여 올해 몇번째 주인지 계산</span></span>
+<span id="cb8-2"><a href="오늘-몇일이야-시간-정보-추출.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">paste0</span>(<span class="st">&#39;이번주는 올해의 &#39;</span>, <span class="fu">week</span>(now.date), <span class="st">&#39;번째 주입니다&#39;</span>)</span>
+<span id="cb8-3"><a href="오늘-몇일이야-시간-정보-추출.html#cb8-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;이번주는 올해의 9번째 주입니다&quot;</span></span></code></pre></div>
 </div>
             </section>
 
