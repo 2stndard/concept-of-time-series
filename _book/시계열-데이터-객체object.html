@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -319,18 +319,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>xts 데이터 객체 생성은 다음과 같이 생성할 수 있다.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb40-1"><a href="시계열-데이터-객체object.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) </span></code></pre></div>
 <pre><code>                 [,1]
-2008-08-01  1.3666765
-2008-08-02  0.7664993
-2008-08-03  0.2594084
-2008-08-04 -0.6181388
-2008-08-05  0.3577128</code></pre>
+2008-08-01 -0.3310299
+2008-08-02  0.8350255
+2008-08-03  0.6517688
+2008-08-04 -0.7443494
+2008-08-05  0.3528534</code></pre>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb42-1"><a href="시계열-데이터-객체object.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)  </span></code></pre></div>
 <pre><code>                 [,1]
-2008-08-01 -0.2361248
-2008-08-02  1.3364013
-2008-08-03 -0.7867700
-2008-08-04 -0.3213177
-2008-08-05 -1.4861941</code></pre>
+2008-08-01  0.1361315
+2008-08-02 -1.5536279
+2008-08-03 -0.4830234
+2008-08-04  1.1989862
+2008-08-05  0.2528138</code></pre>
 <div class="comment">
 <ul>
 <li><p>코드 설명</p>
@@ -342,9 +342,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><code>xts()</code>는 <code>xts</code> 객체를 생성하는 함수이나 <code>as.xts()</code>는 timeSeries, ts, irts, fts, matrix, data.frame, zoo 객체를 <code>xts</code>객체로 변환하는 함수이다.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> 다음과 같은 차이가 발생한다.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb44-1"><a href="시계열-데이터-객체object.html#cb44-1" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span>
-<span id="cb44-2"><a href="시계열-데이터-객체object.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(ts)  <span class="do">### xts를 생성해야하나 인덱스가 정해지지 않아 에러</span></span></code></pre></div>
+<span id="cb44-2"><a href="시계열-데이터-객체object.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(ts)</span></code></pre></div>
 <pre><code>Error in xts(ts): order.by requires an appropriate time-based object</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb46-1"><a href="시계열-데이터-객체object.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(ts)  <span class="do">### ts object의 특성을 해석하여 xts로 변환</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb46-1"><a href="시계열-데이터-객체object.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(ts)</span></code></pre></div>
 <pre><code>        [,1]
 1959 Q2    1
 1959 Q3    2
@@ -366,9 +366,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p><code>ts</code>, <code>xts</code>는 모두 시계열 데이터를 다루는 객체이지만 <code>xts</code>가 보다 시계열 데이터를 다루는데 유연한 함수가 많다. 최근에는 <code>ts</code> 객체에도 동일하게 적용할 수 있는 <code>xts</code> 함수가 제공되고 있는데, <code>xts</code> 매뉴얼에 의하면 <code>as.xts</code>와 <code>reclass</code>를 활용하는 것이 <code>xts</code>를 사용하는 것보다 이익이 있다고 명기하고 있다.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb48-1"><a href="시계열-데이터-객체object.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ts)  <span class="co"># 시계열 데이터 형태로 보이지 않음</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb48-1"><a href="시계열-데이터-객체object.html#cb48-1" aria-hidden="true" tabindex="-1"></a> <span class="co"># 시계열 데이터 형태로 보이지 않음</span></span>
+<span id="cb48-2"><a href="시계열-데이터-객체object.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ts) </span></code></pre></div>
 <pre><code>[1] 1 2 3 4 5 6</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb50-1"><a href="시계열-데이터-객체object.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.xts</span>(ts))  <span class="co"># 시계열 형태로 보임</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb50-1"><a href="시계열-데이터-객체object.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 시계열 형태로 보임</span></span>
+<span id="cb50-2"><a href="시계열-데이터-객체object.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.xts</span>(ts))  </span></code></pre></div>
 <pre><code>        [,1]
 1959 Q2    1
 1959 Q3    2
@@ -396,30 +398,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 # Key:       id [10]
    date          id      x1 x2   
    &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;
- 1 2008-01-01     1  0.0553 a    
- 2 2008-01-02     2  0.156  a    
- 3 2008-01-03     3  0.421  a    
- 4 2008-01-04     4 -1.11   a    
- 5 2008-01-05     5 -1.56   a    
- 6 2008-01-06     6  1.17   a    
- 7 2008-01-07     7 -0.151  a    
- 8 2008-01-08     8  1.40   a    
- 9 2008-01-09     9 -1.02   a    
-10 2008-01-10    10  1.24   a    </code></pre>
+ 1 2008-01-01     1 -1.83   a    
+ 2 2008-01-02     2 -1.79   a    
+ 3 2008-01-03     3 -0.486  a    
+ 4 2008-01-04     4 -0.0602 a    
+ 5 2008-01-05     5 -0.303  a    
+ 6 2008-01-06     6  1.50   a    
+ 7 2008-01-07     7 -0.0354 a    
+ 8 2008-01-08     8  0.236  a    
+ 9 2008-01-09     9 -1.17   a    
+10 2008-01-10    10 -0.995  a    </code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb55-1"><a href="시계열-데이터-객체object.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tsibble</span>(x, <span class="at">index =</span> date)</span></code></pre></div>
 <pre><code># A tsibble: 10 x 4 [1D]
    date          id      x1 x2   
    &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;
- 1 2008-01-01     1  0.0553 a    
- 2 2008-01-02     2  0.156  a    
- 3 2008-01-03     3  0.421  a    
- 4 2008-01-04     4 -1.11   a    
- 5 2008-01-05     5 -1.56   a    
- 6 2008-01-06     6  1.17   a    
- 7 2008-01-07     7 -0.151  a    
- 8 2008-01-08     8  1.40   a    
- 9 2008-01-09     9 -1.02   a    
-10 2008-01-10    10  1.24   a    </code></pre>
+ 1 2008-01-01     1 -1.83   a    
+ 2 2008-01-02     2 -1.79   a    
+ 3 2008-01-03     3 -0.486  a    
+ 4 2008-01-04     4 -0.0602 a    
+ 5 2008-01-05     5 -0.303  a    
+ 6 2008-01-06     6  1.50   a    
+ 7 2008-01-07     7 -0.0354 a    
+ 8 2008-01-08     8  0.236  a    
+ 9 2008-01-09     9 -1.17   a    
+10 2008-01-10    10 -0.995  a    </code></pre>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>

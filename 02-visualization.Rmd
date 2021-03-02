@@ -38,13 +38,13 @@ knitr::opts_chunk$set(class.source = "watch-out", comment='')
 
 # 시계열 Visualization
 
-시계열 데이터는 일반적으로 가로축(X axis)에는 시간 인덱스가 위치하고 세로축(Y axis)에 값이 표현되는 라인 plot이 많이 사용된다.이러한 plot의 형태는 시간의 흐름에 따라 발생하는 추세(Trend), 계절성(Seasonality) 등의 시계열 특성을 표현하고 파악하는데 효율적이다. 시계열 데이터 분석에는 시계열 데이터의 직접적인 라인 그래프 외에도 자기 상관 함수(ACF : AutoCorelation Function), 편자기상관함수(PACF : Partial AutoCorelation Function) 등의 다양한 plot들이 사용되지만 이 장에서는 `data.frame`, `ts`, `xts`, `tsibble`등 시계열 객체별로 plotting을 작성하는 방법을 설명한다.
+시계열 데이터는 일반적으로 가로축(X axis)에는 시간 인덱스가 위치하고 세로축(Y axis)에 값이 표현되는 라인 plot이 많이 사용된다. 이러한 plot의 형태는 시간의 흐름에 따라 발생하는 추세(Trend), 계절성(Seasonality) 등의 시계열 특성을 표현하고 파악하는데 효율적이다. 시계열 데이터 분석에는 시계열 데이터의 직접적인 라인 그래프 외에도 자기 상관 함수(ACF : Autocorrelation Function), 편자기상관함수(PACF : Partial Autocorrelation Function) 등의 다양한 plot들이 사용되지만 이 장에서는 `data.frame`, `ts`, `xts`, `tsibble`등 시계열 객체 별로 plotting을 작성하는 방법을 설명한다.
 
 ## data.frame : ggplot2 패키지
 
-`ggplot2` 패키지는 시계열 데이터 이외에 다양한 plot을 그리는 방법을 제공하는 R의 대표적인 plot 패키지로 널리 사용되고 있다. `ggplot2`는 R-Studio의 수석 데이터 사이언티스트인 Hadley Wickham이 주도적으로 개발한 패키지로 2005년 발간된 Leland Wilkinson의 'The Grammar of Graphics'을 토대로 개발되었다.
+`ggplot2` 패키지는 시계열 데이터 뿐만 아니라 다양한 plot을 그리는 방법을 제공하는 R의 대표적인 plot 패키지로 널리 사용되고 있다. `ggplot2`는 R-Studio의 수석 데이터 사이언티스트인 Hadley Wickham이 주도적으로 개발한 패키지로 2005년 발간된 Leland Wilkinson의 'The Grammar of Graphics'을 토대로 개발되었다.
 
-'The Grammar of Graphics'는 데이터를 효과적으로 표현하기 위해 다음과 같은 7가지 요소를 통해 표현할 것을 제안하였는데[^visualization-1] `ggplot2`에서도 이를 사용하여 plot를 그리는 요소로 사용하고 있다. `ggplot2`의 plot 생성의 시작은 `ggplot()` 를 호출하면서 시작하는데 다음의 요소들을 `+` 기호를 사용하여 연결시켜가면서 전체 plot를 생성한다.
+'The Grammar of Graphics'는 데이터를 효과적으로 표현하기 위해 다음과 같은 7가지 요소를 통해 표현할 것을 제안하였는데[^visualization-1] `ggplot2`에서도 이를 사용하여 plot를 그리는 요소로 사용하고 있다. `ggplot2`의 plot의 시작은 `ggplot()` 를 호출하면서 시작하는데 다음의 요소들을 `+` 기호를 사용하여 연결시켜가면서 전체 plot를 생성한다.
 
 [^visualization-1]: <https://ramnathv.github.io/pycon2014-r/visualize/ggplot2.html>
 
@@ -53,7 +53,7 @@ ggplot2의 plot 7 요소
 
 -   data
 
-plot에서 표현해야할 데이터를 지정함. 하나의 `ggplot` plot 안에는 하나 이상의 데이터를 포함시킬수 있는데 기본적으로 하나의 데이터는 `ggplot()`에 포함되어야 함. 추가적인 데이터를 표현하기 위해서는 +로 연결되는 geom\_ 함수에 설정하여 사용할 수 있음. ggplot에서 지원하는 데이터 타입은 데이터 프레임인데 데이터프레임이 아닌 객체가 설정되면 내부적으로 data.frame으로 변환(`fortify()`를 활용)하여 사용함.
+plot에서 표현해야 할 데이터를 지정함. 하나의 `ggplot` plot 안에는 하나 이상의 데이터를 포함시킬 수 있는데 기본적으로 하나의 데이터는 `ggplot()`에 포함되어야 함. 추가적인 데이터를 표현하기 위해서는 +로 연결되는 geom\_ 함수에 설정하여 사용할 수 있음. ggplot에서 지원하는 데이터 타입은 데이터 프레임인데 데이터프레임이 아닌 객체가 설정되면 내부적으로 data.frame으로 변환(`fortify()`를 활용)하여 사용함.
 
 -   Aesthetics
 
@@ -73,14 +73,14 @@ mean, median 등 표현할 데이터의 통계값을 표현할 필요가 있을 
 
 -   Coordinates
 
-plot에 표현되는 2차원 좌표계를 설정하기 위한 요소임. X 축와 Y 축의 limit, label 등을 설정할 수 있음.
+plot에 표현되는 2차원 좌표계를 설정하기 위한 요소임. X 축과 Y 축의 limit, label 등을 설정할 수 있음.
 
 -   Theme
 
 plot 제목, 축 제목, 축 단위, legend 등 plot의 전반적인 디자인을 꾸며줄 수 있음. 미리 정의된 Theme을 적용하여 설정할 수 있음.
 :::
 
-`ggplot`를 활용해 시계열 plot를 표현하기 위해서는 위의 7개 요소 중 Geometry는 line으로 사용하는 경우가 많이 활용된다. Aesthetic의 X 축은 시간 인덱스로 주로 설정되는데 ggplot()를 사용하여 2장에서 저장한 students 데이터프레임을 시계열 plot으로 다음과 같이 그릴수 있다.
+`ggplot`를 활용해 시계열 plot에 주로 많이 사용되는 Geometry는 선(line)을 많이 사용한다. Aesthetic의 X 축은 시간 인덱스로 주로 설정되는데 `ggplot()`를 사용하여 2장에서 저장한 students 데이터프레임을 시계열 plot으로 다음과 같이 그릴 수 있다.
 
 ```{r ggplot_overall}
 library(ggplot2)
@@ -93,7 +93,7 @@ students %>%
 ::: {.comment}
 -   코드 설명
 
-    -   ggplot를 사용하여 플로팅하기 위한 데이터프레임을 `%>%`으로 `ggplot()`에 전달.
+    -   `ggplot()`를 사용하여 플로팅하기 위한 데이터프레임을 `%>%`으로 `ggplot()`에 전달.
 
     -   Aesthetic 요소를 설정하기 위해 `aes()` 를 사용함. x축에 바인딩 될 컬럼은 연도, y축에 바인딩 될 컬럼은 학생수로 설정(`aes(x = 연도, y = 학생수계)`)
 
@@ -123,7 +123,7 @@ ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생�
     -   `labs()`를 사용하여 X축 제목을 추가로 설정(`x =`)
 :::
 
-이번에는 다중 선 plot을 그려본다. 앞 장에서 생성했던 데이터 중에 students.all 데이터 프레임을 사용한다. 앞에서 설명했듯이 라인 geometry는 여러 그룹들을 같이 그릴수 있는데 지역규모별로 plot을 생성하려면 아래와 같이 그릴 수 있다.
+이번에는 다중 선 plot을 그려본다. 앞 장에서 생성했던 데이터 중에 students.all 데이터 프레임을 사용한다. 앞에서 설명했듯이 라인 geometry는 여러 그룹들을 같이 그릴 수 있는데 지역규모별로 plot을 생성하려면 아래와 같이 그릴 수 있다.
 
 ```{r ggplot_geomline}
 ggplot(data = students.all, aes(x = 연도, y = 학생수계)) +
@@ -138,9 +138,7 @@ ggplot(data = students.all, aes(x = 연도, y = 학생수계)) +
     -   `geom_line()`을 사용하여 라인 Geometries Layer를 설정. 라인 Geometries로 표시할 다변량 라인 plot은 그룹핑이 가능한 컬럼인 지역규모를 `group =`로 설정하고 색상 변경을 설정(`color =`)
 :::
 
-위에서 그려진 plot은 전체적인 흐름을 보기에는 편리하지만 연도별 데이터의 위치를 가늠하기에는 조금 어려운 점이 있다. 각 연도에 점을 찍어주면 더욱 보기가 편리할 듯 하다.
-
-데이터 포인트 추가 : plot을 plot을 보다 보기 편하게 만들기 위해 point geometires layer를 추가함. geom_point함수를 사용하며 'shape ='은 point 형태로 circle로 설정함.
+위에서 그려진 plot은 전체적인 흐름을 보기에는 편리하지만 연도별 데이터의 위치를 가늠하기에는 조금 어려운 점이 있다. 각 연도에 점을 찍어주면 더욱 보기가 편리할 듯 하다. 이를 위해 데이터 포인트를 추가하는데 점(point) Geometry layer를 추가한다.
 
 ```{r ggplot_datapoint1}
 ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
@@ -164,7 +162,7 @@ ggplot(data = students.all, aes(x = 연도, y = 학생수계)) +
   labs(title = '연도별 학생수 추이', x = '연도')
 ```
 
-점을 표기하면 좀 더 데이터를 이해하기가 쉬워진다. 하지만 구체적인 값을 표기하면 더 이해하기가 좋아질 것이다. 다만 이 과정에서 조심해야할 것은 값을 표기하다보면 숫자들이 너무 많아져 거꾸로 plot이 전체적으로 보기가 어려워 질 수 있다.
+점을 표기하면 좀 더 데이터를 이해하기가 쉬워진다. 하지만 구체적인 값을 표기하면 더 이해하기가 좋아질 것이다. 다만 이 과정에서 조심해야할 것은 값을 표기하다 보면 숫자들이 너무 많아져 거꾸로 plot이 전체적으로 보기가 어려워 질 수 있다.
 
 ```{r ggplot_text}
 ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
@@ -181,7 +179,7 @@ ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생�
     -   `geom_text()`를 사용하여 각 데이터 포인트에 데이터 값을 표기(`aes(label =)`). 표기되는 값은 `scales` 패키지의`number()`를 사용하여 숫자형태로 표기하되 천단위 콤마를 표기(`big.mark = ','`)하고 크기는 2(`size = 2`)로, 정렬은 수직위치로 1.5(`vjust = 1.5`)만큼 이동
 :::
 
-위의 plot에서도 2000년에서 2006년까지는 데이터 값을 보기가 어렵다. 이럴때는 `ggrepel` 패키지의 `geom_text_repel()`을 이용하면 겹치지 않게 라벨을 표시할 수 있다.
+위의 plot에서도 2000년에서 2006년까지는 데이터 값을 보기가 어렵다. 이럴 때는 `ggrepel` 패키지의 `geom_text_repel()`을 이용하면 겹치지 않게 라벨을 표시할 수 있다.
 
 ```{r ggplot_repel}
 library(ggrepel)
@@ -199,7 +197,7 @@ ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생�
     -   `ggrelpe` 패키지의 `geom_text_repel()`을 사용하여 각 데이터 포인트에 데이터 값을 표기. 사용법은 `geom_text()`와 동일.
 :::
 
-ggplot()은 X 축과 Y 축의 표현 설정을 지정하지 않으면 자체적으로 판단하여 설정하는데 표현되는 값이 클 경우 지수형태로 표기된다. 앞의 전체 학생수 plot이 지수형태로 표기된 Y 축 라벨이 보이는데 이렇게 표현되면 값을 알아보기가 어렵다. 이 부분을 수정해보자.
+ggplot()은 X 축과 Y 축의 표현 설정을 지정하지 않으면 자체적으로 판단하여 설정하는데 표현되는 값이 클 경우 지수 형태로 표기된다. 앞의 전체 학생수 plot이 지수 형태로 표기된 Y 축 라벨이 보이는데 이렇게 표현되면 값을 알아보기가 어렵다. 이 부분을 수정해보자.
 
 ```{r ggplot_Yaxislabel}
 ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
@@ -247,7 +245,7 @@ ggplot(data = covid19, aes(x = date, y = `0-9세`)) +
 
 ## xts : xts 패키지
 
-`xts`는 시계열 데이터를 다루는 데이터 클래스로 `xts` 패키지를 로딩해야 사용할 수 있다. xts 패키지에서는 데이터 핸들링 함수, 데이터 ploting 함수 등을 제공한다. 따라서 `xts` 패키지에서 제공하는 함수는 `xts` class의 데이터 객체를 대상으로 작동한다.
+`xts`는 시계열 데이터 전용 클래스로 `xts` 패키지를 로딩해야 사용할 수 있다. xts 패키지에서는 데이터 핸들링 함수, 데이터 plotting 함수 등을 제공한다. 따라서 `xts` 패키지에서 제공하는 함수는 `xts` class의 데이터 객체를 대상으로 작동한다.
 
 `xts` 패키지를 사용하여 plot을 작성하려면 `plot.xts()`함수를 사용한다. `plot.xts()`을 활용해 작성한 plot에 추가적으로 line, legend 등을 추가할 수 있다.
 
@@ -268,7 +266,9 @@ plot.xts(employees.xts$total, main = '월별 취업자수 추세', xlab = '월, 
     -   plot의 제목(`main =`), X 축 제목(`xlab =`), Y 축 제목(`ylab =`)을 설정
 :::
 
-위에서 본 것과 같이 `xts` 클래스 데이터의 단변량 plot은 `plot.xts()`로 간단히 그릴수 있다. 그렇다면 다변량 plot은 어떻게 그릴 수 있을까? 같은 xts 클래스 데이터에 여러 컬럼으로 저장된 다변량 plot은 단지 `plot.xts()`에 `xts` 객체를 전달할 때 그리고자 하는 컬럼을 전달해주면 같이 그려진다.
+위에서 본 것과 같이 `xts` 클래스 데이터의 단변량 plot은 `plot.xts()`로 간단히 그릴 수 있다.
+
+위에서 본 것과 같이 `xts` 클래스 데이터의 단변량 plot은 `plot.xts()`로 간단히 그릴 수 있다. 그렇다면 다변량 plot은 어떻게 그릴 수 있을까? 여러 개의 열이 저장된 `xts` 객체를 `plot.xts()`에 전달하면 다변량 plot을 쉽게 그릴 수 있다.
 
 ```{r plot_xts_multi}
 plot.xts(employees.xts, main = '연도별 학생수 추세', xlab = '년',  ylab = '학생수', yaxis.right=FALSE)
@@ -281,7 +281,7 @@ addLegend('bottomleft', ncol = 1, bg = 'white', lty=c(rep(1, 12)), lwd=c(rep(2, 
     -   `plot.xts()`에 두개의 시계열 데이터가 저장된 employees.xts를 전달함으로써 다변량 plot을 그림. 좌우 Y축에 모두 값이 표기되므로 우측 Y축에는 값을 제거
 :::
 
-만약 같이 그리고자 하는 다변량 데이터가 다른 데이터 프레임에 있거나 컬럼을 같이 전달하기가 어려울 경우에는 다음과 같이 `lines()`를 사용하여 겹쳐서 그릴 수 있다.
+만약 같이 그리고자 하는 다변량 데이터가 다른 xts 객체이거나 컬럼을 같이 전달하기가 어려울 경우에는 다음과 같이 `lines()`를 사용하여 겹쳐서 그릴 수 있다.
 
 ```{r plot_xts_multi_line}
 plot.xts(students.xts$초등학교, main = '연도별 학생수 추세', xlab = '년',  ylab = '학생수', yaxis.right=FALSE, ylim = c(0, max(students.xts$초등학교)), col = 'black')
