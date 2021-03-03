@@ -248,3 +248,5 @@ modeltime-framework
 시계열-데이터란time-series-data
 자기-상관관계autocorrelation
 posixct-posixlt-class
+시계열-데이터-처리
+지난-달-데이터는-filtering-subsetting
