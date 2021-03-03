@@ -285,7 +285,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="월별-분기별-연별-증감량" class="section level2" number="4.8">
 <h2><span class="header-section-number">4.8</span> 월별, 분기별, 연별 증감량</h2>
-<p>월별, 분기별, 연별 증감량을 산출하기 위해서는 바로 직전 데이터와의 차감 데이터를 계산해야 한다. 시계열 분석에서는 바로 이전 데이터와의 차감데이터가 매우 중요하게 활용된다. 차감데이터가 증감량이며 이 차감 데이터를 원본데이터로 나누면 증감률이 된다.</p>
+<p>월별, 분기별, 연별 증감량을 산출하기 위해서는 바로 직전 데이터와의 차감 데이터를 계산해야 한다. 이와 같이 시계열 분석에서는 이전 데이터와의 차감 데이터가 매우 중요하게 활용된다. 차감데이터가 증감량이며 이 차감 데이터를 원본데이터로 나누면 증감률이 된다.</p>
 <p><img src="incrate.jpg" /></p>
 <ul>
 <li>데이터프레임 : lag() 함수</li>
@@ -329,7 +329,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>tsibble</code> : <code>diffrence()</code></li>
 </ul>
-<p>앞선 데이터 프레임에서는 <code>lag()</code> 함수를 사용하여 원 데이터의 time shift를 한 데이터 컬럼을 생성하고 두 컬럼의 차이를 구하였다. <code>tsibble</code> 객체는 이 과정을 바로 지원하는 <code>difference()</code> 함수를 제공한다. 따라서 데이터프레임보다는 몇단계 과정을 줄일 수 있다.</p>
+<p>앞선 예제에서는 <code>lag()</code> 함수를 사용하여 원 데이터를 하나씩 shift한 데이터 열을 생성하고 두 열의 차이를 구한 열을 <code>mutate()</code>로 만들었다. <code>tsibble</code> 객체는 이 과정을 바로 지원하는 <code>difference()</code>를 제공한다. <code>difference()</code>는 시차 데이터(lag)를 생성하고 이 시차 데이터와 원본 데이터의 차이를 가지는 데이터 열을 생성해주는 함수이다. 따라서 <code>lag()</code>를 사용하는 것 보다 단계를 줄일 수 있다.</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb87-1"><a href="월별-분기별-연별-증감량.html#cb87-1" aria-hidden="true" tabindex="-1"></a>students.tsibble<span class="sc">%&gt;%</span>  <span class="fu">select</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb87-2"><a href="월별-분기별-연별-증감량.html#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감 <span class="ot">=</span> <span class="fu">difference</span>(.<span class="sc">$</span>학생수계, <span class="at">lag =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb87-3"><a href="월별-분기별-연별-증감량.html#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(증감율 <span class="ot">=</span> <span class="fu">round</span>((증감<span class="sc">/</span>학생수계), <span class="dv">3</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div>

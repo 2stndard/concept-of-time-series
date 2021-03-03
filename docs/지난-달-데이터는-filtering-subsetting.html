@@ -437,7 +437,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>xts</code></li>
 </ul>
 <p><code>xts</code> 객체의 시간 인덱스 filtering은 앞선 경우 와는 조금 다른 방법을 사용한다. <code>xts</code> 객체는 기간 조건을 설정할 때에는 함수를 사용하지 않고 연산자인 /로 기간 구간을 설정할 수 있다. /을 사용하여 조건을 적용할 때는 []을 사용하여 조건을 적용할 수 있다.</p>
-<p><code>/</code>연산자는 우리가 흔히 쓰는 ~로 생각하면 편리한데 날짜 사이에 <code>/</code>가 들어가면 두 날짜 사이 기간을 의미하고 날짜 앞에 <code>/</code>가 오면 처음부터 날짜까지의 기간, 날짜 뒤에 <code>/</code>가 오면 날짜부터 끝까지의 기간을 의미한다. ———</p>
+<p><code>/</code>연산자는 우리가 흔히 쓰는 ~로 생각하면 편리한데 날짜 사이에 <code>/</code>가 들어가면 두 날짜 사이 기간을 의미하고 날짜 앞에 <code>/</code>가 오면 처음부터 날짜까지의 기간, 날짜 뒤에 <code>/</code>가 오면 날짜부터 끝까지의 기간을 의미한다.</p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb80-1"><a href="지난-달-데이터는-filtering-subsetting.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2020-10-02에 해당하는 데이터 filtering</span></span>
 <span id="cb80-2"><a href="지난-달-데이터는-filtering-subsetting.html#cb80-2" aria-hidden="true" tabindex="-1"></a>covid19.xts[<span class="st">&#39;2020-10-02&#39;</span>]   </span>
 <span id="cb80-3"><a href="지난-달-데이터는-filtering-subsetting.html#cb80-3" aria-hidden="true" tabindex="-1"></a>           <span class="dv">0</span><span class="sc">-</span>9세 <span class="dv">10</span><span class="sc">-</span>19세 <span class="dv">20</span><span class="sc">-</span>29세 <span class="dv">30</span><span class="sc">-</span>39세 <span class="dv">40</span><span class="sc">-</span>49세 <span class="dv">50</span><span class="sc">-</span>59세 <span class="dv">60</span><span class="sc">-</span>69세 <span class="dv">70</span><span class="sc">-</span>79세</span>
