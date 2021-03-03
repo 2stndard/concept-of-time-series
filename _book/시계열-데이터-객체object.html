@@ -318,19 +318,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>xts 데이터 객체 생성은 다음과 같이 생성할 수 있다.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb40-1"><a href="시계열-데이터-객체object.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) </span></code></pre></div>
-<pre><code>                  [,1]
-2008-08-01  0.02063604
-2008-08-02 -2.16058885
-2008-08-03 -0.70980466
-2008-08-04 -0.41147099
-2008-08-05 -2.48578867</code></pre>
+<pre><code>                 [,1]
+2008-08-01 -0.5513696
+2008-08-02  0.3796813
+2008-08-03  2.2976932
+2008-08-04 -2.4610044
+2008-08-05  1.6582995</code></pre>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb42-1"><a href="시계열-데이터-객체object.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)  </span></code></pre></div>
-<pre><code>                  [,1]
-2008-08-01 -0.53527571
-2008-08-02 -0.86658026
-2008-08-03 -0.02641671
-2008-08-04  1.25521511
-2008-08-05 -0.01423458</code></pre>
+<pre><code>                 [,1]
+2008-08-01 -0.4004729
+2008-08-02  0.4565956
+2008-08-03 -0.6554096
+2008-08-04  1.7897821
+2008-08-05  0.7362167</code></pre>
 <div class="comment">
 <ul>
 <li><p>코드 설명</p>
@@ -396,32 +396,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb53-3"><a href="시계열-데이터-객체object.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tsibble</span>(x, <span class="at">key =</span> id, <span class="at">index =</span> date)</span></code></pre></div>
 <pre><code># A tsibble: 10 x 4 [1D]
 # Key:       id [10]
-   date          id      x1 x2   
-   &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;fct&gt;
- 1 2008-01-01     1 -0.556  a    
- 2 2008-01-02     2 -0.532  a    
- 3 2008-01-03     3  0.0307 a    
- 4 2008-01-04     4  0.647  a    
- 5 2008-01-05     5 -0.512  a    
- 6 2008-01-06     6 -0.867  a    
- 7 2008-01-07     7 -1.55   a    
- 8 2008-01-08     8 -0.550  a    
- 9 2008-01-09     9  1.06   a    
-10 2008-01-10    10 -1.10   a    </code></pre>
+   date          id       x1 x2   
+   &lt;date&gt;     &lt;int&gt;    &lt;dbl&gt; &lt;fct&gt;
+ 1 2008-01-01     1 -2.16    a    
+ 2 2008-01-02     2  1.53    a    
+ 3 2008-01-03     3 -0.00166 a    
+ 4 2008-01-04     4 -0.109   a    
+ 5 2008-01-05     5  1.06    a    
+ 6 2008-01-06     6 -0.483   a    
+ 7 2008-01-07     7  0.176   a    
+ 8 2008-01-08     8 -0.625   a    
+ 9 2008-01-09     9 -0.695   a    
+10 2008-01-10    10  0.0567  a    </code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb55-1"><a href="시계열-데이터-객체object.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tsibble</span>(x, <span class="at">index =</span> date)</span></code></pre></div>
 <pre><code># A tsibble: 10 x 4 [1D]
-   date          id      x1 x2   
-   &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;fct&gt;
- 1 2008-01-01     1 -0.556  a    
- 2 2008-01-02     2 -0.532  a    
- 3 2008-01-03     3  0.0307 a    
- 4 2008-01-04     4  0.647  a    
- 5 2008-01-05     5 -0.512  a    
- 6 2008-01-06     6 -0.867  a    
- 7 2008-01-07     7 -1.55   a    
- 8 2008-01-08     8 -0.550  a    
- 9 2008-01-09     9  1.06   a    
-10 2008-01-10    10 -1.10   a    </code></pre>
+   date          id       x1 x2   
+   &lt;date&gt;     &lt;int&gt;    &lt;dbl&gt; &lt;fct&gt;
+ 1 2008-01-01     1 -2.16    a    
+ 2 2008-01-02     2  1.53    a    
+ 3 2008-01-03     3 -0.00166 a    
+ 4 2008-01-04     4 -0.109   a    
+ 5 2008-01-05     5  1.06    a    
+ 6 2008-01-06     6 -0.483   a    
+ 7 2008-01-07     7  0.176   a    
+ 8 2008-01-08     8 -0.625   a    
+ 9 2008-01-09     9 -0.695   a    
+10 2008-01-10    10  0.0567  a    </code></pre>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>
