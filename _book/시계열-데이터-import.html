@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,11 +135,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="시계열-데이터란.html"><a href="시계열-데이터란.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?</a></li>
+<li class="chapter" data-level="1.1" data-path="시계열-데이터란time-series-data.html"><a href="시계열-데이터란time-series-data.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?(Time Series Data)</a></li>
 <li class="chapter" data-level="1.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html"><i class="fa fa-check"></i><b>1.2</b> 시계열 데이터의 특성</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
-<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계autocorrelation"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계(Autocorrelation)</a></li>
 <li class="chapter" data-level="1.2.3" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
 <li class="chapter" data-level="1.2.4" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
 <li class="chapter" data-level="1.2.5" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
@@ -150,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 데이터 클래스</a>
 <ul>
 <li class="chapter" data-level="2.1.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#date-클래스"><i class="fa fa-check"></i><b>2.1.1</b> date 클래스</a></li>
-<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-data-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt data class</a></li>
+<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt class</a></li>
 <li class="chapter" data-level="2.1.3" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#yearmon-yearqtr-class"><i class="fa fa-check"></i><b>2.1.3</b> yearmon, yearqtr class</a></li>
 <li class="chapter" data-level="2.1.4" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#날짜-시간-포맷"><i class="fa fa-check"></i><b>2.1.4</b> 날짜, 시간 포맷</a></li>
 </ul></li>
@@ -278,7 +278,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="시계열-데이터-import" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> 시계열 데이터 Import</h2>
-<p>시계열(Time Series) 데이터를 R에서 직접 생성할 수도 있으나 대부분의 경우는 다양한 파일 포맷(Excel, CSV, SPSS 등)으로 저장된 파일에서 읽어들이는 방법이 일반적이다. 일반적으로 데이터 파일에서 데이터를 읽어들여 시계열 데이터로 저장하는 방법은 다음과 같은 과정을 거친다.</p>
+<p>시계열(Time Series) 데이터를 R에서 직접 생성할 수도 있으나 대부분의 경우는 다양한 파일 포맷(Excel, CSV, SPSS 등)으로 저장된 파일에서 읽어 들이는 방법이 일반적이다. 일반적으로 데이터 파일에서 데이터를 읽어 들여 시계열 데이터로 저장하는 방법은 다음과 같은 과정을 거친다.</p>
 <div class="boxBorder">
 <ol style="list-style-type: decimal">
 <li><code>read_excel()</code>, <code>read.csv()</code>을 사용하여 엑셀 파일을 읽어 데이터를 데이터 프레임에 저장</li>
@@ -287,12 +287,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>시간 컬럼이 생성된 데이터 프레임을 <code>as.ts()</code>, <code>as.xts()</code>, <code>as.tsibble()</code> 등을 사용하여 사용하기 원하는 시계열 객체로 변환</li>
 </ol>
 </div>
-<p>본 문서에서는 다양한 파일 포맷 중 Excel과 CSV파일에서 시계열 데이터를 읽어들여 활용하는 방법을 설명한다.</p>
+<p>여기에서는 다양한 파일 포맷 중 Excel과 CSV파일에서 시계열 데이터를 읽어 들여 활용하는 방법을 설명한다.</p>
 <div id="엑셀-파일" class="section level3" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> 엑셀 파일</h3>
-<p>데이터를 엑셀 파일에서 읽어들여 데이터 프레임에 저장 후 저장된 데이터 프레임을 시계열 데이터 타입으로 변환한다.</p>
+<p>데이터를 엑셀 파일에서 읽어 들여 데이터 프레임에 저장 후 저장된 데이터 프레임을 시계열 데이터 타입으로 변환할 수 있다.</p>
 <p>다음 예제에서 사용하는 자료는 연도별 학교급별 학생수 자료로 한국교육개발원 교육통계 서비스 홈페이지<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>에서 다운로드하였으며 연도별 시계열 데이터 샘플로 사용한다.</p>
-<p><code>read_excel()</code>을 통해 excel 파일을 바로 읽어들일 수 있다. <code>read_excel()</code>을 사용하기 위해서는 먼저 <code>readxl</code> 패키지가 필요하다. 앞에서 소개한 엑셀 데이터를 데이터 프레임으로 읽어들이는 방법은 아래와 같다. 하나 주의해야하는 점은 col_type으로 적절한 데이터 타입을 미리 알려주지 않으면 엉뚱한 데이터가 들어온다는 것이다. 이 데이터 파일에서의 문제는 숫자에 천단위 구분기호(,)가 포함되어 있다보니 해당 컬럼이 numeric이라고 설정해주지 않으면 엉뚱한 데이터 타입(POSIXct)으로 불러들인다는 점이다.</p>
+<p><code>read_excel()</code>을 통해 excel 파일을 바로 읽어 들일 수 있다. <code>read_excel()</code>을 사용하기 위해서는 먼저 <code>readxl</code> 패키지가 필요하다. 앞에서 소개한 엑셀 데이터를 데이터 프레임으로 읽어 들이는 방법은 아래와 같다. 하나 주의해야하는 점은 <code>col_type</code>으로 적절한 데이터 타입을 미리 알려주지 않으면 엉뚱한 데이터가 들어온다는 것이다. 이 데이터 파일에서의 문제는 숫자에 천 단위 구분 기호(,)가 포함되어 있기 때문에 해당 컬럼이 numeric이라고 설정해주지 않으면 엉뚱한 데이터 타입(<code>POSIXct</code>)으로 불러들인다는 점이다.</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb57-1"><a href="시계열-데이터-import.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb57-2"><a href="시계열-데이터-import.html#cb57-2" aria-hidden="true" tabindex="-1"></a>students.all <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;./students.xlsx&quot;</span>, <span class="at">skip =</span> <span class="dv">16</span>, <span class="at">na =</span> <span class="st">&#39;-&#39;</span>, <span class="at">sheet =</span> <span class="dv">1</span>, <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">&#39;text&#39;</span>, <span class="st">&#39;text&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>, <span class="st">&#39;numeric&#39;</span>))</span>
 <span id="cb57-3"><a href="시계열-데이터-import.html#cb57-3" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> students.all <span class="sc">%&gt;%</span> </span>
@@ -332,7 +332,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<p>연도 컬럼을 date 클래스로 변환한 데이터 프레임을 사용하여 <code>ts</code>, <code>xts</code>, <code>tsibble</code> 시계열 데이터로 변환한다. 하나 주의해야할 사항은 각각의 클래스로 변환하는 함수명의 형태가 다르다는 점이다.</p>
+<p>연도 컬럼을 <code>date</code> 클래스로 변환한 데이터 프레임을 사용하여 <code>ts</code>, <code>xts</code>, <code>tsibble</code> 시계열 데이터로 변환한다. 하나 주의해야할 사항은 각각의 클래스로 변환하는 함수명이 다르다.</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb60-1"><a href="시계열-데이터-import.html#cb60-1" aria-hidden="true" tabindex="-1"></a>students.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(students, <span class="at">frequency =</span> <span class="dv">1</span>, <span class="at">start =</span> <span class="dv">1999</span>)</span>
 <span id="cb60-2"><a href="시계열-데이터-import.html#cb60-2" aria-hidden="true" tabindex="-1"></a>students.xts <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(students[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">order.by =</span> students<span class="sc">$</span>연도)</span>
 <span id="cb60-3"><a href="시계열-데이터-import.html#cb60-3" aria-hidden="true" tabindex="-1"></a>students.tsibble <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span> </span>
@@ -344,7 +344,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p><code>ts()</code>로 student.from.excel 데이터 프레임의 데이터를 ts 객체로 변환하는데 연간 데이터이므로 주기를 1(<code>frequency = 1</code>)로 시작년을 1999년(<code>start = 1999</code>)으로 설정</p></li>
 <li><p>as.xts()로 student.from.excel 데이터 프레임의 데이터를 xts 객체로 변환하는데 시간 인덱스를 student.from.excel$연도로 설정(<code>order.by = student.from.excel$연도</code>)</p></li>
-<li><p><code>tsibble</code>로 변환할 데이터프레임을 미리 만들어두는데 시간인덱스로 사용할 컬럼을 <code>yearmonth</code> 클래스로 변환해둠</p></li>
+<li><p><code>tsibble</code>로 변환할 데이터프레임을 미리 만들어두는데 시간인덱스로 사용할 컬럼을 <code>yearmonth</code> 클래스로 변환해 둠</p></li>
 <li><p><code>as_tsibble()</code>을 사용하여 students.tsibble 객체를 <code>tsibble</code> 객체로 변환</p></li>
 </ul></li>
 </ul>
@@ -353,8 +353,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="csv-파일" class="section level3" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> CSV 파일</h3>
 <p>CSV 파일은 데이터 필드의 구분자를 ’,’로 사용하는 형태의 텍스트 파일로 Comma Seperated Value의 준말이다. 데이터간의 호환을 위해 광범위하게 사용되는 파일 포맷이다.</p>
-<p>R에서 CSV 파일을 읽을수 있는 함수는 여러가지가 있지만 여기서는 <code>read.csv()</code> 을 사용하는 방법을 설명한다.</p>
-<p>CSV 파일로 데이터를 읽어들이는 예제는 월별 데이터는 통계청 KOSIS 홈페이지의 경제활동인구조사의 산업별 취업자수에서 다운받은 월간 취업자수와 교육서비스업 취업자수 데이터를 사용한다. 이 데이터는 통계청 KOSIS 홈페이지에서 다운로드<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>받을 수 있는데 ’국내통계 &gt; 노동 &gt; 경제활동인구조사 &gt; 취업자 &gt; 산업별 취업자’에서 시점을 2013.1월부터 2020.12월까지, 산업구분을 전체 계와 교육서비스업으로 설정 후 행렬전환 기능을 사용하여 행에 기간, 열에 산업을 설정한 후 다운로드 받았는데 필자의 github에서 <a href="https://github.com/2stndard/concept-of-time-series/blob/master/%EC%82%B0%EC%97%85%EB%B3%84_%EC%B7%A8%EC%97%85%EC%9E%90_20210206234505.csv&#39;">다운</a>받을 수 있다.(csv 파일을 다운로드받는 방법은 다음의 사이트를 참조하길 바란다. <a href="https://technical-support.tistory.com/54" class="uri">&lt;https://technical-support.tistory.com/54&gt;</a>)</p>
+<p>R에서 CSV 파일을 읽을 수 있는 함수는 여러가지가 있지만 여기서는 <code>read.csv()</code> 을 사용하는 방법을 설명한다.</p>
+<p>CSV 파일로 데이터를 읽어들이는 예제는 월별 데이터는 통계청 KOSIS 홈페이지의 경제활동인구조사의 산업별 취업자수에서 다운받은 월간 취업자수와 교육서비스업 취업자수 데이터를 사용한다. 이 데이터는 통계청 KOSIS 홈페이지에서 다운로드<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>받을 수 있는데 ’국내통계 &gt; 노동 &gt; 경제활동인구조사 &gt; 취업자 &gt; 산업별 취업자’에서 시점을 2013.1월부터 2020.12월까지, 산업구분을 전체 계와 교육서비스업으로 설정 후 행렬전환 기능을 사용하여 행에 기간, 열에 산업을 설정한 후 다운로드 받았는데 필자의 github에서 <a href="https://github.com/2stndard/concept-of-time-series/blob/master/%EC%82%B0%EC%97%85%EB%B3%84_%EC%B7%A8%EC%97%85%EC%9E%90_20210206234505.csv&#39;">다운</a>받을 수 있다.(csv 파일을 다운로드 받는 방법은 다음의 사이트를 참조하길 바란다. <a href="https://technical-support.tistory.com/54" class="uri">&lt;https://technical-support.tistory.com/54&gt;</a>)</p>
 <p>아래와 같이 read.csv 함수를 통해 csv파일을 읽어들일수 있다.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb61-1"><a href="시계열-데이터-import.html#cb61-1" aria-hidden="true" tabindex="-1"></a>employees <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;./산업별_취업자_20210206234505.csv&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na =</span> <span class="st">&#39;-&#39;</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb61-2"><a href="시계열-데이터-import.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(employees) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;time&#39;</span>, <span class="st">&#39;total&#39;</span>, <span class="st">&#39;employees.edu&#39;</span>)</span></code></pre></div>
@@ -367,7 +367,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<p>읽어들인 데이터가 저장된 employees 데이터프레임에는 시계열 객체에서 사용할 수 있는 시간 인덱스 컬럼이 없다. 따라서 time 컬럼을 date 클래스로 바꿔준다.</p>
+<p>읽어 들인 데이터가 저장된 employees 데이터프레임에는 시계열 객체에서 사용할 수 있는 시간 인덱스 컬럼이 없다. 따라서 time 컬럼을 date 클래스로 바꿔준다.</p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb62-1"><a href="시계열-데이터-import.html#cb62-1" aria-hidden="true" tabindex="-1"></a>employees<span class="sc">$</span>time <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">paste0</span>(employees<span class="sc">$</span>time, <span class="st">&#39;. 01&#39;</span>), <span class="at">format =</span> <span class="st">&#39;%Y. %m. %d&#39;</span>)</span></code></pre></div>
 <div class="comment">
 <ul>
@@ -395,11 +395,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="추가-실습-데이터-생성" class="section level3" number="2.3.3">
 <h3><span class="header-section-number">2.3.3</span> 추가 실습 데이터 생성</h3>
-<p>앞서 생성한 두개의 데이터셋(students, employees)에 더하여 하나의 추가 데이터셋을 더 생성할 것이다. 일별 데이터로써 코로나 확진자수 데이터셋을 생성할 것이다. 코로나 데이터 셋은 통계청 KOSIS 홈페이지의 코로나 현황 홈페이지에서 다운로드 받았다. 앞서 생성한 연별 데이터(students), 월별 데이터(employees)에 추가적으로 일별 데이터를 생성한다.</p>
+<p>앞서 생성한 두개의 데이터 셋(students, employees)에 더하여 하나의 추가 데이터 셋을 더 생성할 것이다. 일별 데이터로써 코로나 확진자 수 데이터 셋을 생성할 것이다. 코로나 데이터 셋은 통계청 KOSIS 홈페이지의 코로나 현황 홈페이지에서 다운로드 받았다. 앞서 생성한 연별 데이터(students), 월별 데이터(employees)에 추가적으로 일별 데이터를 생성한다.</p>
 <div id="일별-데이터---코로나-확진자-수" class="section level4" number="2.3.3.1">
 <h4><span class="header-section-number">2.3.3.1</span> 일별 데이터 - 코로나 확진자 수</h4>
-<p>일별 코로나 확진자수는 통계청 KOSIS 홈페이지에서 다운로드<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>받았고 필자의 github에서 다운로드 받을수 있다. 이 데이터 셋을 사용하기 위해서는 <code>spread()</code>를 사용하여 긴(long) 형태의 데이터 프레임을 넓은(wide) 형태의 데이터프레임이 필요하다.</p>
-<p>먼저 <code>read.csv()</code>를 이용하여 파일의 데이터를 읽어들인다.</p>
+<p>일별 코로나 확진자 수는 통계청 KOSIS 홈페이지에서 다운로드<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>받았고 필자의 github에서 다운로드 받을 수 있다. 이 데이터 셋을 사용하기 위해서는 <code>spread()</code>를 사용하여 긴(long) 형태의 데이터 프레임을 넓은(wide) 형태의 데이터프레임이 필요하다.</p>
+<p>먼저 <code>read.csv()</code>를 이용하여 파일의 데이터를 읽어 들인다.</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb64-1"><a href="시계열-데이터-import.html#cb64-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;./covid19.csv&#39;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">na =</span> <span class="st">&#39;-&#39;</span>, <span class="at">strip.white =</span> <span class="cn">TRUE</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb64-2"><a href="시계열-데이터-import.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(covid19) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;category&#39;</span>, <span class="st">&#39;status&#39;</span>, <span class="st">&#39;date&#39;</span>, <span class="st">&#39;value&#39;</span>)</span>
 <span id="cb64-3"><a href="시계열-데이터-import.html#cb64-3" aria-hidden="true" tabindex="-1"></a>covid19 <span class="ot">&lt;-</span> covid19[, <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)]</span></code></pre></div>
@@ -407,7 +407,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>코드 설명</p>
 <ul>
-<li><code>read.csv()</code>를 사용하여 csv 파일의 데이터를 읽어오는데 csv 파일의 첫줄은 헤더줄로 설정(<code>header = TRUE</code>), ’-’로 기록된 데이터는 NA로 설정(<code>na = '-'</code>), 빈칸은 제거(<code>strip.white = TRUE</code>), 문자열은 factor로 설정(<code>stringsAsFactors = TRUE</code>)</li>
+<li><code>read.csv()</code>를 사용하여 csv 파일의 데이터를 읽어 오는데 csv 파일의 첫줄은 헤더 줄로 설정(<code>header = TRUE</code>), ’-’로 기록된 데이터는 NA로 설정(<code>na = '-'</code>), 빈칸은 제거(<code>strip.white = TRUE</code>), 문자열은 factor로 설정(<code>stringsAsFactors = TRUE</code>)</li>
 <li>컬럼명을 ‘category,’ ‘status,’ ‘date,’ ’value’로 설정</li>
 <li>데이터프레임을 보기쉽게 하기 위해 컬럼의 순서를 바꿈</li>
 </ul></li>
@@ -423,7 +423,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<p>읽어들인 데이터 중에 연령대별 데이터만 사용하기 위해 category 컬럼에서 ’세’를 포함한 행만 선택하는데 지역구분중에 ’세종’이 있기 때문에 ’세종’만 추가적으로 제외한다.그 다음 데이터에 NA로 기록된 결측치를 처리한다. 결측치를 처리하는 방법으로 여러가지가 있지만 여기서는 일단 0을 넣어주는 방법으로 결측치를 처리하였다.</p>
+<p>읽어 들인 데이터 중에 연령대별 데이터만 사용하기 위해 category 컬럼에서 ’세’를 포함한 행만 선택하는데 지역구분중에 ’세종’이 있기 때문에 ’세종’만 추가적으로 제외한다.그 다음 데이터에 NA로 기록된 결측치를 처리한다. 결측치를 처리하는 방법으로 여러가지가 있지만 여기서는 일단 0을 넣어주는 방법으로 결측치를 처리하였다.</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb66-1"><a href="시계열-데이터-import.html#cb66-1" aria-hidden="true" tabindex="-1"></a>covid19 <span class="ot">&lt;-</span> covid19 <span class="sc">%&gt;%</span> </span>
 <span id="cb66-2"><a href="시계열-데이터-import.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">&#39;세&#39;</span>, category)) <span class="sc">%&gt;%</span> </span>
 <span id="cb66-3"><a href="시계열-데이터-import.html#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">!=</span> <span class="st">&#39;세종&#39;</span>)</span>
@@ -434,7 +434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p><code>grepl()</code>은 문자열에서 특정 문자가 존재하면 TRUE를 반환하는 함수임. category에서 ’세’문자가 존재하는 행을 골라내고, 다시 그 결과중에 ’세종’이 아닌 행만 골라내서 covid19에 저장함</p>
 <ul>
-<li><code>is.na()</code>로 covid1$value이 NA인지 검사하고 만약(<code>ifelse</code>) NA라면 0을 넣고 아니면 원래값(covid19$value)을 넣어줌. :</li>
+<li><code>is.na()</code>로 covid1$value이 NA인지 검사하고 만약(<code>ifelse</code>) NA라면 0을 넣고 아니면 원래값(covid19$value)을 넣어 줌.</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -445,7 +445,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>코드 설명</p>
 <ul>
-<li>covid19 데이터프레임의 category의 변수들을 컬럼화하고 해당 컬럼에 넣을 데이터는 value로 채워넣음</li>
+<li>covid19 데이터프레임의 category의 변수들을 컬럼화하고 해당 컬럼에 넣을 데이터는 value로 채워 넣음</li>
 </ul></li>
 </ul>
 </div>

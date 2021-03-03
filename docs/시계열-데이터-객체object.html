@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,11 +135,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="시계열-데이터란.html"><a href="시계열-데이터란.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?</a></li>
+<li class="chapter" data-level="1.1" data-path="시계열-데이터란time-series-data.html"><a href="시계열-데이터란time-series-data.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?(Time Series Data)</a></li>
 <li class="chapter" data-level="1.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html"><i class="fa fa-check"></i><b>1.2</b> 시계열 데이터의 특성</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
-<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계autocorrelation"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계(Autocorrelation)</a></li>
 <li class="chapter" data-level="1.2.3" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
 <li class="chapter" data-level="1.2.4" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
 <li class="chapter" data-level="1.2.5" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
@@ -150,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 데이터 클래스</a>
 <ul>
 <li class="chapter" data-level="2.1.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#date-클래스"><i class="fa fa-check"></i><b>2.1.1</b> date 클래스</a></li>
-<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-data-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt data class</a></li>
+<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt class</a></li>
 <li class="chapter" data-level="2.1.3" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#yearmon-yearqtr-class"><i class="fa fa-check"></i><b>2.1.3</b> yearmon, yearqtr class</a></li>
 <li class="chapter" data-level="2.1.4" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#날짜-시간-포맷"><i class="fa fa-check"></i><b>2.1.4</b> 날짜, 시간 포맷</a></li>
 </ul></li>
@@ -278,13 +278,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="시계열-데이터-객체object" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> 시계열 데이터 객체(Object)</h2>
-<p>R에서는 일반적으로 데이터 프레임 객체에 데이터를 저장하는 경우가 많다. 시계열 데이터도 데이터프레임 객체에 저장할 수 도있다. 하지만 시계열 데이터는 시간 인덱스를 기반으로 검색, 분할, 집계, 병합과 같은 데이터 핸들링이 이루어지기 때문에 데이터 프레임보다는 시계열 데이터를 처리하는 객체에서 처리하는 것이 효과적이다.</p>
-<p>따라서 R에서는 시간 인덱스를 기반으로 데이터를 처리하기 위한 특별한 데이터 객체를 제공하고 있다.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> R에서 사용할 수 있는 시계열 데이터 객체는 R base에서 제공하는 객체도 있지만 시계열 패키지를 통해 사용하는 객체도 있다.</p>
+<p>R에서는 일반적으로 데이터 프레임에 데이터를 저장하는 경우가 많다. 시계열 데이터도 데이터프레임에 저장할 수 도 있다. 하지만 시계열 데이터는 시간 인덱스를 기반으로 검색, 분할, 집계, 병합과 같은 데이터 핸들링이 이루어지기 때문에 데이터 프레임보다는 시계열 데이터를 처리하는 객체에서 처리하는 것이 효과적이다.</p>
+<p>따라서 R에서는 시간 인덱스를 기반으로 데이터를 처리하기 위한 특별한 데이터 객체를 제공하고 있다.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> R에서 사용할 수 있는 시계열 데이터 객체는 R에서  자체적으로 에서 제공하는 객체도 있지만 시계열 패키지를 통해 사용하는 객체도 있다.</p>
 <div id="ts-r-basestats" class="section level3" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> ts : R base(stats)</h3>
-<p>ts 객체(Object)는 R에서 가장 기본적으로 활용되는 시계열 데이터 타입이다. ts 객체는 ‘stats’ 패키지를 로드해야 사용할 수 있지만 R이 실행될 때 기본적으로 로드되는 패키지이기 때문에 특별한 패키지를 로드하지 않고 바로 활용할 수 있다. 또한 stats 패키지에 포함된 다양한 시계열 데이터 처리 함수를 사용할 수 있어 많이 사용된다.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
-<p>ts 객체는 앞서 설명한 바와 같이 R에서 기본적으로 제공하는 시계열 객체라는 장점이 있지만 사용상의 단점도 있다. 우리는 시계열 데이터를 사용할 때 외부에서 생성된 시계열 데이터를 R로 불러들여 사용하는 경우가 일반적이다. 이 경우 외부에서 생성된 데이터는 일반적으로 데이터의 시간이 같이 기록되어 있고 사용자는 기록된 시간을 불러들여 사용하고 싶을 것이다. 하지만 ts 객체는 생성시에 데이터에 기록된 시간을 사용하는 것이 아닌 객체 생성시에 시계열 데이터의 주기(1은 연도 데이터, 12는 월 데이터 등)를 설정해야하고 시작일, 종료일을 설정하여 날짜를 자체 설정하도록 규정하고 있다. 따라서 외부에서 생성된 데이터에 결측치가 존재하는 경우 후처리 과정이 필요할 수도 있다.</p>
-<p>ts 데이터 객체는 다음과 같이 생성할 수 있다.</p>
+<p><code>ts</code> 객체(Object)는 R에서 가장 기본적으로 활용되는 시계열 데이터 타입이다. <code>ts</code> 객체는 <code>stats</code> 패키지를 로딩해야 사용할 수 있지만 R이 실행될 때 기본적으로 로딩되기 때문에 바로 활용할 수 있다. 또한 <code>stats</code> 패키지에 포함된 다양한 시계열 데이터 처리 함수에서 다루는 객체이기 때문에 많이 사용된다.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p><code>ts</code> 객체는 앞서 설명한 바와 같이 R에서 기본적으로 제공하는 시계열 객체라는 장점이 있지만 사용상의 단점도 있다. 우리는 시계열 데이터를 사용할 때 외부에서 생성된 시계열 데이터를 R로 불러들여 사용하는 경우가 일반적이다. 이 경우 외부에서 생성된 데이터는 일반적으로 데이터의 시간이 같이 기록되어 있고 사용자는 기록된 시간을 불러들여 사용하고 싶을 것이다. 하지만 <code>ts</code> 객체는 생성시에 데이터에 기록된 시간을 사용하는 것이 아닌 객체 생성시에 시계열 데이터의 주기(1은 연도 데이터, 12는 월 데이터 등)를 설정해야 하고 시작일, 종료일을 설정하여 날짜를 자체 설정하도록 규정하고 있다. 따라서 외부에서 생성된 데이터에 결측치가 존재하는 경우 후처리 과정이 필요할 수도 있다.</p>
+<p><code>ts</code> 데이터 객체는 다음과 같이 생성할 수 있다.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb37-1"><a href="시계열-데이터-객체object.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>     Qtr1 Qtr2 Qtr3 Qtr4
 1959         1    2    3
@@ -301,8 +301,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="xts" class="section level3" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> xts</h3>
-<p><code>xts</code>는 extensible time-series의 준말로 <code>xts</code> 패키지를 로드해야 활용할 수 있는 데이터 객체이다. xts는 뒤에서 다룰 모델링 패키지(<code>forecast</code>, <code>fable</code>, <code>modeltime</code>)에서 사용되지 않는 시계열 객체이다. 하지만 시계열 데이터 핸들링을 위한 다양한 함수를 제공하기 때문에 간단히 데이터를 확인하거나 데이터를 원하는 형태로 변환하는데 쉬운 함수들을 제공한다. 그래서 <code>xts</code> 객체를 사용하여 원하는 형태로 데이터를 만들고 다른 시계열 객체로 변환하는 것도 좋은 방법이다. <code>xts</code>로 데이터를 핸들링하는 방법은 다음 장에서 설명한다.</p>
-<p><code>xts</code> 클래스를 사용하기 위해서는 먼저 <code>xts</code> 패키지를 설치하고 로딩해야 한다. 필자는 패키지를 로딩할 때 다음과 같이 설치, 로딩을 한다.</p>
+<p><code>xts</code>는 extensible time-series의 준말로 <code>xts</code> 패키지를 로딩해야 활용할 수 있는 데이터 객체이다. <code>xts</code>는 뒤에서 다룰 모델링 패키지(<code>forecast</code>, <code>fable</code>, <code>modeltime</code>)에서 사용되지 않는 시계열 객체이다. 하지만 시계열 데이터 핸들링을 위한 다양한 함수를 제공하기 때문에 간단히 데이터를 확인하거나 데이터를 원하는 형태로 변환하는데 쉬운 함수들을 제공한다. 그래서 <code>xts</code> 객체를 사용하여 원하는 형태로 데이터를 만들고 다른 시계열 객체로 변환하는 것도 좋은 방법이다. <code>xts</code>로 데이터를 핸들링 하는 방법은 다음 장에서 설명한다.</p>
+<p><code>xts</code> 클래스를 사용하기 위해서는 먼저 <code>xts</code> 패키지를 설치하고 로딩해야 한다. 필자는 패키지를 로딩 할 때 다음과 같이 설치, 로딩을 한다.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb39-1"><a href="시계열-데이터-객체object.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(xts)) {</span>
 <span id="cb39-2"><a href="시계열-데이터-객체object.html#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;xts&#39;</span>)</span>
 <span id="cb39-3"><a href="시계열-데이터-객체object.html#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(xts)</span>
@@ -319,18 +319,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>xts 데이터 객체 생성은 다음과 같이 생성할 수 있다.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb40-1"><a href="시계열-데이터-객체object.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>) </span></code></pre></div>
 <pre><code>                 [,1]
-2008-08-01  1.3666765
-2008-08-02  0.7664993
-2008-08-03  0.2594084
-2008-08-04 -0.6181388
-2008-08-05  0.3577128</code></pre>
+2008-08-01  0.2798354
+2008-08-02 -1.0746538
+2008-08-03 -1.2448951
+2008-08-04 -0.4899046
+2008-08-05 -0.8599308</code></pre>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb42-1"><a href="시계열-데이터-객체object.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2008-08-01&quot;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)  </span></code></pre></div>
-<pre><code>                 [,1]
-2008-08-01 -0.2361248
-2008-08-02  1.3364013
-2008-08-03 -0.7867700
-2008-08-04 -0.3213177
-2008-08-05 -1.4861941</code></pre>
+<pre><code>                  [,1]
+2008-08-01  0.49760493
+2008-08-02  2.24577970
+2008-08-03 -0.27255456
+2008-08-04  0.04923382
+2008-08-05  2.50263825</code></pre>
 <div class="comment">
 <ul>
 <li><p>코드 설명</p>
@@ -342,9 +342,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><code>xts()</code>는 <code>xts</code> 객체를 생성하는 함수이나 <code>as.xts()</code>는 timeSeries, ts, irts, fts, matrix, data.frame, zoo 객체를 <code>xts</code>객체로 변환하는 함수이다.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> 다음과 같은 차이가 발생한다.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb44-1"><a href="시계열-데이터-객체object.html#cb44-1" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span>
-<span id="cb44-2"><a href="시계열-데이터-객체object.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(ts)  <span class="do">### xts를 생성해야하나 인덱스가 정해지지 않아 에러</span></span></code></pre></div>
+<span id="cb44-2"><a href="시계열-데이터-객체object.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xts</span>(ts)</span></code></pre></div>
 <pre><code>Error in xts(ts): order.by requires an appropriate time-based object</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb46-1"><a href="시계열-데이터-객체object.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(ts)  <span class="do">### ts object의 특성을 해석하여 xts로 변환</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb46-1"><a href="시계열-데이터-객체object.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.xts</span>(ts)</span></code></pre></div>
 <pre><code>        [,1]
 1959 Q2    1
 1959 Q3    2
@@ -366,9 +366,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 <p><code>ts</code>, <code>xts</code>는 모두 시계열 데이터를 다루는 객체이지만 <code>xts</code>가 보다 시계열 데이터를 다루는데 유연한 함수가 많다. 최근에는 <code>ts</code> 객체에도 동일하게 적용할 수 있는 <code>xts</code> 함수가 제공되고 있는데, <code>xts</code> 매뉴얼에 의하면 <code>as.xts</code>와 <code>reclass</code>를 활용하는 것이 <code>xts</code>를 사용하는 것보다 이익이 있다고 명기하고 있다.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb48-1"><a href="시계열-데이터-객체object.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ts)  <span class="co"># 시계열 데이터 형태로 보이지 않음</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb48-1"><a href="시계열-데이터-객체object.html#cb48-1" aria-hidden="true" tabindex="-1"></a> <span class="co"># 시계열 데이터 형태로 보이지 않음</span></span>
+<span id="cb48-2"><a href="시계열-데이터-객체object.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ts) </span></code></pre></div>
 <pre><code>[1] 1 2 3 4 5 6</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb50-1"><a href="시계열-데이터-객체object.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.xts</span>(ts))  <span class="co"># 시계열 형태로 보임</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb50-1"><a href="시계열-데이터-객체object.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 시계열 형태로 보임</span></span>
+<span id="cb50-2"><a href="시계열-데이터-객체object.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.xts</span>(ts))  </span></code></pre></div>
 <pre><code>        [,1]
 1959 Q2    1
 1959 Q3    2
@@ -381,45 +383,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.2.3</span> tsibble</h3>
 <p>최근 R에서 사용하는 데이터 핸들링 방법으로 가장 인기있는 것이 <code>tidyverse</code> 를 사용하는 방법이다. 이 방법을 시계열 데이터 작업에도 사용하기 할 수 있도록 해주는 방법으로 제공되는 것이 <code>tidyverts</code> 패밀리 패키지들을 사용하는 것이다.</p>
 <p><code>tidyverts</code>는 <code>tidyverse</code>처럼 단독으로 제공되는 패키지는 아니지만 시계열 데이터를 저장할 수 있는 객체 패키지인 <code>tsibble</code>, 시계열 예측을 위한 <code>fable</code>, 시계열 특성 추출과 통계를 위한 <code>feast</code>, 최근에 페이스 북에서 개발된 prophet 모델을 사용하기 위한 <code>fable.prophet</code> 패키지 등이 포함한다.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
-<p><code>tsibble</code> 객체는 <code>tsibble</code> 패키지를 통해 제공되는 시계열 데이터 객체로써 tidy 데이터 원칙<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>을 준용하여 시계열 데이터를 다룰수 있도록 한 <code>tibble</code> 객체의 시계열용 객체이다.</p>
-<p><code>tsibble</code> 객체는 <code>tibble</code>에서 각 관찰치(objervation)을 고유한 식별할 수 있는 key에 추가적으로 시간의 순서가 지정되는 index를 필요로 한다. 즉 tibble 객체에서는 key로 특정 관찰치를 식별할 수 있지만 <code>tsibble</code>에서는 같은 key를 가진 시간(index)가 다른 관찰치가 존재하고 key와 index를 사용하여 고유한(unique) 관찰치를 식별하게 된다.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+<p><code>tsibble</code> 객체는 <code>tsibble</code> 패키지를 통해 제공되는 시계열 데이터 객체로써 <code>tidy</code> 데이터 원칙<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>을 준용하여 준용하여 시계열 데이터를 다룰 수 있도록 한 <code>tibble</code> 객체를 시계열 데이터에서 사용할 수 있도록 확장한 객체이다.</p>
+<p><code>tsibble</code> 객체는 <code>tibble</code>에서 각 관찰치(observation)를 고유하게 식별할 수 있는 컬럼 혹은 컬럼의 집합인 <code>key</code>와 시간의 순서가 지정되는 <code>index</code>를 필요로 한다. 즉 <code>tibble</code> 객체에서는 <code>key</code>로 특정 관찰치를 식별할 수 있지만 <code>tsibble</code>에서는 <code>key</code>를 통해 관찰치를 고유하게 식별하고 관찰치들은 다시 시간(index)에 따라 구분될 수 있다.  따라서 <code>tsibble</code>은 <code>key</code>와 <code>index</code>를 사용하여 고유한(unique) 관찰치의 고유한 데이터를 식별하게 된다.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
 <p><code>tsibble</code> 객체를 사용하기 위해서는 우선 <code>tsibble</code> 패키지를 설치하고 로딩해야한다. 다음과 같이 설치는 <code>install.package</code> 함수를 사용하고 로딩은 <code>library</code> 함수를 사용한다.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb52-1"><a href="시계열-데이터-객체object.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(tsibble)) {</span>
 <span id="cb52-2"><a href="시계열-데이터-객체object.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">&#39;tsibble&#39;</span>)</span>
 <span id="cb52-3"><a href="시계열-데이터-객체object.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tsibble)</span>
 <span id="cb52-4"><a href="시계열-데이터-객체object.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
-<p><code>tsibble</code> 패키지를 로딩한 후에 <code>tsibble</code> 객체를 생성할 수 있다. <code>tsibble</code> 객체를 생성하는 방법은 <code>tsibble()</code> 을 사용해서 직접 <code>tsibble</code> 객체를 생성할 수도 있고 데이터 프레임으로 생성된 객체를 <code>as.tsibble()</code>를 사용해 <code>tsibble</code> 객체로 변환하는 방법이 있다. 이 중 데이터 프레임을 <code>tsibble</code> 객체로 변환하는 방법은 다음과 같다.</p>
+<p><code>tsibble</code> 패키지를 로딩 한 후에 <code>tsibble</code> 객체를 생성할 수 있다. <code>tsibble</code> 객체를 생성하는 방법은 <code>tsibble()</code> 을 사용해서 직접 <code>tsibble</code> 객체를 생성할 수도 있고 데이터 프레임으로 생성된 객체를 <code>as.tsibble()</code>를 사용해 <code>tsibble</code> 객체로 변환하는 방법이 있다. 이 중 데이터 프레임을 <code>tsibble</code> 객체로 변환하는 방법은 다음과 같다.</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb53-1"><a href="시계열-데이터-객체object.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb53-2"><a href="시계열-데이터-객체object.html#cb53-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(<span class="st">&#39;2008-01-01&#39;</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">x1 =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="at">x2=</span> <span class="fu">rep</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">10</span>))</span>
 <span id="cb53-3"><a href="시계열-데이터-객체object.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tsibble</span>(x, <span class="at">key =</span> id, <span class="at">index =</span> date)</span></code></pre></div>
 <pre><code># A tsibble: 10 x 4 [1D]
 # Key:       id [10]
    date          id      x1 x2   
-   &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;
- 1 2008-01-01     1  0.0553 a    
- 2 2008-01-02     2  0.156  a    
- 3 2008-01-03     3  0.421  a    
- 4 2008-01-04     4 -1.11   a    
- 5 2008-01-05     5 -1.56   a    
- 6 2008-01-06     6  1.17   a    
- 7 2008-01-07     7 -0.151  a    
- 8 2008-01-08     8  1.40   a    
- 9 2008-01-09     9 -1.02   a    
-10 2008-01-10    10  1.24   a    </code></pre>
+   &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;fct&gt;
+ 1 2008-01-01     1 -2.24   a    
+ 2 2008-01-02     2  0.0603 a    
+ 3 2008-01-03     3 -0.291  a    
+ 4 2008-01-04     4  1.36   a    
+ 5 2008-01-05     5 -0.667  a    
+ 6 2008-01-06     6  1.82   a    
+ 7 2008-01-07     7  0.0140 a    
+ 8 2008-01-08     8 -0.189  a    
+ 9 2008-01-09     9  0.204  a    
+10 2008-01-10    10 -1.37   a    </code></pre>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb55-1"><a href="시계열-데이터-객체object.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tsibble</span>(x, <span class="at">index =</span> date)</span></code></pre></div>
 <pre><code># A tsibble: 10 x 4 [1D]
    date          id      x1 x2   
-   &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;
- 1 2008-01-01     1  0.0553 a    
- 2 2008-01-02     2  0.156  a    
- 3 2008-01-03     3  0.421  a    
- 4 2008-01-04     4 -1.11   a    
- 5 2008-01-05     5 -1.56   a    
- 6 2008-01-06     6  1.17   a    
- 7 2008-01-07     7 -0.151  a    
- 8 2008-01-08     8  1.40   a    
- 9 2008-01-09     9 -1.02   a    
-10 2008-01-10    10  1.24   a    </code></pre>
+   &lt;date&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;fct&gt;
+ 1 2008-01-01     1 -2.24   a    
+ 2 2008-01-02     2  0.0603 a    
+ 3 2008-01-03     3 -0.291  a    
+ 4 2008-01-04     4  1.36   a    
+ 5 2008-01-05     5 -0.667  a    
+ 6 2008-01-06     6  1.82   a    
+ 7 2008-01-07     7  0.0140 a    
+ 8 2008-01-08     8 -0.189  a    
+ 9 2008-01-09     9  0.204  a    
+10 2008-01-10    10 -1.37   a    </code></pre>
 <div class="comment">
 <ul>
 <li><p>코드설명</p>

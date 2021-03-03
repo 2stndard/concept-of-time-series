@@ -245,3 +245,6 @@ arima-모델-실습
 신경망neural-network-모델
 maemeans-absolute-error
 modeltime-framework
+시계열-데이터란time-series-data
+자기-상관관계autocorrelation
+posixct-posixlt-class

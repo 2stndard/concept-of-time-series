@@ -47,7 +47,7 @@ unclass(as.POSIXct('2021-01-31 12:34:55'))
 # character를 POSIXlt class 로 변환
 as.POSIXlt('2021-01-31 12:34:56')  
 # POSIXlt를 해제하면 list
-unclass(as.POSIXlt('2021-12-31 12:34:56')
+unclass(as.POSIXlt('2021-12-31 12:34:56'))
 # POSIXlt에서 1900년 이후 연도를 추출
 as.POSIXlt('2021-12-31 12:34:56')$year  
 ```
