@@ -384,7 +384,6 @@ library(fpp2)
 par(mfrow = c(1, 2))
 data(ausbeer)
 plot.ts(head(ausbeer, 64), main = '시계열 분해 : 덧셈방법 예', xlab = '', ylab = '')
-?plot.ts
 data("AirPassengers")
 plot(AirPassengers, main = '시계열 분해 : 곱셈방법 예', xlab = '', ylab = '')
 par(mfrow = c(1, 1))
