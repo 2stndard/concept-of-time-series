@@ -28,3 +28,4 @@ library(tibbletime)
 
 #install.packages('astsa')
 library(astsa)
+install.packages('seastests')

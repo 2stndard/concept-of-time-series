@@ -718,3 +718,7 @@ ggplot(x, aes(x = x1, y = x2)) +
 acf(students[,2], plot = F)
 
 
+par(mfrow = c(1, 2))
+plot(AirPassengers, main = '시계열 데이터', xlab = '', ylab = 'data')
+plot(log(AirPassengers), main = 'log(시계열 데이터)', xlab = '', ylab = 'log(data)')
+par(mfrow = c(1, 1))
