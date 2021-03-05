@@ -24,14 +24,14 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="단순naive-모델.html"/>
+<link rel="prev" href="단순naïve-모델.html"/>
 <link rel="next" href="random-walk-모델.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -135,11 +135,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="시계열-데이터란.html"><a href="시계열-데이터란.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?</a></li>
+<li class="chapter" data-level="1.1" data-path="시계열-데이터란time-series-data.html"><a href="시계열-데이터란time-series-data.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?(Time Series Data)</a></li>
 <li class="chapter" data-level="1.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html"><i class="fa fa-check"></i><b>1.2</b> 시계열 데이터의 특성</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
-<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계autocorrelation"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계(Autocorrelation)</a></li>
 <li class="chapter" data-level="1.2.3" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
 <li class="chapter" data-level="1.2.4" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
 <li class="chapter" data-level="1.2.5" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
@@ -150,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 데이터 클래스</a>
 <ul>
 <li class="chapter" data-level="2.1.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#date-클래스"><i class="fa fa-check"></i><b>2.1.1</b> date 클래스</a></li>
-<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-data-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt data class</a></li>
+<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt class</a></li>
 <li class="chapter" data-level="2.1.3" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#yearmon-yearqtr-class"><i class="fa fa-check"></i><b>2.1.3</b> yearmon, yearqtr class</a></li>
 <li class="chapter" data-level="2.1.4" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#날짜-시간-포맷"><i class="fa fa-check"></i><b>2.1.4</b> 날짜, 시간 포맷</a></li>
 </ul></li>
@@ -175,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4" data-path="tsibble-feasts-패키지.html"><a href="tsibble-feasts-패키지.html"><i class="fa fa-check"></i><b>3.4</b> tsibble : feasts 패키지</a></li>
 <li class="chapter" data-level="3.5" data-path="data-frame-timetk-패키지.html"><a href="data-frame-timetk-패키지.html"><i class="fa fa-check"></i><b>3.5</b> data.frame : timetk 패키지</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
+<li class="chapter" data-level="4" data-path="시계열-데이터-처리.html"><a href="시계열-데이터-처리.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 처리</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="오늘-몇일이야-시간-정보-추출.html"><a href="오늘-몇일이야-시간-정보-추출.html"><i class="fa fa-check"></i><b>4.1</b> 오늘 몇일이야? : 시간 정보 추출</a></li>
 <li class="chapter" data-level="4.2" data-path="몇일-지났어-시간-기간-연산.html"><a href="몇일-지났어-시간-기간-연산.html"><i class="fa fa-check"></i><b>4.2</b> 몇일 지났어? : 시간 기간 연산</a></li>
@@ -183,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4" data-path="주간-월간-데이터-합계-평균은-시간-grouping.html"><a href="주간-월간-데이터-합계-평균은-시간-grouping.html"><i class="fa fa-check"></i><b>4.4</b> 주간, 월간 데이터 합계, 평균은? : 시간 Grouping</a></li>
 <li class="chapter" data-level="4.5" data-path="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC</a></li>
 <li class="chapter" data-level="4.6" data-path="일-평균-5일-합계는-시간-rolling.html"><a href="일-평균-5일-합계는-시간-rolling.html"><i class="fa fa-check"></i><b>4.6</b> 3일 평균, 5일 합계는? : 시간 Rolling</a></li>
-<li class="chapter" data-level="4.7" data-path="지난달-데이터는-시간-filteringsubsetting.html"><a href="지난달-데이터는-시간-filteringsubsetting.html"><i class="fa fa-check"></i><b>4.7</b> 지난달 데이터는? : 시간 Filtering(Subsetting)</a></li>
+<li class="chapter" data-level="4.7" data-path="지난-달-데이터는-filtering-subsetting.html"><a href="지난-달-데이터는-filtering-subsetting.html"><i class="fa fa-check"></i><b>4.7</b> 지난 달 데이터는? : Filtering (Subsetting)</a></li>
 <li class="chapter" data-level="4.8" data-path="월별-분기별-연별-증감량.html"><a href="월별-분기별-연별-증감량.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 증감량</a></li>
 <li class="chapter" data-level="4.9" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.9</b> 월 비중 백분율, 연 비중 백분율</a></li>
 <li class="chapter" data-level="4.10" data-path="월별-분기별-연별-누적합계.html"><a href="월별-분기별-연별-누적합계.html"><i class="fa fa-check"></i><b>4.10</b> 월별, 분기별, 연별 누적합계</a></li>
@@ -203,13 +203,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="평균-모델.html"><a href="평균-모델.html"><i class="fa fa-check"></i><b>6.1</b> 평균 모델</a></li>
-<li class="chapter" data-level="6.2" data-path="단순naive-모델.html"><a href="단순naive-모델.html"><i class="fa fa-check"></i><b>6.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.2" data-path="단순naïve-모델.html"><a href="단순naïve-모델.html"><i class="fa fa-check"></i><b>6.2</b> 단순(Naïve) 모델</a></li>
 <li class="chapter" data-level="6.3" data-path="계절성-단순seasonal-naive-모델.html"><a href="계절성-단순seasonal-naive-모델.html"><i class="fa fa-check"></i><b>6.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
 <li class="chapter" data-level="6.4" data-path="random-walk-모델.html"><a href="random-walk-모델.html"><i class="fa fa-check"></i><b>6.4</b> Random Walk 모델</a></li>
-<li class="chapter" data-level="6.5" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.5</b> Regression 모델</a>
+<li class="chapter" data-level="6.5" data-path="회귀regression-모델.html"><a href="회귀regression-모델.html"><i class="fa fa-check"></i><b>6.5</b> 회귀(Regression) 모델</a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="regression-모델.html"><a href="regression-모델.html#forecasttslm"><i class="fa fa-check"></i><b>6.5.1</b> forecast::tslm()</a></li>
-<li class="chapter" data-level="6.5.2" data-path="regression-모델.html"><a href="regression-모델.html#timetkplot_time_series_regression"><i class="fa fa-check"></i><b>6.5.2</b> timetk::plot_time_series_regression</a></li>
+<li class="chapter" data-level="6.5.1" data-path="회귀regression-모델.html"><a href="회귀regression-모델.html#forecasttslm"><i class="fa fa-check"></i><b>6.5.1</b> forecast::tslm</a></li>
+<li class="chapter" data-level="6.5.2" data-path="회귀regression-모델.html"><a href="회귀regression-모델.html#timetkplot_time_series_regression"><i class="fa fa-check"></i><b>6.5.2</b> timetk::plot_time_series_regression</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.6</b> 지수 평활(Exponential Smoothing) 모델</a>
 <ul>
@@ -278,8 +278,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="계절성-단순seasonal-naive-모델" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> 계절성 단순(Seasonal Naive) 모델</h2>
-<p>계절성 단순(Seasonal Naive) 모델은 단순(Naive) 모델에서 계절성을 추가한 모델이다. 1장에서 설명했듯이 계절성(Seasonal Pattern)은 주기성(Cyclic Pattern)은 일정한 주기를 갖는가에 따라 다른데 계절성 단순 모델에서 적용하는 것은 일정한 주기를 가지는 계절성에 한정된다. 아래의 예에서 보면 년별 데이터인 전체 학생수계는 계절성을 가지지 않기 때문에 앞선 Naive 모델과 다르지 않다. 하지만 전체 취업자 수는 명확한 계절성을 지니기 때문에 Naive모델과는 달리 곡선형태의 예측 결과를 나타내게 된다.</p>
-<p>계절성 단순 모델을 생성하는 함수는 <code>forecast</code> 패키지의 <code>snaive()</code>를 아래와 같이 사용할 수 있다. <code>meanf()</code>와 <code>naive()</code>와 다른 점은 <code>meanf()</code>와 <code>naive()</code>는 기본적으로 10 lag 미래의 데이터를 산출해주지만 <code>snaive()</code>는 기본적으로 2 lag 미래 데이터를 산출해주기 때문에 예측 산출 주기를 다시 설정해 줄 필요가 있다.</p>
+<p>계절성 단순(Seasonal Naïve) 모델은 단순(Naïve) 모델에서 계절성을 추가한 모델이다. 1장에서 설명했듯이 계절성(Seasonal Pattern)과 주기성(Cyclic Pattern)은 일정한 주기를 갖는가에 따라 달라지는데 계절성 단순 모델에서 적용하는 것은 일정한 주기를 가지는 계절성에 한정된다. 아래의 예에서 보면 년별 데이터인 전체 학생수계는 계절성을 가지지 않기 때문에 앞선 Naïve 모델과 다르지 않다. 하지만 전체 취업자 수는 명확한 계절성을 지니기 때문에 Naïve 모델과는 달리 곡선 형태의 예측 결과를 나타내게 된다.</p>
+<p>계절성 단순 모델을 생성하는 함수는 <code>forecast</code> 패키지의 snaive()를 아래와 같이 사용할 수 있다. <code>meanf()</code>, <code>naive()</code>와 <code>snaive()</code>가 다른 점은 <code>meanf()</code>, <code>naive()</code>는 기본적으로 10 lag 미래의 데이터를 산출해주지만 <code>snaive()</code>는 기본적으로 2 lag 미래 데이터를 산출해 주기 때문에 예측 산출 주기를 다시 설정해야 한다.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb16-1"><a href="계절성-단순seasonal-naive-모델.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 학생수계 열에 대한 계절성 Naive 모델의 상세 정보와 plot</span></span>
 <span id="cb16-2"><a href="계절성-단순seasonal-naive-모델.html#cb16-2" aria-hidden="true" tabindex="-1"></a>students.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">snaive</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>
@@ -342,7 +342,7 @@ Oct 2021          27088 26624.2 27551.8 26378.68 27797.32</code></pre>
           </div>
         </div>
       </div>
-<a href="단순naive-모델.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="단순naïve-모델.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="random-walk-모델.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6.2 단순(Naive) 모델 | Untitled</title>
-  <meta name="description" content="6.2 단순(Naive) 모델 | Untitled" />
+  <title>6.2 단순(Naïve) 모델 | Untitled</title>
+  <meta name="description" content="6.2 단순(Naïve) 모델 | Untitled" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6.2 단순(Naive) 모델 | Untitled" />
+  <meta property="og:title" content="6.2 단순(Naïve) 모델 | Untitled" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6.2 단순(Naive) 모델 | Untitled" />
+  <meta name="twitter:title" content="6.2 단순(Naïve) 모델 | Untitled" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,11 +135,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="시계열-데이터란.html"><a href="시계열-데이터란.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?</a></li>
+<li class="chapter" data-level="1.1" data-path="시계열-데이터란time-series-data.html"><a href="시계열-데이터란time-series-data.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?(Time Series Data)</a></li>
 <li class="chapter" data-level="1.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html"><i class="fa fa-check"></i><b>1.2</b> 시계열 데이터의 특성</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
-<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계autocorrelation"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계(Autocorrelation)</a></li>
 <li class="chapter" data-level="1.2.3" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
 <li class="chapter" data-level="1.2.4" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
 <li class="chapter" data-level="1.2.5" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
@@ -150,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 데이터 클래스</a>
 <ul>
 <li class="chapter" data-level="2.1.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#date-클래스"><i class="fa fa-check"></i><b>2.1.1</b> date 클래스</a></li>
-<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-data-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt data class</a></li>
+<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt class</a></li>
 <li class="chapter" data-level="2.1.3" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#yearmon-yearqtr-class"><i class="fa fa-check"></i><b>2.1.3</b> yearmon, yearqtr class</a></li>
 <li class="chapter" data-level="2.1.4" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#날짜-시간-포맷"><i class="fa fa-check"></i><b>2.1.4</b> 날짜, 시간 포맷</a></li>
 </ul></li>
@@ -175,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4" data-path="tsibble-feasts-패키지.html"><a href="tsibble-feasts-패키지.html"><i class="fa fa-check"></i><b>3.4</b> tsibble : feasts 패키지</a></li>
 <li class="chapter" data-level="3.5" data-path="data-frame-timetk-패키지.html"><a href="data-frame-timetk-패키지.html"><i class="fa fa-check"></i><b>3.5</b> data.frame : timetk 패키지</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
+<li class="chapter" data-level="4" data-path="시계열-데이터-처리.html"><a href="시계열-데이터-처리.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 처리</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="오늘-몇일이야-시간-정보-추출.html"><a href="오늘-몇일이야-시간-정보-추출.html"><i class="fa fa-check"></i><b>4.1</b> 오늘 몇일이야? : 시간 정보 추출</a></li>
 <li class="chapter" data-level="4.2" data-path="몇일-지났어-시간-기간-연산.html"><a href="몇일-지났어-시간-기간-연산.html"><i class="fa fa-check"></i><b>4.2</b> 몇일 지났어? : 시간 기간 연산</a></li>
@@ -183,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4" data-path="주간-월간-데이터-합계-평균은-시간-grouping.html"><a href="주간-월간-데이터-합계-평균은-시간-grouping.html"><i class="fa fa-check"></i><b>4.4</b> 주간, 월간 데이터 합계, 평균은? : 시간 Grouping</a></li>
 <li class="chapter" data-level="4.5" data-path="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC</a></li>
 <li class="chapter" data-level="4.6" data-path="일-평균-5일-합계는-시간-rolling.html"><a href="일-평균-5일-합계는-시간-rolling.html"><i class="fa fa-check"></i><b>4.6</b> 3일 평균, 5일 합계는? : 시간 Rolling</a></li>
-<li class="chapter" data-level="4.7" data-path="지난달-데이터는-시간-filteringsubsetting.html"><a href="지난달-데이터는-시간-filteringsubsetting.html"><i class="fa fa-check"></i><b>4.7</b> 지난달 데이터는? : 시간 Filtering(Subsetting)</a></li>
+<li class="chapter" data-level="4.7" data-path="지난-달-데이터는-filtering-subsetting.html"><a href="지난-달-데이터는-filtering-subsetting.html"><i class="fa fa-check"></i><b>4.7</b> 지난 달 데이터는? : Filtering (Subsetting)</a></li>
 <li class="chapter" data-level="4.8" data-path="월별-분기별-연별-증감량.html"><a href="월별-분기별-연별-증감량.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 증감량</a></li>
 <li class="chapter" data-level="4.9" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.9</b> 월 비중 백분율, 연 비중 백분율</a></li>
 <li class="chapter" data-level="4.10" data-path="월별-분기별-연별-누적합계.html"><a href="월별-분기별-연별-누적합계.html"><i class="fa fa-check"></i><b>4.10</b> 월별, 분기별, 연별 누적합계</a></li>
@@ -203,13 +203,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="평균-모델.html"><a href="평균-모델.html"><i class="fa fa-check"></i><b>6.1</b> 평균 모델</a></li>
-<li class="chapter" data-level="6.2" data-path="단순naive-모델.html"><a href="단순naive-모델.html"><i class="fa fa-check"></i><b>6.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.2" data-path="단순naïve-모델.html"><a href="단순naïve-모델.html"><i class="fa fa-check"></i><b>6.2</b> 단순(Naïve) 모델</a></li>
 <li class="chapter" data-level="6.3" data-path="계절성-단순seasonal-naive-모델.html"><a href="계절성-단순seasonal-naive-모델.html"><i class="fa fa-check"></i><b>6.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
 <li class="chapter" data-level="6.4" data-path="random-walk-모델.html"><a href="random-walk-모델.html"><i class="fa fa-check"></i><b>6.4</b> Random Walk 모델</a></li>
-<li class="chapter" data-level="6.5" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.5</b> Regression 모델</a>
+<li class="chapter" data-level="6.5" data-path="회귀regression-모델.html"><a href="회귀regression-모델.html"><i class="fa fa-check"></i><b>6.5</b> 회귀(Regression) 모델</a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="regression-모델.html"><a href="regression-모델.html#forecasttslm"><i class="fa fa-check"></i><b>6.5.1</b> forecast::tslm()</a></li>
-<li class="chapter" data-level="6.5.2" data-path="regression-모델.html"><a href="regression-모델.html#timetkplot_time_series_regression"><i class="fa fa-check"></i><b>6.5.2</b> timetk::plot_time_series_regression</a></li>
+<li class="chapter" data-level="6.5.1" data-path="회귀regression-모델.html"><a href="회귀regression-모델.html#forecasttslm"><i class="fa fa-check"></i><b>6.5.1</b> forecast::tslm</a></li>
+<li class="chapter" data-level="6.5.2" data-path="회귀regression-모델.html"><a href="회귀regression-모델.html#timetkplot_time_series_regression"><i class="fa fa-check"></i><b>6.5.2</b> timetk::plot_time_series_regression</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.6</b> 지수 평활(Exponential Smoothing) 모델</a>
 <ul>
@@ -276,12 +276,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="단순naive-모델" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> 단순(Naive) 모델</h2>
-<p>단순(Naive) 모델은 시계열 측정값의 마지막 값이 지속될 것이라는 가정하에 향후 데이터값을 예측하는 모델이다. 이 모델은 경제 금융 시계열 모델에서 많이 사용된다.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> 앞선 평균 모델의 예측구간은 시간에 따라 일정한 반면 과 달리 Naive 모델의 예측구간은 예측 시간이 늘어날수록 범위가 늘어난다. 아주 가까운 미래의 데이터는 지금 데이터에서 크게 벗어나지 않을것이라는 가정이 깔려있지만 이 가정은 시간이 지날수록 확실치 않다는 모델이다. 일반적으로 다른 시계열 모델들의 예측구간도 Naive 모델 과 같이 예측기간이 늘어날 수록 범위가 넓어지는 경향을 지닌다.</p>
-<p><code>forecast</code> 패키지에서는 Naive 모델을 생성하는 함수로 <code>naive()</code>를 제공한다. <code>naive()</code>의 실행 결과는 <code>ts</code> 객체로 전달된 데이터에 대한 시차 10의 미래 데이터까지 예측치와 80%, 95% 예측구간의 데이터를 산출해준다. 앞선 평균모델의 <code>meanf()</code>와 같이 <code>autoplot()</code>을 사용하여 plot을 만들 수 있다.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb7-1"><a href="단순naive-모델.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 학생수계 열에 대한 Naive 모델의 상세 정보와 plot</span></span>
-<span id="cb7-2"><a href="단순naive-모델.html#cb7-2" aria-hidden="true" tabindex="-1"></a>students.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<div id="단순naïve-모델" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> 단순(Naïve) 모델</h2>
+<p>단순(Naïve) 모델은 시계열 데이터의 마지막 값이 미래에도 지속될 것이라는 가정하에 미래 데이터를 예측하는 모델이다. 이 모델은 경제 금융 시계열 모델에서 많이 사용된다.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> 앞선 평균 모델의 예측구간은 시간에 따라 일정한 반면 과 달리 Naïve 모델의 예측구간은 예측 시간이 늘어날수록 범위가 늘어난다. 아주 가까운 미래의 데이터는 지금 데이터에서 크게 벗어나지 않을 것이라는 가정이 깔려있지만 이 가정은 시간이 지날수록 확실치 않다는 모델이다. 일반적으로 다른 시계열 모델들의 예측구간도 단순(Naïve) 모델 과 같이 예측기간이 늘어날 수록 범위가 넓어지는 경향을 지닌다.</p>
+<p><code>forecast</code> 패키지에서는 Naïve 모델을 생성하는 함수로 <code>naive()</code>를 제공한다. <code>naive()</code>의 실행 결과는 <code>ts</code> 객체로 전달된 데이터에 대한 시차 10의 미래 데이터의 점 예측치와 80%, 95% 예측구간의 데이터를 산출해준다. 앞선 평균모델의 <code>meanf()</code>와 같이 <code>autoplot()</code>을 사용하여 plot을 만들 수 있다.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb7-1"><a href="단순naïve-모델.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 학생수계 열에 대한 Naive 모델의 상세 정보와 plot</span></span>
+<span id="cb7-2"><a href="단순naïve-모델.html#cb7-2" aria-hidden="true" tabindex="-1"></a>students.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>
 Forecast method: Naive method
 
@@ -306,10 +306,10 @@ Forecasts:
 2028        5995239 5459384 6531094 5175720 6814758
 2029        5995239 5426879 6563599 5126007 6864471
 2030        5995239 5396135 6594343 5078988 6911490</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb9-1"><a href="단순naive-모델.html#cb9-1" aria-hidden="true" tabindex="-1"></a>students.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;학생수 Naive 모델 plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb9-1"><a href="단순naïve-모델.html#cb9-1" aria-hidden="true" tabindex="-1"></a>students.ts[, <span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;학생수 Naive 모델 plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;학생수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/naive-1.png" width="672" /></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb10-1"><a href="단순naive-모델.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 취업자수 열에 대한 Naive 모델의 상세 정보와 plot</span></span>
-<span id="cb10-2"><a href="단순naive-모델.html#cb10-2" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb10-1"><a href="단순naïve-모델.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 취업자수 열에 대한 Naive 모델의 상세 정보와 plot</span></span>
+<span id="cb10-2"><a href="단순naïve-모델.html#cb10-2" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>
 Forecast method: Naive method
 
@@ -336,10 +336,10 @@ Jul 2021          26526 25639.41 27412.59 25170.07 27881.93
 Aug 2021          26526 25578.19 27473.81 25076.45 27975.55
 Sep 2021          26526 25520.70 27531.30 24988.52 28063.48
 Oct 2021          26526 25466.32 27585.68 24905.36 28146.64</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb12-1"><a href="단순naive-모델.html#cb12-1" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;취업자수 Naive모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb12-1"><a href="단순naïve-모델.html#cb12-1" aria-hidden="true" tabindex="-1"></a>employees.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;취업자수 Naive모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;연도&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;취업자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/naive-2.png" width="672" /></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb13-1"><a href="단순naive-모델.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0-9세 코로나 확진자수에 대한 Naive 모델의 상세 정보와 plot</span></span>
-<span id="cb13-2"><a href="단순naive-모델.html#cb13-2" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb13-1"><a href="단순naïve-모델.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0-9세 코로나 확진자수에 대한 Naive 모델의 상세 정보와 plot</span></span>
+<span id="cb13-2"><a href="단순naïve-모델.html#cb13-2" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>
 Forecast method: Naive method
 
@@ -364,13 +364,13 @@ Forecasts:
 1.846575             15 -6.7235483 36.72355 -18.223300 48.22330
 1.849315             15 -8.0413025 38.04130 -20.238631 50.23863
 1.852055             15 -9.2876654 39.28767 -22.144779 52.14478</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb15-1"><a href="단순naive-모델.html#cb15-1" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;0-9세 코로나19 확진자의 Naive 모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;기간&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb15-1"><a href="단순naïve-모델.html#cb15-1" aria-hidden="true" tabindex="-1"></a>covid19.ts[,<span class="dv">2</span>] <span class="sc">%&gt;%</span> <span class="fu">naive</span>() <span class="sc">%&gt;%</span> <span class="fu">autoplot</span>(<span class="at">main =</span> <span class="st">&#39;0-9세 코로나19 확진자의 Naive 모델 Plot&#39;</span>, <span class="at">xlab =</span> <span class="st">&#39;기간&#39;</span>, <span class="at">ylab =</span> <span class="st">&#39;확진자수&#39;</span>)</span></code></pre></div>
 <p><img src="t_files/figure-html/naive-3.png" width="672" /></p>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="3">
-<li id="fn3"><p><a href="https://otexts.com/fpp2/simple-methods.html" class="uri">https://otexts.com/fpp2/simple-methods.html</a><a href="단순naive-모델.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://otexts.com/fpp2/simple-methods.html" class="uri">https://otexts.com/fpp2/simple-methods.html</a><a href="단순naïve-모델.html#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

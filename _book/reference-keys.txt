@@ -250,3 +250,6 @@ modeltime-framework
 posixct-posixlt-class
 시계열-데이터-처리
 지난-달-데이터는-filtering-subsetting
+단순naïve-모델
+회귀regression-모델
+mpemean-percentage-error

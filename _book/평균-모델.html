@@ -24,7 +24,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="시계열-forecasting-part-ii-시계열-예측-모델.html"/>
-<link rel="next" href="단순naive-모델.html"/>
+<link rel="next" href="단순naïve-모델.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -135,11 +135,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 시계열 데이터</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="시계열-데이터란.html"><a href="시계열-데이터란.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?</a></li>
+<li class="chapter" data-level="1.1" data-path="시계열-데이터란time-series-data.html"><a href="시계열-데이터란time-series-data.html"><i class="fa fa-check"></i><b>1.1</b> 시계열 데이터란?(Time Series Data)</a></li>
 <li class="chapter" data-level="1.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html"><i class="fa fa-check"></i><b>1.2</b> 시계열 데이터의 특성</a>
 <ul>
 <li class="chapter" data-level="1.2.1" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#고정된-시간-독립변수"><i class="fa fa-check"></i><b>1.2.1</b> 고정된 시간 독립변수</a></li>
-<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계</a></li>
+<li class="chapter" data-level="1.2.2" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#자기-상관관계autocorrelation"><i class="fa fa-check"></i><b>1.2.2</b> 자기 상관관계(Autocorrelation)</a></li>
 <li class="chapter" data-level="1.2.3" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#추세-경향성trend"><i class="fa fa-check"></i><b>1.2.3</b> 추세 경향성(Trend)</a></li>
 <li class="chapter" data-level="1.2.4" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#계절성seasonality-순환성cyclic"><i class="fa fa-check"></i><b>1.2.4</b> 계절성(Seasonality), 순환성(Cyclic)</a></li>
 <li class="chapter" data-level="1.2.5" data-path="시계열-데이터의-특성.html"><a href="시계열-데이터의-특성.html#불확실성uncertainty"><i class="fa fa-check"></i><b>1.2.5</b> 불확실성(Uncertainty)</a></li>
@@ -150,7 +150,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html"><i class="fa fa-check"></i><b>2.1</b> 날짜/시간 데이터 클래스</a>
 <ul>
 <li class="chapter" data-level="2.1.1" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#date-클래스"><i class="fa fa-check"></i><b>2.1.1</b> date 클래스</a></li>
-<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-data-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt data class</a></li>
+<li class="chapter" data-level="2.1.2" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#posixct-posixlt-class"><i class="fa fa-check"></i><b>2.1.2</b> POSIXct, POSIXlt class</a></li>
 <li class="chapter" data-level="2.1.3" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#yearmon-yearqtr-class"><i class="fa fa-check"></i><b>2.1.3</b> yearmon, yearqtr class</a></li>
 <li class="chapter" data-level="2.1.4" data-path="날짜시간-데이터-클래스.html"><a href="날짜시간-데이터-클래스.html#날짜-시간-포맷"><i class="fa fa-check"></i><b>2.1.4</b> 날짜, 시간 포맷</a></li>
 </ul></li>
@@ -175,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.4" data-path="tsibble-feasts-패키지.html"><a href="tsibble-feasts-패키지.html"><i class="fa fa-check"></i><b>3.4</b> tsibble : feasts 패키지</a></li>
 <li class="chapter" data-level="3.5" data-path="data-frame-timetk-패키지.html"><a href="data-frame-timetk-패키지.html"><i class="fa fa-check"></i><b>3.5</b> data.frame : timetk 패키지</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="시계열-데이터-handling.html"><a href="시계열-데이터-handling.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 Handling</a>
+<li class="chapter" data-level="4" data-path="시계열-데이터-처리.html"><a href="시계열-데이터-처리.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 처리</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="오늘-몇일이야-시간-정보-추출.html"><a href="오늘-몇일이야-시간-정보-추출.html"><i class="fa fa-check"></i><b>4.1</b> 오늘 몇일이야? : 시간 정보 추출</a></li>
 <li class="chapter" data-level="4.2" data-path="몇일-지났어-시간-기간-연산.html"><a href="몇일-지났어-시간-기간-연산.html"><i class="fa fa-check"></i><b>4.2</b> 몇일 지났어? : 시간 기간 연산</a></li>
@@ -183,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4" data-path="주간-월간-데이터-합계-평균은-시간-grouping.html"><a href="주간-월간-데이터-합계-평균은-시간-grouping.html"><i class="fa fa-check"></i><b>4.4</b> 주간, 월간 데이터 합계, 평균은? : 시간 Grouping</a></li>
 <li class="chapter" data-level="4.5" data-path="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><a href="주식-시가-고가-저가-종가는-어떻게-구해-ohlc.html"><i class="fa fa-check"></i><b>4.5</b> 주식 시가, 고가, 저가, 종가는 어떻게 구해? : OHLC</a></li>
 <li class="chapter" data-level="4.6" data-path="일-평균-5일-합계는-시간-rolling.html"><a href="일-평균-5일-합계는-시간-rolling.html"><i class="fa fa-check"></i><b>4.6</b> 3일 평균, 5일 합계는? : 시간 Rolling</a></li>
-<li class="chapter" data-level="4.7" data-path="지난달-데이터는-시간-filteringsubsetting.html"><a href="지난달-데이터는-시간-filteringsubsetting.html"><i class="fa fa-check"></i><b>4.7</b> 지난달 데이터는? : 시간 Filtering(Subsetting)</a></li>
+<li class="chapter" data-level="4.7" data-path="지난-달-데이터는-filtering-subsetting.html"><a href="지난-달-데이터는-filtering-subsetting.html"><i class="fa fa-check"></i><b>4.7</b> 지난 달 데이터는? : Filtering (Subsetting)</a></li>
 <li class="chapter" data-level="4.8" data-path="월별-분기별-연별-증감량.html"><a href="월별-분기별-연별-증감량.html"><i class="fa fa-check"></i><b>4.8</b> 월별, 분기별, 연별 증감량</a></li>
 <li class="chapter" data-level="4.9" data-path="월-비중-백분율-연-비중-백분율.html"><a href="월-비중-백분율-연-비중-백분율.html"><i class="fa fa-check"></i><b>4.9</b> 월 비중 백분율, 연 비중 백분율</a></li>
 <li class="chapter" data-level="4.10" data-path="월별-분기별-연별-누적합계.html"><a href="월별-분기별-연별-누적합계.html"><i class="fa fa-check"></i><b>4.10</b> 월별, 분기별, 연별 누적합계</a></li>
@@ -203,13 +203,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="평균-모델.html"><a href="평균-모델.html"><i class="fa fa-check"></i><b>6.1</b> 평균 모델</a></li>
-<li class="chapter" data-level="6.2" data-path="단순naive-모델.html"><a href="단순naive-모델.html"><i class="fa fa-check"></i><b>6.2</b> 단순(Naive) 모델</a></li>
+<li class="chapter" data-level="6.2" data-path="단순naïve-모델.html"><a href="단순naïve-모델.html"><i class="fa fa-check"></i><b>6.2</b> 단순(Naïve) 모델</a></li>
 <li class="chapter" data-level="6.3" data-path="계절성-단순seasonal-naive-모델.html"><a href="계절성-단순seasonal-naive-모델.html"><i class="fa fa-check"></i><b>6.3</b> 계절성 단순(Seasonal Naive) 모델</a></li>
 <li class="chapter" data-level="6.4" data-path="random-walk-모델.html"><a href="random-walk-모델.html"><i class="fa fa-check"></i><b>6.4</b> Random Walk 모델</a></li>
-<li class="chapter" data-level="6.5" data-path="regression-모델.html"><a href="regression-모델.html"><i class="fa fa-check"></i><b>6.5</b> Regression 모델</a>
+<li class="chapter" data-level="6.5" data-path="회귀regression-모델.html"><a href="회귀regression-모델.html"><i class="fa fa-check"></i><b>6.5</b> 회귀(Regression) 모델</a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="regression-모델.html"><a href="regression-모델.html#forecasttslm"><i class="fa fa-check"></i><b>6.5.1</b> forecast::tslm()</a></li>
-<li class="chapter" data-level="6.5.2" data-path="regression-모델.html"><a href="regression-모델.html#timetkplot_time_series_regression"><i class="fa fa-check"></i><b>6.5.2</b> timetk::plot_time_series_regression</a></li>
+<li class="chapter" data-level="6.5.1" data-path="회귀regression-모델.html"><a href="회귀regression-모델.html#forecasttslm"><i class="fa fa-check"></i><b>6.5.1</b> forecast::tslm</a></li>
+<li class="chapter" data-level="6.5.2" data-path="회귀regression-모델.html"><a href="회귀regression-모델.html#timetkplot_time_series_regression"><i class="fa fa-check"></i><b>6.5.2</b> timetk::plot_time_series_regression</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="지수-평활exponential-smoothing-모델.html"><a href="지수-평활exponential-smoothing-모델.html"><i class="fa fa-check"></i><b>6.6</b> 지수 평활(Exponential Smoothing) 모델</a>
 <ul>
@@ -278,7 +278,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="평균-모델" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> 평균 모델</h2>
-<p>평균 모델은 우리가 흔히 알고 있는 평균이 앞으로의 미래에도 적용하는 방법이다. <code>forecast</code> 패키지에서는 <code>meanf()</code> 함수를 통해 시계열 데이터의 평균을 활용한 미래 예측값을 반환하는 함수를 제공한다. 이 함수에서는 평균 모델에 의한 점 예측값(Point Forecast)뿐 아니라 예측구간 80%와 95%를 산출해 준다. 매개변수를 설정함으로써 이 예측구간을 Bootstrap 방법을 통해 산출할 수도 있다. <code>meanf()</code> 함수의 입력 데이터는 숫자 벡터나 <code>ts</code> 클래스 객체를 사용한다. <code>meanf()</code>함수의 결과를 plot하기 위해서는 <code>autoplot()</code> 함수에 <code>meanf()</code> 결과 객체를 전달하여 plotting 할 수 있다.</p>
+<p>평균 모델은 우리가 흔히 알고 있는 평균을 미래에 적용하는 방법이다. <code>forecast</code> 패키지에서는 <code>meanf()</code>를 통해 시계열 데이터의 평균을 활용해서 미래 예측값을 반환하는 함수를 제공한다.</p>
+<p><code>meanf()</code>는 시계열 데이터 전체에 대한 평균 모델로 정확한 평균값을 사용한 점 예측값(Point Forecast)뿐 아니라 예측구간 80%와 95% 구간값도 산출해 준다. 예측구간을 산출할 때 매개변수를 설정해서 Bootstrap 방법을 통해 산출할 수도 있다.</p>
+<p><code>meanf()</code>는 숫자 벡터나 ts 클래스 객체를 사용한다. <code>meanf()</code>의 결과를 plot하기 위해서는 <code>autoplot()</code>에 <code>meanf()</code>로 생성한 모델을 전달하여 plotting 할 수 있다.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r watch-out"><code class="sourceCode r"><span id="cb1-1"><a href="평균-모델.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
 <span id="cb1-2"><a href="평균-모델.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># meanf()를 사용하여 ts 객체의 학생수계 열에 대한 평균모델을 생성하고 summary()로 상세내용을 출력</span></span>
 <span id="cb1-3"><a href="평균-모델.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">meanf</span>(students.ts[,<span class="dv">2</span>]))</span></code></pre></div>
@@ -339,7 +341,7 @@ Forecasts:
         </div>
       </div>
 <a href="시계열-forecasting-part-ii-시계열-예측-모델.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="단순naive-모델.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="단순naïve-모델.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
