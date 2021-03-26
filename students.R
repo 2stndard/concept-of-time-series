@@ -263,7 +263,6 @@ students.prophet <- data.frame(ds = as.Date(paste0(students$연도, '-01-01')), 
 model.prophet.students <- prophet(students.prophet)
 future.students <- make_future_dataframe(model.prophet.students, periods = 10, freq = 'year')
 forecast.students <- predict(model.prophet.students, future.students)
-plot(model.prophet.students, forecast.students) + 
   ggrepel::geom_text_repel(aes(label = scales::number(y, big.mark = ',', accuracy = 1)), vjust = 1, size = 3) +
   labs(title = 'prophet model', x = '연도', y = '학생수') + 
   scale_y_continuous(labels = scales::number_format(big.mark = ','))

@@ -150,8 +150,7 @@ ggplot(data = students.all, aes(x = 연도, y = 학생수계)) +
     -   `geom_line()`을 사용하여 라인 Geometries Layer를 설정. 라인 Geometries로 표시할 다변량 라인 plot은 그룹핑이 가능한 컬럼인 지역규모를 `group =`로 설정하고 색상 변경을 설정(`color =`)
 :::
 
-위에서 그려진 plot은 전체적인 흐름을 보기에는 편리하지만 연도별 데이터의 위치를 가늠하기에는 조금 어렵다. 각 연도에 점을 찍어주면 더욱 보기가 편리할 듯 하다. 이럴 때에는 점(point) Geometry
-layer를 추가하면 되는데 `geom_point()`를 사용하면 된다.
+위에서 그려진 plot은 전체적인 흐름을 보기에는 편리하지만 연도별 데이터의 위치를 가늠하기에는 조금 어렵다. 각 연도에 점을 찍어주면 더욱 보기가 편리할 듯 하다. 이럴 때에는 점(point) Geometry layer를 추가하면 되는데 `geom_point()`를 사용하면 된다.
 
 ```{r ggplot_datapoint1}
 ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
@@ -380,7 +379,7 @@ autoplot(students.ts[, 3:5], main = '연도별 학생수', xlab = '연도', ylab
 그 외 세부적인 plot의 변경은 ggplot에서 사용하는 방법을 준하여 사용할 수 있다.
 
 ```{r forecast_etc}
-        autoplot(students.ts[,2], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '유치원', lty = 1, lwd = 1) +
+autoplot(students.ts[,2], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '유치원', lty = 1, lwd = 1) +
           autolayer(students.ts[,3], series = '초등학교', lty = 2, lwd = 1.2) +
           autolayer(students.ts[,4], series = '중학교', lty = 3, lwd = 1.4) +
           autolayer(students.ts[,5], series = '고등학교', lty = 4, lwd = 1.6) + 
@@ -497,11 +496,6 @@ students %>%
     -   `timetk` 패키지를 로딩
     -   `%>%`을 사용하여 students를 `plot_time_series()`에 전달. 시간인덱스로 사용할 열은 '연도'열(`.date_var =`)로, 데이터로 사용할 열을 '학생수계'열(`.value =`)로 설정하고 추세선을 없앰(`.smooth =`)
 :::
-
-```{r timetk_smooth}
-students %>%
-plot_time_series(.date_var = 연도, .value = 학생수계, .smooth = FALSE)
-```
 
 `plot_time_series()`를 사용하여 다변량 plot을 하기 위해서는 `ggplot`와 같이 다변량으로 데이터를 분류해줄 정보가 포함된 열이 필요하다. 즉 긴(long) 형태의 데이터가 필요하다는 것이다.
 

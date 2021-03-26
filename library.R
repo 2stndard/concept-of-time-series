@@ -28,6 +28,4 @@ library(tibbletime)
 
 #install.packages('astsa')
 library(astsa)
-install.packages('seastests')
-install.packages('equatiomatic')
-equatiomatic::extract_eq(fit)
+library(seastests)
