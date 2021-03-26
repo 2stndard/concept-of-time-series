@@ -221,7 +221,7 @@ employees.by.year %>%
   ggplot(aes(as.factor(year), total.year)) + 
   geom_line(aes(group = 1)) +
   geom_text(aes(label = scales::number(total.year, big.mark = ',')), size = 3, vjust = 1.5) + 
-  labs(title = '연별 취업자수', x = '연도', y = '취업자수') + 
+  labs(title = '연도별 취업자수', x = '연도', y = '취업자수') + 
   scale_y_continuous(labels = scales::number_format(big.mark = ','))
 ```
 
@@ -256,7 +256,7 @@ mean.covid19.by.age %>%
   tidyr::gather(category, value, 2:10) %>%
   ggplot(aes(x = yearmon, y = value)) + 
   geom_line(aes(group = category, color = category)) + 
-  labs(title = '월간 평균 확진자수', x = '시간', y = '평균확진자', color = '세대')
+  labs(title = '월간 평균 코로나 확진자수', x = '시간', y = '평균확진자', color = '세대')
 ```
 
 데이터프레임 시계열 데이터 그룹핑의 또 하나의 방법은 `tibbletime` 패키지에서 제공하는 `collapse_by()` 함수를 사용하는 방법이다. 이 방법을 사용하기 위해서는 `tibbletime` 패키지를 설치, 로딩해야 하며 데이터프레임을 `tbl_time` 클래스 객체로 변환해야 한다. 변환된 `tbl_time` 객체에 적용된 `collapse_by()`는 시간 인덱스열을 직접 컨트롤하여 매개변수로 전달된 기간마다 데이터를 접은(collapse) 후에 `group_by()` 함수를 이용해 그룹핑하여 기간별 데이터를 산출할 수 있다.[^data_handling-3] 접힌 데이터의 시간 인덱스는 접힌 마지막 날로 날짜가 바뀌어서 저장된다.
@@ -280,7 +280,7 @@ as_tbl_time(covid19, index = date) %>%
   tidyr::gather(category, value, 2:10) %>%
   ggplot(aes(x = date, y = value)) + 
   geom_line(aes(group = category, color = category)) + 
-  labs(title = '주간 평균 확진자수', x = '월', y = '평균확진자', color = '세대')
+  labs(title = '주간 평균 코로나 확진자수', x = '월', y = '평균확진자', color = '세대')
 ```
 
 ::: {.comment}
@@ -319,7 +319,7 @@ covid19 %>%
   tidyr::gather(category, value, 2:10) %>%
   ggplot(aes(x = date, y = value)) + 
   geom_line(aes(group = category, color = category)) + 
-  labs(title = '주간 평균 확진자수', x = '월', y = '평균확진자', color = '세대')
+  labs(title = '주간 평균 코로나 확진자수', x = '월', y = '평균확진자', color = '세대')
 
 ```
 

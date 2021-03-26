@@ -668,11 +668,14 @@ install.packages('tidyverts')
 
 data(goog200, package = 'datasets')
 library(fpp2)
-goog200
+data.frame(1:200,goog200)
 
 autoplot(goog) + 
-  labs(title = '구글의 주가변동', subtitle = '2013.02.25부터 2017.02.13일까지', y = '종가', x = '일수') +
-  scale_y_continuous(labels = scales::dollar) + 
+  labs(title = '구글의 주가변동', y = '종가', x = '일수') +
+  scale_y_continuous(labels = scales::dollar)
+
+
++ 
   ggthemes::theme_fivethirtyeight()
 
 fig_auto <- read.csv('clipboard', header = F, sep = '\t')

@@ -31,3 +31,6 @@ library(astsa)
 install.packages('seastests')
 install.packages('equatiomatic')
 equatiomatic::extract_eq(fit)
+
+library(showtext)
+showtext_auto()

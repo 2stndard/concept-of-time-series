@@ -537,9 +537,8 @@ modeltime은 다음같은 장점이 있다.[^forecasting-iii-4]
     ii. `set_engine()`을 사용하여설정된 예측모형을 생성하기 위해 사용할 엔진을 설정한다. 일반적인 머신러닝 모형의 경우 모형을 생성하기 위한 엔진이 여러개 있는 경우들이 있는데 이런 경우에 적합하다.[^forecasting-iii-5] 하지만 시계열 모델에는 엔진이 많지 않아 적합치는 않지만 tidymodel의 호환성을 위해 사용하는 것으로 보인다.
     iii. `fit()`을 사용하여 생성한 모델에 트레이닝 데이터를 피팅한다.
 
-```{=html}
 <!-- -->
-```
+
 3.  생성된 여러 모델을 model table에 저장한다. `modeltime`에서는 모델을 생성하여 model table에 저장하는 모델을 생성하는 함수로 `modeltime_table()`를 제공한다.
 4.  `modeltime_calibrate()`에 테스트 셋을 사용하여 model table의 모델들을 조정(calibration)한다.
 5.  `modeltime_forecast()`와 `modeltime_accuracy()`를 사용하여 미래 예측치를 산출하고 미래 예측치에 대한 정확성을 측정한다.
