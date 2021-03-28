@@ -233,7 +233,7 @@ ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생�
 ggplot(data = employees, aes(x = time, y = total)) +
   geom_line(aes(group = 1)) + 
   geom_point(shape = 'circle') +
-  labs(title = '월별 취업자수', x = '기간', y = '취업자수') +
+  labs(title = '월별 신규취업자수', x = '기간', y = '취업자수') +
   scale_y_continuous(labels = scales::number_format(big.mark = ',')) +
   scale_x_date(breaks = '6 month') +
   theme(axis.text.x=element_text(angle=90,hjust=1))
@@ -249,7 +249,7 @@ ggplot(data = employees, aes(x = time, y = total)) +
 ggplot(data = covid19, aes(x = date, y = `0-9세`)) +
   geom_line(aes(group = 1)) + 
   geom_point(shape = 'circle') +
-  labs(title = '일별 확진자수(0-9세)', x = '시간') +
+  labs(title = '일별 코로나 확진자수(0-9세)', x = '시간', y = '확진자수') +
   scale_y_continuous(labels = scales::number_format(big.mark = ',')) +   
   scale_x_date(breaks = '15 day') +
   theme(axis.text.x=element_text(angle=90,hjust=1))
@@ -265,7 +265,7 @@ xts패키지의 `plot.xts()`를 활용하는 것은 디자인적 측면에서 `g
 
 ```{r plot_xts_uni}
 library(xts)
-plot.xts(employees.xts$total, main = '월별 취업자수 추세', xlab = '월, 년',  ylab = '취업자수')
+plot.xts(employees.xts$total, main = '월별 취업자수 추이', xlab = '월, 년',  ylab = '취업자수')
 ```
 
 ::: {.comment}
@@ -283,7 +283,7 @@ plot.xts(employees.xts$total, main = '월별 취업자수 추세', xlab = '월, 
 그렇다면 다변량 plot은 어떻게 그릴 수 있을까?  또 다변량 plot은 반드시 범례를 같이 표기해야 하는데 이는 어떻게 추가할까? 같은 `xts` 클래스 데이터에 여러 컬럼으로 저장된 다변량 plot은 단지 `plot.xts()`에 `xts` 객체를 전달할 때 그리고자 하는 컬럼을 전달해주면 같이 그려지고 범례는 `addLegend()`를 사용하면 추가할 수 있다.
 
 ```{r plot_xts_multi}
-plot.xts(employees.xts, main = '연도별 학생수 추세', xlab = '년',  ylab = '학생수', yaxis.right=FALSE)
+plot.xts(employees.xts, main = '연도별 학생수 추이', xlab = '년',  ylab = '학생수', yaxis.right=FALSE)
 addLegend('bottomleft', ncol = 1, bg = 'white', lty=c(rep(1, 12)), lwd=c(rep(2, 12)), bty="o")
 ```
 
@@ -296,7 +296,7 @@ addLegend('bottomleft', ncol = 1, bg = 'white', lty=c(rep(1, 12)), lwd=c(rep(2, 
 만약 같이 그리고자 하는 다변량 데이터가 다른 xts 객체이거나 컬럼을 같이 전달하기가 어려울 경우에는 다음과 같이 `lines()`를 사용하여 겹쳐서 그릴 수 있다.
 
 ```{r plot_xts_multi_line}
-plot.xts(students.xts$초등학교, main = '연도별 학생수 추세', xlab = '년',  ylab = '학생수', yaxis.right=FALSE, ylim = c(0, max(students.xts$초등학교)), col = 'black')
+plot.xts(students.xts$초등학교, main = '연도별 학생수 추이', xlab = '년',  ylab = '학생수', yaxis.right=FALSE, ylim = c(0, max(students.xts$초등학교)), col = 'black')
 lines(students.xts$유치원, lty = 2, col = 'red')
 lines(students.xts$중학교, lty = 3, col = 'blue')
 addLegend('topright', ncol = 1, , legend.names = c('초등학교', '유치원', '중학교'), col = c('black', 'red', 'blue'), lty=c(1, 2, 3), bg = 'white', bty="o")
@@ -487,7 +487,7 @@ employees.tsibble %>%  mutate(time = yearmonth(employees.tsibble$time)) %>%
 ```{r timetk_plot, warning=FALSE, message=FALSE}
 library(timetk)
 students %>%  
-  plot_time_series(.date_var = 연도, .value = 학생수계, .smooth = FALSE)
+  plot_time_series(.date_var = 연도, .value = 학생수계, .smooth = FALSE, .title = 'timetk를 사용한 전체 학생수 플롯', .x_lab = '연도', .y_lab = '학생수')
 ```
 
 ::: {.comment}
@@ -503,7 +503,7 @@ students %>%
 
 ```{r timetk_multiplot, warning=FALSE}
 students.all %>%
-plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F)
+plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F, .title = 'timetk를 사용한 전체 학생수 플롯', .x_lab = '연도', .y_lab = '학생수')
 
 students %>% select(1, 3, 4, 5) %>% 
   tidyr::gather(category, value, 2:4) %>%
@@ -516,10 +516,10 @@ students %>% select(1, 3, 4, 5) %>%
 
 ```{r timetk_emplyees}
 employees %>%
-  plot_time_series(.date_var = time, .value = total, .smooth = F, .title = '월별 취업자수', .x_lab = '시간', .y_lab = '취업자수')
+  plot_time_series(.date_var = time, .value = total, .smooth = F, .title = '월별 취업자수', .x_lab = '연도', .y_lab = '취업자수')
 ```
 
 ```{r timetk_covid19}
 covid19 %>%
-  plot_time_series(.date_var = date, .value = `0-9세`, .smooth = F, .title = '일별 확진자수(0-9세)', .x_lab = '시간', .y_lab = '확진자수')
+  plot_time_series(.date_var = date, .value = `0-9세`, .smooth = F, .title = '일별 확진자수(0-9세)', .x_lab = '연월', .y_lab = '확진자수')
 ```

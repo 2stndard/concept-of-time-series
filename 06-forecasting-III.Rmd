@@ -333,7 +333,7 @@ forecast.fable.employees <- model.fable.employees %>% forecast(h = 24)
 ```{r fable_employees3, message=FALSE, warning=FALSE}
 forecast.fable.employees %>% 
   autoplot(employees.tsibble, level = NULL) +
-  labs(title = 'fable로 생성한 8가지 모델 예측 plot', x = '년월', y = '취업자수')
+  labs(title = '신규 취업자수에 대한 8개 모델의 예측 결과', x = '년월', y = '취업자수')
 ```
 
 ::: {.comment}
@@ -376,7 +376,7 @@ best.model.fable.employees %>%
   autoplot(employees.tsibble, level = NULL, lwd = 1) +
   autolayer(fitted(best.model.fable.employees), lwd = 1) +
   geom_point(aes(x = yearmonth, y = total)) +
-  labs(title = '전체 취업자수 예측 모델', x = '년월', y = '취업자수')
+  labs(title = '신규 취업자수 예측 모델', x = '년월', y = '취업자수')
 ```
 
 ::: {.comment}
@@ -450,7 +450,7 @@ forecast.covid19.tsibble <- model.covid19.tsibble %>%
 예측 결과를 확인하기 위해 plot을 생성한다. 여러 plot이 겹치기 때문에 다소 보기는 힘들다.
 
 ```{r fable_covid5, message=FALSE, warning=FALSE}
-forecast.covid19.tsibble %>% autoplot(fill.covid19.tsibble, level = NULL)
+forecast.covid19.tsibble %>% autoplot(fill.covid19.tsibble, level = NULL) + labs(title = '코로나 확진자(0-9세)에 대한 8가지 모델 예측 결과', x = '날짜', y = '확진자수')
 ```
 
 ::: {.comment}
@@ -493,7 +493,7 @@ best.model.covid19.tsibble %>%
   autoplot(fill.covid19.tsibble, lwd = 1, alpha = 0.6) +
   autolayer(fitted(best.model.covid19.tsibble), lwd = 1) +
   geom_point(aes(x = date, y = `0-9세`)) +
-  labs(title = '코로나 확진자수 예측', x = '년월일', y = '확진자수')
+  labs(title = '코로나 확진자수(0-9세) 예측', x = '연월일', y = '확진자수')
 ```
 
 ::: {.comment}
@@ -537,9 +537,8 @@ modeltime은 다음같은 장점이 있다.[^forecasting-iii-4]
     ii. `set_engine()`을 사용하여설정된 예측모형을 생성하기 위해 사용할 엔진을 설정한다. 일반적인 머신러닝 모형의 경우 모형을 생성하기 위한 엔진이 여러개 있는 경우들이 있는데 이런 경우에 적합하다.[^forecasting-iii-5] 하지만 시계열 모델에는 엔진이 많지 않아 적합치는 않지만 tidymodel의 호환성을 위해 사용하는 것으로 보인다.
     iii. `fit()`을 사용하여 생성한 모델에 트레이닝 데이터를 피팅한다.
 
-```{=html}
 <!-- -->
-```
+
 3.  생성된 여러 모델을 model table에 저장한다. `modeltime`에서는 모델을 생성하여 model table에 저장하는 모델을 생성하는 함수로 `modeltime_table()`를 제공한다.
 4.  `modeltime_calibrate()`에 테스트 셋을 사용하여 model table의 모델들을 조정(calibration)한다.
 5.  `modeltime_forecast()`와 `modeltime_accuracy()`를 사용하여 미래 예측치를 산출하고 미래 예측치에 대한 정확성을 측정한다.
@@ -728,7 +727,7 @@ calibration_tbl %>%
     plot_modeltime_forecast(
       .interactive      = FALSE, 
       .conf_interval_show = FALSE
-    )
+    ) + labs(title = 'modeltime을 사용한 전체 학생수 6개 모델 예측 결과', x = '연도', y = '학생수')
 ```
 
 ::: {.comment}
@@ -776,7 +775,7 @@ models_tbl %>%
     ) %>%
     plot_modeltime_forecast(
       .interactive      = FALSE
-    )
+    ) + labs(title = '전체 학생수 모델 예측 결과', x = '연도', y = '학생수')
 ```
 
 ::: {.comment}
@@ -884,7 +883,7 @@ calibration_tbl %>%
     plot_modeltime_forecast(
       .interactive      = FALSE,
       .conf_interval_show = FALSE
-    )
+    ) + labs(title = 'modeltime을 사용한 신규 취업자수 6개 모델 예측 결과', x = '연도', y = '취업자수')
 ```
 
 육안으로 성능을 판단하기 힘드니 성능측정 지표를 확인한다.
@@ -918,7 +917,7 @@ models_tbl %>%
     ) %>%
     plot_modeltime_forecast(
       .interactive      = FALSE
-    )
+    ) + labs(title = '신규 취업자수 모델 예측 결과', x = '연도', y = '취업자수')
 ```
 
 ### 미래 코로나 확진자수 예측
@@ -1010,7 +1009,7 @@ calibration_tbl %>%
     plot_modeltime_forecast(
       .interactive      = FALSE, 
       .conf_interval_show = FALSE
-    )
+    ) + labs(title = 'modeltime을 사용한 코로나 확진자수(0-9세)에 대한 6개 모델 예측 결과', x = '연도', y = '확진자수')
 ```
 
 성능측정 지수를 사용하여 모델 중에 가장 오류가 적은 모델이 어떤것인지 확인해본다.
@@ -1044,5 +1043,5 @@ models_tbl %>%
     ) %>%
     plot_modeltime_forecast(
       .interactive      = FALSE
-    )
+    ) + labs(title = '코로나 확진자수(0-9세) 모델 예측 결과', x = '날짜', y = '확진자수')
 ```
