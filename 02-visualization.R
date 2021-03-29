@@ -1,28 +1,16 @@
-#install.packages("svglite")
-#install.packages("showtext")
-#install.packages('extrafont')
-library(showtext)
-#library(svglite)
 library(ggplot2)
-library(dplyr)
-#library(extrafont)
-#fonts()
-#fonttable()
-font_add_google("Nanum Gothic", "nanumgothic")
-font_add_google("Poor Story", "poorstory")
-showtext.auto()
-#font_import()
-#theme_update(text=element_text(family="HUJingo340"))
-##3-1
 students %>%
   ggplot(aes(x = 연도, y = 학생수계)) +
   geom_line(aes(group = 1)) + 
-  labs(title = '연도별 학생수 추이', family = 'nanumgothic')
+  labs(title = '연도별 학생수 추이')
+
+
 
 ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
   geom_line(aes(group = 1)) + 
   theme(axis.text.x=element_text(angle=90,hjust=1)) + 
   labs(title = '연도별 학생수 추이', x = '연도')
+
 
 
 ggplot(data = students.all, aes(x = 연도, y = 학생수계)) +
@@ -31,11 +19,13 @@ ggplot(data = students.all, aes(x = 연도, y = 학생수계)) +
   labs(title = '연도별 학생수 추이', x = '연도')
 
 
+
 ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
   geom_line(aes(group = 1)) + 
   geom_point(shape = 'circle') + 
   theme(axis.text.x=element_text(angle=90,hjust=1)) + 
   labs(title = '연도별 학생수 추이', x = '연도')
+
 
 
 ggplot(data = students.all, aes(x = 연도, y = 학생수계)) +
@@ -45,19 +35,21 @@ ggplot(data = students.all, aes(x = 연도, y = 학생수계)) +
   labs(title = '연도별 학생수 추이', x = '연도')
 
 
+
 ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
   geom_line(aes(group = 1)) + 
   geom_point(shape = 'circle') + 
-  geom_text(aes(label = scales::number(학생수계, big.mark = ',')), size = 3, vjust = 1.5) + 
+  geom_text(aes(label = scales::number(학생수계, big.mark = ',')), size = 2, vjust = 1.5) + 
   theme(axis.text.x=element_text(angle=90,hjust=1)) + 
   labs(title = '연도별 학생수 추이', x = '연도')
+
 
 
 library(ggrepel)
 ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
   geom_line(aes(group = 1)) + 
   geom_point(shape = 'circle') + 
-  geom_text_repel(aes(label = scales::number(학생수계, big.mark = ',')), size = 3, vjust = 1.5) + 
+  geom_text_repel(aes(label = scales::number(학생수계, big.mark = ',')), size = 2, vjust = 1.5) + 
   theme(axis.text.x=element_text(angle=90,hjust=1)) + 
   labs(title = '연도별 학생수 추이', x = '연도')
 
@@ -66,45 +58,55 @@ ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생�
 ggplot(data = students, aes(x = as.factor(lubridate::year(연도)), y = 학생수계)) +
   geom_line(aes(group = 1)) +
   geom_point(shape = 'circle') + 
-  geom_text_repel(aes(label = scales::number(학생수계, big.mark = ',')), size = 3, vjust = 1.5) +   
+  geom_text_repel(aes(label = scales::number(학생수계, big.mark = ',')), size = 2, vjust = 1.5) +   
   theme(axis.text.x=element_text(angle=90,hjust=1)) + 
   labs(title = '연도별 학생수 추이', x = '연도') +
   scale_y_continuous(labels = scales::number_format(big.mark = ','))
 
 
+
 ggplot(data = employees, aes(x = time, y = total)) +
   geom_line(aes(group = 1)) + 
   geom_point(shape = 'circle') +
-  labs(title = '월별 취업자수', x = '기간', y = '취업자수') +
+  labs(title = '월별 신규 취업자수', x = '기간', y = '취업자수') +
   scale_y_continuous(labels = scales::number_format(big.mark = ',')) +
   scale_x_date(breaks = '6 month') +
   theme(axis.text.x=element_text(angle=90,hjust=1))
 
 
+
 ggplot(data = covid19, aes(x = date, y = `0-9세`)) +
   geom_line(aes(group = 1)) + 
   geom_point(shape = 'circle') +
-  labs(title = '일별 확진자수(0-9세)', x = '시간') +
+  labs(title = '일별 코로나 확진자수(0-9세)', x = '시간', y = '확진자수') +
   scale_y_continuous(labels = scales::number_format(big.mark = ',')) +   
   scale_x_date(breaks = '15 day') +
   theme(axis.text.x=element_text(angle=90,hjust=1))
 
 
-library(xts)
-plot.xts(employees.xts$total, main = '월별 취업자수 추세', xlab = '월, 년',  ylab = '취업자수')
+
+plot.xts(employees.xts, main = '연도별 학생수 추이', xlab = '연',  ylab = '학생수', yaxis.right=FALSE)
 
 
-plot.xts(employees.xts, main = '연도별 학생수 추세', xlab = '년',  ylab = '학생수', yaxis.right=FALSE)
 addLegend('bottomleft', ncol = 1, bg = 'white', lty=c(rep(1, 12)), lwd=c(rep(2, 12)), bty="o")
 
 
-plot.xts(students.xts$초등학교, main = '연도별 학생수 추세', xlab = '년',  ylab = '학생수', yaxis.right=FALSE, ylim = c(0, max(students.xts$초등학교)), col = 'black')
+plot.xts(students.xts$초등학교, main = '연도별 학생수 추세', xlab = '연',  ylab = '학생수', yaxis.right=FALSE, ylim = c(0, max(students.xts$초등학교)), col = 'black')
+
+
+
 lines(students.xts$유치원, lty = 2, col = 'red')
+
+
 lines(students.xts$중학교, lty = 3, col = 'blue')
+
+
 addLegend('topright', ncol = 1, , legend.names = c('초등학교', '유치원', '중학교'), col = c('black', 'red', 'blue'), lty=c(1, 2, 3), bg = 'white', bty="o")
 
 
 plot.xts(covid19.xts, main = '일별 확진자수', xlab = '날짜',  ylab = '확진자수')
+
+
 addLegend('topleft', ncol = 2, , legend.names = c('0-9세', '10-19세', '20-29세', '30-39세', '40-49세', '50-59세', '60-69세', '70-79세', '80세 이상'), lty = 1, bg = 'white', bty="o")
 
 
@@ -112,13 +114,16 @@ library(forecast)
 autoplot(students.ts[,-1], main = '연도별 학생수', xlab = '연도', ylab = '학생수')
 
 
+
 autoplot(students.ts[, 4], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '초등학교') +  
   autolayer(students.ts[, 3], series = '유치원') + 
   autolayer(students.ts[, 5], series = '중학교') + 
-  labs(color = "학교급")
+  labs(colour = "학교급")
+
 
 
 autoplot(students.ts[, 3:5], main = '연도별 학생수', xlab = '연도', ylab = '학생수', facet = TRUE)
+
 
 
 autoplot(students.ts[,2], main = '연도별 학생수', xlab = '연도', ylab = '학생수', series = '유치원', lty = 1, lwd = 1) +
@@ -132,7 +137,9 @@ autoplot(students.ts[,2], main = '연도별 학생수', xlab = '연도', ylab = 
 autoplot(employees.ts[,2], main = '월별 취업자수', xlab = '연도', ylab = '취업자수', series = '전체 취업자', lty = 1, lwd = 1)
 
 
+
 autoplot(covid19.ts[,2], main = '일별 확진자수(0-9세)', xlab = '날짜', ylab = '확진자수', series = '확진자', lty = 1, lwd = 1)
+
 
 
 library(feasts)
@@ -141,8 +148,12 @@ students.tsibble %>% autoplot(학생수계)+
   labs(title = '연도별 학생수', x = '연도', y = '학생수')
 
 
+
+
 students.tsibble %>% select(1, 3, 4, 5) %>% 
   tidyr::gather(category, value, 2:4) %>% autoplot()
+
+
 
 
 ggplot(students.tsibble, aes(x = 연도)) +
@@ -154,69 +165,45 @@ ggplot(students.tsibble, aes(x = 연도)) +
   scale_colour_manual(values = c('초등학교' = "red", '유치원' = "blue", '중학교' = 'darkgreen'))
 
 
-library(lubridate)
-library(tsibble)
+
+
 employees.tsibble %>% mutate(time = yearmonth(employees.tsibble$time)) %>%
   gg_season(total)
+
+
 
 
 employees.tsibble %>%  mutate(time = yearmonth(employees.tsibble$time)) %>%
   gg_subseries(total)
 
 
-install.packages('RSelenium')
-install.packages("processx")
-library(processx)
-library(RSelenium)
+
+
 library(timetk)
-library(plotly)
-setEPS()
-postscript("3-31.eps")
 students %>%  
-  plot_time_series(.date_var = 연도, .value = 학생수계, .smooth = FALSE)
-dev.off()
-plot_ly() %>%
-  config(
-    toImageButtonOptions = list(
-      format = "svg",
-      filename = "myplot",
-      width = 600,
-      height = 700
-    )
-  )
-students %>%  
-  plot_time_series(.date_var = 연도, .value = 학생수계, .smooth = FALSE)  %>%
-  config(
-    toImageButtonOptions = list(
-      format = "svg",
-      filename = "myplot",
-      width = 600,
-      height = 700
-    )
-  )
+  plot_time_series(.date_var = 연도, .value = 학생수계, .smooth = FALSE, .title = 'timetk를 사용한 전체 학생수 플롯', .x_lab = '연도', .y_lab = '학생수')
 
 
-out <- plotly_IMAGE(fig, format = 'svg', out_file = '3-31.svg')
-
-orca(fig, '3-31.svg')
-plotly.io.write_image(fig, '')
-?plotly.io.write_image
-students %>%
-  plot_time_series(.date_var = 연도, .value = 학생수계, .smooth = FALSE)
 
 
 students.all %>%
-  plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F)
+  plot_time_series(.date_var = 연도, .value = 학생수계, .color_var = 지역규모, .smooth = F, .title = 'timetk를 사용한 전체 학생수 다변량 플롯', .x_lab = '연도', .y_lab = '학생수', .interactive = FALSE) + theme(axis.text.x=element_text(angle=90,hjust=1))
+
+
+
 
 students %>% select(1, 3, 4, 5) %>% 
   tidyr::gather(category, value, 2:4) %>%
-  plot_time_series(.date_var = 연도, .value = value, .color_var = category, .smooth = F)
+  plot_time_series(.date_var = 연도, .value = value, .color_var = category, .smooth = F, .title = 'timetk를 사용한 전체 학생수 플롯', .x_lab = '연도', .y_lab = '학생수')
+
+
 
 
 employees %>%
-  plot_time_series(.date_var = time, .value = total, .smooth = F, .title = '월별 취업자수', .x_lab = '시간', .y_lab = '취업자수')
+  plot_time_series(.date_var = time, .value = total, .smooth = F, .title = '월별 신규 취업자수', .x_lab = '연도', .y_lab = '취업자수')
+
 
 
 
 covid19 %>%
-  plot_time_series(.date_var = date, .value = `0-9세`, .smooth = F, .title = '일별 확진자수(0-9세)', .x_lab = '시간', .y_lab = '확진자수')
+  plot_time_series(.date_var = date, .value = `0-9세`, .smooth = F, .title = '일별 코로나 확진자수(0-9세)', .x_lab = '연월', .y_lab = '확진자수')
