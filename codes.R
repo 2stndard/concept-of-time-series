@@ -38,7 +38,7 @@ unclass(date)
 as.POSIXct('2021-01-31 12:34:56')
 
 # POSIXct를 해제하면 정수
-unclass(as.POSIXct('2021-01-31 12:34:55'))
+unclass(as.POSIXct('2021-01-31 12:34:56'))
 
 # character를 POSIXlt class로 변환
 as.POSIXlt('2021-01-31 12:34:56')
@@ -61,6 +61,7 @@ unclass(as.yearmon("2007-02"))
 
 # 날짜가 있어도 yearmon은 연, 월까지만 인식
 as.yearmon("2007-02-01")
+?as.yearmon
 
 # character를 yearqtr class로 변환(1분기)
 as.yearqtr("2007-01")
