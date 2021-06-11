@@ -1992,3 +1992,6 @@ models_tbl %>%
   plot_modeltime_forecast(
     .interactive = FALSE
   ) + labs(title = '코로나 확진자수(0-9세) 모델 예측 결과', x = '날짜', y = '확진자수')
+
+
+?sessionInfo()
