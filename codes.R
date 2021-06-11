@@ -1994,4 +1994,22 @@ models_tbl %>%
   ) + labs(title = '코로나 확진자수(0-9세) 모델 예측 결과', x = '날짜', y = '확진자수')
 
 
-?sessionInfo()
+install.packages('bsts')
+library(bsts)
+
+data(iclaims)     # bring the initial.claims data into scope
+employees.xts
+class(initial.claims)
+ss <- AddLocalLinearTrend(list(), employees.xts$total)
+ss <- AddSeasonal(ss, employees.xts$total, nseasons = 12)
+model1 <- bsts(employees.xts$total,
+               state.specification = ss,
+               niter = 1000)
+plot(employees.xts$total)
+
+plot(model1)
+plot(model1, "components")  # plot(model1, "comp") works too!
+plot(model1, "help")
+
+pred1 <- predict(model1, horizon = 12)
+plot(pred1, plot.original = 156)
