@@ -1460,6 +1460,7 @@ auto.arima(covid19.ts[,2])
 
 sarima(covid19.ts[,2], 2, 1, 1)
 
+
 # 전체 취업자수 데이터를 분기별 합계 데이터로 변환
 employees %>% mutate(year = lubridate::year(time),
                      qtr = lubridate::quarter(time)) %>%
@@ -1576,10 +1577,10 @@ if(!require(prophet)) {
   install.packages('prophet')
   library(prophet)
 }
-
+library(prophet)
 students.prophet <- data.frame(ds = students$연도, y = students$학생수계)
 
-model.prophet.students <- prophet(students.prophet)
+model.prophet.students <- prophet::prophet(students.prophet)
 
 future.students <- make_future_dataframe(model.prophet.students, periods = 10, freq = 'year')
 
@@ -1595,7 +1596,7 @@ prophet_plot_components(model.prophet.students, forecast.students)
 
 employees.prophet <- data.frame(ds = employees[,1], y = employees[,2])
 
-model.prophet.employees <- prophet(employees.prophet)
+model.prophet.employees <- prophet::prophet(employees.prophet)
 
 future.employees <- make_future_dataframe(model.prophet.employees, periods = 10, freq = 'month')
 
@@ -1609,7 +1610,7 @@ prophet_plot_components(model.prophet.employees, forecast.employees)
 
 covid.prophet <- data.frame(ds = covid19$date, y = covid19$`0-9세`)
 
-model.prophet.covid <- prophet(covid.prophet, yearly.seasonality=TRUE, daily.seasonality=TRUE, weekly.seasonality=TRUE)
+model.prophet.covid <- prophet::prophet(covid.prophet, yearly.seasonality=TRUE, daily.seasonality=TRUE, weekly.seasonality=TRUE)
 
 future.covid <- make_future_dataframe(model.prophet.covid, periods = 100, freq = 'day')
 
@@ -1698,7 +1699,7 @@ model.fable.employees <- employees.tsibble.tr %>%
         rw = RW(total),
         mean = MEAN(total),
         nnetar = NNETAR(total),
-        prophet = prophet(total)
+        prophet = fable.prophet::prophet(total)
   )
 
 forecast.fable.employees <- model.fable.employees %>% forecast(h = 24)
@@ -1707,7 +1708,7 @@ forecast.fable.employees %>%
   autoplot(employees.tsibble, level = NULL) +
   labs(title = 'fable로 생성한 8가지 모델 예측 플롯', x = '연월', y = '취업자수')
 
-forecast.fable.employees %>% accuracy(employees.tsibble.test) %>% arrange(RMSE)
+forecast.fable.employees %>% forecast::accuracy(employees.tsibble.test) %>% arrange(RMSE)
 
 best.model.fable.employees <- model.fable.employees %>%
   select(naive, rw)
@@ -1747,7 +1748,7 @@ forecast.covid19.tsibble <- model.covid19.tsibble %>%
 
 forecast.covid19.tsibble %>% autoplot(fill.covid19.tsibble, level = NULL) + labs(title = '코로나 확진자(0-9세)에 대한 8가지 모델 예측 결과', x = '날짜', y = '확진자수')
 
-forecast.covid19.tsibble %>% accuracy(fill.covid19.tsibble.test) %>% arrange(RMSE)
+forecast.covid19.tsibble %>% forecast::accuracy(fill.covid19.tsibble.test) %>% arrange(RMSE)
 
 best.model.covid19.tsibble <- model.covid19.tsibble %>% select(prophet)
 
@@ -1920,15 +1921,15 @@ models_tbl %>%
 
 splits.covid19 <- initial_time_split(covid19, prop = 0.9)
 
-model_fit_arima <- arima_reg() %>%
+model_fit_arima <- arima_reg(seasonal_period = 365) %>%
   set_engine(engine = "auto_arima") %>%
   fit(`0-9세` ~ date, data = training(splits.covid19))
 
-model_fit_ets <- exp_smoothing() %>%
+model_fit_ets <- exp_smoothing(seasonal_period = 365) %>%
   set_engine(engine = "ets") %>%
   fit(`0-9세` ~ date, data = training(splits.covid19))
 
-model_fit_prophet <- prophet_reg() %>%
+model_fit_prophet <- prophet_reg(seasonality_daily = TRUE, seasonality_weekly = TRUE, ) %>%
   set_engine(engine = "prophet") %>%
   fit(`0-9세` ~ date, data = training(splits.covid19))
 
@@ -1944,6 +1945,7 @@ model_fit_nnetar <- nnetar_reg() %>%
 model_fit_tbats <- seasonal_reg() %>%
   set_engine("tbats") %>%
   fit(`0-9세` ~ date, data = training(splits.covid19))
+
 
 (models_tbl <- modeltime_table(
   model_fit_arima,
@@ -1994,22 +1996,55 @@ models_tbl %>%
   ) + labs(title = '코로나 확진자수(0-9세) 모델 예측 결과', x = '날짜', y = '확진자수')
 
 
-install.packages('bsts')
 library(bsts)
 
-data(iclaims)     # bring the initial.claims data into scope
-employees.xts
-class(initial.claims)
-ss <- AddLocalLinearTrend(list(), employees.xts$total)
-ss <- AddSeasonal(ss, employees.xts$total, nseasons = 12)
-model1 <- bsts(employees.xts$total,
-               state.specification = ss,
+
+students.ss <- AddLocalLinearTrend(list(), students.xts[, 1])
+##students.ss <- AddSeasonal(students.ss, students.xts[, 1], nseasons = 1)
+students.bayesian.model <- bsts(students.xts[, 1]~students.xts[, 2]+students.xts[, 3], data = students.xts, 
+                                 state.specification = students.ss,
+                                 niter = 1000)
+
+plot(students.bayesian.model)
+plot(students.bayesian.model, "components")  # plot(model1, "comp") works too!
+
+students.bayesian.pred <- predict(students.bayesian.model, horizon = 12, newdata = students.xts)
+plot(students.bayesian.pred)
+plot(students.bayesian.model, burn = 100)
+plot(students.bayesian.model, "residuals", burn = 100)
+plot(students.bayesian.model, "components", burn = 100)
+plot(students.bayesian.model, "forecast.distribution", burn = 100)
+
+
+
+employees.ss <- AddLocalLinearTrend(list(), employees.xts[, 1])
+employees.ss <- AddSeasonal(employees.ss, employees.xts[, 1], nseasons = 12)
+employees.ss <- AddSeasonal(employees.ss, employees.xts[, 1], nseasons = 4)
+
+employees.bayesian.model <- bsts(employees.xts[, 1],
+               state.specification = employees.ss,
                niter = 1000)
-plot(employees.xts$total)
 
-plot(model1)
-plot(model1, "components")  # plot(model1, "comp") works too!
-plot(model1, "help")
+plot(employees.bayesian.model)
+plot(employees.bayesian.model, "components")  # plot(model1, "comp") works too!
 
-pred1 <- predict(model1, horizon = 12)
-plot(pred1, plot.original = 156)
+employees.bayesian.pred <- predict(employees.bayesian.model, horizon = 12)
+plot(employees.bayesian.pred)
+plot(employees.bayesian.model, burn = 100)
+plot(employees.bayesian.model, "residuals", burn = 100)
+plot(employees.bayesian.model, "components", burn = 100)
+plot(employees.bayesian.model, "forecast.distribution", burn = 100)
+
+
+covid19.ss <- AddLocalLinearTrend(list(), covid19.xts[, 1])
+covid19.ss <- AddSeasonal(covid19.ss, covid19.xts[, 1], nseasons = 52, season.duration = 7)
+covid19.bayesian.model <- bsts(covid19.xts[, 1],
+               state.specification = covid19.ss,
+               niter = 100)
+plot(covid19.xts[, 1])
+
+plot(covid19.bayesian.model)
+plot(covid19.bayesian.model, "components")  # plot(model1, "comp") works too!
+
+covid19.bayesian.pred <- predict(covid19.bayesian.model, horizon = 30)
+plot(pred1)
