@@ -1,3 +1,5 @@
+library(tidyverse)
+
 (date <- as.Date(c('2021-01-31', '2021-02-28', '2021-03-31')))
 (date <- as.Date(c('21/01/31', '21/02/28', '21/03/31'), format = '%y/%m/%d'))
 unclass(date)
@@ -74,6 +76,8 @@ as_tsibble(x, index = date)
 
 
 library(readxl)
+library(tsibble)
+library(xts)
 students.all <- read_excel("./students.xlsx", skip = 16, na = '-', sheet = 1, col_types = c('text', 'text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric'))
 students <- students.all %>% 
   filter(지역규모 == '계') %>% select(-지역규모)
