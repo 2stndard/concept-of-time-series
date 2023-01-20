@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1.2 시계열 데이터의 특성 | Untitled</title>
   <meta name="description" content="1.2 시계열 데이터의 특성 | Untitled" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1.2 시계열 데이터의 특성 | Untitled" />
   <meta property="og:type" content="book" />
-  
   
   
   
@@ -24,7 +23,7 @@
 <meta name="author" content="이기준" />
 
 
-<meta name="date" content="2021-03-05" />
+<meta name="date" content="2023-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="시계열-데이터란time-series-data.html"/>
 <link rel="next" href="시계열-데이터-타입-및-import.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,13 +49,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -117,6 +119,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -169,11 +172,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="시계열-visualization.html"><a href="시계열-visualization.html"><i class="fa fa-check"></i><b>3</b> 시계열 Visualization</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data-frame-ggplot2-패키지.html"><a href="data-frame-ggplot2-패키지.html"><i class="fa fa-check"></i><b>3.1</b> data.frame : ggplot2 패키지</a></li>
+<li class="chapter" data-level="3.1" data-path="data.frame-ggplot2-패키지.html"><a href="data.frame-ggplot2-패키지.html"><i class="fa fa-check"></i><b>3.1</b> data.frame : ggplot2 패키지</a></li>
 <li class="chapter" data-level="3.2" data-path="xts-xts-패키지.html"><a href="xts-xts-패키지.html"><i class="fa fa-check"></i><b>3.2</b> xts : xts 패키지</a></li>
 <li class="chapter" data-level="3.3" data-path="ts-forecast-패키지.html"><a href="ts-forecast-패키지.html"><i class="fa fa-check"></i><b>3.3</b> ts : forecast 패키지</a></li>
 <li class="chapter" data-level="3.4" data-path="tsibble-feasts-패키지.html"><a href="tsibble-feasts-패키지.html"><i class="fa fa-check"></i><b>3.4</b> tsibble : feasts 패키지</a></li>
-<li class="chapter" data-level="3.5" data-path="data-frame-timetk-패키지.html"><a href="data-frame-timetk-패키지.html"><i class="fa fa-check"></i><b>3.5</b> data.frame : timetk 패키지</a></li>
+<li class="chapter" data-level="3.5" data-path="data.frame-timetk-패키지.html"><a href="data.frame-timetk-패키지.html"><i class="fa fa-check"></i><b>3.5</b> data.frame : timetk 패키지</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="시계열-데이터-처리.html"><a href="시계열-데이터-처리.html"><i class="fa fa-check"></i><b>4</b> 시계열 데이터 처리</a>
 <ul>
@@ -189,7 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.10" data-path="월별-분기별-연별-누적합계.html"><a href="월별-분기별-연별-누적합계.html"><i class="fa fa-check"></i><b>4.10</b> 월별, 분기별, 연별 누적합계</a></li>
 <li class="chapter" data-level="4.11" data-path="동월별-동분기별-동년별-plot.html"><a href="동월별-동분기별-동년별-plot.html"><i class="fa fa-check"></i><b>4.11</b> 동월별, 동분기별, 동년별 Plot</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="시계열-forecasting-part-i-기초컨셉.html"><a href="시계열-forecasting-part-i-기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
+<li class="chapter" data-level="5" data-path="시계열-forecasting-part-i---기초컨셉.html"><a href="시계열-forecasting-part-i---기초컨셉.html"><i class="fa fa-check"></i><b>5</b> 시계열 forecasting Part I - 기초컨셉</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="정상성stationary-비정상성non-stationary.html"><a href="정상성stationary-비정상성non-stationary.html"><i class="fa fa-check"></i><b>5.1</b> 정상성(Stationary), 비정상성(Non-Stationary)</a></li>
 <li class="chapter" data-level="5.2" data-path="지연lag와-차분difference.html"><a href="지연lag와-차분difference.html"><i class="fa fa-check"></i><b>5.2</b> 지연(Lag)와 차분(Difference)</a></li>
@@ -200,7 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.7" data-path="정상성-테스트.html"><a href="정상성-테스트.html"><i class="fa fa-check"></i><b>5.7</b> 정상성 테스트</a></li>
 <li class="chapter" data-level="5.8" data-path="계절성-검정.html"><a href="계절성-검정.html"><i class="fa fa-check"></i><b>5.8</b> 계절성 검정</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii-시계열-예측-모델.html"><a href="시계열-forecasting-part-ii-시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
+<li class="chapter" data-level="6" data-path="시계열-forecasting-part-ii---시계열-예측-모델.html"><a href="시계열-forecasting-part-ii---시계열-예측-모델.html"><i class="fa fa-check"></i><b>6</b> 시계열 forecasting Part II - 시계열 예측 모델</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="평균-모델.html"><a href="평균-모델.html"><i class="fa fa-check"></i><b>6.1</b> 평균 모델</a></li>
 <li class="chapter" data-level="6.2" data-path="단순naïve-모델.html"><a href="단순naïve-모델.html"><i class="fa fa-check"></i><b>6.2</b> 단순(Naïve) 모델</a></li>
@@ -229,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.9" data-path="prophet-모델.html"><a href="prophet-모델.html"><i class="fa fa-check"></i><b>6.9</b> prophet 모델</a></li>
 <li class="chapter" data-level="6.10" data-path="신경망neural-network-모델.html"><a href="신경망neural-network-모델.html"><i class="fa fa-check"></i><b>6.10</b> 신경망(Neural Network) 모델</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii-시계열-분석-framework.html"><a href="시계열-forecasting-part-iii-시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
+<li class="chapter" data-level="7" data-path="시계열-forecasting-part-iii---시계열-분석-framework.html"><a href="시계열-forecasting-part-iii---시계열-분석-framework.html"><i class="fa fa-check"></i><b>7</b> 시계열 forecasting Part III - 시계열 분석 Framework</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="성능분석-지수.html"><a href="성능분석-지수.html"><i class="fa fa-check"></i><b>7.1</b> 성능분석 지수</a>
 <ul>
@@ -276,10 +279,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="시계열-데이터의-특성" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> 시계열 데이터의 특성</h2>
-<div id="고정된-시간-독립변수" class="section level3" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> 고정된 시간 독립변수</h3>
+<div id="시계열-데이터의-특성" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> 시계열 데이터의 특성<a href="시계열-데이터의-특성.html#시계열-데이터의-특성" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="고정된-시간-독립변수" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> 고정된 시간 독립변수<a href="시계열-데이터의-특성.html#고정된-시간-독립변수" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>일반적으로 데이터 분석 시에는 독립변수와 종속변수간의 관계를 분석하는 것이 목적인 경우가 많다.</p>
 <p>종속변수의 행동을 예측하기 위해서는 하나 혹은 여러 개의 독립변수가 필요하고 이들간의 관계성을 알아냄으로써 향후 독립 변수에 따라 종속변수의 예측값을 도출한다. 예를 들어 자동차의 속도가 빠를수록 제동 거리는 길어지게 된다. 이를 그래프 상으로 보면 양의 상관관계를 보이는데 이 경우는 제동거리를 종속변수로, 자동차 속도를 독립변수로 분석할 수 있다.</p>
 <p>그러나 <strong>시계열 데이터는 독립변수가 시간으로 고정</strong>된다. 따라서 시계열 데이터는 타 변수와의 상관관계 없이 분석이 된다는 점에서 다른 데이터와의 차이가 있다.</p>
@@ -287,22 +290,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>시계열 데이터를 구축하는데 중요한 요소는 기록되는 시간 간격이 동일해야 한다는 점이다. 예를 들어 매월 마다 측정된 어떤 물품의 판매량이 있다면 데이터 전체적으로 매월 데이터가 기록되어야 하지만 특정 기간 동안 주간 데이터로 기록되거나 분기데이터로 기록되면 올바른 시계열 데이터로 볼 수 없다. 매 시간, 매 일, 매 월, 매 분기, 매 년 등 데이터가 기록된 간격이 일정해야 시계열 데이터를 다루기 위한 다양한 함수들에 적용이 가능하다.</p>
 <p>이것은 간격이 일정 하더라도 결측치에 의해 모든 간격의 데이터가 기록되지 않은 것과는 다르다. 결측치가 있는 데이터는 시계열 데이터의 plot을 만들고 EDA(Exploratory Data Analysis)를 수행할 수는 있으나 모델링을 하고 예측에 적용하기 위해서는 결측치를 적절히 처리하는 것이 중요하다.</p>
 </div>
-<div id="자기-상관관계autocorrelation" class="section level3" number="1.2.2">
-<h3><span class="header-section-number">1.2.2</span> 자기 상관관계(Autocorrelation)</h3>
+<div id="자기-상관관계autocorrelation" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> 자기 상관관계(Autocorrelation)<a href="시계열-데이터의-특성.html#자기-상관관계autocorrelation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>최근 우리나라는 저출산 고령화 사회에 접어들었다고 한다. 우리나라의 출생아 수는 지속적으로 줄고 있는 추세가 몇 년째 계속되고 있다고 뉴스에서 보도되고 있다. 작년에 비해 올해가 줄었고 재작년에 비해 작년이 줄었다. 우리나라에 특별한 사건이나 이슈가 발생하지 않는 이상 이러한 추세는 반복될 것이다. 이와 같이 과거의 데이터가 현재의 데이터에 영향을 주는 경향을 자기상관이라고 한다. 시계열 데이터는 일련의 시간 간의 흐름에 따라 기록되는 데이터들의 집합이기 때문에 인접한 시간의 데이터간의 상관관계가 존재하는 경우가 많다.</p>
 <p>일반적으로 상관관계는 서로 다른 두개의 변수간의 경향성을 살펴본다. 기온과 아이스크림 판매량, 자동차 속도와 제동 거리 등과 같이 한 변수가 움직일 때 다른 변수가 어떻게 움직이는지를 살펴보는 것이 상관관계이고 이를 수치화하는 것이 상관계수이다. 하지만 자기 상관관계는 자기 자신의 n번째 과거 데이터(n차 지연(lag) 데이터)와 현재 데이터간의 상관관계를 의미한다. 상관관계가 존재한다는 것은 n차 지연데이터와 현재 데이터간의 상관계수가 높다는 점을 의미한다.</p>
 <p>아래 그림의 왼쪽 표는 1999년부터 2020년까지의 우리나라 유, 초, 중, 고등학교의 전체 학생수를 나타내고 있다. 1년전 전체 학생수와 전체 학생수에 대한 plot은 오른쪽의 plot이다. 이 plot을 보면 1년전 학생수가 증가하면 전체 학생수가 증가하는 매우 관계성이 높은 plot이 나타난다. 이는 전체 학생수는 자기 자신의 데이터와의 상관성, 즉 자기 상관성이 매우 높다고 말할 수 있다.</p>
 <p><img src="autocorelation.png" /></p>
 </div>
-<div id="추세-경향성trend" class="section level3" number="1.2.3">
-<h3><span class="header-section-number">1.2.3</span> 추세 경향성(Trend)</h3>
+<div id="추세-경향성trend" class="section level3 hasAnchor" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> 추세 경향성(Trend)<a href="시계열-데이터의-특성.html#추세-경향성trend" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>시계열 데이터는 장기적으로 점차 증가하거나 점차 감소하는 추세 경향성을 보이는 경우가 있다. 사실 시계열 데이터 분석에서 우리가 가장 원하는 것이 데이터가 그동안 어떤 추세를 보였고 이 추세가 유지된다면 앞으로 어떻게 미래를 대응해야 할지를 결정하기 위한 정보이다. 따라서 이 추세 경향성을 어떻게 찾아낼 것인가가 시계열 분석에서 중요한 부분이다.</p>
 <p>아래의 그림은 위에서 살펴본 우리나라 총 학생수의 plot이다. plot에서도 보다시피 우리나라의 총 학생수는 전반적으로 감소하는 추세에 있다. 2003년에서부터 2007년까지는 추세가 유지되었지만 이후 급격히 감소하는 추세가 있음을 눈으로 쉽게 확인할 수 있다.</p>
 <p><img src="trend.png" /></p>
 <p>추세 경향성은 시간의 흐름에 따라 나타나는 인구, 경기, 기술, 환경 등의 변화에 따라 영향을 받는 데이터의 중장기적인 지속적 데이터의 변동을 말하는데 시간 축에 따라 발생하는 데이터 변동에 대한 그래프에서 확인이 가능하다. 이 추세변동성을 해석할 때는 변동성을 단순한 선형 회귀로 단정하여 예측하지 않도록 주의해야 한다. 추세 경향성을 선형 회귀로 분석할 때는 앞서 언급한 자기 상관관계가 있는지를 먼저 확인한 후에 적용해야 한다. 자기 상관관계가 있는 경우에는 선형회귀외에 다른 시계열 분석방법을 함께 고려하고 성능을 분석하여 더 좋은 모델을 사용하도록 해야한다.</p>
 </div>
-<div id="계절성seasonality-순환성cyclic" class="section level3" number="1.2.4">
-<h3><span class="header-section-number">1.2.4</span> 계절성(Seasonality), 순환성(Cyclic)</h3>
+<div id="계절성seasonality-순환성cyclic" class="section level3 hasAnchor" number="1.2.4">
+<h3><span class="header-section-number">1.2.4</span> 계절성(Seasonality), 순환성(Cyclic)<a href="시계열-데이터의-특성.html#계절성seasonality-순환성cyclic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>시계열 데이터는 중장기적인 추세경향성외에 데이터가 달력(Calendar)상의 날짜나 기간에 따라 주기적으로 변화하거나 장기적인 시간의 흐름에 따라 오르거나 내리는 추세가 반복되는 변동성을 가지는 경우가 있다.</p>
 <p>달력 상의 날짜나 기간에 따라 데이터가 변동되는 경우의 대표적인 예가 월별 아이스크림 판매량, 밸런타인데이의 초콜릿 판매량, 크리스마스 기간의 소매 판매량, 설, 추석의 고속도로 이용자수 등이다.</p>
 <p>이는 앞으로 사용할 우리나라 월별 전체 취업자수 plot에서도 명확하게 나타난다. 아래의 그림은 2013년부터 2020년까지의 우리나라의 월별 신규 취업자수 plot이다. plot을 보면 매년 겨울에는 신규 취업자수는 전반적으로 줄어들고 봄부터 증가하고 여름에 잠시 줄어들며 가을에 다소 회복했다가 다시 겨울이 시작하면서 줄어드는 계절성을 보인다.</p>
@@ -310,8 +313,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>이와 같이 계절성은 봄, 여름, 가을, 겨울과 같은 계절, 일, 주, 월, 분기와 같은 기간의 변화에 따라 주기적으로 변동하는 시계열 성질을 말한다. 이에 비해 순환성은 일정한 기간의 특징없이 데이터의 변동성이 반복되거나 1년을 넘겨 주기적으로 발생하는 데이터의 반복성을 말한다.</p>
 <p>계절성과 순환성은 혼동되는 경우가 많다. 계절성은 주기가 고정된 기간에 대한 순환성이고 순환성은 변동적 기간에 대한 순환성이고 일반적으로 순환성의 주기가 계절성 주기보다 길기 때문에 계절성은 언제쯤 데이터 피크(Peak)가 나타날지 예측이 가능하나 순환성은 데이터 피크에 대한 예측이 어려운 성질이 있다.</p>
 </div>
-<div id="불확실성uncertainty" class="section level3" number="1.2.5">
-<h3><span class="header-section-number">1.2.5</span> 불확실성(Uncertainty)</h3>
+<div id="불확실성uncertainty" class="section level3 hasAnchor" number="1.2.5">
+<h3><span class="header-section-number">1.2.5</span> 불확실성(Uncertainty)<a href="시계열-데이터의-특성.html#불확실성uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>우리는 아침마다 일기예보를 확인한다. 일기예보는 오늘 비가 올 확률을 알려주고, 일기예보를 확인한 사람들은 비 올 확률을 보고 우산을 가져갈지 안 가져갈지에 대한 판단을 한다. 기상청에서는 우리에게 주는 정보는 결국 불확실성인 것이다.</p>
 <p>아래의 그림은 기상청에서 제공하는 태풍의 경로 이다. 태풍이 앞으로 어떻게 이동할지를 시간대별로 예측한 그림으로 현재 서귀포 부근에 상륙한 태풍은 부산, 독도를 지나 일본 삿포로로 빠져나갈 것이라고 예측하고 있다. 하지만 그 태풍의 경로를 둘러싸고 있는 범위를 보면 태풍의 위치 70% 확률 반경의 범위가 보인다. 결국 태풍의 경로는 70%의 확률로 그 범위 안에 있을 것이라는 것이다.</p>
 <p>여기서 하나 주의해야할 것은 태풍의 경로가 70% 범위 라는 것은 태풍이 그 경로를 지나갈 확률이 70%라는 것이 아니고 수많은 예측을 수행했을 때 태풍의 경로 예측치의 70%가 해당 범위 내에 있다는 것이다. 좀 이해하기 어렵고 말장난 같을 수 있을 것이다.</p>
@@ -333,7 +336,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -352,6 +354,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -372,6 +375,10 @@ gitbook.start({
 "text": null
 },
 "download": ["t.pdf", "t.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -385,7 +392,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
