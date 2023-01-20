@@ -4,12 +4,17 @@
 ###  7.2 fable 프레임워크
 ###  7.2.1 미래 학생수 예측
 
+<<<<<<< HEAD
 split <- floor(nrow(students.tsibble) * 0.9)
+=======
+split <- floor(nrow(students.tsibble) * 0.8)
+>>>>>>> 5679ab7c3ffdab03bbff91fcfb2a1d3a72e44fcd
 
 students.tsibble.tr <- students.tsibble[1:split, ]
 
 students.tsibble.test <- students.tsibble[(split+1):nrow(students.tsibble), ]
 
+<<<<<<< HEAD
 students.tsibble.test3 <- students.tsibble.tr
 
 
@@ -22,11 +27,17 @@ View(students.tsibble.test2)
 students.tsibble.test2 <- students.tsibble[(split+1):nrow(students.tsibble), ]
 
 
+=======
+>>>>>>> 5679ab7c3ffdab03bbff91fcfb2a1d3a72e44fcd
 library(fable)
 
 library(fable.prophet)
 
+<<<<<<< HEAD
 model.fable.students <- model(students.tsibble,
+=======
+model.fable.students <- model(students.tsibble.tr,
+>>>>>>> 5679ab7c3ffdab03bbff91fcfb2a1d3a72e44fcd
                               ets = ETS(학생수계),
                               arima = ARIMA(학생수계),
                               naive = NAIVE(학생수계),
@@ -39,11 +50,17 @@ model.fable.students <- model(students.tsibble,
 
 forecast.fable.students <- forecast(model.fable.students, h = 10)
 
+<<<<<<< HEAD
 autoplot(forecast.fable.students, students.tsibble, level = NULL) + prophet::add_changepoints_to_plot(model.fable.students)
 
 students.tsibble.test1 <- students.tsibble.tr
 
 accuracy(forecast.fable.students, students.tsibble.test1) %>%
+=======
+autoplot(forecast.fable.students, students.tsibble, level = NULL)
+
+accuracy(forecast.fable.students, students.tsibble.test) %>%
+>>>>>>> 5679ab7c3ffdab03bbff91fcfb2a1d3a72e44fcd
   arrange(RMSE)
 
 best.model.fable.students <- model.fable.students %>%
@@ -235,7 +252,11 @@ model_fit_prophet <- prophet_reg() %>%
 
 model_fit_lm <- linear_reg() %>%
   set_engine("lm") %>%
+<<<<<<< HEAD
   fit(total ~ time, # + factor(lubridate::month(time, label = TRUE), ordered = FALSE),
+=======
+  fit(total ~ time + factor(lubridate::month(time, label = TRUE), ordered = FALSE),
+>>>>>>> 5679ab7c3ffdab03bbff91fcfb2a1d3a72e44fcd
       data = training(splits.employees))
 
 model_fit_nnetar <- nnetar_reg() %>%
@@ -273,7 +294,11 @@ calibration_tbl %>%
 
 model_fit_lm <- linear_reg() %>%
   set_engine("lm") %>%
+<<<<<<< HEAD
   fit(total ~ time + factor(lubridate::month(time, label = TRUE), ordered = TRUE),
+=======
+  fit(total ~ time + factor(lubridate::month(time, label = TRUE), ordered = FALSE),
+>>>>>>> 5679ab7c3ffdab03bbff91fcfb2a1d3a72e44fcd
       data = employees)
 
 model_fit_nnetar <- nnetar_reg() %>%
@@ -286,6 +311,7 @@ model_fit_nnetar <- nnetar_reg() %>%
 
 models_tbl %>%
   modeltime_forecast(
+<<<<<<< HEAD
 #    h = '3 years',
     new_data = employees, 
     actual_data = employees, 
@@ -301,6 +327,15 @@ modeltime_refit(calibration_tbl, employees) |>
 
 class(temp)
 
+=======
+    h = '3 years',
+    actual_data = employees
+  ) %>%
+  plot_modeltime_forecast(
+    .interactive = FALSE
+  ) + labs(title = '신규 취업자수 모델 예측 결과', x = '연도', y = '취업자수')
+
+>>>>>>> 5679ab7c3ffdab03bbff91fcfb2a1d3a72e44fcd
 ###  7.3.3 미래 코로나 확진자수 예측
 
 splits.covid19 <- initial_time_split(covid19, prop = 0.9)
